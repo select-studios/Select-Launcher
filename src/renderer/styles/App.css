@@ -1,3 +1,6 @@
 .btn {
-  padding-left: 70vh;
+  justify-content: center;
+  margin-top: 15vh;
+  display: flex;
+  text-align: center;
 }
