@@ -30,7 +30,7 @@
                     Width="16" 
                     Height="16"/>
                 <TextBlock x:Name="AppTitle"
-                    Text="Test App Title"
+                    Text="Select Studios - Launcher Beta 1"
                     VerticalAlignment="Center"
                     Margin="12, 0, 0, 0"
                     Style="{StaticResource CaptionTextBlockStyle}" />
@@ -43,11 +43,11 @@
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             Canvas.ZIndex="0">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Icon="Target" Content="Text"/>
-                <muxc:NavigationViewItem Icon="Target" Content="Text"/>
-                <muxc:NavigationViewItem Icon="Target" Content="Text"/>
-                <muxc:NavigationViewItem Icon="Target" Content="Text"/>
-                <muxc:NavigationViewItem Icon="Target" Content="Text"/>
+                <muxc:NavigationViewItem Icon="Target" Content="[MENU 1]"/>
+                <muxc:NavigationViewItem Icon="Target" Content="[MENU 2]"/>
+                <muxc:NavigationViewItem Icon="Target" Content="[MENU 3]"/>
+                <muxc:NavigationViewItem Icon="Target" Content="[MENU 4]"/>
+                <muxc:NavigationViewItem Icon="Target" Content="[MENU 5]"/>
             </muxc:NavigationView.MenuItems>
             <Grid>
                 <Frame x:Name="contentFrame">
