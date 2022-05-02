@@ -9,7 +9,7 @@
   <Identity
     Name="e40b1bcc-231c-4284-8c3b-c9931071d0f8"
     Publisher="CN=sinha"
-    Version="1.0.0.0" />
+    Version="0.1.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="95c256b1-4d1d-44c6-bd43-e8eeb538aa9d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
