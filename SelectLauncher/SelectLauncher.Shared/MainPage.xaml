@@ -9,6 +9,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-      <TextBlock Text="Hello, world!" Margin="20" FontSize="30" />
+      <TextBlock Text="Hello! Welcome" Margin="23,3,0,0" FontSize="40" />
+      <TextBlock Text="What are we playing today?" Margin="23,50,0,0" FontSize="27" />
+
+        <Button Content="Login" HorizontalAlignment="Center" Margin="0,180,0,0" Width="120" VerticalAlignment="Center" />
     </Grid>
 </Page>
