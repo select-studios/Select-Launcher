@@ -1,4 +1,4 @@
-namespace AccountsAPI
+namespace AccountsAPI.Models
 {
     public class WeatherForecast
     {
