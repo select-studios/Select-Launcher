@@ -1,0 +1,23 @@
+{
+  "name": "selectlauncher",
+  "version": "1.0.0",
+  "description": "Launcher for select studio games, currently for staff only and in dev.",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd client && npm run start\" \"cd server && npm run dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/select-studios/Launcher.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/select-studios/Launcher/issues"
+  },
+  "homepage": "https://github.com/select-studios/Launcher#readme",
+  "dependencies": {
+    "concurrently": "^7.2.1"
+  }
+}
