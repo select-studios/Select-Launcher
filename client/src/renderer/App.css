@@ -1,0 +1,14 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+@import '~primereact/resources/themes/lara-dark-blue/theme.css';
+@import '~primereact/resources/primereact.min.css';
+@import '~primeicons/primeicons.css';
+@import '~primeflex/primeflex.css';
+
+body {
+  background-color: var(--surface-ground);
+  font-family: var(--font-family);
+  color: var(--text-color);
+}
