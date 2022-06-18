@@ -18,4 +18,15 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
   },
+  store: {
+    get(val: any) {
+      return ipcRenderer.sendSync('electron-store-get', val);
+    },
+    set(property: any, val: any) {
+      ipcRenderer.send('electron-store-set', property, val);
+    },
+    path() {
+      ipcRenderer.send('electron-store-path');
+    },
+  },
 });

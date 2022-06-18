@@ -152,6 +152,8 @@ node_modules
 release/app/dist
 release/build
 .erb/dll
+/client/release/build
+/client/release/app/dist
 
 .idea
 npm-debug.log.*
