@@ -1,0 +1,9 @@
+body {
+  background-image: url(../../../assets/storeBg.jpg);
+  background-size: cover;
+}
+
+.blur {
+  backdrop-filter: blur(24px);
+  background-color: rgba(7, 20, 38, 0.5);
+}
