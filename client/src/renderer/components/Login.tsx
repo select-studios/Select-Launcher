@@ -7,7 +7,7 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Checkbox } from 'primereact/checkbox';
 import axios from 'axios';
-import icon from '../../../assets/icon.svg';
+import icon from '../../../assets/LauncherLogo.png';
 
 function Login() {
   const [checked, setChecked] = useState<boolean>(false);
@@ -42,15 +42,27 @@ function Login() {
 
   return (
     <div className="flex align-items-center justify-content-center">
-      <div className="surface-card p-4 shadow-4 border-round w-5 mt-6">
-        <div className="text-center mb-5">
-          <img src={icon} alt="hyper" height={50} className="mb-3" />
+      <div
+        className="p-4 shadow-4 border-round w-6 mt-2"
+        style={{
+          backgroundColor: 'rgba(7, 20, 38, 0.5)',
+          backdropFilter: 'blur(24px)',
+        }}
+      >
+        <div className="text-center mb-1">
+          <img
+            src={icon}
+            alt="Logo"
+            height="200px"
+            width="350px"
+            className=""
+          />
           <div className="text-900 text-3xl font-medium mb-3">Welcome Back</div>
           <span className="text-600 font-medium line-height-3">
             Don&apos;t have an account?
           </span>
           <a className="font-medium no-underline ml-2 text-blue-500 cursor-pointer">
-            Create today!
+            Create One!
           </a>
         </div>
 
@@ -64,6 +76,10 @@ function Login() {
             className="w-full mb-3"
             defaultValue={username}
             onChange={(e) => setUsername(e.target.value)}
+            style={{
+              backgroundColor: 'rgba(4, 13, 25, 0.2)',
+              backdropFilter: 'blur(24px)',
+            }}
           />
 
           <label htmlFor="password" className="block text-900 font-medium mb-2">
@@ -74,6 +90,10 @@ function Login() {
             type="password"
             className="w-full mb-3"
             onChange={(e) => setPassword(e.target.value)}
+            style={{
+              backgroundColor: 'rgba(4, 13, 25, 0.2)',
+              backdropFilter: 'blur(24px)',
+            }}
           />
 
           <div className="flex align-items-center justify-content-between mb-6">

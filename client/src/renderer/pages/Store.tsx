@@ -23,13 +23,15 @@ function Store() {
 
   return (
     <div>
-      <h1 className="flex align-items-center justify-content-center">
-        Welcome to the Store
-      </h1>
       <Sidebar />
       <Card
         title="Ace Race"
-        style={{ width: '22em', marginLeft: '20rem' }}
+        style={{
+          width: '22em',
+          marginLeft: '20rem',
+          backgroundColor: 'rgba(7, 20, 38, 0.5)',
+          backdropFilter: 'blur(24px)',
+        }}
         footer={footer}
         header={header}
       >
