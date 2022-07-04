@@ -17,7 +17,6 @@ import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
 const store = new Store();
-
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
