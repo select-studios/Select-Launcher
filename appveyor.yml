@@ -27,8 +27,10 @@ install:
   - ps: Install-Product node $env:nodejs_version x64
   - set CI=true
   - npm ci
+  - cd client && npm ci
 
 test_script:
+  - cd client
   - npm run package
   - npm run lint
   - npm test
