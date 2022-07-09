@@ -154,7 +154,7 @@ release/build
 .erb/dll
 /client/release/build
 /client/release/app/dist
-
+/server/release
 .idea
 npm-debug.log.*
 *.css.d.ts

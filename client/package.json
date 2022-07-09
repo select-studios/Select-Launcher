@@ -113,6 +113,7 @@
     "electron-log": "^4.4.7",
     "electron-store": "^8.0.2",
     "electron-updater": "^5.0.1",
+    "execa": "^6.1.0",
     "primeflex": "^3.2.1",
     "primeicons": "^5.0.0",
     "primereact": "^8.1.1",
