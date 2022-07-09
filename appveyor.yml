@@ -27,7 +27,7 @@ install:
   - ps: Install-Product node $env:nodejs_version x64
   - npm install
   - cd client 
-  - npm install
+  - npm install primereact primeflex primeicons
 
 test_script:
   - cd client
