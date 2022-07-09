@@ -6,8 +6,7 @@
   "scripts": {
     "heroku-prebuild": "npm install --prefix server && npm install",
     "heroku-postbuild": "npm run build --prefix server",
-    "start": "concurrently \"cd client && npm run start\" \"cd server && npm run dev\"",
-    "postinstall": "cd server && npm i"
+    "start": "concurrently \"cd client && npm run start\" \"cd server && npm run dev\""
   },
   "engines": {
     "node": "16.13.0"
