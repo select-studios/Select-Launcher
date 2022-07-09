@@ -1,6 +1,4 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { PanelMenu } from 'primereact/panelmenu';
 import { Button } from 'primereact/button';
 import { Avatar } from 'primereact/avatar';
