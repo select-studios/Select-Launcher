@@ -1,1 +1,1 @@
-web: node dist/index.js
+web: cd server && node release/app.js

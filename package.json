@@ -4,7 +4,8 @@
   "description": "Launcher for select studio games, currently for staff only and in dev.",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd client && npm run start\" \"cd server && npm run dev\""
+    "start": "concurrently \"cd client && npm run start\" \"cd server && npm run dev\"",
+    "postinstall": "cd server && npm run postinstall"
   },
   "repository": {
     "type": "git",
