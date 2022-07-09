@@ -31,6 +31,4 @@ install:
 
 test_script:
   - npm run package
-  - npm run lint
   - npm test
-  - npm test-e2e
