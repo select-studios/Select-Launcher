@@ -37,6 +37,20 @@ ipcMain.on('electron-store-path', async (event) => {
   event.returnValue = store.path;
 });
 
+ipcMain.on('api-url-get', async (event) => {
+  if (
+    process.env.NODE_ENV === 'development' ||
+    process.env.DEBUG_PROD === 'true'
+  ) {
+    event.returnValue = 'http://localhost:5000/';
+  } else if (
+    process.env.NODE_ENV === 'production' ||
+    process.env.DEBUG_PROD === 'false'
+  ) {
+    event.returnValue = 'https://select-launcher-api.herokuapp.com/';
+  }
+});
+
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));

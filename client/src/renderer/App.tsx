@@ -25,6 +25,9 @@ declare global {
         set: (key: string, val: any) => void;
         path: () => string;
       };
+      api: {
+        getUrl: () => string;
+      };
     };
   }
 }

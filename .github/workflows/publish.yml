@@ -29,6 +29,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          cd client
           npm install
 
       - name: Publish releases
@@ -41,6 +42,7 @@ jobs:
           # This is used for uploading release assets to github
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          cd client
           npm run postinstall
           npm run build
           npm exec electron-builder -- --publish always --win --mac --linux

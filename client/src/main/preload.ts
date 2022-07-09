@@ -29,4 +29,9 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.send('electron-store-path');
     },
   },
+  api: {
+    getUrl() {
+      return ipcRenderer.sendSync('api-url-get');
+    },
+  },
 });

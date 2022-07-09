@@ -28,7 +28,10 @@ function Login() {
 
   const onSubmit = () => {
     axios
-      .post('http://localhost:5000/api/accounts/login', { username, password })
+      .post(`${window.electron.api.getUrl()}api/accounts/login`, {
+        username,
+        password,
+      })
       .then(() => {
         window.electron.store.set('rememberMe', checked);
         if (checked) {
