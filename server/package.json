@@ -2,13 +2,9 @@
   "name": "server",
   "scripts": {
     "build": "tsc",
-    "postinstall": "tsc",
     "clean": "tsc --build --clean",
     "dev": "nodemon app.ts",
     "start": "node ."
-  },
-  "engines": {
-    "node": "16.13.0"
   },
   "main": "./release/app.js",
   "dependencies": {

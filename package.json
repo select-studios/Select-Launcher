@@ -4,8 +4,13 @@
   "description": "Launcher for select studio games, currently for staff only and in dev.",
   "main": "index.js",
   "scripts": {
+    "heroku-prebuild": "npm install --prefix server && npm install",
+    "heroku-postbuild": "npm run build --prefix server",
     "start": "concurrently \"cd client && npm run start\" \"cd server && npm run dev\"",
     "postinstall": "cd server && npm i"
+  },
+  "engines": {
+    "node": "16.13.0"
   },
   "repository": {
     "type": "git",
