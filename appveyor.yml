@@ -30,7 +30,6 @@ install:
   - npm install primereact primeflex primeicons
 
 test_script:
-  - cd client
   - npm run package
   - npm run lint
   - npm test
