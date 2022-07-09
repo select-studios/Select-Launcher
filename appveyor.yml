@@ -1,0 +1,35 @@
+image: Visual Studio 2017
+
+platform:
+  - x64
+
+environment:
+  matrix:
+    - nodejs_version: 13
+
+cache:
+  - node_modules
+  - release/app/node_modules
+  - '%USERPROFILE%\.electron'
+
+matrix:
+  fast_finish: true
+
+build: off
+
+version: '{build}'
+
+shallow_clone: true
+
+clone_depth: 1
+
+install:
+  - ps: Install-Product node $env:nodejs_version x64
+  - set CI=true
+  - npm ci
+
+test_script:
+  - npm run package
+  - npm run lint
+  - npm test
+  - npm test-e2e
