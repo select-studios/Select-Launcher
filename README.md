@@ -1,5 +1,7 @@
 # Select Studios Launcher
 
+[![Build status](https://ci.appveyor.com/api/projects/status/lkk6939eeurl4w7h?svg=true)](https://ci.appveyor.com/project/YT-GameWorks/launcher)
+
 Launcher for select studio games, currently for staff only and in dev.
 
 # plans to release to public
