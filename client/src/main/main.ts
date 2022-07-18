@@ -9,6 +9,9 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
+import fs from 'fs';
+import os from 'os';
+import { exec } from 'child_process';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
@@ -17,6 +20,50 @@ import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
 const store = new Store();
+const tmpdir = os.tmpdir();
+export const CheckTmpDir = (): boolean => {
+  const files = fs.readdirSync(
+    path.join(tmpdir, 'SelectLauncher', 'LauncherGamesInfo')
+  );
+
+  if (files) {
+    console.log('Found Launcher Info folder!');
+    return true;
+  }
+  return false;
+};
+
+export const CreateTmpDir = () => {
+  fs.mkdir(path.join(tmpdir, 'SelectLauncher'), (err) => {
+    if (err) console.log(err);
+    else console.log('Created tmp dir');
+  });
+};
+
+export const CloneGameInfo = () => {
+  process.chdir(path.join(tmpdir, 'SelectLauncher'));
+  exec(
+    'git clone https://github.com/select-studios/LauncherGamesInfo.git',
+    (err, stdout, stderr) => {
+      if (err) {
+        console.error(`exec error: ${err}`);
+      } else {
+        console.log('Cloned game info!');
+      }
+    }
+  );
+};
+
+export const FetchNewGames = async () => {
+  process.chdir(path.join(tmpdir, 'SelectLauncher', 'LauncherGamesInfo'));
+  exec('git fetch', (err, stdout, stderr) => {
+    if (err) {
+      console.error(`exec error: ${err}`);
+    } else {
+      console.log('Fetched latest games!');
+    }
+  });
+};
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -83,6 +130,13 @@ const installExtensions = async () => {
 };
 
 const createWindow = async () => {
+  // Get game info from github
+  if (CheckTmpDir()) {
+    FetchNewGames();
+  } else {
+    CreateTmpDir();
+    CloneGameInfo();
+  }
   if (isDebug) {
     await installExtensions();
   }

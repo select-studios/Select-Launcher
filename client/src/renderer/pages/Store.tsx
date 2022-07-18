@@ -3,13 +3,14 @@ import { Chip } from 'primereact/chip';
 import { Avatar } from 'primereact/avatar';
 import { Button } from 'primereact/button';
 import Sidebar from '../components/Sidebar';
-import AceRaceLogo from '../../../assets/AceRace.png';
+// import AceRaceLogo from '../../../assets/AceRace.png';
 
 function Store() {
   const header = (
     <div className="flex flex-row -mb-4">
       <Avatar
-        image={AceRaceLogo}
+        // image={AceRaceLogo}
+        imageAlt="logo_here"
         shape="circle"
         size="xlarge"
         className="ml-2 mt-2"
