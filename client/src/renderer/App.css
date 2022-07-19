@@ -8,6 +8,7 @@
 @import '~primeflex/primeflex.css';
 
 body {
+  box-sizing: border-box;
   background-color: var(--surface-ground);
   font-family: var(--font-family);
   color: var(--text-color);
