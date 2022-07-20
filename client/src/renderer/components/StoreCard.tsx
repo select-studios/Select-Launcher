@@ -2,6 +2,7 @@ import { Card } from 'primereact/card';
 import { Chip } from 'primereact/chip';
 import { Avatar } from 'primereact/avatar';
 import { Button } from 'primereact/button';
+import '../styles/Storecard.css';
 
 interface StoreCardPropsTypes {
   name: string;
@@ -43,14 +44,7 @@ function StoreCard({ name, description, tags, logo }: StoreCardPropsTypes) {
   );
 
   return (
-    <Card
-      style={{
-        width: '22em',
-        backgroundColor: 'rgba(7, 20, 38, 0.5)',
-        backdropFilter: 'blur(24px)',
-      }}
-      header={header}
-    >
+    <Card header={header} className="store-card">
       <p className="m-0" style={{ lineHeight: '1.5' }}>
         {description}
       </p>

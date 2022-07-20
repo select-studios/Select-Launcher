@@ -1,6 +1,8 @@
 body {
   background-image: url(../../../assets/storeBg.png);
   background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .blur {
