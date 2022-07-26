@@ -14,13 +14,7 @@ interface StoreCardPropsTypes {
 function StoreCard({ name, description, tags, logo }: StoreCardPropsTypes) {
   const header = (
     <div className="flex flex-row -mb-4">
-      <Avatar
-        image={logo}
-        imageAlt="logo_here"
-        shape="circle"
-        size="xlarge"
-        className="ml-2 mt-2"
-      />
+      <Avatar image={logo} shape="circle" size="xlarge" className="ml-2 mt-2" />
       <div className="flex flex-column">
         <h1 className="text-2xl ml-3 mt-3">{name}</h1>
         <span>

@@ -9,6 +9,8 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
+import fs from 'fs';
+import os from 'os';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
@@ -21,6 +23,7 @@ import {
   CreateTmpDir,
   FetchNewGames,
 } from './api/check';
+import game from './interfaces/game';
 
 const store = new Store();
 export default class AppUpdater {
@@ -55,6 +58,71 @@ ipcMain.on('api-url-get', async (event) => {
   ) {
     event.returnValue = 'https://select-launcher-api.herokuapp.com/';
   }
+});
+
+ipcMain.on('gamesApi-get-fetched-games', async (event) => {
+  const fetchedGames: game[] = [];
+
+  await fs
+    .readdirSync(path.join(os.tmpdir(), 'SelectLauncher', 'LauncherGamesInfo'))
+    .forEach(async (dir) => {
+      if (dir === '.git') {
+        return;
+      }
+      const currentGame: game = {
+        name: '',
+        description: '',
+        tags: [],
+        logo: '',
+      };
+      const gameName = dir.split('_');
+      gameName.pop();
+
+      currentGame.name = gameName.join(' ');
+      await fs
+        .readdirSync(
+          path.join(os.tmpdir(), 'SelectLauncher', 'LauncherGamesInfo', dir)
+        )
+        .forEach((file) => {
+          if (file === 'desc.txt') {
+            const data = fs.readFileSync(
+              path.join(
+                os.tmpdir(),
+                'SelectLauncher',
+                'LauncherGamesInfo',
+                dir,
+                'desc.txt'
+              ),
+              'utf8'
+            );
+            currentGame.description = data;
+          } else if (file === 'tags.txt') {
+            const data = fs.readFileSync(
+              path.join(
+                os.tmpdir(),
+                'SelectLauncher',
+                'LauncherGamesInfo',
+                dir,
+                'tags.txt'
+              ),
+              'utf8'
+            );
+            const tags = data.split(',');
+            currentGame.tags = tags;
+          } else if (file === 'logo.png') {
+            currentGame.logo = path.join(
+              os.tmpdir(),
+              'SelectLauncher',
+              'LauncherGamesInfo',
+              dir,
+              'logo.png'
+            );
+          }
+        });
+      fetchedGames.push(currentGame);
+    });
+
+  event.returnValue = fetchedGames;
 });
 
 ipcMain.on('ipc-example', async (event, arg) => {

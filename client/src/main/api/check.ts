@@ -5,7 +5,7 @@ import { exec } from 'child_process';
 
 const tmpdir = os.tmpdir();
 export const CheckTmpDir = (): boolean => {
-  const files = fs.readdirSync(
+  const files = fs.existsSync(
     path.join(tmpdir, 'SelectLauncher', 'LauncherGamesInfo')
   );
 

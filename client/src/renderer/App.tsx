@@ -28,6 +28,14 @@ declare global {
       api: {
         getUrl: () => string;
       };
+      gamesApi: {
+        getFetchedGames: () => {
+          name: string;
+          description: string;
+          tags: string[];
+          logo: string;
+        }[];
+      };
     };
   }
 }

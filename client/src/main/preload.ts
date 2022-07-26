@@ -26,12 +26,17 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.send('electron-store-set', property, val);
     },
     path() {
-      ipcRenderer.send('electron-store-path');
+      ipcRenderer.sendSync('electron-store-path');
     },
   },
   api: {
     getUrl() {
       return ipcRenderer.sendSync('api-url-get');
+    },
+  },
+  gamesApi: {
+    async getFetchedGames() {
+      return ipcRenderer.sendSync('gamesApi-get-fetched-games');
     },
   },
 });

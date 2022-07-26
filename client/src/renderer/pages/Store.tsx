@@ -1,9 +1,19 @@
+import { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import StoreCard from '../components/StoreCard';
-import logo from '../../../assets/icons/128x128.png';
 import '../styles/Store.css';
 
 function Store() {
+  const [games, setGames] = useState<any[]>();
+
+  useEffect(() => {
+    async function FetchGames() {
+      const gameData = await window.electron.gamesApi.getFetchedGames();
+      setGames(gameData);
+    }
+    FetchGames();
+  });
+
   return (
     <div>
       <Sidebar />
@@ -16,55 +26,16 @@ function Store() {
           alignItems: 'start',
         }}
       >
-        <StoreCard
-          name="AceRace"
-          description="fast pace action experience. Movement designed to immerse you in experience of AceRace. Your objective is to reach the end of the game without
-          dying once!"
-          tags={['action', 'momentum', 'fast']}
-          logo={logo}
-        />
-        <StoreCard
-          name="Rosehill"
-          description="coming soon!"
-          tags={['indev']}
-          logo={logo}
-        />
-        <StoreCard
-          name="Rosehill"
-          description="coming soon!"
-          tags={['indev']}
-          logo={logo}
-        />
-        <StoreCard
-          name="Rosehill"
-          description="coming soon!"
-          tags={['indev']}
-          logo={logo}
-        />
-        <StoreCard
-          name="Rosehill"
-          description="coming soon!"
-          tags={['indev']}
-          logo={logo}
-        />
-        <StoreCard
-          name="Rosehill"
-          description="coming soon!"
-          tags={['indev']}
-          logo={logo}
-        />
-        <StoreCard
-          name="Rosehill"
-          description="coming soon!"
-          tags={['indev']}
-          logo={logo}
-        />
-        <StoreCard
-          name="Rosehill"
-          description="coming soon!"
-          tags={['indev']}
-          logo={logo}
-        />
+        {games?.map((game) => {
+          return (
+            <StoreCard
+              name={game.name}
+              description={game.description}
+              tags={game.tags}
+              logo={`${game.logo}`}
+            />
+          );
+        })}
       </div>
     </div>
   );
