@@ -2,6 +2,7 @@ import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
+import decompress from 'decompress';
 
 const checkIfGamesDirectoryExists = (): boolean => {
   if (
@@ -12,7 +13,7 @@ const checkIfGamesDirectoryExists = (): boolean => {
   return false;
 };
 
-export const downloadGame = (gameName: string) => {
+export const downloadGame = async (gameName: string) => {
   if (!checkIfGamesDirectoryExists()) {
     fs.mkdir(
       path.join(os.homedir(), 'AppData', 'Roaming', 'Select Games'),
@@ -26,6 +27,16 @@ export const downloadGame = (gameName: string) => {
       if (err) {
         console.log(`An error occured while downloading ${gameName}: ${err}`);
       } else {
+        decompress(
+          path.join(
+            os.homedir(),
+            'AppData',
+            'Roaming',
+            'Select Games',
+            `${gameName}.zip`
+          ),
+          path.join(os.homedir(), 'AppData', 'Roaming', 'Select Games')
+        );
         console.log(`successfully downloaded ${gameName}`);
       }
     }

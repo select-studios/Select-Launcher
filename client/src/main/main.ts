@@ -38,7 +38,7 @@ export default class AppUpdater {
 let mainWindow: BrowserWindow | null = null;
 
 ipcMain.on('gamesApi-download-game', async (event, gameName) => {
-  downloadGame(gameName);
+  await downloadGame(gameName);
   event.returnValue = 'Initiated Download';
 });
 ipcMain.on('electron-store-get', async (event, val) => {
