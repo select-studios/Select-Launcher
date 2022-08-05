@@ -38,5 +38,8 @@ contextBridge.exposeInMainWorld('electron', {
     async getFetchedGames() {
       return ipcRenderer.sendSync('gamesApi-get-fetched-games');
     },
+    downloadGame(gameName: string) {
+      return ipcRenderer.sendSync('gamesApi-download-game', gameName);
+    },
   },
 });

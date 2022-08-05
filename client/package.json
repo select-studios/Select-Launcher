@@ -230,7 +230,13 @@
     "win": {
       "target": [
         "nsis"
-      ]
+      ],
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "nsis": {
+      "guid": "eb1a0fbb-fc70-428e-97f1-fa7080894806",
+      "oneClick": true,
+      "perMachine": true
     },
     "linux": {
       "target": [

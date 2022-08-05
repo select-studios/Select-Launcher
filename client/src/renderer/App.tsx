@@ -35,6 +35,7 @@ declare global {
           tags: string[];
           logo: string;
         }[];
+        downloadGame: (gameName: string) => void;
       };
     };
   }
