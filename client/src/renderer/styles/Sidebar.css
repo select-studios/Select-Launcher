@@ -1,6 +1,6 @@
 .blur {
   backdrop-filter: blur(24px);
-  background-color: rgba(7, 20, 38, 0.5);
+  background-color: rgba(216, 127, 224, 0.5);
 }
 
 .sidebar {
@@ -14,7 +14,7 @@
 .sidebar-controls {
   margin-top: auto;
   width: 14rem;
-  margin-bottom: 12.5vh;
+  margin-bottom: 10vh;
 }
 
 .sidebar-footer {
