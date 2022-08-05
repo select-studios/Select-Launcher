@@ -8,6 +8,8 @@ import { InputText } from 'primereact/inputtext';
 import { Checkbox } from 'primereact/checkbox';
 import axios from 'axios';
 import icon from '../../../assets/launcherIcon.png';
+import "../styles/loginStyle.css"
+
 
 function Login() {
   const [checked, setChecked] = useState<boolean>(false);
