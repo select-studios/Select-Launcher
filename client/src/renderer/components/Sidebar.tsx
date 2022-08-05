@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
+import icon from '../../../assets/launcherIcon.png';
 import { PanelMenu } from 'primereact/panelmenu';
 import { Button } from 'primereact/button';
-import { Avatar } from 'primereact/avatar';
+//import { Avatar } from 'primereact/avatar';
 import '../styles/Sidebar.css';
 
 function Sidebar() {
@@ -35,13 +36,13 @@ function Sidebar() {
 
   return (
     <div className="sidebar blur fixed top-0 left-0 text-white font-bold w-16rem h-full">
-      <Avatar
-        className="ml-8 mt-2"
-        label="G"
-        shape="circle"
-        style={{ backgroundColor: '#2196f3', color: '#ffffff' }}
-        size="xlarge"
-      />
+          <img
+            src={icon}
+            alt="Logo"
+            height="150px"
+            width="250px"
+            className=""
+          />
       <PanelMenu model={items} className="ml-2 sidebar-controls" />
       <Button
         icon="pi pi-sign-out"
