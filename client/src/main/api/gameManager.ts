@@ -21,7 +21,7 @@ export const downloadGame = (gameName: string) => {
   }
   process.chdir(path.join(os.homedir(), 'AppData', 'Roaming', 'Select Games'));
   exec(
-    `curl -0 "https://raw.githubusercontent.com/select-studios/LauncherGames/main/${gameName}.zip" -o AceRace.zip`,
+    `curl -0 "https://raw.githubusercontent.com/select-studios/LauncherGames/main/${gameName}.zip" -o ${gameName}.zip`,
     (err, stdout, stderr) => {
       if (err) {
         console.log(`An error occured while downloading ${gameName}: ${err}`);
