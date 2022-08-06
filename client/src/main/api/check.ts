@@ -39,7 +39,7 @@ export const CloneGameInfo = () => {
 
 export const FetchNewGames = async () => {
   process.chdir(path.join(tmpdir, 'SelectLauncher', 'LauncherGamesInfo'));
-  exec('git fetch', (err, stdout, stderr) => {
+  exec('git pull', (err, stdout, stderr) => {
     if (err) {
       console.error(`exec error: ${err}`);
     } else {
