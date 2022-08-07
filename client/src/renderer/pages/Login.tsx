@@ -1,15 +1,14 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable promise/always-return */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
-import { Checkbox } from 'primereact/checkbox';
+// import { Button } from 'primereact/button';
+// import { InputText } from 'primereact/inputtext';
+// import { Checkbox } from 'primereact/checkbox';
 import axios from 'axios';
 import icon from '../../../assets/launcherIcon.png';
-import "../styles/loginStyle.css"
-
 
 function Login() {
   const [checked, setChecked] = useState<boolean>(false);
@@ -46,8 +45,8 @@ function Login() {
   };
 
   return (
-    <div className="flex align-items-center justify-content-center">
-      <div
+    <div className="overflow-x-hidden">
+      {/* <div
         className="p-4 shadow-4 border-round w-6 mt-2"
         style={{
           backgroundColor: 'rgba(7, 20, 38, 0.5)',
@@ -122,6 +121,45 @@ function Login() {
             className="w-full"
             onClick={onSubmit}
           />
+        </div>
+      </div> */}
+      <div className="container mx-auto w-1/2 bg-base-200 rounded-lg backdrop-blur-lg bg-opacity-60 mt-20">
+        <img
+          src={icon}
+          alt="Logo"
+          height="200px"
+          width="350px"
+          className="mx-auto"
+        />
+        <article className="prose prose-slate mx-auto">
+          <h1>
+            <strong>Welcome Back!</strong>
+          </h1>
+          Don’t have an account?{' '}
+          <a href="www.google.com/" className="text-secondary">
+            Create one!
+          </a>
+        </article>
+        <div className="form-control w-full max-w-xs mx-auto">
+          <label className="label">
+            <span className="label-text">Username</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Username..."
+            className="input input-bordered input-md max-w-xs backdrop-blur-lg bg-opacity-60"
+          />
+          <label className="label">
+            <span className="label-text">Password</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Password..."
+            className="input input-bordered input-md max-w-xs backdrop-blur-lg bg-opacity-40"
+          />
+          <button type="submit" className="btn btn-primary mt-4 mb-4">
+            Submit
+          </button>
         </div>
       </div>
     </div>

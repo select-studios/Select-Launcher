@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { createRoot } from 'react-dom/client';
-import PrimeReact from 'primereact/api';
 import App from './App';
-
-PrimeReact.ripple = true;
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);

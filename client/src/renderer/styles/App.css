@@ -1,15 +1,20 @@
-/*
- * @NOTE: Prepend a `~` to css file paths that are in your node_modules
- *        See https://github.com/webpack-contrib/sass-loader#imports
- */
-@import '~primereact/resources/themes/lara-dark-blue/theme.css';
-@import '~primereact/resources/primereact.min.css';
-@import '~primeicons/primeicons.css';
-@import '~primeflex/primeflex.css';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:wght@400;700&display=swap');
+
+html {
+  background-image: url(../../../assets/storeBg.png) !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
 
 body {
   box-sizing: border-box;
-  background-color: var(--surface-ground);
-  font-family: var(--font-family);
-  color: var(--text-color);
+}
+
+h1 {
+  font-family: Roboto, 'Sans-serif';
+}
+
+h2 {
+  font-family: Roboto, 'Sans-serif';
 }

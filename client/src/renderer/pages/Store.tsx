@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import Sidebar from '../components/Sidebar';
-import StoreCard from '../components/StoreCard';
-import '../styles/Store.css';
+// import Sidebar from '../components/Sidebar';
+// import StoreCard from '../components/StoreCard';
+// import '../styles/Store.css';
 
 function Store() {
   const [games, setGames] = useState<any[]>();
@@ -16,7 +16,7 @@ function Store() {
 
   return (
     <div>
-      <Sidebar />
+      {/* <Sidebar />
       <div
         style={{
           marginLeft: '17rem',
@@ -36,7 +36,8 @@ function Store() {
             />
           );
         })}
-      </div>
+      </div> */}
+      <h1>Hello!</h1>
     </div>
   );
 }
