@@ -46,120 +46,50 @@ function Login() {
 
   return (
     <div className="overflow-x-hidden">
-      {/* <div
-        className="p-4 shadow-4 border-round w-6 mt-2"
-        style={{
-          backgroundColor: 'rgba(7, 20, 38, 0.5)',
-          backdropFilter: 'blur(24px)',
-        }}
-      >
-        <div className="text-center mb-1">
+      <div className="container flex items-center justify-center h-screen ml-12">
+        <div className="bg-base-100 bg-opacity-50 rounded-lg p-8 flex flex-col w-7/12 backdrop-blur-md">
           <img
             src={icon}
             alt="Logo"
             height="200px"
             width="350px"
-            className=""
+            className="mx-auto"
           />
-          <div className="text-900 text-3xl font-medium mb-3">Welcome Back</div>
-          <span className="text-600 font-medium line-height-3">
-            Don&apos;t have an account?
-          </span>
-          <a className="font-medium no-underline ml-2 text-blue-500 cursor-pointer">
-            Create One!
-          </a>
-        </div>
-
-        <div>
-          <label htmlFor="password" className="block text-900 font-medium mb-2">
-            Username
-          </label>
-          <InputText
-            id="username"
-            type="text"
-            className="w-full mb-3"
-            defaultValue={username}
-            onChange={(e) => setUsername(e.target.value)}
-            style={{
-              backgroundColor: 'rgba(4, 13, 25, 0.2)',
-              backdropFilter: 'blur(24px)',
-            }}
-          />
-
-          <label htmlFor="password" className="block text-900 font-medium mb-2">
-            Password
-          </label>
-          <InputText
-            id="password"
-            type="password"
-            className="w-full mb-3"
-            onChange={(e) => setPassword(e.target.value)}
-            style={{
-              backgroundColor: 'rgba(4, 13, 25, 0.2)',
-              backdropFilter: 'blur(24px)',
-            }}
-          />
-
-          <div className="flex align-items-center justify-content-between mb-6">
-            <div className="flex align-items-center">
-              <Checkbox
-                id="rememberme"
-                checked={checked}
-                onChange={(e) => setChecked(e.checked)}
-                className="mr-2"
-              />
-              <label htmlFor="rememberme">Remember me</label>
-            </div>
-            <a className="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">
-              Forgot your password?
-            </a>
+          <h2 className="text-white text-4xl font-extrabold title-font mb-5 text-center">
+            Welcome Back!
+          </h2>
+          <div className="relative mb-4">
+            <label
+              htmlFor="username"
+              className="leading-7 text-sm text-gray-400"
+            >
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              className="w-full bg-gray-600 bg-opacity-10 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-secondary text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out backdrop-blur-sm"
+            />
           </div>
-
-          <Button
-            label="Sign In"
-            icon="pi pi-user"
-            className="w-full"
-            onClick={onSubmit}
-          />
-        </div>
-      </div> */}
-      <div className="container mx-auto w-1/2 bg-base-200 rounded-lg backdrop-blur-lg bg-opacity-60 mt-20">
-        <img
-          src={icon}
-          alt="Logo"
-          height="200px"
-          width="350px"
-          className="mx-auto"
-        />
-        <article className="prose prose-slate mx-auto">
-          <h1>
-            <strong>Welcome Back!</strong>
-          </h1>
-          Don’t have an account?{' '}
-          <a href="www.google.com/" className="text-secondary">
-            Create one!
-          </a>
-        </article>
-        <div className="form-control w-full max-w-xs mx-auto">
-          <label className="label">
-            <span className="label-text">Username</span>
-          </label>
-          <input
-            type="text"
-            placeholder="Username..."
-            className="input input-bordered input-md max-w-xs backdrop-blur-lg bg-opacity-60"
-          />
-          <label className="label">
-            <span className="label-text">Password</span>
-          </label>
-          <input
-            type="text"
-            placeholder="Password..."
-            className="input input-bordered input-md max-w-xs backdrop-blur-lg bg-opacity-40"
-          />
-          <button type="submit" className="btn btn-primary mt-4 mb-4">
-            Submit
-          </button>
+          <div className="relative mb-4">
+            <label htmlFor="email" className="leading-7 text-sm text-gray-400">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="w-full bg-gray-600 bg-opacity-10 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-secondary text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out backdrop-blur-sm"
+            />
+          </div>
+          <button className="btn btn-primary">Sign in</button>
+          <p className="text-xs mt-3">
+            Don't have an account?{' '}
+            <a href="www.google.com/" className="text-secondary underline">
+              Create One!
+            </a>
+          </p>
         </div>
       </div>
     </div>
