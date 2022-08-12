@@ -1,12 +1,7 @@
-/* eslint-disable react/button-has-type */
 /* eslint-disable promise/always-return */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { Button } from 'primereact/button';
-// import { InputText } from 'primereact/inputtext';
-// import { Checkbox } from 'primereact/checkbox';
 import axios from 'axios';
 import icon from '../../../assets/launcherIcon.png';
 
@@ -26,6 +21,10 @@ function Login() {
       setChecked(window.electron.store.get('rememberMe'));
     }
   }, [setChecked]);
+
+  const OnChangeChecked = () => {
+    setChecked(!checked);
+  };
 
   const onSubmit = () => {
     axios
@@ -58,7 +57,7 @@ function Login() {
           <h2 className="text-white text-4xl font-extrabold title-font mb-5 text-center">
             Welcome Back!
           </h2>
-          <div className="relative mb-4">
+          <div className="relative mb-4 form-control">
             <label
               htmlFor="username"
               className="leading-7 text-sm text-gray-400"
@@ -70,6 +69,8 @@ function Login() {
               id="username"
               name="username"
               className="w-full bg-gray-600 bg-opacity-10 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-secondary text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out backdrop-blur-sm"
+              defaultValue={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="relative mb-4">
@@ -81,11 +82,23 @@ function Login() {
               id="password"
               name="password"
               className="w-full bg-gray-600 bg-opacity-10 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-secondary text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out backdrop-blur-sm"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button className="btn btn-primary">Sign in</button>
+          <label className="cursor-pointer label">
+            <span className="label-text">Remember me</span>
+            <input
+              type="checkbox"
+              checked={checked}
+              onChange={OnChangeChecked}
+              className="checkbox checkbox-secondary"
+            />
+          </label>
+          <button type="submit" className="btn btn-primary" onClick={onSubmit}>
+            Sign in
+          </button>
           <p className="text-xs mt-3">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <a href="www.google.com/" className="text-secondary underline">
               Create One!
             </a>
