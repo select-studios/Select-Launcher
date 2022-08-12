@@ -21,24 +21,22 @@ router.post("/login", async (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
 
-  const user = await User.findOne({ username });
-
   if (username && password) {
+    const user = await User.findOne({ username });
     if (user) {
       if (password === user.password) {
         res.status(200).json(user);
+      } else {
+        res
+          .status(401)
+          .json({ message: "The username or password was incorrect" });
       }
     } else {
-      console.log(username);
-      console.log(password);
       res
-        .status(404)
+        .status(401)
         .json({ message: "The username or password was incorrect" });
     }
   } else {
-    console.log(username);
-    console.log(password);
-
     res
       .status(400)
       .json({ message: "The username or password wasn't provided" });

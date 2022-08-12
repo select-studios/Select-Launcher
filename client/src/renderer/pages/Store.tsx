@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-// import Sidebar from '../components/Sidebar';
 // import StoreCard from '../components/StoreCard';
-// import '../styles/Store.css';
+import Sidebar from '../components/Sidebar';
 
 function Store() {
   const [games, setGames] = useState<any[]>();
@@ -16,28 +15,8 @@ function Store() {
 
   return (
     <div>
-      {/* <Sidebar />
-      <div
-        style={{
-          marginLeft: '17rem',
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gridGap: '30px',
-          alignItems: 'start',
-        }}
-      >
-        {games?.map((game) => {
-          return (
-            <StoreCard
-              name={game.name}
-              description={game.description}
-              tags={game.tags}
-              logo={`${game.logo}`}
-            />
-          );
-        })}
-      </div> */}
-      <h1>Hello!</h1>
+    <Sidebar />
+{/*      <h1 className="ml-5">Store Page!</h1>*/}
     </div>
   );
 }
