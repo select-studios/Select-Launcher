@@ -47,7 +47,7 @@ function Login() {
   return (
     <div className="overflow-x-hidden">
       <div className="container flex items-center justify-center h-screen ml-12">
-        <div className="bg-base-100 bg-opacity-50 rounded-lg p-8 flex flex-col w-7/12 backdrop-blur-md">
+        <div className="bg-base-100 bg-opacity-40 rounded-lg p-8 flex flex-col w-7/12 backdrop-blur-md">
           <img
             src={icon}
             alt="Logo"
