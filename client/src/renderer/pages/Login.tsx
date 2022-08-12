@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import icon from '../../../assets/launcherIcon.png';
+import { IoCloseCircleOutline } from 'react-icons/io5';
 
 function Login() {
   const [checked, setChecked] = useState<boolean>(false);
@@ -11,7 +12,36 @@ function Login() {
     window.electron.store.get('username')
   );
   const [password, setPassword] = useState<string>();
+  const [loginState, setLoginState] = useState<'Success' | 'Error' | 'Pending'>(
+    'Pending'
+  );
   const navigate = useNavigate();
+  const failedLogin = (isHidden: boolean) => {
+    if (isHidden) {
+      return (
+        <div className="toast">
+          <div className="alert alert-error bg-opacity-50 backdrop-blur-sm w-fit hidden">
+            <div>
+              <IoCloseCircleOutline />
+              <span>Error! Username or Password was invalid!</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div className="toast">
+        <div
+          className="alert alert-error bg-opacity-50 backdrop-blur-sm w-fit"
+        >
+          <div>
+            <IoCloseCircleOutline />
+            <span>Error! Username or Password was invalid!</span>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   useEffect(() => {
     console.log(window.electron.store.path());
@@ -38,9 +68,13 @@ function Login() {
           window.electron.store.set('username', username);
         }
         navigate('/store', { replace: true });
+        setLoginState('Success');
         console.log(`logged in with username ${username}`);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLoginState('Error');
+        console.log(err);
+      });
   };
 
   return (
@@ -68,7 +102,7 @@ function Login() {
               type="text"
               id="username"
               name="username"
-              className="w-full bg-gray-600 bg-opacity-10 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-secondary text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out backdrop-blur-sm"
+              className="w-full bg-gray-600 bg-opacity-10 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-secondary text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out backdrop-blur-md"
               defaultValue={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -81,7 +115,7 @@ function Login() {
               type="password"
               id="password"
               name="password"
-              className="w-full bg-gray-600 bg-opacity-10 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-secondary text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out backdrop-blur-sm"
+              className="w-full bg-gray-600 bg-opacity-10 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-secondary text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out backdrop-blur-md"
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
@@ -105,6 +139,7 @@ function Login() {
           </p>
         </div>
       </div>
+      {loginState === 'Error' ? failedLogin(false) : failedLogin(true)}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useNavigate } from 'react-router-dom';
-import { HiHome } from 'react-icons/hi';
+import { HiHome, HiOutlineLogout } from 'react-icons/hi';
 import { AiOutlineAppstoreAdd } from 'react-icons/Ai';
 import { BiLibrary } from 'react-icons/bi';
 import { RiSettingsLine } from 'react-icons/ri';
@@ -28,22 +28,22 @@ function Sidebar() {
       <div className="divider" />
       <ul className="menu p-2 rounded-box w-2 scale-125">
         <li>
-          <a>
+          <a className="tooltip tooltip-right" data-tip="Home">
             <HiHome />
           </a>
         </li>
         <li>
-          <a>
+          <a className="tooltip tooltip-right" data-tip="Store">
             <AiOutlineAppstoreAdd />
           </a>
         </li>
         <li>
-          <a>
+          <a className="tooltip tooltip-right" data-tip="Library">
             <BiLibrary />
           </a>
         </li>
         <li>
-          <a>
+          <a className="tooltip tooltip-right" data-tip="Settings">
             <RiSettingsLine />
           </a>
         </li>
@@ -53,13 +53,10 @@ function Sidebar() {
       <div className="avatar online m-2 dropdown dropdown-top">
         <ul
           tabIndex={0}
-          className="dropdown-content menu p-2 shadow bg-base-100 bg-opacity-40 rounded-box w-52"
+          className="dropdown-content menu p-2 m-2 bg-base-100 rounded-box w-52"
         >
           <li>
-            <a>Item 1</a>
-          </li>
-          <li>
-            <a>Item 2</a>
+            <button className="btn btn-error btn-outline" onClick={onLogout}><HiOutlineLogout /> Sign Out</button>
           </li>
         </ul>
         <div
