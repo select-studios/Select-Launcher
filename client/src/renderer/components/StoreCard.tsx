@@ -1,3 +1,5 @@
+import { MdMoreHoriz } from 'react-icons/md';
+
 interface StoreCardPropsTypes {
   name: string;
   description: string;
@@ -14,8 +16,8 @@ function StoreCard({ name, description, tags, logo }: StoreCardPropsTypes) {
   };
 
   return (
-    <div>
-      <div className="card w-fit bg-base-100 bg-opacity-40 backdrop-blur-md shadow-xl mt-5 transition-all hover:shadow-2xl hover:scale-105">
+    <section>
+      <div className="card w-fit bg-base-100 bg-opacity-40 backdrop-blur-md shadow-xl mt-5">
         <div className="card-body">
           <div>
             {' '}
@@ -37,15 +39,28 @@ function StoreCard({ name, description, tags, logo }: StoreCardPropsTypes) {
           <p>{description}</p>
         </div>
         <div className="card-actions justify-end">
+          <div className="dropdown dropdown-top mt-4 mr-96">
+            <label tabIndex={0} className="btn m-1 bg-opacity-10 backdrop-blur-sm">
+              <MdMoreHoriz />
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <button onClick={onUninstall}>Uninstall</button>
+              </li>
+              <li>
+                <button>Update</button>
+              </li>
+            </ul>
+          </div>
           <button className="btn btn-success m-5" onClick={onDownload}>
             Download
           </button>
-          <button className="btn btn-error m-5" onClick={onUninstall}>
-            Uninstall
-          </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
