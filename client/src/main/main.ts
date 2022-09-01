@@ -23,7 +23,7 @@ import {
   CreateTmpDir,
   FetchNewGames,
 } from './api/check';
-import { downloadGame } from './api/gameManager';
+import { downloadGame, uninstallGame } from './api/gameManager';
 import game from './interfaces/game';
 
 const store = new Store();
@@ -41,6 +41,10 @@ ipcMain.on('gamesApi-download-game', async (event, gameName) => {
   await downloadGame(gameName);
   event.returnValue = 'Initiated Download';
 });
+ipcMain.once('gamesApi-uninstall-game', async(event, gameName) => {
+  await uninstallGame(gameName);
+  event.returnValue = 'Initiated Uninstall';
+})
 ipcMain.on('electron-store-get', async (event, val) => {
   event.returnValue = store.get(val);
 });

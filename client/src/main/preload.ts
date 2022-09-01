@@ -41,5 +41,8 @@ contextBridge.exposeInMainWorld('electron', {
     downloadGame(gameName: string) {
       return ipcRenderer.sendSync('gamesApi-download-game', gameName);
     },
+    uninstallGame(gameName: string) {
+      return ipcRenderer.sendSync('gamesApi-uninstall-game', gameName);
+    }
   },
 });

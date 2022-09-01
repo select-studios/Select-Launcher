@@ -35,6 +35,7 @@ declare global {
           logo: string;
         }[];
         downloadGame: (gameName: string) => void;
+        uninstallGame: (gameName: string) => void;
       };
     };
   }
