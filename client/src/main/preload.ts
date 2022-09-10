@@ -43,6 +43,9 @@ contextBridge.exposeInMainWorld('electron', {
     },
     uninstallGame(gameName: string) {
       return ipcRenderer.sendSync('gamesApi-uninstall-game', gameName);
-    }
+    },
+    getLibrary() {
+      return ipcRenderer.sendSync('gamesApi-get-library');
+    },
   },
 });

@@ -38,6 +38,24 @@ export const downloadGame = async (gameName: string) => {
           path.join(os.homedir(), 'AppData', 'Roaming', 'Select Games')
         );
         console.log(`successfully downloaded ${gameName}`);
+
+        // Delete zip
+        fs.unlink(
+          path.join(
+            os.homedir(),
+            'AppData',
+            'Roaming',
+            'Select Games',
+            `${gameName}.zip`
+          ),
+          (error) => {
+            if (error) {
+              console.log(
+                `Error occurred while uninstalling ${gameName}: ${error}`
+              );
+            }
+          }
+        );
       }
     }
   );
@@ -50,12 +68,10 @@ export const uninstallGame = async (gameName: string) => {
       () => console.log('created games folder')
     );
   }
-  fs.unlink(path.join(os.homedir(), 'AppData', 'Roaming', 'Select Games', `${gameName}.zip`), (err) => {
-    if (err) {
-      console.log(`Error occurred while uninstalling ${gameName}: ${err}`);
-    }
-  });
-  fs.rmSync(path.join(os.homedir(), 'AppData', 'Roaming', 'Select Games', gameName), { recursive: true, force: true });
+  fs.rmSync(
+    path.join(os.homedir(), 'AppData', 'Roaming', 'Select Games', gameName),
+    { recursive: true, force: true }
+  );
 };
 
 export const updateGame = () => {

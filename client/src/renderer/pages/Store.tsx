@@ -11,7 +11,7 @@ function Store() {
       setGames(gameData);
     }
     FetchGames();
-  });
+  }, []);
 
   // NOTE Sweet Spot for Sidebar adjustment is m-24
   return (
@@ -24,7 +24,8 @@ function Store() {
           gridTemplateColumns: '1fr 1fr',
           gridGap: '30px',
           alignItems: 'start',
-        }}>
+        }}
+      >
         {games?.map((game) => {
           return (
             <StoreCard

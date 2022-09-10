@@ -2,9 +2,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { IoCloseCircleOutline } from 'react-icons/io5';
 import axios from 'axios';
 import icon from '../../../assets/launcherIcon.png';
-import { IoCloseCircleOutline } from 'react-icons/io5';
 
 function Login() {
   const [checked, setChecked] = useState<boolean>(false);
@@ -31,9 +31,7 @@ function Login() {
     }
     return (
       <div className="toast">
-        <div
-          className="alert alert-error bg-opacity-50 backdrop-blur-sm w-fit"
-        >
+        <div className="alert alert-error bg-opacity-50 backdrop-blur-sm w-fit">
           <div>
             <IoCloseCircleOutline />
             <span>Error! Username or Password was invalid!</span>

@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { HiHome, HiOutlineLogout } from 'react-icons/hi';
 import { AiOutlineAppstoreAdd } from 'react-icons/Ai';
 import { BiLibrary } from 'react-icons/bi';
@@ -33,14 +34,18 @@ function Sidebar() {
           </a>
         </li>
         <li>
-          <a className="tooltip tooltip-right" data-tip="Store">
+          <Link className="tooltip tooltip-right" data-tip="Store" to="/store">
             <AiOutlineAppstoreAdd />
-          </a>
+          </Link>
         </li>
         <li>
-          <a className="tooltip tooltip-right" data-tip="Library">
+          <Link
+            className="tooltip tooltip-right"
+            data-tip="Library"
+            to="/library"
+          >
             <BiLibrary />
-          </a>
+          </Link>
         </li>
         <li>
           <a className="tooltip tooltip-right" data-tip="Settings">
@@ -56,14 +61,24 @@ function Sidebar() {
           className="dropdown-content menu p-2 m-2 bg-base-100 rounded-box w-52"
         >
           <li>
-            <button className="btn btn-error btn-outline" onClick={onLogout}><HiOutlineLogout /> Sign Out</button>
+            <button
+              type="button"
+              className="btn btn-error btn-outline"
+              onClick={onLogout}
+            >
+              <HiOutlineLogout /> Sign Out
+            </button>
           </li>
         </ul>
         <div
           tabIndex={0}
           className="rounded-full ring ring-base-100 ring-offset-base-100 ring-offset-2"
         >
-          <img tabIndex={0} src="https://placeimg.com/192/192/people" />
+          <img
+            tabIndex={0}
+            src="https://placeimg.com/192/192/people"
+            alt="Profile"
+          />
         </div>
       </div>
     </div>
