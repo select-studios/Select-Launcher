@@ -25,7 +25,11 @@ function Sidebar() {
 
   return (
     <div className="fixed bg-base-100 h-screen w-20 bg-opacity-40 backdrop-blur-md flex flex-col z-10">
-      <img src={icon} alt="Logo" className="scale-150 pt-4" />
+      <div className="tooltip tooltip-right tooltip-info" data-tip="About Us">
+        <a href="https://www.select-studios.com/">
+          <img src={icon} alt="Logo" className="scale-150 pt-4" />
+        </a>
+      </div>
       <div className="divider" />
       <ul className="menu p-2 rounded-box w-2 scale-125 z-20">
         <li>
