@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import StoreCard from '../components/StoreCard';
 import Sidebar from '../components/Sidebar';
+import PageTitle from '../components/PageTitle';
 
 function Store() {
   const [games, setGames] = useState<any[]>();
@@ -17,6 +18,7 @@ function Store() {
   return (
     <div>
       <Sidebar />
+      <PageTitle pageTitle="Store" />
       <div
         style={{
           marginLeft: '6rem',

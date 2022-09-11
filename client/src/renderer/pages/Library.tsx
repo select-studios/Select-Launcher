@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import { LibraryItem } from '../interfaces/Library';
+import PageTitle from '../components/PageTitle';
 
 function Library() {
   const [games, setGames] = useState<LibraryItem[]>();
@@ -13,7 +14,8 @@ function Library() {
   return (
     <div>
       <Sidebar />
-      <ul className="ml-24">
+      <PageTitle pageTitle="Library" />
+      <ul className="ml-24 pt-24">
         {games?.map((Game) => {
           return <li>{Game.name}</li>;
         })}
