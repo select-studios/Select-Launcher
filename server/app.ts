@@ -8,7 +8,7 @@ import accountRoutes from "./routes/accounts/index";
 import accountManager from "./routes/accounts/accountManager";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4757;
 
 // Middleware
 app.use(cors());
