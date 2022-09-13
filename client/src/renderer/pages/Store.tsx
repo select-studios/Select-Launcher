@@ -23,7 +23,7 @@ function Store() {
         style={{
           marginLeft: '6rem',
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
+          gridTemplateColumns: '1fr 1fr 1fr 1fr',
           gridGap: '30px',
           alignItems: 'start',
         }}

@@ -22,7 +22,7 @@ function StoreCard({ name, description, tags, logo }: StoreCardPropsTypes) {
   };
 
   return (
-    <section style={{ width: '35rem', marginTop: '6rem' }}>
+    <section style={{ width: '40rem', marginTop: '6rem' }}>
       <div className="card bg-base-100 bg-opacity-40 backdrop-blur-md shadow-xl mt-5">
         <div className="card-body">
           <div>
