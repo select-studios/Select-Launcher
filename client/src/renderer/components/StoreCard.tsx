@@ -1,24 +1,30 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import { MdMoreHoriz } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 interface StoreCardPropsTypes {
   name: string;
   description: string;
   tags: string[];
   logo: string;
+  owned: boolean;
 }
 
-function StoreCard({ name, description, tags, logo }: StoreCardPropsTypes) {
+function StoreCard({
+  name,
+  description,
+  tags,
+  logo,
+  owned,
+}: StoreCardPropsTypes) {
+  const navigate = useNavigate();
+
   const onDownload = () => {
     window.electron.gamesApi.downloadGame(name);
   };
   const onUninstall = () => {
-    // window.electron.gamesApi.uninstallGame(name);
-
-    new Notification(`Uninstalling ${name}`, {
-      body: `Initiating uninstall of ${name}`,
-    }).onclick = () => console.log('start uninstall');
+    window.electron.gamesApi.uninstallGame(name);
   };
 
   return (
@@ -47,27 +53,43 @@ function StoreCard({ name, description, tags, logo }: StoreCardPropsTypes) {
           <p>{description}</p>
         </div>
         <div className="card-actions justify-end">
-          <div className="dropdown dropdown-top mt-4 mr-96">
-            <label
-              tabIndex={0}
-              className="btn m-1 bg-opacity-10 backdrop-blur-sm"
-            >
-              <MdMoreHoriz />
-            </label>
-            <ul
-              tabIndex={0}
-              className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <button type="button" onClick={onUninstall}>
-                  Uninstall
-                </button>
-              </li>
-              <li>
-                <button type="button">Update</button>
-              </li>
-            </ul>
-          </div>
+          {owned ? (
+            <div className="dropdown dropdown-top mt-4 mr-96">
+              <label
+                tabIndex={0}
+                className="btn m-1 bg-opacity-10 backdrop-blur-sm"
+              >
+                <MdMoreHoriz />
+              </label>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <button type="button" onClick={onUninstall}>
+                    Uninstall
+                  </button>
+                </li>
+                <li>
+                  <button type="button">Update</button>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <div className="mt-4 mr-96">
+              <button
+                type="button"
+                className="btn gap-2"
+                onClick={() => {
+                  navigate('/store', { replace: true });
+                }}
+              >
+                Go to store page
+                <div className="badge badge-info">Owned</div>
+              </button>
+            </div>
+          )}
+
           <button
             onClick={onDownload}
             type="button"

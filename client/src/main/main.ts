@@ -64,7 +64,7 @@ ipcMain.on('api-url-get', async (event) => {
     process.env.NODE_ENV === 'development' ||
     process.env.DEBUG_PROD === 'true'
   ) {
-    event.returnValue = 'http://localhost:5000/';
+    event.returnValue = 'http://localhost:4757/';
   } else if (
     process.env.NODE_ENV === 'production' ||
     process.env.DEBUG_PROD === 'false'

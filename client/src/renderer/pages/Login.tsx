@@ -1,12 +1,13 @@
 /* eslint-disable promise/always-return */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoCloseCircleOutline } from 'react-icons/io5';
 import axios from 'axios';
 import icon from '../../../assets/launcherIcon.png';
 
 function Login() {
+  const LISTEN_KEYS = ['Enter'];
   const [checked, setChecked] = useState<boolean>(false);
   const [username, setUsername] = useState<string>(
     window.electron.store.get('username')
@@ -50,6 +51,22 @@ function Login() {
     }
   }, [setChecked]);
 
+  const useEventListener = (eventName, handler, element = window) => {
+    const savedHandler = useRef();
+
+    useEffect(() => {
+      savedHandler.current = handler;
+    }, [handler]);
+
+    useEffect(() => {
+      const eventListener = (event) => savedHandler.current(event);
+      element.addEventListener(eventName, eventListener);
+      return () => {
+        element.removeEventListener(eventName, eventListener);
+      };
+    }, [eventName, element]);
+  };
+
   const OnChangeChecked = () => {
     setChecked(!checked);
   };
@@ -74,6 +91,13 @@ function Login() {
         console.log(err);
       });
   };
+
+  const handler = ({ key }) => {
+    if (LISTEN_KEYS.includes(String(key))) {
+      onSubmit();
+    }
+  };
+  useEventListener('keydown', handler);
 
   return (
     <div className="overflow-x-hidden">
