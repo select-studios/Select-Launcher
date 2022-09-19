@@ -69,7 +69,7 @@ ipcMain.on('api-url-get', async (event) => {
     process.env.NODE_ENV === 'production' ||
     process.env.DEBUG_PROD === 'false'
   ) {
-    event.returnValue = 'https://select-launcher-api.herokuapp.com/';
+    event.returnValue = 'https://web-production-7960.up.railway.app/';
   }
 });
 
