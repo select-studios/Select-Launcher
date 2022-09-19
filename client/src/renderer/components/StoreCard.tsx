@@ -29,11 +29,13 @@ function StoreCard({
 
   return (
     <section style={{ width: '40rem', marginTop: '6rem' }}>
-      <div className="card bg-base-100 bg-opacity-40 backdrop-blur-md shadow-xl mt-5">
+      <div className="card bg-base-100 bg-opacity-70 backdrop-blur-md shadow-xl mt-5">
         <div className="card-body">
           <div>
             {' '}
             {/* idk why but empty div is needed. */}
+            {/* No clue LMFAO*/}
+            
             <div className="avatar">
               <div className="w-24 rounded-full">
                 <img src={logo} alt="Game Logo" />
