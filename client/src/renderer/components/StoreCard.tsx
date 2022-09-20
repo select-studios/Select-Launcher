@@ -8,7 +8,7 @@ interface StoreCardPropsTypes {
   description: string;
   tags: string[];
   logo: string;
-  owned: boolean;
+  owned: boolean | undefined;
 }
 
 function StoreCard({
@@ -34,8 +34,7 @@ function StoreCard({
           <div>
             {' '}
             {/* idk why but empty div is needed. */}
-            {/* No clue LMFAO*/}
-            
+            {/* No clue LMFAO */}
             <div className="avatar">
               <div className="w-24 rounded-full">
                 <img src={logo} alt="Game Logo" />
@@ -56,29 +55,7 @@ function StoreCard({
         </div>
         <div className="card-actions justify-end">
           {owned ? (
-            <div className="dropdown dropdown-top mt-4 mr-96">
-              <label
-                tabIndex={0}
-                className="btn m-1 bg-opacity-10 backdrop-blur-sm"
-              >
-                <MdMoreHoriz />
-              </label>
-              <ul
-                tabIndex={0}
-                className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-              >
-                <li>
-                  <button type="button" onClick={onUninstall}>
-                    Uninstall
-                  </button>
-                </li>
-                <li>
-                  <button type="button">Update</button>
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <div className="mt-4 mr-96">
+            <div>
               <button
                 type="button"
                 className="btn gap-2"
@@ -86,10 +63,12 @@ function StoreCard({
                   navigate('/store', { replace: true });
                 }}
               >
-                Go to store page
-                <div className="badge badge-info">Owned</div>
+                Go to library
+                <div className="badge badge-secondary">Owned</div>
               </button>
             </div>
+          ) : (
+            <></>
           )}
 
           <button

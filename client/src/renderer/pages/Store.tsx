@@ -1,3 +1,4 @@
+/* eslint-disable no-unneeded-ternary */
 /* eslint-disable no-plusplus */
 import React, { useEffect, useState } from 'react';
 import StoreCard from '../components/StoreCard';
@@ -18,11 +19,16 @@ function Store() {
   }, []);
 
   const renderCards = (): React.ReactNode => {
-    games?.map((game) => {
-      return <h1>{game.name}</h1>;
-    });
-    libraryGames?.map((libraryGame) => {
-      return <h1>{libraryGame.name}</h1>;
+    return games?.map((game) => {
+      return (
+        <StoreCard
+          name={game.name}
+          description={game.description}
+          tags={game.tags}
+          logo={`${game.logo}`}
+          owned={libraryGames?.includes(game)} // ESLint says turnary operators aren't needed here but if we don't use them, typescript will hate us.
+        />
+      );
     });
   };
 
