@@ -18,20 +18,6 @@ function Store() {
     setLibraryGames(window.electron.gamesApi.getLibrary());
   }, []);
 
-  const renderCards = (): React.ReactNode => {
-    return games?.map((game) => {
-      return (
-        <StoreCard
-          name={game.name}
-          description={game.description}
-          tags={game.tags}
-          logo={`${game.logo}`}
-          owned={libraryGames?.includes(game)} // ESLint says turnary operators aren't needed here but if we don't use them, typescript will hate us.
-        />
-      );
-    });
-  };
-
   // NOTE Sweet Spot for Sidebar adjustment is m-24
   return (
     <div>
@@ -46,7 +32,19 @@ function Store() {
           alignItems: 'start',
         }}
       >
-        {renderCards()}
+        {games?.map((game) => {
+          return (
+            <StoreCard
+              name={game.name}
+              description={game.description}
+              logo={`${game.logo}`}
+              tags={game.tags}
+              owned={libraryGames?.find(
+                (libraryGame) => libraryGame.name === game.name
+              )}
+            />
+          );
+        })}
       </div>
     </div>
   );

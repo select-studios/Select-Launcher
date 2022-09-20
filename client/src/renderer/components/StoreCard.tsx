@@ -55,18 +55,16 @@ function StoreCard({
         </div>
         <div className="card-actions justify-end">
           {owned ? (
-            <div>
-              <button
-                type="button"
-                className="btn gap-2"
-                onClick={() => {
-                  navigate('/store', { replace: true });
-                }}
-              >
-                Go to library
-                <div className="badge badge-secondary">Owned</div>
-              </button>
-            </div>
+            <button
+              type="button"
+              className="btn gap-2 m-5 mr-auto"
+              onClick={() => {
+                navigate('/store', { replace: true });
+              }}
+            >
+              Go to library
+              <div className="badge badge-secondary">Owned</div>
+            </button>
           ) : (
             <></>
           )}
