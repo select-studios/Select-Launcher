@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import { useNavigate } from 'react-router-dom';
+import '../styles/Card.css';
 
 interface LibraryCardPropTypes {
   name: string;
@@ -39,7 +40,7 @@ function LibraryCard({ name, description, tags, logo }: LibraryCardPropTypes) {
               </h2>
             </div>
           </div>
-          <p>{description}</p>
+          <p className="card-description">{description}</p>
         </div>
         <div className="card-actions justify-end">
           <button
