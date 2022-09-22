@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-import { MdMoreHoriz } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 interface StoreCardPropsTypes {
@@ -23,12 +22,9 @@ function StoreCard({
   const onDownload = () => {
     window.electron.gamesApi.downloadGame(name);
   };
-  const onUninstall = () => {
-    window.electron.gamesApi.uninstallGame(name);
-  };
 
   return (
-    <section style={{ width: '40rem', marginTop: '6rem' }}>
+    <section style={{ width: '32rem', marginTop: '6rem' }}>
       <div className="card bg-base-100 bg-opacity-70 backdrop-blur-md shadow-xl mt-5">
         <div className="card-body">
           <div>
@@ -59,7 +55,7 @@ function StoreCard({
               type="button"
               className="btn gap-2 m-5 mr-auto"
               onClick={() => {
-                navigate('/store', { replace: true });
+                navigate('/library', { replace: true });
               }}
             >
               Go to library
@@ -69,13 +65,23 @@ function StoreCard({
             <></>
           )}
 
-          <button
-            onClick={onDownload}
-            type="button"
-            className="btn btn-success m-5"
-          >
-            Download
-          </button>
+          {owned ? (
+            <button
+              onClick={onDownload}
+              type="button"
+              className="btn btn-success m-5 btn-disabled"
+            >
+              Download
+            </button>
+          ) : (
+            <button
+              onClick={onDownload}
+              type="button"
+              className="btn btn-success m-5"
+            >
+              Download
+            </button>
+          )}
         </div>
       </div>
     </section>
