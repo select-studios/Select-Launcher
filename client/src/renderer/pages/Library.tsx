@@ -25,16 +25,25 @@ function Library() {
           alignItems: 'start',
         }}
       >
-        {games?.map((game) => {
-          return (
-            <LibraryCard
-              name={game.name}
-              description={game.description}
-              logo={`${game.logo}`}
-              tags={game.tags}
-            />
-          );
-        })}
+        {games?.length <= 0 ? (
+          <h1
+            className="prose prose-slate font-extrabold text-4xl ml-8 mt-28 w-full"
+            style={{ fontSize: '64px', whiteSpace: 'nowrap' }}
+          >
+            Get some games at the store :)
+          </h1>
+        ) : (
+          games?.map((game) => {
+            return (
+              <LibraryCard
+                name={game.name}
+                description={game.description}
+                logo={`${game.logo}`}
+                tags={game.tags}
+              />
+            );
+          })
+        )}
       </div>
     </div>
   );

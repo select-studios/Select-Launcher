@@ -13,9 +13,9 @@ function Login() {
     window.electron.store.get('username')
   );
   const [password, setPassword] = useState<string>();
-  const [loginState, setLoginState] = useState<'Success' | 'Error' | 'Pending'>(
-    'Pending'
-  );
+  const [loginState, setLoginState] = useState<
+    'Success' | 'Error' | 'Pending' | 'Loading'
+  >('Pending');
   const navigate = useNavigate();
   const failedLogin = (isHidden: boolean) => {
     if (isHidden) {
@@ -72,6 +72,7 @@ function Login() {
   };
 
   const onSubmit = () => {
+    setLoginState('Loading');
     axios
       .post(`${window.electron.api.getUrl()}api/accounts/login`, {
         username,
@@ -153,6 +154,11 @@ function Login() {
           <button type="submit" className="btn btn-primary" onClick={onSubmit}>
             Sign in
           </button>
+          {loginState === 'Loading' ? (
+            <progress className="progress progress-secondary mt-2" />
+          ) : (
+            <progress className="progress progress-secondary mt-2 hidden" />
+          )}
           <p className="text-xs mt-3">
             Don&apos;t have an account?{' '}
             <a href="www.google.com/" className="text-secondary underline">
