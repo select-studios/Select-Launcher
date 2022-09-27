@@ -39,7 +39,7 @@ declare global {
         }[];
         downloadGame: (gameName: string) => void;
         uninstallGame: (gameName: string) => void;
-        getLibrary: () => LibraryItem[];
+        getLibrary: () => Promise<LibraryItem[]>;
       };
     };
   }

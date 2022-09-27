@@ -24,7 +24,7 @@ import {
   FetchNewGames,
 } from './api/check';
 import { downloadGame, uninstallGame } from './api/gameManager';
-import { getLibrary, loadLibrary } from './api/libraryManager';
+import { getLibrary } from './api/libraryManager';
 import game from './interfaces/game';
 
 const store = new Store();
@@ -47,7 +47,8 @@ ipcMain.on('gamesApi-uninstall-game', async (event, gameName) => {
   event.returnValue = 'Initiated Uninstall';
 });
 ipcMain.on('gamesApi-get-library', async (event) => {
-  event.returnValue = getLibrary();
+  const library = await getLibrary();
+  event.returnValue = library;
 });
 ipcMain.on('electron-store-get', async (event, val) => {
   event.returnValue = store.get(val);
@@ -173,11 +174,9 @@ const createWindow = async () => {
   // Get game info from github
   if (CheckTmpDir()) {
     FetchNewGames();
-    loadLibrary();
   } else {
     CreateTmpDir();
     CloneGameInfo();
-    loadLibrary();
   }
   if (isDebug) {
     await installExtensions();

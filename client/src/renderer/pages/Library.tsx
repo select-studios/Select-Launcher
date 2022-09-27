@@ -8,7 +8,11 @@ function Library() {
   const [games, setGames] = useState<LibraryItem[]>();
 
   useEffect(() => {
-    setGames(window.electron.gamesApi.getLibrary());
+    async function setLibraryGames() {
+      const libraryGameData = await window.electron.gamesApi.getLibrary();
+      setGames(libraryGameData);
+    }
+    setLibraryGames();
   }, []);
 
   // NOTE Sweet Spot for Sidebar adjustment is m-24
