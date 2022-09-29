@@ -32,9 +32,9 @@ function Library() {
         {games?.length <= 0 ? (
           <h1
             className="prose prose-slate font-extrabold text-4xl ml-8 mt-28 w-full"
-            style={{ fontSize: '64px', whiteSpace: 'nowrap' }}
+            style={{ fontSize: '52px', whiteSpace: 'nowrap' }}
           >
-            Get some games at the store :)
+            You have no games! Head over to the store to check some out!
           </h1>
         ) : (
           games?.map((game) => {
