@@ -5,14 +5,12 @@ import PageTitle from '../components/PageTitle';
 import LibraryCard from '../components/LibraryCard';
 
 function Library() {
-  const [games, setGames] = useState<LibraryItem[]>();
+  const [games, setGames] = useState<Map<string, LibraryItem>>(
+    new Map<string, LibraryItem>()
+  );
 
   useEffect(() => {
-    async function setLibraryGames() {
-      const libraryGameData = await window.electron.gamesApi.getLibrary();
-      setGames(libraryGameData);
-    }
-    setLibraryGames();
+    setGames(window.electron.gamesApi.getLibrary());
   }, []);
 
   // NOTE Sweet Spot for Sidebar adjustment is m-24
@@ -29,7 +27,7 @@ function Library() {
           alignItems: 'start',
         }}
       >
-        {games?.length <= 0 ? (
+        {games.size <= 0 ? (
           <h1
             className="prose prose-slate font-extrabold text-4xl ml-8 mt-28 w-full"
             style={{ fontSize: '52px', whiteSpace: 'nowrap' }}
@@ -37,7 +35,7 @@ function Library() {
             You have no games! Head over to the store to check some out!
           </h1>
         ) : (
-          games?.map((game) => {
+          Array.from(games.values()).map((game) => {
             return (
               <LibraryCard
                 name={game.name}
