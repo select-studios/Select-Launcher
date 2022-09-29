@@ -43,6 +43,13 @@ function Login() {
   };
 
   useEffect(() => {
+    async function checkForGit() {
+      const isGitInstalled = await window.electron.gamesApi.isGitInstalled();
+      if (!isGitInstalled) {
+        navigate('/gitError', { replace: true });
+      }
+    }
+    checkForGit();
     console.log(window.electron.store.path());
     if (window.electron.store.get('rememberMe')) {
       setChecked(window.electron.store.get('rememberMe'));
