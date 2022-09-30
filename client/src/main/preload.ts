@@ -35,9 +35,6 @@ contextBridge.exposeInMainWorld('electron', {
     },
   },
   gamesApi: {
-    async isGitInstalled() {
-      return ipcRenderer.sendSync('gamesApi-is-git-installed');
-    },
     async getFetchedGames() {
       return ipcRenderer.sendSync('gamesApi-get-fetched-games');
     },

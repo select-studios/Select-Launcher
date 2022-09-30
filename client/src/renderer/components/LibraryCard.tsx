@@ -32,7 +32,9 @@ function LibraryCard({ name, description, tags, logo }: LibraryCardPropTypes) {
                 {name}
                 <div className="flex flex-row flex-wrap">
                   {tags.map((tag) => {
-                    return <div className="badge badge-outline m-1">{tag}</div>;
+                    return (
+                      <div className="badge badge-outline ml-1">{tag}</div>
+                    );
                   })}
                 </div>
               </h2>

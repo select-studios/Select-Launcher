@@ -11,7 +11,6 @@
 import path from 'path';
 import fs from 'fs';
 import os from 'os';
-import { exec } from 'child_process';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
@@ -39,15 +38,6 @@ export default class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 
-ipcMain.on('gamesApi-is-git-installed', async (event) => {
-  await exec('git --version', (err, stdout, stderr) => {
-    if (err) {
-      event.returnValue = false;
-    } else {
-      event.returnValue = true;
-    }
-  });
-});
 ipcMain.on('gamesApi-download-game', async (event, gameName) => {
   await downloadGame(gameName);
   event.returnValue = 'Initiated Download';
@@ -56,8 +46,8 @@ ipcMain.on('gamesApi-uninstall-game', async (event, gameName) => {
   await uninstallGame(gameName);
   event.returnValue = 'Initiated Uninstall';
 });
-ipcMain.on('gamesApi-get-library', (event) => {
-  const library = getLibrary();
+ipcMain.on('gamesApi-get-library', async (event) => {
+  const library = await getLibrary();
   event.returnValue = library;
 });
 ipcMain.on('electron-store-get', async (event, val) => {
