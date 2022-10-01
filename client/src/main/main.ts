@@ -24,7 +24,11 @@ import {
   CreateTmpDir,
   FetchNewGames,
 } from './api/check';
-import { downloadGame, uninstallGame } from './api/gameManager';
+import {
+  downloadGame,
+  uninstallGame,
+  checkIfGamesDirectoryExists,
+} from './api/gameManager';
 import { getLibrary } from './api/libraryManager';
 import game from './interfaces/game';
 
@@ -187,6 +191,12 @@ const createWindow = async () => {
   } else {
     CreateTmpDir();
     CloneGameInfo();
+  }
+  if (!checkIfGamesDirectoryExists()) {
+    fs.mkdir(
+      path.join(os.homedir(), 'AppData', 'Roaming', 'Select Games'),
+      () => console.log('created games folder')
+    );
   }
   if (isDebug) {
     await installExtensions();

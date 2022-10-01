@@ -4,7 +4,7 @@ import path from 'path';
 import os from 'os';
 import decompress from 'decompress';
 
-const checkIfGamesDirectoryExists = (): boolean => {
+export const checkIfGamesDirectoryExists = (): boolean => {
   if (
     fs.existsSync(path.join(os.homedir(), 'AppData', 'Roaming', 'Select Games'))
   ) {
@@ -12,14 +12,6 @@ const checkIfGamesDirectoryExists = (): boolean => {
   }
   return false;
 };
-
-
-// BUG HERE 
-// FOR SOME REASON THE CODE WANTS TO SEE "${GAMENAME}.zip as a whole thing"
-// so when its looking for the _info files its looking for "AceRace.zip_info"
-// as appose to AceRace_info
-
-// I've tried everything and it insists on being a cunt.
 
 export const downloadGame = async (gameName: string) => {
   if (!checkIfGamesDirectoryExists()) {
