@@ -52,7 +52,7 @@ function StoreCard({
           {owned ? (
             <button
               type="button"
-              className="btn gap-2 m-5 mr-auto"
+              className="btn gap-2 m-5 mr-right"
               onClick={() => {
                 navigate('/library', { replace: true });
               }}
@@ -65,13 +65,7 @@ function StoreCard({
           )}
 
           {owned ? (
-            <button
-              onClick={onDownload}
-              type="button"
-              className="btn btn-success m-5 btn-disabled"
-            >
-              Download
-            </button>
+            <button> </button>
           ) : (
             <button
               onClick={onDownload}
