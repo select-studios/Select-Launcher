@@ -13,6 +13,14 @@ const checkIfGamesDirectoryExists = (): boolean => {
   return false;
 };
 
+
+// BUG HERE 
+// FOR SOME REASON THE CODE WANTS TO SEE "${GAMENAME}.zip as a whole thing"
+// so when its looking for the _info files its looking for "AceRace.zip_info"
+// as appose to AceRace_info
+
+// I've tried everything and it insists on being a cunt.
+
 export const downloadGame = async (gameName: string) => {
   if (!checkIfGamesDirectoryExists()) {
     fs.mkdir(
