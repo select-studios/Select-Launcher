@@ -2,6 +2,7 @@ import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Store from './pages/Store';
 import Library from './pages/Library';
+import GitError from './pages/GitError';
 import { LibraryItem } from './interfaces/Library';
 import './styles/App.css';
 import 'tailwindcss/tailwind.css';
@@ -11,6 +12,7 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/gitError" element={<GitError />} />
         <Route path="/store" element={<Store />} />
         <Route path="/library" element={<Library />} />
       </Routes>
@@ -39,7 +41,8 @@ declare global {
         }[];
         downloadGame: (gameName: string) => void;
         uninstallGame: (gameName: string) => void;
-        getLibrary: () => Promise<LibraryItem[]>;
+        getLibrary: () => Map<string, LibraryItem>;
+        isGitInstalled: () => boolean;
       };
     };
   }

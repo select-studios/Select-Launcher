@@ -3,19 +3,24 @@
 import React, { useEffect, useState } from 'react';
 import StoreCard from '../components/StoreCard';
 import Sidebar from '../components/Sidebar';
+import { LibraryItem } from '../interfaces/Library';
 import PageTitle from '../components/PageTitle';
 
 function Store() {
   const [games, setGames] = useState<any[]>();
-  const [libraryGames, setLibraryGames] = useState<any[]>();
+  const [libraryGames, setLibraryGames] = useState<Map<string, LibraryItem>>();
 
   useEffect(() => {
     async function FetchGames() {
       const gameData = await window.electron.gamesApi.getFetchedGames();
       setGames(gameData);
     }
+    async function FetchLibrary() {
+      const gameData = await window.electron.gamesApi.getLibrary();
+      setLibraryGames(gameData);
+    }
     FetchGames();
-    setLibraryGames(window.electron.gamesApi.getLibrary());
+    FetchLibrary();
   }, []);
 
   // NOTE Sweet Spot for Sidebar adjustment is m-24
@@ -39,9 +44,7 @@ function Store() {
               description={game.description}
               logo={`${game.logo}`}
               tags={game.tags}
-              owned={libraryGames?.find(
-                (libraryGame) => libraryGame.name === game.name
-              )}
+              owned={libraryGames?.has(game.name)}
             />
           );
         })}
