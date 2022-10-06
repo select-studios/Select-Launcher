@@ -4,9 +4,7 @@
   "description": "Launcher for select studio games, currently for staff only and in dev.",
   "main": "index.js",
   "scripts": {
-    "heroku-prebuild": "npm install --prefix server && npm install",
-    "heroku-postbuild": "npm run build --prefix server",
-    "start": "concurrently \"cd client && npm run start\" \"cd server && npm run dev\""
+    "start": "concurrently \"cd client && flutter run\" \"cd server && npm run dev\""
   },
   "engines": {
     "node": "16.13.0"
@@ -23,7 +21,6 @@
   },
   "homepage": "https://github.com/select-studios/Launcher#readme",
   "dependencies": {
-    "concurrently": "^7.2.1",
-    "electron-store": "^8.0.2"
+    "concurrently": "^7.2.1"
   }
 }
