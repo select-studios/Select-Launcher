@@ -1,4 +1,4 @@
-image: Visual Studio 2017
+image: Visual Studio 2022
 
 platform: x64
 
@@ -9,8 +9,8 @@ install:
   - git clone -b master https://github.com/flutter/flutter.git %APPVEYOR_BUILD_FOLDER%\..\flutter
 
 build_script:
-  - set "PATH=%APPVEYOR_BUILD_FOLDER%\..\flutter\bin;C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\;%PATH%"
-  - set "ENABLE_FLUTTER_DESKTOP=true"
+  - set "PATH=%APPVEYOR_BUILD_FOLDER%\..\flutter\bin;C:\Program Files (x86)\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\;%PATH%"
+  - flutter config --enable-windows-desktop
   - ps: cd "$env:APPVEYOR_BUILD_FOLDER\client"
   - flutter packages get
   - flutter build -v windows --debug
