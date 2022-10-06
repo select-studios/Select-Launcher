@@ -1,34 +1,20 @@
 image: Visual Studio 2017
 
-platform:
-  - x64
-
-environment:
-  matrix:
-    - nodejs_version: 16
-
-cache:
-  - node_modules
-  - release/app/node_modules
-  - '%USERPROFILE%\.electron'
-
-matrix:
-  fast_finish: true
-
-build: off
-
-version: '{build}'
-
-shallow_clone: true
-
-clone_depth: 1
+platform: x64
 
 install:
-  - ps: Install-Product node $env:nodejs_version x64
-  - npm install
-  - cd client 
-  - npm install primereact primeflex primeicons
+  # None of the packaged channels are new enough for the current state
+  # of FDE, so for now clone master instead.
+  #- ps: build\ci\install_flutter.ps1 $env:APPVEYOR_BUILD_FOLDER\..
+  - git clone -b master https://github.com/flutter/flutter.git %APPVEYOR_BUILD_FOLDER%\..\flutter
 
-test_script:
-  - npm run package
-  # - npm test we do this after I setup mocking framework
+build_script:
+  - set "PATH=%APPVEYOR_BUILD_FOLDER%\..\flutter\bin;C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\;%PATH%"
+  - set "ENABLE_FLUTTER_DESKTOP=true"
+  - ps: cd "$env:APPVEYOR_BUILD_FOLDER\example"
+  - flutter packages get
+  - flutter build -v windows --debug
+  - flutter build -v windows --release
+  - ps: cd "$env:APPVEYOR_BUILD_FOLDER\testbed"
+  - flutter packages get
+  - flutter build -v windows --debug
