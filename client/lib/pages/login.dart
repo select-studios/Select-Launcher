@@ -15,6 +15,7 @@ class _LoginState extends State<Login> {
   late double _width;
   late String userName;
   late String password;
+  bool rememberMe = true;
 
   Widget buildCardContent() {
     return Center(
@@ -92,13 +93,31 @@ class _LoginState extends State<Login> {
             ],
           ),
           const SizedBox(height: 20),
-          const Center(
-            child: Text(
-              'Forgot Password?',
-              style: TextStyle(
-                decoration: TextDecoration.underline,
-                color: Color.fromARGB(255, 130, 141, 248),
-              ),
+          Center(
+            child: Row(
+              children: <Widget>[
+                SizedBox(
+                  width: 207,
+                  child: TextButton(
+                    onPressed: () {},
+                    style: TextButton.styleFrom(
+                      foregroundColor: const Color.fromARGB(255, 130, 141, 248),
+                    ),
+                    child: const Text('Forgot Password'),
+                  ),
+                ),
+                const Text(' or '),
+                SizedBox(
+                  width: 207,
+                  child: TextButton(
+                    onPressed: () {},
+                    style: TextButton.styleFrom(
+                      foregroundColor: const Color.fromARGB(255, 130, 141, 248),
+                    ),
+                    child: const Text('Sign in later'),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -115,18 +134,38 @@ class _LoginState extends State<Login> {
         height: _height,
         width: _width,
         decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 23, 23, 23),
+          image: DecorationImage(
+              image: AssetImage('assets/storeBg.png'), fit: BoxFit.cover),
         ),
-        child: Container(
+        child: GlassmorphicContainer(
+          width: _width,
+          height: _height,
           alignment: Alignment.center,
           margin:
               const EdgeInsets.only(left: 450, right: 450, top: 50, bottom: 50),
-          padding: const EdgeInsets.all(15),
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            color: Color.fromARGB(255, 31, 31, 31),
+          border: 0,
+          blur: 3,
+          linearGradient: LinearGradient(
+            colors: [
+              const Color.fromARGB(255, 15, 23, 41).withOpacity(0.5),
+              const Color.fromARGB(255, 15, 23, 41).withOpacity(0.5),
+            ],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
           ),
-          child: buildCardContent(),
+          borderGradient: LinearGradient(
+            colors: [
+              const Color.fromARGB(255, 15, 23, 41).withOpacity(0.5),
+              const Color.fromARGB(255, 15, 23, 41).withOpacity(0.5),
+            ],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+          ),
+          borderRadius: 10,
+          child: Container(
+            padding: const EdgeInsets.all(15),
+            child: buildCardContent(),
+          ),
         ),
       ),
     );
