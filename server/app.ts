@@ -1,33 +1,52 @@
 import * as express from "express";
 import * as cors from "cors";
 import * as dotenv from "dotenv";
-import mongoose from "mongoose";
+import * as mongoose from "mongoose";
+import * as jwt from "jsonwebtoken";
 dotenv.config();
-
-import accountRoutes from "./routes/accounts/index";
-import accountManager from "./routes/accounts/accountManager";
 
 const app = express();
 const PORT = process.env.PORT || 4757;
+const posts = [
+  {
+    username: "Kyle",
+    title: "Post 1",
+  },
+  {
+    username: "Jim",
+    title: "Post 2",
+  },
+];
 
 // Middleware
 app.use(cors());
-app.use(express.json({ limit: "100kb", type: "application/json" }));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-// Routes
-app.use("/api/accounts/", accountRoutes);
-app.use("/api/accounts/", accountManager);
-app.get("/", (req, res) => {
-  res.send("<h1>Server is running!</h1>");
+app.get("/posts", authenticateToken, (req: any, res) => {
+  res.json(posts.filter((post) => post.username === req.user.name));
 });
 
-// catch 404 and forward to error handler
-app.use((req, res, next) => {
-  const err = new Error("Not Found");
-  err["status"] = 404;
-  next(err);
+app.post("/login", (req, res) => {
+  // Authenticate User
+  const username = req.body.username;
+  const user = { name: username };
+
+  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+  res.json({ accessToken: accessToken });
 });
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token === null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+
+    req.user = user;
+    next();
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`);

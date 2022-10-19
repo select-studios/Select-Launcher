@@ -1,0 +1,11 @@
+GET http://localhost:4757/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3lsZSIsImlhdCI6MTY2NjE5NjIyN30.DcEqgkKutA02m5FKnyf320yocBrAUrW24kcThFezU6Y
+
+###
+
+POST http://localhost:4757/login
+Content-Type: application/json
+
+{
+    "username": "Kyle"
+}
