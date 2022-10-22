@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:select_launcher/util/colors.dart';
 import 'pages/login.dart';
 
 void main() => runApp(const SelectApp());
@@ -9,8 +10,11 @@ class SelectApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
+        primaryColor: primary,
+        backgroundColor: primaryBg,
       ),
       home: const Login(),
     );
