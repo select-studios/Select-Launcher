@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_color_models/flutter_color_models.dart';
 
-Color primaryBg = const Color(0x00242425).withOpacity(1);
-Color secondaryBg = const Color(0x00282a2d).withOpacity(1);
-Color tertiaryBg = const Color(0x005f6368).withOpacity(1);
-Color primary = const Color(0x009980fa).withOpacity(1);
+Color primaryBg = const HslColor(216, 2, 10);
+Color secondaryBg = const HslColor(216, 6, 15);
+Color tertiaryBg = const HslColor(213, 5, 35);
+Color primary = const HslColor(252, 92, 70);

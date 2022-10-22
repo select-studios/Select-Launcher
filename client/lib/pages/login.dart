@@ -28,8 +28,8 @@ class _LoginState extends State<Login> {
             ),
           ],
         ),
-        height: 500,
-        width: 450,
+        height: 470,
+        width: 444,
         child: Column(
           children: [
             // Account Strip
@@ -85,24 +85,138 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'Enter your Username',
-                      labelText: 'Username',
+                  Text(
+                    'Username',
+                    style: GoogleFonts.montserrat(
+                      textStyle: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16.0,
+                      ),
                     ),
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'Enter your password',
-                      labelText: 'Password',
+                  const SizedBox(height: 10),
+                  TextField(
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      hintText: 'Jack Mehoff',
+                      hintStyle: GoogleFonts.montserrat(
+                        textStyle: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                      fillColor: tertiaryBg,
+                      focusColor: primary,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: tertiaryBg,
+                          width: 0.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: primary, width: 2.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      filled: true,
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 150, top: 40.0),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Submit'),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Password',
+                    style: GoogleFonts.montserrat(
+                      textStyle: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16.0,
+                      ),
                     ),
+                  ),
+                  const SizedBox(height: 10),
+                  TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      suffixIconColor: tertiaryBg,
+                      hintText: '1234',
+                      hintStyle: GoogleFonts.montserrat(
+                        textStyle: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                      fillColor: tertiaryBg,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: tertiaryBg,
+                          width: 0.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: primary, width: 2.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      filled: true,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: SizedBox(
+                      height: 50,
+                      width: 140,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: primary,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(9.0),
+                          ),
+                          splashFactory: NoSplash.splashFactory,
+                        ),
+                        child: Text(
+                          'Submit',
+                          style: GoogleFonts.montserrat(
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'No account?',
+                        style: GoogleFonts.montserrat(
+                          textStyle: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Create One!',
+                          style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.0,
+                              color: primary,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ),
