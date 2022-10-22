@@ -3,8 +3,10 @@ import * as cors from "cors";
 import * as dotenv from "dotenv";
 import * as mongoose from "mongoose";
 import * as jwt from "jsonwebtoken";
+import { Log } from "./utils/handlers/index";
 dotenv.config();
 
+const Logger = new Log();
 const app = express();
 const PORT = process.env.PORT || 4757;
 const posts = [
@@ -49,14 +51,24 @@ function authenticateToken(req, res, next) {
 }
 
 app.listen(PORT, () => {
-  console.log(`Express server listening on port ${PORT}`);
+  Logger.ready(
+    `Server has been initiated and is live on http://localhost:${PORT}/`,
+    "server"
+  );
 
   mongoose
     .connect(process.env.MONGO_URI)
     .then(() => {
-      console.log("Connected to mongo successfully!");
+      Logger.ready(
+        "Connection to MongoDB Cluster has been established!",
+        "database"
+      );
     })
     .catch((err) => {
-      console.log(`Could not connect to mongo because: ${err}`);
+      Logger.error(
+        "There was an error connecting with the database.",
+        err,
+        "database"
+      );
     });
 });
