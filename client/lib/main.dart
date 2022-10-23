@@ -13,8 +13,9 @@ class SelectApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
-        primaryColor: primary,
-        backgroundColor: primaryBg,
+        primaryColorDark: primary,
+        platform: TargetPlatform.windows,
+        scaffoldBackgroundColor: primaryBg,
       ),
       home: const Login(),
     );
