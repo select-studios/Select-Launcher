@@ -1,6 +1,14 @@
 image: Visual Studio 2022
 
 platform: x64
+notifications:
+  - provider: Gmail
+    to:
+      - sinha.soham1231@gmail.com
+      - akshit.singla.dps@gmail.com
+    on_build_success: false
+    on_build_failure: true
+    on_build_status_changed: true
 
 install:
   # None of the packaged channels are new enough for the current state
