@@ -1,13 +1,14 @@
 import { Response, Request } from "express";
 import { Logger } from "../../../app";
 import { User } from "../../../models/index";
+import bcrypt = require("bcrypt");
 
 export const register = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
-  let user;
+  const { email, username, password } = req.body;
+  let userDb;
 
   try {
-    user = await User.findOne({ username });
+    userDb = await User.findOne({ username, email });
   } catch (error) {
     Logger.error("There was an error finding the user.", error);
     return res
@@ -15,11 +16,28 @@ export const register = async (req: Request, res: Response) => {
       .json({ error: "There was an error finding the user." });
   }
 
-  if (!user) {
+  if (!userDb) {
     try {
-      await User.create({ username, password }).then(() =>
-        res.status(201).json({ success: true, user: { username, password } })
-      );
+      bcrypt.hash(password, 10, async (err, hash) => {
+        if (err) {
+          Logger.error("There was an error hashing the password.", err);
+          return res
+            .status(500)
+            .json({ error: "There was an error hashing the password." });
+        }
+
+        await User.create({ email, username, password: hash }).then((user) => {
+          return res.status(201).json({
+            success: true,
+            user: {
+              userId: user._id.toString(),
+              email,
+              username,
+              password: hash,
+            },
+          });
+        });
+      });
     } catch (error) {
       Logger.error("There was an error creating the user.", error);
       return res
