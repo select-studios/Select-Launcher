@@ -2,53 +2,33 @@ import * as express from "express";
 import * as cors from "cors";
 import * as dotenv from "dotenv";
 import * as mongoose from "mongoose";
-import * as jwt from "jsonwebtoken";
+import * as cookieParser from "cookie-parser";
+import main, { login, register } from "./routes";
+
 import { Log } from "./utils/handlers/index";
+import jwtAuth from "./utils/middleware/jwtAuth";
+import bodyParser = require("body-parser");
+
 dotenv.config();
 
 const Logger = new Log();
 const app = express();
 const PORT = process.env.PORT || 4757;
-const posts = [
-  {
-    username: "Kyle",
-    title: "Post 1",
-  },
-  {
-    username: "Jim",
-    title: "Post 2",
-  },
-];
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/posts", authenticateToken, (req: any, res) => {
-  res.json(posts.filter((post) => post.username === req.user.name));
+// Routes
+app.get("/", main);
+
+app.post("/api/accounts/login", login);
+app.post("/api/accounts/register", register);
+app.post("/api/accounts/account", jwtAuth, (req: any, res) => {
+  return res.status(201).json({ success: true, user: req.user });
 });
-
-app.post("/login", (req, res) => {
-  // Authenticate User
-  const username = req.body.username;
-  const user = { name: username };
-
-  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-  res.json({ accessToken: accessToken });
-});
-
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (token === null) return res.sendStatus(401);
-
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
-
-    req.user = user;
-    next();
-  });
-}
 
 app.listen(PORT, () => {
   Logger.ready(
@@ -72,3 +52,5 @@ app.listen(PORT, () => {
       );
     });
 });
+
+export { Logger };

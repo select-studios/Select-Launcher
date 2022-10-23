@@ -3,11 +3,9 @@ import { Consola } from "consola";
 const consola: Consola = require("consola");
 
 class Log {
-  private time: Date = new Date();
-
   public info(msg: string, type?: string) {
     consola.info(
-      `${this.getLogDate(this.time)} [${
+      `${this.getLogDate(new Date())} [${
         type ? type.toLowerCase() : "other"
       }] -> ${msg}`
     );
@@ -15,7 +13,7 @@ class Log {
 
   public success(msg: string, type?: string) {
     consola.success(
-      `${this.getLogDate(this.time)} [${
+      `${this.getLogDate(new Date())} [${
         type ? type.toLowerCase() : "other"
       }] -> ${msg}`
     );
@@ -23,7 +21,7 @@ class Log {
 
   public warn(msg: string, type?: string) {
     consola.warn(
-      `${this.getLogDate(this.time)} [${
+      `${this.getLogDate(new Date())} [${
         type ? type.toLowerCase() : "other"
       }] -> ${msg}`
     );
@@ -31,7 +29,7 @@ class Log {
 
   public ready(msg: string, type?: string) {
     consola.ready(
-      `${this.getLogDate(this.time)} [${
+      `${this.getLogDate(new Date())} [${
         type ? type.toLowerCase() : "other"
       }] -> ${msg}`
     );
@@ -39,7 +37,7 @@ class Log {
 
   public error(msg: string, err: Error, type?: string) {
     consola.error(
-      `${this.getLogDate(this.time)} [${
+      `${this.getLogDate(new Date())} [${
         type ? type.toLowerCase() : "other"
       }] -> ${msg}\n\n`,
       err

@@ -3,9 +3,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3lsZSIsI
 
 ###
 
-POST http://localhost:4757/login
+POST http://localhost:4757/api/accounts/
 Content-Type: application/json
 
 {
-    "username": "Kyle"
+  "username": "kyle",
+  "password": "somethin"
 }
