@@ -21,3 +21,42 @@ To test this API, you will first need the following:
 
 - `ACCESS_TOKEN_SECRET` - Any random (but secure) string that you choose to protect the routes once it is running.
 - `MONGO_URI` - Your database's connection URI string.
+
+## Usage
+
+! Note: The base URL for the account system is `http://localhost:PORT/api/accounts/`
+
+### `Register` Route (POST)
+
+Send a request to the `api/accounts/register` route with the following body:
+
+```json
+{
+    "email": "" (required),
+    "username": "" (required),
+    "password": "" (required)
+}
+```
+
+If successful, you should get a `201` status code along with the user details. It includes the email, username, password (hashed) and also your unique user ID.
+
+### `Login` Route (POST)
+
+Send a request to the `api/accounts/login` route with the following body:
+
+```json
+{
+    "email": "" (required || !required),
+    "username": "" (required || !required),
+    "password": "" (required)
+    // Note: You can either use email or username to login
+}
+```
+
+If successful, you should get a `201` status code along with the user details. It includes the email, username, password (hashed), your unique user ID and also a JWT (don't share it with anyone). It also saves a cookie on your browser with the token for a duration of 1 hour.
+
+### `Account` Route (POST, protected)
+
+If you have logged in and received a status code of `201` on the attempt, send a request to the `api/accounts/account` route with the authorization header set to `Bearer <jwt>`.
+
+You should get a `201` status code along with the user details. It includes the email, username, password (hashed), your unique user ID and also a JWT (don't share it with anyone).
