@@ -20,7 +20,7 @@ export const login = async (req: UserI, res: Response, next: NextFunction) => {
     : await getUser({ email });
   if (!user) return res.status(403).json({ error: "User does not exist." });
 
-  bcrypt.compare(password, user.password, (err, result) => {
+  bcrypt.compare(password, user.password, async (err, result) => {
     if (err)
       return res
         .status(500)
@@ -30,14 +30,23 @@ export const login = async (req: UserI, res: Response, next: NextFunction) => {
     }
 
     delete user.password;
-    const token = jwt.sign(user.toObject(), process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "1h",
-    });
+    const accessToken = jwt.sign(
+      user.toObject(),
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
+    const refreshToken = jwt.sign(
+      user.toObject(),
+      process.env.REFRESH_TOKEN_SECRET
+    );
 
-    res.cookie("token", token);
+    await user.updateOne({ $push: { refreshTokens: refreshToken } });
+
     res.status(201).json({
       success: true,
-      user: { ...user, token },
+      user: { ...user, accessToken, refreshToken },
     });
   });
 };

@@ -3,7 +3,7 @@ import * as cors from "cors";
 import * as dotenv from "dotenv";
 import * as mongoose from "mongoose";
 import * as cookieParser from "cookie-parser";
-import main, { login, register } from "./routes";
+import main, { login, logout, refresh, register } from "./routes";
 
 import { Log } from "./utils/handlers/index";
 import jwtAuth from "./utils/middleware/jwtAuth";
@@ -26,9 +26,12 @@ app.get("/", main);
 
 app.post("/api/accounts/login", login);
 app.post("/api/accounts/register", register);
+app.post("/api/accounts/refresh", jwtAuth, refresh);
 app.post("/api/accounts/account", jwtAuth, (req: any, res) => {
   return res.status(201).json({ success: true, user: req.user });
 });
+
+app.delete("/api/accounts/logout", jwtAuth, logout);
 
 app.listen(PORT, () => {
   Logger.ready(
