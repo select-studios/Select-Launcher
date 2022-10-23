@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:select_launcher/util/colors.dart';
 import 'package:select_launcher/widgets/appbar.dart';
+import 'package:select_launcher/widgets/bounce_button.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -165,26 +166,10 @@ class _LoginState extends State<Login> {
                     child: SizedBox(
                       height: 50,
                       width: 140,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: primary,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(9.0),
-                          ),
-                          splashFactory: NoSplash.splashFactory,
-                        ),
-                        child: Text(
-                          'Submit',
-                          style: GoogleFonts.montserrat(
-                            textStyle: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
+                      child: BounceButton(
+                        buttonColor: primary,
+                        buttonContent: 'Submit',
+                        buttonOnPress: () {},
                       ),
                     ),
                   ),
@@ -203,6 +188,9 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       TextButton(
+                        style: ElevatedButton.styleFrom(
+                          splashFactory: NoSplash.splashFactory,
+                        ),
                         onPressed: () {},
                         child: Text(
                           'Create One!',

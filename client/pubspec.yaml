@@ -10,6 +10,7 @@ dependencies:
   feather_icons: ^1.2.0
   google_fonts: ^3.0.1
   flutter_color_models: ^1.3.2
+  bouncing_widget: ^2.0.0
 
 dev_dependencies:
   flutter_test:
