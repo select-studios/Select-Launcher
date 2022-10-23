@@ -23,6 +23,7 @@ class SelectAppBar extends StatelessWidget with PreferredSizeWidget {
               'assets/launcherIcon.png',
               height: 100,
               width: 70,
+              key: const Key('Select Logo'),
             ),
             const SizedBox(width: 10),
             Text(
@@ -33,6 +34,7 @@ class SelectAppBar extends StatelessWidget with PreferredSizeWidget {
                   fontSize: 30.0,
                 ),
               ),
+              key: const Key('Title'),
             )
           ],
         ),
