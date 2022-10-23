@@ -13,5 +13,6 @@ build_script:
   - flutter config --enable-windows-desktop
   - ps: cd "$env:APPVEYOR_BUILD_FOLDER\client"
   - flutter packages get
+  - flutter test
   - flutter build -v windows --debug
   - flutter build -v windows --release
