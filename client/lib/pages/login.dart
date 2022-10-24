@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:select_launcher/util/colors.dart';
 import 'package:select_launcher/widgets/appbar.dart';
 import 'package:select_launcher/widgets/bounce_button.dart';
+import 'package:select_launcher/widgets/select_input.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -96,32 +97,10 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  TextField(
+                  SelectInput(
+                    placeholder: 'Jack Mehoff',
                     obscureText: false,
-                    decoration: InputDecoration(
-                      hintText: 'Jack Mehoff',
-                      hintStyle: GoogleFonts.montserrat(
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                      fillColor: tertiaryBg,
-                      focusColor: primary,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: tertiaryBg,
-                          width: 0.0,
-                        ),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: primary, width: 2.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      filled: true,
-                    ),
+                    onChanged: (value) {},
                   ),
                   const SizedBox(height: 20),
                   Text(
@@ -134,32 +113,10 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  TextField(
+                  SelectInput(
+                    placeholder: '1234',
                     obscureText: true,
-                    decoration: InputDecoration(
-                      suffixIconColor: tertiaryBg,
-                      hintText: '1234',
-                      hintStyle: GoogleFonts.montserrat(
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                      fillColor: tertiaryBg,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: tertiaryBg,
-                          width: 0.0,
-                        ),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: primary, width: 2.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      filled: true,
-                    ),
+                    onChanged: (value) {},
                   ),
                   const SizedBox(height: 20),
                   Center(
