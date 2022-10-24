@@ -56,7 +56,7 @@ Send a request to the `api/accounts/login` route with the following body:
 
 If successful, you should get a `201` status code along with the user details. It includes the email, username, password (hashed), your unique user ID and also a JWT (don't share it with anyone). It also saves a cookie on your browser with the token for a duration of 1 hour.
 
-### `Refresh` Route (GET)
+### `Refresh` Route (POST)
 
 When you login, you get an access token which has a validity of 1 hour. After that, you will either have to logout and login again. Instead of this, just use the refresh route to get a new access token. This route is `api/accounts/refresh` with the authorization header set to `Bearer <refreshToken>`.
 
