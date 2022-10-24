@@ -12,7 +12,10 @@ const jwtAuth = (req: Request, res: Response, next: NextFunction) => {
     token,
     process.env.ACCESS_TOKEN_SECRET,
     async (err: any, user: any) => {
-      if (err) return res.sendStatus(403).json({ error: "Invalid token." });
+      if (err) {
+        res.sendStatus(403).json({ error: "Invalid token." });
+        return;
+      }
 
       const userDb = await User.findOne({ username: user.username });
       user.refreshTokens = userDb?.refreshTokens;

@@ -2,7 +2,6 @@ import { Response, NextFunction } from "express";
 import { User } from "../../../models";
 import { User as UserI } from "../../../interfaces/index";
 import bcrypt = require("bcrypt");
-import * as jwt from "jsonwebtoken";
 import { getAccessToken, getRefreshToken } from "../../../utils/helpers/genJwt";
 
 const getUser = async (query: { username?: string; email?: string }) => {
@@ -19,15 +18,21 @@ export const login = async (req: UserI, res: Response, next: NextFunction) => {
   const user = username
     ? await getUser({ username })
     : await getUser({ email });
-  if (!user) return res.status(403).json({ error: "User does not exist." });
+  if (!user) {
+    res.status(403).json({ error: "User does not exist." });
+    return;
+  }
 
   bcrypt.compare(password, user.password, async (err, result) => {
-    if (err)
-      return res
+    if (err) {
+      res
         .status(500)
         .json({ error: "There was an error checking for the password." });
+      return;
+    }
     if (!result) {
-      return res.status(403).json({ error: "Incorrect password." });
+      res.status(403).json({ error: "Incorrect password." });
+      return;
     }
 
     const accessToken = getAccessToken(user.toObject());

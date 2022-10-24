@@ -6,30 +6,30 @@ import bcrypt = require("bcrypt");
 
 export const register = async (req: Request, res: Response) => {
   const { email, username, password } = req.body;
-  if (!email || !username || !password)
-    return res
+  if (!email || !username || !password) {
+    res
       .status(400)
       .json({ error: "Please provide a valid email, username and password." });
+    return;
+  }
 
   let userDb;
 
   try {
     userDb = await User.findOne({ username, email });
   } catch (error) {
-    Logger.error("There was an error finding the user.", error);
-    return res
-      .status(500)
-      .json({ error: "There was an error finding the user." });
+    res.status(500).json({ error: "There was an error finding the user." });
+    return;
   }
 
   if (!userDb) {
     try {
       bcrypt.hash(password, 10, async (err, hash) => {
         if (err) {
-          Logger.error("There was an error hashing the password.", err);
-          return res
+          res
             .status(500)
             .json({ error: "There was an error hashing the password." });
+          return;
         }
 
         await User.create({
@@ -42,7 +42,7 @@ export const register = async (req: Request, res: Response) => {
 
           await user.updateOne({ $push: { refreshTokens: [refreshToken] } });
 
-          return res.status(201).json({
+          res.status(201).json({
             success: true,
             user: {
               userId: user._id.toString(),
@@ -56,12 +56,11 @@ export const register = async (req: Request, res: Response) => {
         });
       });
     } catch (error) {
-      Logger.error("There was an error creating the user.", error);
-      return res
-        .status(500)
-        .json({ error: "There was an error creating the user." });
+      res.status(500).json({ error: "There was an error creating the user." });
+      return;
     }
   } else {
     res.status(403).json({ error: "User already exists." });
+    return;
   }
 };
