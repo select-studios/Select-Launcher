@@ -1,15 +1,19 @@
 import { NextFunction, Response } from "express";
-import { User as UserI } from "../../../interfaces/index";
 import * as jwt from "jsonwebtoken";
+import { User } from "../../../models";
 
-const refresh = (req: any, res: Response, next: NextFunction) => {
-  const { token } = req.body;
+const refresh = async (req: any, res: Response, next: NextFunction) => {
+  const authHeader = req.headers["authorization"];
+  const refreshToken = authHeader && authHeader.split(" ")[1];
 
-  if (!token) return res.status(401).json({ error: "No token provided." });
-  if (!req.user.refreshTokens.includes(token))
+  if (!refreshToken)
+    return res.status(401).json({ error: "No token provided." });
+
+  const user = await User.findOne({ refreshTokens: [refreshToken] });
+  if (!user.refreshTokens.includes(refreshToken))
     return res.status(403).json({ error: "Invalid token." });
 
-  jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
     const accessToken = jwt.sign(
       { name: user.username },

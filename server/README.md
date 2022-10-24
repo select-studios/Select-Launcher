@@ -20,6 +20,7 @@ To test this API, you will first need the following:
 ! Note: You will need to provide the following environment variables in a separate `.env.` file:
 
 - `ACCESS_TOKEN_SECRET` - Any random (but secure) string that you choose to protect the routes once it is running.
+- `REFRESH_TOKEN_SECRET` - Any random (but secure) string that you choose to protect the refresh methods once it is running.
 - `MONGO_URI` - Your database's connection URI string.
 
 ## Usage
@@ -54,6 +55,16 @@ Send a request to the `api/accounts/login` route with the following body:
 ```
 
 If successful, you should get a `201` status code along with the user details. It includes the email, username, password (hashed), your unique user ID and also a JWT (don't share it with anyone). It also saves a cookie on your browser with the token for a duration of 1 hour.
+
+### `Refresh` Route (GET)
+
+When you login, you get an access token which has a validity of 1 hour. After that, you will either have to logout and login again. Instead of this, just use the refresh route to get a new access token. This route is `api/accounts/refresh` with the authorization header set to `Bearer <refreshToken>`.
+
+### `Logout` Route (DELETE)
+
+If you have a valid JWT, you can send a request to the `api/accounts/logout` route to logout with the authorization header set to `Bearer <jwt (your latest accessToken)>`.
+
+If successful, you should get a `204` status code.
 
 ### `Account` Route (POST, protected)
 

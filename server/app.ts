@@ -26,12 +26,12 @@ app.get("/", main);
 
 app.post("/api/accounts/login", login);
 app.post("/api/accounts/register", register);
-app.post("/api/accounts/refresh", jwtAuth, refresh);
+app.post("/api/accounts/refresh", refresh);
 app.post("/api/accounts/account", jwtAuth, (req: any, res) => {
   return res.status(201).json({ success: true, user: req.user });
 });
 
-app.delete("/api/accounts/logout", jwtAuth, logout);
+app.delete("/api/accounts/logout", logout);
 
 app.listen(PORT, () => {
   Logger.ready(
