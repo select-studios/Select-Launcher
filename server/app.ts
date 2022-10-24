@@ -6,7 +6,7 @@ import * as cookieParser from "cookie-parser";
 import main, { login, logout, refresh, register } from "./routes";
 
 import { Log } from "./utils/handlers/index";
-import jwtAuth from "./utils/middleware/jwtAuth";
+import jwtAuth from "./utils/middleware/jwt";
 import bodyParser = require("body-parser");
 
 dotenv.config();

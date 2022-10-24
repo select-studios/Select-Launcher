@@ -14,15 +14,14 @@ const refresh = async (req: any, res: Response, next: NextFunction) => {
     return res.status(403).json({ error: "Invalid token." });
 
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
     const accessToken = jwt.sign(
       { name: user.username },
       process.env.ACCESS_TOKEN_SECRET,
       {
-        expiresIn: "1h",
+        expiresIn: "15s",
       }
     );
-    res.status(201).json({ accessToken });
+    return res.status(201).json({ accessToken });
   });
 };
 

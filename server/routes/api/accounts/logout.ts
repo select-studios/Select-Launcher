@@ -9,8 +9,9 @@ export const logout = async (req: any, res: Response) => {
   if (!user) return res.status(403).json({ error: "User does not exist." });
 
   const refreshTokens = user.refreshTokens.filter(
-    (token) => token !== req.body.token
+    (token) => token !== refreshToken
   );
+
   await user.updateOne({ refreshTokens });
 
   return res.status(204).json({ success: true });

@@ -1,10 +1,16 @@
 import { Response, Request } from "express";
 import { Logger } from "../../../app";
 import { User } from "../../../models/index";
+import { getAccessToken, getRefreshToken } from "../../../utils/helpers/genJwt";
 import bcrypt = require("bcrypt");
 
 export const register = async (req: Request, res: Response) => {
   const { email, username, password } = req.body;
+  if (!email || !username || !password)
+    return res
+      .status(400)
+      .json({ error: "Please provide a valid email, username and password." });
+
   let userDb;
 
   try {
@@ -26,7 +32,16 @@ export const register = async (req: Request, res: Response) => {
             .json({ error: "There was an error hashing the password." });
         }
 
-        await User.create({ email, username, password: hash }).then((user) => {
+        await User.create({
+          email,
+          username,
+          password: hash,
+        }).then(async (user) => {
+          const refreshToken = getRefreshToken(user.toObject());
+          const accessToken = getAccessToken(user.toObject());
+
+          await user.updateOne({ $push: { refreshTokens: [refreshToken] } });
+
           return res.status(201).json({
             success: true,
             user: {
@@ -34,6 +49,8 @@ export const register = async (req: Request, res: Response) => {
               email,
               username,
               password: hash,
+              accessToken,
+              refreshToken,
             },
           });
         });

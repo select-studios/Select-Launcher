@@ -3,6 +3,7 @@ import { User } from "../../../models";
 import { User as UserI } from "../../../interfaces/index";
 import bcrypt = require("bcrypt");
 import * as jwt from "jsonwebtoken";
+import { getAccessToken, getRefreshToken } from "../../../utils/helpers/genJwt";
 
 const getUser = async (query: { username?: string; email?: string }) => {
   const userDb = query.username
@@ -29,24 +30,21 @@ export const login = async (req: UserI, res: Response, next: NextFunction) => {
       return res.status(403).json({ error: "Incorrect password." });
     }
 
-    delete user.password;
-    const accessToken = jwt.sign(
-      user.toObject(),
-      process.env.ACCESS_TOKEN_SECRET,
-      {
-        expiresIn: "1h",
-      }
-    );
-    const refreshToken = jwt.sign(
-      user.toObject(),
-      process.env.REFRESH_TOKEN_SECRET
-    );
+    const accessToken = getAccessToken(user.toObject());
+    const refreshToken = getRefreshToken(user.toObject());
 
-    await user.updateOne({ $push: { refreshTokens: refreshToken } });
+    await user.update({ $push: { refreshTokens: refreshToken } });
+    await user.save();
 
     res.status(201).json({
       success: true,
-      user: { ...user, accessToken, refreshToken },
+      user: {
+        username: user.username,
+        password: user.password,
+        email: user.email,
+        accessToken,
+        refreshToken,
+      },
     });
   });
 };
