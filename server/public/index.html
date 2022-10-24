@@ -4,14 +4,130 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>SelectStudios API</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        font-family: "Montserrat", sans-serif;
+        background-color: #242425;
+        margin: 0;
+        color: white;
+        overflow-x: hidden;
+        overflow-y: hidden;
+      }
+
+      code {
+        background-color: #5f6368;
+        border-radius: 5px;
+        padding: 5px;
+      }
+
+      .appbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 1rem;
+        background-color: #282a2d;
+        color: #fff;
+        height: 72px;
+        margin-bottom: 15px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        filter: drop-shadow(0px 11px 21px rgba(0, 0, 0, 0.25));
+      }
+
+      .appbar_text {
+        display: flex;
+        align-items: center;
+      }
+
+      .appbar_text img {
+        margin-right: 5px;
+      }
+
+      .routes {
+        display: grid;
+        justify-content: center;
+        margin-top: 30px;
+      }
+
+      .routes_list li {
+        margin-bottom: 15px;
+        list-style-type: disc;
+      }
+
+      .routes_list li a {
+        text-decoration: none;
+      }
+
+      footer {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 100px;
+        width: 100%;
+        margin-left: 5px;
+      }
+    </style>
   </head>
   <body>
-    <h1>SelectStudios API</h1>
-    <form action="POST"></form>
-    <ul>
-      <li><a href="/api/accounts/login">Login</a></li>
-      <li><a href="/api/accounts/register">Register</a></li>
-    </ul>
+    <div class="appbar">
+      <h1 class="appbar_text">
+        <img
+          src="./launcherIcon.png"
+          alt="Launcher Icon"
+          width="86.61px"
+          height="55.2px"
+        />Select Studios API
+      </h1>
+    </div>
+    <div class="routes">
+      <h2
+        style="
+          margin: auto;
+          background-color: #5f6368;
+          padding: 10px;
+          width: fit-content;
+          border-radius: 10px;
+          border: 2px solid #9980fa;
+          margin-bottom: 20px;
+        "
+      >
+        Routes
+      </h2>
+      <ul class="routes_list" style="margin-right: 15px">
+        <li>
+          <a href="/api/accounts/" style="font-weight: bold"
+            >Accounts BASE URI</a
+          >
+        </li>
+        <li>
+          <a href="/api/accounts/login"><code>POST</code> /login</a>
+        </li>
+        <li>
+          <a href="/api/accounts/register"><code>POST</code> /register</a>
+        </li>
+        <li>
+          <a href="/api/account/account"
+            ><code>POST (protected)</code> /account</a
+          >
+        </li>
+        <li>
+          <a href="/api/account/refresh"><code>POST</code> /refresh</a>
+        </li>
+        <li>
+          <a href="/api/account/logout"><code>DELETE</code> /logout</a>
+        </li>
+      </ul>
+    </div>
+    <footer>Select Studios &copy; 2022</footer>
   </body>
 </html>
