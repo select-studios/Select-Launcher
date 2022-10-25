@@ -71,3 +71,5 @@ If successful, you should get a `204` status code.
 If you have logged in and received a status code of `201` on the attempt, send a request to the `api/accounts/account` route with the authorization header set to `Bearer <jwt>`.
 
 You should get a `201` status code along with the user details. It includes the email, username, password (hashed), your unique user ID and also a JWT (don't share it with anyone).
+
+### Example Workflow

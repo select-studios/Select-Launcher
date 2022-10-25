@@ -12,14 +12,14 @@ const refresh = async (req: any, res: Response) => {
   }
 
   const user = await User.findOne({ refreshTokens: [refreshToken] });
-  if (!user.refreshTokens.includes(refreshToken)) {
+  if (!user?.refreshTokens.includes(refreshToken)) {
     res.status(403).json({ error: "Invalid token." });
     return;
   }
 
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
     const accessToken = jwt.sign(
-      { name: user.username },
+      { username: user.username, email: user.email, password: user.password },
       process.env.ACCESS_TOKEN_SECRET,
       {
         expiresIn: "15s",
