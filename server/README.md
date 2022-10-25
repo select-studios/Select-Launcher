@@ -21,6 +21,8 @@ To test this API, you will first need the following:
 
 - `ACCESS_TOKEN_SECRET` - Any random (but secure) string that you choose to protect the routes once it is running.
 - `REFRESH_TOKEN_SECRET` - Any random (but secure) string that you choose to protect the refresh methods once it is running.
+- `ACCESS_TOKEN_LIFE` - The time that the access token will last.
+- `REFRESH_TOKEN_LIFE` - The time that the refresh token will last.
 - `MONGO_URI` - Your database's connection URI string.
 
 ## Usage
@@ -75,5 +77,3 @@ You should get a `201` status code along with the user details. It includes the 
 ### Example Workflow
 
 https://user-images.githubusercontent.com/71206933/197714418-11965169-2f80-4fb7-8c90-36d03c4e699a.mp4
-
-
