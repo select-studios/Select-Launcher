@@ -1,5 +1,4 @@
 import { Response, Request } from "express";
-import { Logger } from "../../../app";
 import { User } from "../../../models/index";
 import { getAccessToken, getRefreshToken } from "../../../utils/helpers/genJwt";
 import bcrypt = require("bcrypt");

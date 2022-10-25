@@ -5,7 +5,7 @@ export const getAccessToken = (user: any) => {
   let accessToken;
   try {
     accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "15s",
+      expiresIn: process.env.ACCESS_TOKEN_LIFE,
     });
   } catch (error) {
     console.log(error);
@@ -19,7 +19,7 @@ export const getRefreshToken = (user: any) => {
   let refreshToken;
   try {
     refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, {
-      expiresIn: "1h",
+      expiresIn: process.env.REFRESH_TOKEN_LIFE,
     });
   } catch (error) {
     console.log(error);

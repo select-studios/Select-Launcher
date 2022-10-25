@@ -22,7 +22,7 @@ const refresh = async (req: any, res: Response) => {
       { username: user.username, email: user.email, password: user.password },
       process.env.ACCESS_TOKEN_SECRET,
       {
-        expiresIn: "15s",
+        expiresIn: process.env.ACCESS_TOKEN_LIFE,
       }
     );
     res.status(201).json({ accessToken });

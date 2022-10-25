@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express-serve-static-core";
 import * as jwt from "jsonwebtoken";
-import { User } from "../../models";
+import { User } from "../models";
 
 const jwtAuth = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers["authorization"];
