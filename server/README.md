@@ -73,3 +73,7 @@ If you have logged in and received a status code of `201` on the attempt, send a
 You should get a `201` status code along with the user details. It includes the email, username, password (hashed), your unique user ID and also a JWT (don't share it with anyone).
 
 ### Example Workflow
+
+https://user-images.githubusercontent.com/71206933/197714418-11965169-2f80-4fb7-8c90-36d03c4e699a.mp4
+
+
