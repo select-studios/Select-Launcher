@@ -2,7 +2,7 @@
 
 import 'package:flutter_color_models/flutter_color_models.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:select_launcher/util/colors.dart';
+import 'package:select_launcher/src/util/colors.dart';
 
 void main() {
   test(

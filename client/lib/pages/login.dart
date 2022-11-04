@@ -1,7 +1,8 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:select_launcher/util/colors.dart';
+import 'package:select_launcher/src/api/login_api.dart';
+import 'package:select_launcher/src/util/colors.dart';
 import 'package:select_launcher/widgets/appbar.dart';
 import 'package:select_launcher/widgets/bounce_button.dart';
 import 'package:select_launcher/widgets/select_input.dart';
@@ -14,6 +15,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  String username = '';
+  String password = '';
+
   Widget buildLogin() {
     return Center(
       child: Container(
@@ -100,7 +104,11 @@ class _LoginState extends State<Login> {
                   SelectInput(
                     placeholder: 'Jack Mehoff',
                     obscureText: false,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      setState(() {
+                        username = value;
+                      });
+                    },
                   ),
                   const SizedBox(height: 20),
                   Text(
@@ -116,7 +124,11 @@ class _LoginState extends State<Login> {
                   SelectInput(
                     placeholder: '1234',
                     obscureText: true,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      setState(() {
+                        password = value;
+                      });
+                    },
                   ),
                   const SizedBox(height: 20),
                   Center(
@@ -126,7 +138,9 @@ class _LoginState extends State<Login> {
                       child: BounceButton(
                         buttonColor: primary,
                         buttonContent: 'Submit',
-                        buttonOnPress: () {},
+                        buttonOnPress: () {
+                          login(username, password);
+                        },
                       ),
                     ),
                   ),

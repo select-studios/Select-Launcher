@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:select_launcher/util/colors.dart';
+import 'package:select_launcher/src/util/colors.dart';
 import 'package:bouncing_widget/bouncing_widget.dart';
 
 class BounceButton extends StatelessWidget {

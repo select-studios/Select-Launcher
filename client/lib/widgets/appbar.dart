@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:select_launcher/util/colors.dart';
+import 'package:select_launcher/src/util/colors.dart';
 
 class SelectAppBar extends StatelessWidget with PreferredSizeWidget {
   @override

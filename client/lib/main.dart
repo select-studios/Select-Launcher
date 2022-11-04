@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:select_launcher/util/colors.dart';
+import 'package:select_launcher/src/util/colors.dart';
 import 'pages/login.dart';
 
 void main() => runApp(const SelectApp());
