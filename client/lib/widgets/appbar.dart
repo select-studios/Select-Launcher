@@ -49,7 +49,7 @@ class SelectAppBar extends StatelessWidget with PreferredSizeWidget {
           bottomRight: Radius.circular(15),
         ),
       ),
-      automaticallyImplyLeading: true,
+      automaticallyImplyLeading: false,
     );
   }
 }

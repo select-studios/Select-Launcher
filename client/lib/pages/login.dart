@@ -6,6 +6,7 @@ import 'package:select_launcher/src/util/colors.dart';
 import 'package:select_launcher/widgets/appbar.dart';
 import 'package:select_launcher/widgets/bounce_button.dart';
 import 'package:select_launcher/widgets/select_input.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -138,8 +139,14 @@ class _LoginState extends State<Login> {
                       child: BounceButton(
                         buttonColor: primary,
                         buttonContent: 'Submit',
-                        buttonOnPress: () {
+                        buttonOnPress: () async {
                           login(username, password);
+                          final prefs = await SharedPreferences.getInstance();
+
+                          Navigator.of(context).pushNamed(
+                            '/home',
+                            arguments: prefs.get('username'),
+                          );
                         },
                       ),
                     ),

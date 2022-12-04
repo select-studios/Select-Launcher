@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:select_launcher/src/util/colors.dart';
-import 'pages/login.dart';
+import 'package:select_launcher/src/util/route_generator.dart';
 
 void main() => runApp(const SelectApp());
 
@@ -17,7 +17,8 @@ class SelectApp extends StatelessWidget {
         platform: TargetPlatform.windows,
         scaffoldBackgroundColor: primaryBg,
       ),
-      home: const Login(),
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
