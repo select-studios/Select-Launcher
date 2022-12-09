@@ -1,19 +1,21 @@
-import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:select_launcher/src/util/colors.dart';
+import 'package:flutter/material.dart';
 import 'package:bouncing_widget/bouncing_widget.dart';
 
-class BounceButton extends StatelessWidget {
+class BounceIconButton extends StatelessWidget {
   final Color buttonColor;
-  final String buttonContent;
+  final IconData icon;
   final double height, width;
+  final String label;
+  final Color iconColor;
   final void Function() buttonOnPress;
-  const BounceButton(
+  const BounceIconButton(
       {Key? key,
       required this.buttonColor,
-      required this.buttonContent,
+      required this.icon,
       required this.height,
       required this.width,
+      required this.label,
+      required this.iconColor,
       required this.buttonOnPress})
       : super(key: key);
 
@@ -37,15 +39,11 @@ class BounceButton extends StatelessWidget {
           color: buttonColor,
         ),
         child: Center(
-          child: Text(
-            buttonContent,
-            style: GoogleFonts.montserrat(
-              textStyle: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 16.0,
-                color: white,
-              ),
-            ),
+          child: Icon(
+            icon,
+            color: Colors.white,
+            size: 30.0,
+            semanticLabel: label,
           ),
         ),
       ),

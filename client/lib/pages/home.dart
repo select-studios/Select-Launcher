@@ -10,7 +10,9 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SelectAppBar(),
+      appBar: SelectAppBar(
+        username: username,
+      ),
       body: Center(
         child: Column(
           children: [
@@ -21,6 +23,8 @@ class Home extends StatelessWidget {
               child: BounceButton(
                 buttonColor: primary,
                 buttonContent: 'Go Back',
+                height: 70,
+                width: 200,
                 buttonOnPress: () {
                   Navigator.of(context).pushNamed('/');
                 },
