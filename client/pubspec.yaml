@@ -14,7 +14,9 @@ dependencies:
   dio: ^4.0.6 # Helps in making requests to API and downloading games
   shared_preferences: ^2.0.15 # Helps in storing settings
   archive: ^3.3.2 # Helps with unzipping games
-
+  path_provider: ^2.0.11 # Helps in getting temporary directory
+  git_clone: ^1.1.0 # Helps in downloading game info
+  git: ^2.2.0 # Command line wrapper to pull git repo
 dev_dependencies:
   flutter_test:
     sdk: flutter

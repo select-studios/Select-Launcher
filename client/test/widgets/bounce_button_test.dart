@@ -11,6 +11,8 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: BounceButton(
+            height: 100,
+            width: 200,
             buttonColor: primary,
             buttonContent: 'Username',
             buttonOnPress: () {
