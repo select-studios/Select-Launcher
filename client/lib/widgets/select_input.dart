@@ -23,7 +23,7 @@ class SelectInput extends StatelessWidget {
           textStyle: const TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 16.0,
-            color: Colors.white,
+            color: Colors.grey,
           ),
         ),
         fillColor: tertiaryBg,

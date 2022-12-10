@@ -21,7 +21,7 @@ class SelectAppBar extends StatelessWidget with PreferredSizeWidget {
     if (username == null) {
       return Container(
         decoration: BoxDecoration(
-          color: secondaryBg,
+          color: secondaryBg.withOpacity(0.6),
           borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(15),
             bottomRight: Radius.circular(15),
@@ -66,7 +66,7 @@ class SelectAppBar extends StatelessWidget with PreferredSizeWidget {
     } else {
       return Container(
         decoration: BoxDecoration(
-          color: secondaryBg,
+          color: secondaryBg.withOpacity(0.6),
           borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(15),
             bottomRight: Radius.circular(15),

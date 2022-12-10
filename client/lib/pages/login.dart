@@ -24,7 +24,7 @@ class _LoginState extends State<Login> {
       child: Container(
         // Account Background
         decoration: BoxDecoration(
-          color: secondaryBg,
+          color: secondaryBg.withOpacity(0.7),
           borderRadius: BorderRadius.circular(5),
           boxShadow: [
             BoxShadow(

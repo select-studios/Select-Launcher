@@ -25,7 +25,7 @@ class SelectApp extends StatelessWidget {
         brightness: Brightness.dark,
         primaryColorDark: primary,
         platform: TargetPlatform.windows,
-        scaffoldBackgroundColor: primaryBg,
+        scaffoldBackgroundColor: primaryBg.withOpacity(0.9),
       ),
       initialRoute: '/',
       onGenerateRoute: RouteGenerator.generateRoute,
