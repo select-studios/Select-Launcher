@@ -1,0 +1,27 @@
+POST http://localhost:4757/api/accounts/register
+Content-Type: application/json
+
+{
+    "email": "sinha.soham@outlook.com",
+    "username": "Game Glide",
+    "password": "somethingidk"
+}
+
+###
+POST http://localhost:4757/api/accounts/login
+Content-Type: application/json
+
+{
+    "username": "Game Glide",
+    "password": "somethingidk"
+}
+
+###
+POST http://localhost:4757/api/accounts/account
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR2FtZSBHbGlkZSIsImlhdCI6MTY2NjYxNDU1MSwiZXhwIjoxNjY2NjE0NTY2fQ.5qv7GDEfgRMVtmwB_tszjayRiTM4pGQg68g2eVAc0sY
+###
+DELETE http://localhost:4757/api/accounts/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzU2MzQ3NWNlODk1YmI0Y2ZkYzA2OTgiLCJlbWFpbCI6InNpbmhhLnNvaGFtQG91dGxvb2suY29tIiwidXNlcm5hbWUiOiJHYW1lIEdsaWRlIiwicGFzc3dvcmQiOiIkMmIkMTAkUGpIMEVLTElZNVlLZnlxOFhWRXZNZUptNFgwczJKMU9pS0kvQ200LjFIMVZqbE9nZGhrT0ciLCJyZWZyZXNoVG9rZW5zIjpbXSwiX192IjowLCJpYXQiOjE2NjY1OTM5NTJ9.2gWhafLT3eHWYRZ800-uiKClMbE6ASy8LxoiOve_W9k
+###
+POST  http://localhost:4757/api/accounts/refresh
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNpbmhhLnNvaGFtQG91dGxvb2suY29tIiwidXNlcm5hbWUiOiJHYW1lIEdsaWRlIiwicGFzc3dvcmQiOiIkMmIkMTAkV1BEYmRlRXV3M0hobGVYeThieENHT3RQUmVCMnIwV1RwemthcC9kV0psc0lBM3NiVWtPLlMiLCJyZWZyZXNoVG9rZW5zIjpbXSwiX2lkIjoiNjM1NjgwZDUyNmRkMGMyYjBjYzA5ODYzIiwiX192IjowLCJpYXQiOjE2NjY2MTM0NjEsImV4cCI6MTY2NjYxNzA2MX0.mSyHpCObIDbRMR0Qd4Sh1oIDvXF_rzV7nat7Px1H2oE
