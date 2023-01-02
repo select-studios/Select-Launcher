@@ -1,19 +1,15 @@
-import { AppBar } from "@/components";
 import { Button } from "@nextui-org/react";
-import { FunctionComponent } from "react";
+import { AppBar } from "@/components";
 import { Link } from "react-router-dom";
 
-interface LoginProps {}
-
-export const Login: React.FC<LoginProps> = () => {
+export const Login: React.FC = () => {
   return (
-    <div className="login">
+    <div>
       <AppBar />
-      <div>Login Page</div>
-      <div className="h-screen grid justify-center items-center">
+      <div className="login grid place-items-center mt-52">
         <div className="login__links">
-          <Link to="/">
-            <Button>Home</Button>
+          <Link to="/home">
+            <Button>Login</Button>
           </Link>
         </div>
       </div>

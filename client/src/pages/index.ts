@@ -1,2 +1,2 @@
+export { Home } from "./home/Home.page";
 export { Login } from "./login/login.page";
-export { Home } from "./home/home.page";

@@ -44,6 +44,7 @@ async function createWindow() {
       nodeIntegration: true,
       contextIsolation: false,
     },
+    autoHideMenuBar: true,
   });
 
   if (process.env.VITE_DEV_SERVER_URL) {
