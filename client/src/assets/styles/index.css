@@ -19,6 +19,14 @@ h1 {
   letter-spacing: 0.5px;
 }
 
+h2 {
+  letter-spacing: 0.3px;
+}
+
+h3 {
+  letter-spacing: 0.3px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
