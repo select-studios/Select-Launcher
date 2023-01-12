@@ -1,12 +1,4 @@
-import { useState } from "react";
-import { Button } from "@nextui-org/react";
-
-import {
-  HashRouter,
-  HashRouter as Router,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import { Home, Login } from "./pages";
 
 const App: React.FC = () => {

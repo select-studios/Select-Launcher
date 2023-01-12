@@ -11,6 +11,11 @@ module.exports = {
         "primary-base": "#9980FA",
       },
     },
+    fontFamily: {
+      montserrat: ["Montserrat", "sans-serif"],
+      inter: ["Inter", "sans-serif"],
+    },
   },
+
   plugins: [],
 };

@@ -16,15 +16,16 @@
   },
   "dependencies": {
     "@nextui-org/react": "^1.0.0-beta.11",
+    "feather-react": "^3.1.1",
     "react-router": "^6.6.1",
     "react-router-dom": "^6.6.1"
   },
   "devDependencies": {
-    "electron": "^21.3.1",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "@vitejs/plugin-react": "^3.0.0",
     "autoprefixer": "^10.4.13",
+    "electron": "^21.3.1",
     "electron-builder": "^23.6.0",
     "postcss": "^8.4.20",
     "react": "^18.2.0",

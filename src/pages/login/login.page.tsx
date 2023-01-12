@@ -10,13 +10,6 @@ export const Login: React.FC<LoginProps> = () => {
     <div className="login">
       <AppBar />
       <div>Login Page</div>
-      <div className="h-screen grid justify-center items-center">
-        <div className="login__links">
-          <Link to="/">
-            <Button>Home</Button>
-          </Link>
-        </div>
-      </div>
     </div>
   );
 };
