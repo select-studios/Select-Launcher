@@ -1,0 +1,46 @@
+{
+  "name": "select-launcher",
+  "productName": "Select Launcher",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Official launcher for all the games made by SelectStudios.",
+  "author": "Aktindo, Game Glide @Select Studios",
+  "license": "GNU Public License v3",
+  "main": "dist-electron/electron/main/index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && electron-builder"
+  },
+  "engines": {
+    "node": "^14.18.0 || >=16.0.0"
+  },
+  "dependencies": {
+    "@nextui-org/react": "^1.0.0-beta.11",
+    "react-icons": "^4.7.1",
+    "react-router": "^6.6.1",
+    "react-router-dom": "^6.6.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.8",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.9",
+    "@vitejs/plugin-react": "^3.0.0",
+    "autoprefixer": "^10.4.13",
+    "electron": "^21.3.1",
+    "electron-builder": "^23.6.0",
+    "postcss": "^8.4.20",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.56.1",
+    "tailwindcss": "^3.2.4",
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0",
+    "vite-electron-plugin": "^0.5.2",
+    "vite-plugin-electron-renderer": "^0.11.3"
+  },
+  "debug": {
+    "env": {
+      "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777"
+    }
+  }
+}

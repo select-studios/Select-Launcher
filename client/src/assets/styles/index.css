@@ -10,28 +10,24 @@ body {
 
 body {
   margin: 0;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Montserrat";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-::-moz-selection {
-  /* Code for Firefox */
-  @apply bg-blue-500;
+h1 {
+  letter-spacing: 0.5px;
 }
 
-::selection {
-  @apply bg-blue-500;
+h2 {
+  letter-spacing: 0.3px;
+}
+
+h3 {
+  letter-spacing: 0.3px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-
-button {
-  font-weight: bold !important;
-  text-transform: uppercase !important;
 }
