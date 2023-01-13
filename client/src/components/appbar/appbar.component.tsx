@@ -1,5 +1,4 @@
 import { Image } from "@nextui-org/react";
-import react from "react";
 
 export const AppBar: React.FC = () => {
   return (
@@ -11,9 +10,9 @@ export const AppBar: React.FC = () => {
           src="./src/assets/images/icon.png"
           alt="selectstudios__logo"
         />
-        <h1 className="prose text-white font-bold text-2xl pt-2">
+        <p className="ml-1 text-white font-semibold font-montserrat text-2xl">
           Select Studios
-        </h1>
+        </p>
       </section>
     </nav>
   );

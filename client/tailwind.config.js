@@ -12,9 +12,10 @@ module.exports = {
       },
     },
     fontFamily: {
-      montserrat: ["Montserrat", "sans-serif"],
       inter: ["Inter", "sans-serif"],
+      montserrat: ["Montserrat", "sans-serif"],
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+
+  plugins: [],
 };

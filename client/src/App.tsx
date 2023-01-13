@@ -1,6 +1,3 @@
-import { useState } from "react";
-import { Button } from "@nextui-org/react";
-
 import {
   HashRouter,
   HashRouter as Router,
@@ -13,7 +10,7 @@ const App: React.FC = () => {
   return (
     <>
       <HashRouter>
-        <section>
+        <section className="tracking-normal">
           <Routes>
             <Route path="/" element={<Login />} index />
             <Route path="/home" element={<Home />} />
