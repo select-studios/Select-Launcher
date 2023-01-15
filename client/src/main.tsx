@@ -5,6 +5,7 @@ import "./samples/node-api";
 import "styles/index.css";
 
 import { createTheme, NextUIProvider, Text } from "@nextui-org/react";
+import { CookiesProvider } from "react-cookie";
 
 const theme = createTheme({
   type: "dark", // it could be "light" or "dark"
@@ -31,8 +32,10 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <NextUIProvider theme={theme}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <CookiesProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </CookiesProvider>
   </NextUIProvider>
 );

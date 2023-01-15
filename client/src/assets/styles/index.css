@@ -42,3 +42,7 @@ h2,
 h3 {
   letter-spacing: 0;
 }
+
+.nextui-input-helper-text {
+  @apply text-xs !important;
+}

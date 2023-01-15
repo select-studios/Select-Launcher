@@ -4,8 +4,57 @@ import { BiUser } from "react-icons/bi";
 import { HiOutlineEye } from "react-icons/hi";
 import { HiOutlineEyeSlash } from "react-icons/hi2";
 import { FcGoogle } from "react-icons/fc";
+import { Link as LinkRoute, useNavigate } from "react-router-dom";
+import LoginInterface from "@/interfaces/LoginInterface";
+import useCookies from "react-cookie/cjs/useCookies";
+import { useForm } from "react-hook-form";
+import bcrypt from "bcrypt";
 
 export const Login: React.FC = () => {
+  const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "accessToken",
+    "refreshToken",
+  ]);
+
+  const loginUser = async (data: LoginInterface) => {
+    const res = await fetch("http://localhost:4757/api/accounts/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const resData = await res.json();
+
+    if (res.ok) {
+      const { user } = resData;
+      const { accessToken, refreshToken } = user;
+      console.log(accessToken);
+      setCookie("accessToken", accessToken, { path: "/", maxAge: 1800 });
+      setCookie("refreshToken", refreshToken, {
+        path: "/",
+        maxAge: 60 * 60 * 24 * 30,
+      });
+
+      console.log("User logged in!", resData);
+      navigate("home");
+    } else {
+      console.error("Error logging the user in!", resData);
+    }
+  };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data: LoginInterface | any) => {
+    loginUser(data);
+  };
+
   return (
     <div>
       <AppBar />
@@ -22,39 +71,50 @@ export const Login: React.FC = () => {
           </section>
           <section className="login__content flex flex-col ml-5 mr-5">
             <h2 className="text-lg font-semibold mt-5">
-              We are so glad to have you!
+              We are so glad to have you back!
             </h2>
-            <div className="login__username/password mt-5">
-              <div className="login__username">
-                <h3 className="text-base font-semibold ml-1">
-                  Username / Email
-                </h3>
-                <Input
-                  placeholder="User123"
-                  size="md"
-                  color="primary"
-                  fullWidth
-                  bordered
-                />
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="login__username/password mt-5">
+                <div className="login__username">
+                  <h3 className="text-base font-semibold ml-1">Username</h3>
+                  <Input
+                    placeholder="User123"
+                    size="md"
+                    color="primary"
+                    fullWidth
+                    bordered
+                    {...register("username")}
+                  />
+                </div>
+                <div className="login__password mt-5">
+                  <h3 className="text-base font-semibold ml-1">Password</h3>
+                  <Input.Password
+                    placeholder="12345"
+                    size="md"
+                    fullWidth
+                    bordered
+                    color="primary"
+                    visibleIcon={<HiOutlineEyeSlash />}
+                    hiddenIcon={<HiOutlineEye />}
+                    {...register("password")}
+                  />
+                </div>
               </div>
-              <div className="login__password mt-5">
-                <h3 className="text-base font-semibold ml-1">Password</h3>
-                <Input.Password
-                  placeholder="12345"
-                  size="md"
-                  fullWidth
-                  bordered
-                  color="primary"
-                  visibleIcon={<HiOutlineEyeSlash />}
-                  hiddenIcon={<HiOutlineEye />}
-                />
-              </div>
-            </div>
-            <Button color="primary" className="my-5 mx-14" size="lg">
-              Login
-            </Button>
+              <Button
+                type="submit"
+                color="primary"
+                className="my-5 mx-14"
+                size="lg"
+              >
+                Login
+              </Button>
+            </form>
+
             <p className="text-base text-center font-medium mb-5">
-              No account? <Link>Create one!</Link>
+              No account?{" "}
+              <LinkRoute to="/register">
+                <Link>Create one!</Link>
+              </LinkRoute>
             </p>
           </section>
         </div>
