@@ -3,9 +3,12 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./samples/node-api";
 import "styles/index.css";
+import * as dotenv from "dotenv";
 
 import { createTheme, NextUIProvider, Text } from "@nextui-org/react";
 import { CookiesProvider } from "react-cookie";
+
+dotenv.config();
 
 const theme = createTheme({
   type: "dark", // it could be "light" or "dark"

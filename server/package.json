@@ -8,6 +8,8 @@
   },
   "main": "./release/app.js",
   "dependencies": {
+    "@dicebear/collection": "^5.1.2",
+    "@dicebear/core": "^5.1.2",
     "@types/jsonwebtoken": "^8.5.9",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
