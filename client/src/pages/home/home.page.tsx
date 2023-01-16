@@ -1,4 +1,4 @@
-import { AppBar } from "@/components";
+import { AppBar, Loader } from "@/components";
 import { Button } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,6 +11,8 @@ export const Home: React.FC = () => {
     "accessToken",
     "refreshToken",
   ]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const logout = async () => {
@@ -27,11 +29,9 @@ export const Home: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!cookies.accessToken || !cookies.refreshToken) {
+    if (!cookies.accessToken && !cookies.refreshToken) {
       navigate("/");
-    }
-
-    if (cookies.refreshToken && !cookies.accessToken) {
+    } else if (cookies.refreshToken && !cookies.accessToken) {
       fetch("http://localhost:4757/api/accounts/refresh", {
         method: "POST",
         headers: {
@@ -44,14 +44,18 @@ export const Home: React.FC = () => {
             path: "/",
             maxAge: 1800,
           });
-        });
+          setAccessToken(cookies.accessToken);
+        })
+        .catch((e) => console.error(e));
     }
 
-    getUser(cookies.accessToken).then((data) => {
-      setUser(data);
-    });
+    accessToken &&
+      getUser(accessToken).then((data) => {
+        setUser(data);
+        setLoading(false);
+      });
   }, []);
-  return (
+  return !loading ? (
     <div className="Home">
       <AppBar />
       <div className="grid place-items-center mt-2">
@@ -61,5 +65,7 @@ export const Home: React.FC = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <Loader />
   );
 };

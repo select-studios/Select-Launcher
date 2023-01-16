@@ -8,14 +8,11 @@ import { Link as LinkRoute, useNavigate } from "react-router-dom";
 import LoginInterface from "@/interfaces/LoginInterface";
 import useCookies from "react-cookie/cjs/useCookies";
 import { useForm } from "react-hook-form";
-import bcrypt from "bcrypt";
+import { useEffect } from "react";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies([
-    "accessToken",
-    "refreshToken",
-  ]);
+  const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
 
   const loginUser = async (data: LoginInterface) => {
     const res = await fetch("http://localhost:4757/api/accounts/login", {
@@ -54,6 +51,12 @@ export const Login: React.FC = () => {
   const onSubmit = (data: LoginInterface | any) => {
     loginUser(data);
   };
+
+  useEffect(() => {
+    if (cookies.accessToken || cookies.refreshToken) {
+      navigate("/home");
+    }
+  }, []);
 
   return (
     <div>
@@ -111,10 +114,7 @@ export const Login: React.FC = () => {
             </form>
 
             <p className="text-base text-center font-medium mb-5">
-              No account?{" "}
-              <LinkRoute to="/register">
-                <Link>Create one!</Link>
-              </LinkRoute>
+              No account? <LinkRoute to="/register">Create one!</LinkRoute>
             </p>
           </section>
         </div>

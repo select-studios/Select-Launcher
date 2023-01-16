@@ -11,7 +11,7 @@ const refresh = async (req: any, res: Response) => {
     return;
   }
 
-  const user = await User.findOne({ refreshTokens: [refreshToken] });
+  const user = await User.findOne({ refreshTokens: refreshToken });
   if (!user?.refreshTokens.includes(refreshToken)) {
     res.status(403).json({ error: "Invalid token." });
     return;
