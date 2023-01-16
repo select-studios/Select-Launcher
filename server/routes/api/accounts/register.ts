@@ -5,6 +5,7 @@ import bcrypt = require("bcrypt");
 
 export const register = async (req: Request, res: Response) => {
   const { email, username, password } = req.body;
+
   if (!email || !username || !password) {
     res
       .status(400)
@@ -20,6 +21,8 @@ export const register = async (req: Request, res: Response) => {
     res.status(500).json({ error: "There was an error finding the user." });
     return;
   }
+
+  // oudpJA7XTzOQSZCiiyK5fHTA
 
   if (!userDb) {
     try {

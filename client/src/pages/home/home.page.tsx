@@ -19,23 +19,20 @@ export const Home: React.FC = () => {
     protectRoute(cookies, setCookie, setUser, setLoading, navigate);
   }, []);
   return !loading ? (
-    <div className="Home">
-      <AppBar />
-      <div className="grid place-items-center mt-2">
-        <div className="text-center">Hello {user?.username}</div>
-        <div className="login__links mt-52">
-          <Button
-            onClick={() =>
-              logout(cookies.accessToken).then(() => {
-                removeCookie("accessToken");
-                removeCookie("refreshToken");
-                navigate("/");
-              })
-            }
-          >
-            Logout
-          </Button>
-        </div>
+    <div className="home">
+      <AppBar dashboard={true} user={user} />
+      <div className="mt-5 flex justify-center">
+        <Button
+          onClick={() =>
+            logout(cookies.accessToken).then(() => {
+              removeCookie("accessToken");
+              removeCookie("refreshToken");
+              navigate("/");
+            })
+          }
+        >
+          Logout
+        </Button>
       </div>
     </div>
   ) : (

@@ -1,5 +1,5 @@
 import { Button, Input, Link } from "@nextui-org/react";
-import { AppBar } from "@/components";
+import { Alert, AppBar } from "@/components";
 import { BiUser } from "react-icons/bi";
 import { HiOutlineEye } from "react-icons/hi";
 import { HiOutlineEyeSlash } from "react-icons/hi2";
@@ -8,11 +8,16 @@ import { Link as LinkRoute, useNavigate } from "react-router-dom";
 import LoginInterface from "@/interfaces/LoginInterface";
 import useCookies from "react-cookie/cjs/useCookies";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
+  const [alert, setAlert] = useState<{
+    show: boolean;
+    msg: string;
+    type: "success" | "error";
+  }>({ show: false, msg: "", type: "error" });
 
   const loginUser = async (data: LoginInterface) => {
     const res = await fetch("http://localhost:4757/api/accounts/login", {
@@ -36,8 +41,12 @@ export const Login: React.FC = () => {
       });
 
       console.log("User logged in!", resData);
-      navigate("home");
+      setAlert({ show: true, msg: "Logged in successfully!", type: "success" });
+      setTimeout(() => {
+        navigate("home");
+      }, 1000);
     } else {
+      setAlert({ show: true, msg: resData.error, type: "error" });
       console.error("Error logging the user in!", resData);
     }
   };
@@ -73,6 +82,7 @@ export const Login: React.FC = () => {
             </h2>
           </section>
           <section className="login__content flex flex-col ml-5 mr-5">
+            {alert.show && <Alert type={alert.type} message={alert.msg} />}
             <h2 className="text-lg font-semibold mt-5">
               We are so glad to have you back!
             </h2>

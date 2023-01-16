@@ -3,7 +3,7 @@ import { Register, Home, Login } from "@/pages";
 
 const App: React.FC = () => {
   return (
-    <>
+    <div>
       <Router>
         <Routes>
           <Route path="/" element={<Login />} index />
@@ -11,7 +11,7 @@ const App: React.FC = () => {
           <Route path="/register" element={<Register />} />
         </Routes>
       </Router>
-    </>
+    </div>
   );
 };
 

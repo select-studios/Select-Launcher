@@ -1,19 +1,34 @@
-import { Image } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 
-export const AppBar: React.FC = () => {
+export interface AppBarProps {
+  user?: {
+    username?: string;
+  };
+  dashboard?: boolean;
+}
+
+export const AppBar: React.FC<AppBarProps> = ({ dashboard, user }) => {
   return (
-    <nav className="grid justify-center bg-secondary py-2 rounded-b-3xl shadow-xl">
-      <section id="brand" className="flex items-center">
-        {/* <Image
-          width={86.61}
-          height={55.2}
-          src="./src/assets/images/icon.png"
-          alt="selectstudios__logo"
-        /> */}
-        <p className="ml-1 text-white font-semibold font-montserrat text-2xl">
-          Select Studios
-        </p>
-      </section>
-    </nav>
+    <>
+      <header className="bg-secondary py-2 rounded-b-3xl shadow-xl">
+        <div className="container mx-auto flex flex-wrap p-2 flex-col md:flex-row items-center">
+          <nav className="flex lg:2/5 flex-wrap items-center text-base md:ml-auto"></nav>
+          <div className="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-gray-900 lg:items-center lg:justify-center mb-4 md:mb-0">
+            <p className="text-white font-semibold font-montserrat text-2xl">
+              Select Studios
+            </p>
+          </div>
+          <div className="lg:w-2/5 inline-flex lg:justify-end">
+            {dashboard && (
+              <div>
+                <Button className="bg-tertiary lowercase">
+                  @{user?.username}
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      </header>
+    </>
   );
 };

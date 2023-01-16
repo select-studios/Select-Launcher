@@ -33,7 +33,7 @@ code {
 
 button {
   font-weight: bold !important;
-  text-transform: uppercase !important;
+  text-transform: uppercase;
 }
 
 p,
