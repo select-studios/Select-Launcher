@@ -42,7 +42,6 @@ export const Register: React.FC<RegisterProps> = () => {
   };
 
   const onSubmit = (data: RegisterInterface | any) => {
-    console.log(data);
     registerUser(data);
   };
 
@@ -132,7 +131,10 @@ export const Register: React.FC<RegisterProps> = () => {
                           "Your password needs to be at least 8 characters long.",
                       },
                       validate: (value) =>
-                        checkPasswordStrength(value) || "Password is too weak.",
+                        checkPasswordStrength(value) ||
+                        `Password is ${passwordStrength(
+                          value
+                        ).value.toLowerCase()}. (It should contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.)`,
                     })}
                   />
                 </div>

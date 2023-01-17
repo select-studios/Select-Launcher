@@ -8,17 +8,18 @@ import { Link as LinkRoute, useNavigate } from "react-router-dom";
 import LoginInterface from "@/interfaces/LoginInterface";
 import useCookies from "react-cookie/cjs/useCookies";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
-import { removeAlert } from "@/components/alert/alert.component";
+import { useEffect } from "react";
+import { useAlert } from "@/components/alert/alert.component";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
-  const [alert, setAlert] = useState<{
-    show: boolean;
-    msg: string;
-    type: "success" | "error";
-  }>({ show: false, msg: "", type: "error" });
+  const { alert, setAlert } = useAlert();
+
+  const validateInputComponent = (component: string, color: boolean) => {
+    if (color) return (errors[component] ? "error" : "primary") as any;
+    return errors[component]?.message?.toString() || "";
+  };
 
   const loginUser = async (data: LoginInterface) => {
     const res = await fetch("http://localhost:4757/api/accounts/login", {
@@ -43,7 +44,6 @@ export const Login: React.FC = () => {
 
       console.log("User logged in!", resData);
       navigate("/home");
-      setAlert({ show: true, msg: "Logged in successfully!", type: "success" });
     } else {
       setAlert({ show: true, msg: resData.error, type: "error" });
       console.error("Error logging the user in!", resData);
@@ -64,7 +64,6 @@ export const Login: React.FC = () => {
     if (cookies.accessToken || cookies.refreshToken) {
       navigate("/home");
     }
-    removeAlert(alert, setAlert);
   }, []);
 
   return (
@@ -92,10 +91,14 @@ export const Login: React.FC = () => {
                   <Input
                     placeholder="User123"
                     size="md"
-                    color="primary"
+                    color={validateInputComponent("username", true)}
+                    helperText={validateInputComponent("username", false)}
+                    helperColor={validateInputComponent("username", true)}
                     fullWidth
                     bordered
-                    {...register("username")}
+                    {...register("username", {
+                      required: "You must enter a username.",
+                    })}
                   />
                 </div>
                 <div className="login__password mt-5">
@@ -105,10 +108,18 @@ export const Login: React.FC = () => {
                     size="md"
                     fullWidth
                     bordered
-                    color="primary"
+                    color={validateInputComponent("password", true)}
+                    helperText={validateInputComponent("password", false)}
+                    helperColor={validateInputComponent("password", true)}
                     visibleIcon={<HiOutlineEyeSlash />}
                     hiddenIcon={<HiOutlineEye />}
-                    {...register("password")}
+                    {...register("password", {
+                      required: "You must enter a password.",
+                      minLength: {
+                        value: 8,
+                        message: "Password must be at least 8 characters.",
+                      },
+                    })}
                   />
                 </div>
               </div>

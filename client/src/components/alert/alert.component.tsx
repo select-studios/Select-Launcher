@@ -7,9 +7,23 @@ interface AlertProps {
   msg: string;
 }
 
+export const useAlert = () => {
+  const [alert, setAlert] = useState<{
+    show: boolean;
+    msg: string;
+    type: "success" | "error";
+  }>({ show: false, msg: "", type: "error" });
+
+  useEffect(() => {
+    removeAlert(alert, setAlert);
+  }, [alert]);
+
+  return { alert, setAlert };
+};
+
 export const removeAlert = (alert: AlertProps, setAlert: any) => {
   setTimeout(() => {
-    if (alert.show) setAlert({ show: false, msg: alert.msg, type: "error" });
+    if (alert.show) setAlert({ show: false, msg: alert.msg, type: alert.type });
   }, 3000);
 };
 
