@@ -53,6 +53,7 @@ export const Register: React.FC<RegisterProps> = () => {
 
   const checkPasswordStrength = (password: string) => {
     const strength = passwordStrength(password);
+    console.log(strength);
     if (strength.id > 2) return true;
   };
 
@@ -130,12 +131,8 @@ export const Register: React.FC<RegisterProps> = () => {
                         message:
                           "Your password needs to be at least 8 characters long.",
                       },
-                      // validate: (value) => {
-                      //   return (
-                      //     checkPasswordStrength(value) ||
-                      //     "Password is too weak."
-                      //   );
-                      // },
+                      validate: (value) =>
+                        checkPasswordStrength(value) || "Password is too weak.",
                     })}
                   />
                 </div>

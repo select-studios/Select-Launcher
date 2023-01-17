@@ -9,12 +9,16 @@ import LoginInterface from "@/interfaces/LoginInterface";
 import useCookies from "react-cookie/cjs/useCookies";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { alertState, removeAlert } from "@/components/alert/alert.component";
+import { removeAlert } from "@/components/alert/alert.component";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
-  const [alert, setAlert] = alertState;
+  const [alert, setAlert] = useState<{
+    show: boolean;
+    msg: string;
+    type: "success" | "error";
+  }>({ show: false, msg: "", type: "error" });
 
   const loginUser = async (data: LoginInterface) => {
     const res = await fetch("http://localhost:4757/api/accounts/login", {

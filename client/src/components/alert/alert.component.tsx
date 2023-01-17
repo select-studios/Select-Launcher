@@ -13,12 +13,6 @@ export const removeAlert = (alert: AlertProps, setAlert: any) => {
   }, 3000);
 };
 
-export const alertState = useState<{
-  show: boolean;
-  msg: string;
-  type: "success" | "error";
-}>({ show: false, msg: "", type: "error" });
-
 export const Alert: FunctionComponent<AlertProps> = ({ type, msg, show }) => {
   return (
     <div
