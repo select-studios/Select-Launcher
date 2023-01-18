@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Dropdown } from "@nextui-org/react";
 
 export interface AppBarProps {
   user?: {
@@ -21,9 +21,17 @@ export const AppBar: React.FC<AppBarProps> = ({ dashboard, user }) => {
           <div className="lg:w-2/5 inline-flex lg:justify-end">
             {dashboard && (
               <div>
-                <Button className="bg-tertiary lowercase">
-                  @{user?.username}
-                </Button>
+                <Dropdown>
+                  <Dropdown.Button shadow color="primary">
+                    @{user?.username}
+                  </Dropdown.Button>
+                  <Dropdown.Menu>
+                    <Dropdown.Item key="profile">Profile</Dropdown.Item>
+                    <Dropdown.Item key="logout" withDivider color="error">
+                      logout
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </div>
             )}
           </div>
