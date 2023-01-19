@@ -8,6 +8,9 @@ import main, { login, logout, refresh, register } from "./routes";
 import { Log } from "./utils/handlers/index";
 import jwtAuth from "./middleware/jwt";
 import bodyParser = require("body-parser");
+import { Game, Token, User } from "./models";
+import gamesData from "./data/games";
+import info from "./routes/api/games/info";
 
 dotenv.config();
 
@@ -33,6 +36,29 @@ app.post("/api/accounts/account", jwtAuth, (req: any, res) => {
 
 app.delete("/api/accounts/logout", logout);
 
+app.get("/api/accounts/:id/verify/:token", async (req, res) => {
+  const { id, token } = req.params;
+
+  try {
+    const user = await User.findById(id);
+    if (!user) return res.status(404).json({ error: "Invalid link." });
+
+    const userToken = await Token.findOne({ userId: id, token });
+    if (!userToken) return res.status(404).json({ error: "Invalid link." });
+
+    await user.updateOne({ verified: true });
+    await userToken.remove();
+
+    res
+      .status(201)
+      .json({ success: true, message: "User verified successfully." });
+  } catch (err) {
+    res.status(500).json({ error: "There was an error verifying the user." });
+  }
+});
+
+app.get("/api/games/info", info);
+
 app.listen(PORT, () => {
   Logger.ready(
     `Server has been initiated and is live on http://localhost:${PORT}/`,
@@ -46,6 +72,11 @@ app.listen(PORT, () => {
         "Connection to MongoDB Cluster has been established!",
         "database"
       );
+
+      gamesData.forEach(async (game) => {
+        const { name } = game;
+        await Game.findOneAndUpdate({ name }, game, { upsert: true });
+      });
     })
     .catch((err) => {
       Logger.error(

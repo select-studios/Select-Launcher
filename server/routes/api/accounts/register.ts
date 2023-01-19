@@ -1,7 +1,9 @@
 import { Response, Request } from "express";
-import { User } from "../../../models/index";
+import { User, Token } from "../../../models/index";
 import { getAccessToken, getRefreshToken } from "../../../utils/helpers/genJwt";
+import { sendEmail } from "../../../utils/helpers/sendEmail";
 import bcrypt = require("bcrypt");
+import crypto = require("crypto");
 
 export const register = async (req: Request, res: Response) => {
   const { email, username, password } = req.body;
@@ -21,8 +23,6 @@ export const register = async (req: Request, res: Response) => {
     res.status(500).json({ error: "There was an error finding the user." });
     return;
   }
-
-  // oudpJA7XTzOQSZCiiyK5fHTA
 
   if (!userDb) {
     try {
@@ -44,8 +44,17 @@ export const register = async (req: Request, res: Response) => {
 
           await user.updateOne({ $push: { refreshTokens: [refreshToken] } });
 
+          const token = await new Token({
+            userId: user._id,
+            token: crypto.randomBytes(32).toString("hex"),
+          }).save();
+
+          const url = `http://localhost:4757/api/accounts/${user._id}/verify/${token.token}`;
+          await sendEmail(email, url);
+
           res.status(201).json({
             success: true,
+            message: "User created successfully. Pending verification.",
             user: {
               userId: user._id.toString(),
               email,
@@ -62,7 +71,7 @@ export const register = async (req: Request, res: Response) => {
       return;
     }
   } else {
-    res.status(403).json({ error: "User already exists." });
+    res.status(409).json({ error: "User already exists." });
     return;
   }
 };

@@ -34,7 +34,7 @@ export const Register: React.FC<RegisterProps> = () => {
     const resData = await res.json();
 
     if (res.ok) {
-      navigate("/");
+      navigate("/register/verify");
       console.log("User created!", resData);
     } else {
       console.error("Error creating user!", resData);
