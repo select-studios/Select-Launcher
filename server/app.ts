@@ -15,6 +15,8 @@ import updateGamesInfo from "./utils/helpers/updateGamesInfo";
 
 dotenv.config();
 
+mongoose.set("strictQuery", false);
+
 const Logger = new Log();
 const app = express();
 const PORT = process.env.PORT || 4757;
