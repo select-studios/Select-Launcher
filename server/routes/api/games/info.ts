@@ -5,16 +5,15 @@ import { Game } from "../../../models";
 const info = async (req: Request, res: Response) => {
   const { id } = req.query;
 
+  const gamesData = await Game.find({});
+
   if (!id) {
-    Game.find({}, (err, games: Games[]) => {
-      if (err) return res.status(500).json({ error: "Error fetching users" });
-      else return res.json(games);
-    });
+    if (gamesData) return res.status(201).json(gamesData);
   }
 
   await Game.findById(id).then((game) => {
     if (!game) return res.status(404).json({ error: "Game not found" });
-    else return res.json(game);
+    else return res.status(201).json(game);
   });
 };
 

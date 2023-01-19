@@ -11,6 +11,7 @@ import bodyParser = require("body-parser");
 import { Game, Token, User } from "./models";
 import gamesData from "./data/games";
 import info from "./routes/api/games/info";
+import updateGamesInfo from "./utils/helpers/updateGamesInfo";
 
 dotenv.config();
 
@@ -73,10 +74,7 @@ app.listen(PORT, () => {
         "database"
       );
 
-      gamesData.forEach(async (game) => {
-        const { name } = game;
-        await Game.findOneAndUpdate({ name }, game, { upsert: true });
-      });
+      updateGamesInfo();
     })
     .catch((err) => {
       Logger.error(
