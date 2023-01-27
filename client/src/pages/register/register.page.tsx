@@ -10,6 +10,8 @@ import { passwordStrength } from "check-password-strength";
 
 import RegisterInterface from "@/interfaces/RegisterInterface";
 import fetch from "node-fetch";
+import { Alert, useAlert } from "@/components/alert/alert.component";
+import { useCookies } from "react-cookie";
 
 interface RegisterProps {}
 
@@ -19,6 +21,9 @@ export const Register: React.FC<RegisterProps> = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "onChange" });
+
+  const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
+  const { alert, setAlert } = useAlert();
 
   const navigate = useNavigate();
 
@@ -31,17 +36,28 @@ export const Register: React.FC<RegisterProps> = () => {
       body: JSON.stringify(data),
     });
 
-    const resData = await res.json();
+    const resData: any = await res.json();
 
     if (res.ok) {
-      navigate("/register/verify");
+      const { user } = resData;
+      const { accessToken, refreshToken } = user;
+
+      setCookie("accessToken", accessToken, { path: "/", maxAge: 1800 });
+      setCookie("refreshToken", refreshToken, {
+        path: "/",
+        maxAge: 60 * 60 * 24 * 30,
+      });
+
       console.log("User created!", resData);
+      navigate("/home");
     } else {
-      console.error("Error creating user!", resData);
+      setAlert({ show: true, msg: resData.error, type: "error" });
+      console.error("Error creating the user!", resData);
     }
   };
 
   const onSubmit = (data: RegisterInterface | any) => {
+    console.log("hello");
     registerUser(data);
   };
 
@@ -176,6 +192,7 @@ export const Register: React.FC<RegisterProps> = () => {
           </Button>
         </div>
       </div>
+      <Alert show={alert.show} type={alert.type} msg={alert.msg} />
     </div>
   );
 };

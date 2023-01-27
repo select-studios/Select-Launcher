@@ -8,9 +8,7 @@ export const sendEmail = async (email: string, url: string) => {
     service: process.env.EMAIL_SERVICE,
     auth: {
       user: process.env.EMAIL_USER,
-      clientId:
-        "817129869208-frht5ve7jl5achkufp82o2ojgve52sua.apps.googleusercontent.com",
-      clientSecret: "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",
+      pass: process.env.EMAIL_PASS,
     },
   });
 

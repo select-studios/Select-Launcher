@@ -1,13 +1,19 @@
-import { Dropdown } from "@nextui-org/react";
+import { Button, Dropdown } from "@nextui-org/react";
+import { HiLogout, HiUser } from "react-icons/hi";
 
 export interface AppBarProps {
   user?: {
     username?: string;
   };
   dashboard?: boolean;
+  logoutFn?: () => void;
 }
 
-export const AppBar: React.FC<AppBarProps> = ({ dashboard, user }) => {
+export const AppBar: React.FC<AppBarProps> = ({
+  dashboard,
+  user,
+  logoutFn,
+}) => {
   return (
     <>
       <header className="bg-secondary py-2 rounded-b-3xl shadow-xl">
@@ -22,14 +28,41 @@ export const AppBar: React.FC<AppBarProps> = ({ dashboard, user }) => {
             {dashboard && (
               <div>
                 <Dropdown>
-                  <Dropdown.Button shadow color="primary">
+                  <Dropdown.Button className="bg-tertiary shadow-lg">
                     @{user?.username}
                   </Dropdown.Button>
-                  <Dropdown.Menu>
-                    <Dropdown.Item key="profile">Profile</Dropdown.Item>
-                    <Dropdown.Item key="logout" withDivider color="error">
-                      logout
+                  <Dropdown.Menu
+                    onAction={(key) => {
+                      if (key == "logout" && logoutFn) {
+                        logoutFn();
+                      }
+                    }}
+                  >
+                    <Dropdown.Item icon={<HiUser size="20" />} key="profile">
+                      Profile
                     </Dropdown.Item>
+                    <Dropdown.Item
+                      icon={<HiLogout size="20" />}
+                      key="logout"
+                      withDivider
+                      color="error"
+                    >
+                      Logout
+                    </Dropdown.Item>
+                    {/* <Dropdown.Item
+                      className="pt-2 bg-transparent"
+                      key="logout"
+                      withDivider
+                    >
+                      <Button
+                        onClick={logoutFn}
+                        ghost
+                        color="error"
+                        icon={<HiLogout size="20" />}
+                      >
+                        Logout
+                      </Button>
+                    </Dropdown.Item> */}
                   </Dropdown.Menu>
                 </Dropdown>
               </div>

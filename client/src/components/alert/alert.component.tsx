@@ -1,18 +1,22 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { HiX, HiCheck } from "react-icons/hi";
 
-interface AlertProps {
+export interface AlertProps {
   show: boolean;
   type: "success" | "error";
   msg: string;
+  hide?: boolean;
 }
 
+export const alertDefault: AlertProps = {
+  show: false,
+  msg: "",
+  type: "error",
+  hide: true,
+};
+
 export const useAlert = () => {
-  const [alert, setAlert] = useState<{
-    show: boolean;
-    msg: string;
-    type: "success" | "error";
-  }>({ show: false, msg: "", type: "error" });
+  const [alert, setAlert] = useState<AlertProps>(alertDefault);
 
   useEffect(() => {
     removeAlert(alert, setAlert);
@@ -23,7 +27,7 @@ export const useAlert = () => {
 
 export const removeAlert = (alert: AlertProps, setAlert: any) => {
   setTimeout(() => {
-    if (alert.show) setAlert({ show: false, msg: alert.msg, type: alert.type });
+    alert.show && setAlert({ show: false, msg: alert.msg, type: alert.type });
   }, 3000);
 };
 

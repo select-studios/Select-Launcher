@@ -5,7 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "@/handlers/api";
 import { useCookies } from "react-cookie";
 import protectRoute from "@/handlers/api/protectRoute";
-import { removeAlert } from "@/components/alert/alert.component";
+import {
+  alertDefault,
+  AlertProps,
+  removeAlert,
+} from "@/components/alert/alert.component";
 
 export const Home: React.FC = () => {
   const [user, setUser] = useState<any>();
@@ -15,39 +19,44 @@ export const Home: React.FC = () => {
   ]);
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingMsg, setLoadingMsg] = useState<string>("");
-  const [alert, setAlert] = useState<{
-    show: boolean;
-    msg: string;
-    type: "success" | "error";
-  }>({ show: false, msg: "", type: "error" });
+  const [alert, setAlert] = useState<AlertProps>(alertDefault);
   const navigate = useNavigate();
+
+  const logoutClient = () => {
+    logout(cookies.accessToken).then(async () => {
+      setLoading(true);
+      setLoadingMsg("Logging out...");
+
+      removeCookie("accessToken");
+      removeCookie("refreshToken");
+      navigate("/");
+    });
+  };
 
   useEffect(() => {
     protectRoute(cookies, setCookie, setUser, setLoading, navigate);
-    setAlert({ show: true, msg: "Logged in successfully!", type: "success" });
+    if (user && !user.verified)
+      setAlert({
+        show: true,
+        msg: "Please check your mail with instructions on how to verify your account.",
+        type: "error",
+        hide: false,
+      });
+    else
+      setAlert({
+        show: true,
+        msg: "Logged in successfully!",
+        type: "success",
+        hide: true,
+      });
   }, []);
 
   removeAlert(alert, setAlert);
 
   return !loading ? (
     <div className="home">
-      <AppBar dashboard={true} user={user} />
-      <div className="mt-5 flex justify-center">
-        <Button
-          onClick={() =>
-            logout(cookies.accessToken).then(async () => {
-              setLoading(true);
-              setLoadingMsg("Logging out...");
-
-              removeCookie("accessToken");
-              removeCookie("refreshToken");
-              navigate("/");
-            })
-          }
-        >
-          Logout
-        </Button>
-      </div>
+      <AppBar dashboard={true} user={user} logoutFn={logoutClient} />
+      <div className="mt-5 flex justify-center">Hello!</div>
       <Alert msg={alert.msg} show={alert.show} type={alert.type} />
     </div>
   ) : (
