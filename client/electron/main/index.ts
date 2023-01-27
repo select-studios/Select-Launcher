@@ -14,7 +14,7 @@ process.env.PUBLIC = app.isPackaged
   ? process.env.DIST
   : join(process.env.DIST_ELECTRON, "../public");
 
-import { app, BrowserWindow, shell, ipcMain } from "electron";
+import { app, BrowserWindow, shell, ipcMain, dialog } from "electron";
 import { release } from "os";
 import { join } from "path";
 
@@ -41,8 +41,8 @@ async function createWindow() {
     icon: join(process.env.PUBLIC, "favicon.ico"),
     webPreferences: {
       preload,
-      nodeIntegration: true,
-      contextIsolation: false,
+      nodeIntegration: false,
+      contextIsolation: true,
     },
     autoHideMenuBar: true,
   });
@@ -68,7 +68,13 @@ async function createWindow() {
   });
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  ipcMain.on("send-message", (event, message) => {
+    console.log(message);
+    event.returnValue = `received ${message}`;
+  });
+  createWindow();
+});
 
 app.on("window-all-closed", () => {
   win = null;
