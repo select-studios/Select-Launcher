@@ -47,6 +47,13 @@ export const Home: React.FC = () => {
         >
           Logout
         </Button>
+        <Button
+          onClick={() => {
+            window.electron.gamesAPI.sendMessage("Test Dialog");
+          }}
+        >
+          Show Dialog
+        </Button>
       </div>
       <Alert msg={alert.msg} show={alert.show} type={alert.type} />
     </div>
