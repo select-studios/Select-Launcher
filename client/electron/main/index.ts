@@ -16,9 +16,9 @@ process.env.PUBLIC = app.isPackaged
   : join(process.env.DIST_ELECTRON, "../public");
 
 import { Consola } from "consola";
-import { app, BrowserWindow, shell, ipcMain } from "electron";
+import { app, BrowserWindow, shell, ipcMain, dialog } from "electron";
 import { release } from "os";
-import { join } from "path";
+import path, { join } from "path";
 
 const logger = new Consola({});
 
@@ -42,6 +42,16 @@ const indexHtml = join(process.env.DIST, "index.html");
 logger.success("Loaded preload scripts");
 logger.success("Loaded rendered index.html");
 
+if (process.defaultApp) {
+  if (process.argv.length >= 2) {
+    app.setAsDefaultProtocolClient("select-launcher", process.execPath, [
+      path.resolve(process.argv[1]),
+    ]);
+  }
+} else {
+  app.setAsDefaultProtocolClient("select-launcher");
+}
+
 async function createWindow() {
   win = new BrowserWindow({
     title: "Main Window",
@@ -57,8 +67,6 @@ async function createWindow() {
   if (process.env.VITE_DEV_SERVER_URL) {
     // electron-vite-vue#298
     win.loadURL(url);
-    // Open devTool if the app is not packaged
-    win.webContents.openDevTools();
   } else {
     win.loadFile(indexHtml);
   }
@@ -75,25 +83,34 @@ async function createWindow() {
   });
 }
 
-try {
-  app.whenReady().then(createWindow);
-  logger.success("Created main window.");
-} catch (error) {
-  logger.error("Error creating main window.", error);
-}
-
 app.on("window-all-closed", () => {
   win = null;
   if (process.platform !== "darwin") app.quit();
 });
 
-app.on("second-instance", () => {
-  if (win) {
-    // Focus on the main window if the user tried to open another
-    if (win.isMinimized()) win.restore();
-    win.focus();
-  }
-});
+const gotTheLock = app.requestSingleInstanceLock();
+
+if (!gotTheLock) {
+  app.quit();
+} else {
+  app.on("second-instance", (event, commandLine, workingDirectory) => {
+    // Someone tried to run a second instance, we should focus our window.
+    if (win) {
+      if (win.isMinimized()) win.restore();
+      win.focus();
+    }
+  });
+
+  // Create mainWindow, load the rest of the app, etc...
+  app.whenReady().then(() => {
+    createWindow();
+  });
+
+  // Handle the protocol. In this case, we choose to show an Error Box.
+  app.on("open-url", (event, url) => {
+    dialog.showErrorBox("Welcome Back", `You arrived from: ${url}`);
+  });
+}
 
 app.on("activate", () => {
   const allWindows = BrowserWindow.getAllWindows();

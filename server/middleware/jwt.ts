@@ -17,9 +17,9 @@ const jwtAuth = (req: Request, res: Response, next: NextFunction) => {
         return;
       }
 
-      const userDb = await User.findOne({ username: user.username });
+      const userDb = await User.findOne({ _id: user._id });
       user.refreshTokens = userDb?.refreshTokens;
-      (req as any).user = user;
+      (req as any).user = userDb;
       next();
     }
   );

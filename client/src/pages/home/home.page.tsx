@@ -2,7 +2,7 @@ import { Alert, AppBar, Loader } from "@/components";
 import { Button } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { logout } from "@/handlers/api";
+import { getUser, logout } from "@/handlers/api";
 import { useCookies } from "react-cookie";
 import protectRoute from "@/handlers/api/protectRoute";
 import {
@@ -35,19 +35,12 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     protectRoute(cookies, setCookie, setUser, setLoading, navigate);
-    if (!user?.verified)
+    if (!loading && !user.verified)
       setAlert({
         show: true,
         msg: "Please check your mail with instructions on how to verify your account.",
         type: "error",
         hide: false,
-      });
-    else
-      setAlert({
-        show: true,
-        msg: "Logged in successfully!",
-        type: "success",
-        hide: true,
       });
   }, []);
 

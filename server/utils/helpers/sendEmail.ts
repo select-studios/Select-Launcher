@@ -1,4 +1,6 @@
 import nodemailer = require("nodemailer");
+import VerifyEmail from "../../data/emails/verify/verify";
+import { render } from "@react-email/render";
 
 export const sendEmail = async (email: string, url: string) => {
   const transporter = nodemailer.createTransport({
@@ -12,14 +14,13 @@ export const sendEmail = async (email: string, url: string) => {
     },
   });
 
+  const emailHtml = render(VerifyEmail({ username: email, url }));
+
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: "(SelectStudios) - Confirm your email",
-    html: `
-        <h1>Please click on the link to confirm your email</h1>
-        <p>${url}</p>
-        `,
+    subject: "[Select Studios] - Verify your account registration.",
+    html: emailHtml,
   };
 
   try {
