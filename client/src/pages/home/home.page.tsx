@@ -35,7 +35,7 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     protectRoute(cookies, setCookie, setUser, setLoading, navigate);
-    if (user && !user.verified)
+    if (!user?.verified)
       setAlert({
         show: true,
         msg: "Please check your mail with instructions on how to verify your account.",

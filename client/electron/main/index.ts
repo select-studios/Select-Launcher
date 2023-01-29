@@ -8,15 +8,19 @@
 // ├─┬ dist
 // │ └── index.html    > Electron-Renderer
 //
+
 process.env.DIST_ELECTRON = join(__dirname, "../..");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
 process.env.PUBLIC = app.isPackaged
   ? process.env.DIST
   : join(process.env.DIST_ELECTRON, "../public");
 
+import { Consola } from "consola";
 import { app, BrowserWindow, shell, ipcMain } from "electron";
 import { release } from "os";
 import { join } from "path";
+
+const logger = new Consola({});
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
@@ -35,9 +39,12 @@ const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 
+logger.success("Loaded preload scripts");
+logger.success("Loaded rendered index.html");
+
 async function createWindow() {
   win = new BrowserWindow({
-    title: "Main window",
+    title: "Main Window",
     icon: join(process.env.PUBLIC, "favicon.ico"),
     webPreferences: {
       preload,
@@ -68,7 +75,12 @@ async function createWindow() {
   });
 }
 
-app.whenReady().then(createWindow);
+try {
+  app.whenReady().then(createWindow);
+  logger.success("Created main window.");
+} catch (error) {
+  logger.error("Error creating main window.", error);
+}
 
 app.on("window-all-closed", () => {
   win = null;
