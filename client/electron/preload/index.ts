@@ -1,5 +1,3 @@
-import { contextBridge, ipcRenderer } from "electron";
-
 function domReady(
   condition: DocumentReadyState[] = ["complete", "interactive"]
 ) {
@@ -28,7 +26,3 @@ const safeDOM = {
     }
   },
 };
-
-contextBridge.exposeInMainWorld("gamesAPI", {
-  sendMessage: (message) => ipcRenderer.send("send-message", message),
-});

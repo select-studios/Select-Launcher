@@ -1,4 +1,4 @@
-const API_URI = process.env.API_URI;
+const API_URI = "http://localhost:4757/api";
 
 export const getUser = async (accessToken: string) => {
   const res = await fetch(`${API_URI}/accounts/account`, {
