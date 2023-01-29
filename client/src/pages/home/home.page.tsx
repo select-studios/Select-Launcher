@@ -1,7 +1,7 @@
 import { Alert, AppBar, Loader } from "@/components";
 import { Button } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { getUser, logout } from "@/handlers/api";
 import { useCookies } from "react-cookie";
 import protectRoute from "@/handlers/api/protectRoute";
@@ -21,6 +21,9 @@ export const Home: React.FC = () => {
   const [loadingMsg, setLoadingMsg] = useState<string>("");
   const [alert, setAlert] = useState<AlertProps>(alertDefault);
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const verified = searchParams.get("verified");
+  const userId = searchParams.get("id");
 
   const logoutClient = () => {
     logout(cookies.accessToken).then(async () => {
@@ -35,6 +38,7 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     protectRoute(cookies, setCookie, setUser, setLoading, navigate);
+
     if (!loading && !user.verified)
       setAlert({
         show: true,
@@ -42,6 +46,15 @@ export const Home: React.FC = () => {
         type: "error",
         hide: false,
       });
+
+    if (Boolean(verified)) {
+      setAlert({
+        show: true,
+        msg: "Email verified successfully!",
+        type: "success",
+        hide: false,
+      });
+    }
   }, []);
 
   removeAlert(alert, setAlert);
