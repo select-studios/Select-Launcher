@@ -29,6 +29,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.14.0",
+    "express-session": "^1.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.3",
     "node-fetch": "^3.3.0",
