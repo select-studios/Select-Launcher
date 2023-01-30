@@ -1,28 +1,36 @@
-function domReady(
-  condition: DocumentReadyState[] = ["complete", "interactive"]
-) {
-  return new Promise((resolve) => {
-    if (condition.includes(document.readyState)) {
-      resolve(true);
-    } else {
-      document.addEventListener("readystatechange", () => {
-        if (condition.includes(document.readyState)) {
-          resolve(true);
-        }
-      });
-    }
-  });
-}
+import { ipcRenderer } from "electron";
 
-const safeDOM = {
-  append(parent: HTMLElement, child: HTMLElement) {
-    if (!Array.from(parent.children).find((e) => e === child)) {
-      return parent.appendChild(child);
-    }
-  },
-  remove(parent: HTMLElement, child: HTMLElement) {
-    if (Array.from(parent.children).find((e) => e === child)) {
-      return parent.removeChild(child);
-    }
-  },
+// function domReady(
+//   condition: DocumentReadyState[] = ["complete", "interactive"]
+// ) {
+//   return new Promise((resolve) => {
+//     if (condition.includes(document.readyState)) {
+//       resolve(true);
+//     } else {
+//       document.addEventListener("readystatechange", () => {
+//         if (condition.includes(document.readyState)) {
+//           resolve(true);
+//         }
+//       });
+//     }
+//   });
+// }
+
+// const safeDOM = {
+//   append(parent: HTMLElement, child: HTMLElement) {
+//     if (!Array.from(parent.children).find((e) => e === child)) {
+//       return parent.appendChild(child);
+//     }
+//   },
+//   remove(parent: HTMLElement, child: HTMLElement) {
+//     if (Array.from(parent.children).find((e) => e === child)) {
+//       return parent.removeChild(child);
+//     }
+//   },
+// };
+
+window.gamesAPI = {
+  getStorageLocation: () => ipcRenderer.sendSync("get-storage-location"),
+  setStorageLocation: (location: string) =>
+    ipcRenderer.sendSync("set-storage-location", location),
 };

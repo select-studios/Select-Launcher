@@ -1,9 +1,8 @@
 declare global {
   interface Window {
-    electron: {
-      gamesAPI: {
-        sendMessage(message: string): void;
-      };
+    gamesAPI: {
+      getStorageLocation(): string;
+      setStorageLocation(location: string): string;
     };
   }
 }
