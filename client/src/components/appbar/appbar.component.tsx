@@ -1,9 +1,10 @@
-import { Button, Dropdown } from "@nextui-org/react";
-import { HiLogout, HiUser } from "react-icons/hi";
+import { Avatar, Button, Dropdown, User } from "@nextui-org/react";
+import { HiChevronDown, HiLogout, HiUser } from "react-icons/hi";
 
 export interface AppBarProps {
   user?: {
-    username?: string;
+    username: string;
+    email: string;
   };
   dashboard?: boolean;
   logoutFn?: () => void;
@@ -28,10 +29,19 @@ export const AppBar: React.FC<AppBarProps> = ({
             {dashboard && (
               <div>
                 <Dropdown>
-                  <Dropdown.Button className="bg-tertiary shadow-lg">
-                    @{user?.username}
+                  <Dropdown.Button className="bg-tertiary" size="lg">
+                    <div className="flex items-center">
+                      <Avatar
+                        text={user?.username.substring(0, 2)}
+                        className="mr-2"
+                        color="primary"
+                        size="md"
+                      />
+                      <span className="normal-case">@{user?.username}</span>
+                    </div>
                   </Dropdown.Button>
                   <Dropdown.Menu
+                    className="bg-secondary"
                     onAction={(key) => {
                       if (key == "logout" && logoutFn) {
                         logoutFn();
