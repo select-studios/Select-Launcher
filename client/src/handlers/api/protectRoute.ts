@@ -24,7 +24,6 @@ const protectRoute = (
         });
 
         getUser(data.accessToken).then((userData) => {
-          console.log(userData);
           setUser(userData);
           setLoading(false);
         });

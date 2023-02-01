@@ -9,6 +9,7 @@ export const getUser = async (accessToken: string) => {
   });
 
   const resData = await res.json();
+  console.log(resData);
   console.log(resData.user);
 
   if (res.ok) {
