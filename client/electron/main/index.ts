@@ -17,8 +17,12 @@ process.env.PUBLIC = app.isPackaged
 
 import { Consola } from "consola";
 import { app, BrowserWindow, shell, ipcMain, dialog } from "electron";
-import { release } from "os";
+import { release, homedir } from "os";
 import path, { join } from "path";
+import fs from "fs";
+import runIpcStorageEvents from "./ipc/ipcStorageEvents";
+import runIpcGameEvents from "./ipc/ipcGameEvents";
+import { checkIfGamesDirectoryExists } from "../api/gameManager";
 
 const logger = new Consola({});
 
@@ -67,6 +71,8 @@ async function createWindow() {
   if (process.env.VITE_DEV_SERVER_URL) {
     // electron-vite-vue#298
     win.loadURL(url);
+    // Open devTool if the app is not packaged
+    win.webContents.openDevTools();
   } else {
     win.loadFile(indexHtml);
   }
@@ -102,8 +108,18 @@ if (!gotTheLock) {
   });
 
   // Create mainWindow, load the rest of the app, etc...
-  app.whenReady().then(() => {
+  app.whenReady().then(async () => {
     createWindow();
+
+    if (!checkIfGamesDirectoryExists) {
+      fs.mkdir(path.join(homedir(), "AppData", "Roaming", "Select Games"), () =>
+        console.log("created games folder")
+      );
+      return;
+    }
+
+    runIpcStorageEvents();
+    runIpcGameEvents();
   });
 
   // Handle the protocol. In this case, we choose to show an Error Box.

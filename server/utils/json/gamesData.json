@@ -1,18 +1,29 @@
 [
   {
     "name": "AceRace",
-    "description": "A racing game with a twist",
+    "downloadName": "AceRace-1.0",
+    "description": "fast pace action experience. an experience that is hand picked to be enjoyed by players. Movement designed to immerse you in the experience of AceRace. Your objective is to reach the end of the game without dying once! Doing so will give you a surprise level!",
     "image": {
       "icon": "https://i.imgur.com/8Q9QY0l.png"
     },
-    "tags": ["fun", "racing"]
+    "tags": ["action", "momentum", "fast", "verified"]
   },
   {
-    "name": "Vandal",
-    "description": "A game about vandalism",
+    "name": "Rosehill",
+    "downloadName": "Rosehill-0.5",
+    "description": "I can't live with the idea I might never see him again, this is a death mission but I'm willing. Enter the school haunted by the past dodge anything that wants to rip your soul out of your body. Because what's on the other side is much... much more horrifying",
     "image": {
       "icon": "https://i.imgur.com/8Q9QY0l.png"
     },
-    "tags": ["fps", "new"]
+    "tags": ["development", "horror", "verified"]
+  },
+  {
+    "name": "Project L",
+    "downloadName": "Project_L-0.1",
+    "description": "In Development",
+    "image": {
+      "icon": "https://i.imgur.com/8Q9QY0l.png"
+    },
+    "tags": ["next", "verified"]
   }
 ]

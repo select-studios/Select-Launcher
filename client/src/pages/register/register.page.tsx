@@ -56,8 +56,11 @@ export const Register: React.FC<RegisterProps> = () => {
     }
   };
 
+  const handleGoogle = async (data: RegisterInterface) => {
+    const res = await fetch("http://localhost:4757/api/accounts/google", {});
+  };
+
   const onSubmit = (data: RegisterInterface | any) => {
-    console.log("hello");
     registerUser(data);
   };
 

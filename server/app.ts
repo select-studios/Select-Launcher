@@ -8,8 +8,7 @@ import main, { login, logout, refresh, register } from "./routes";
 import { Log } from "./utils/handlers/index";
 import jwtAuth from "./middleware/jwt";
 import bodyParser = require("body-parser");
-import { Game, Token, User } from "./models";
-import gamesData from "./data/games";
+import { Token, User } from "./models";
 import info from "./routes/api/games/info";
 import updateGamesInfo from "./utils/helpers/updateGamesInfo";
 
