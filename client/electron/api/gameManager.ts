@@ -33,7 +33,7 @@ export const downloadGame = async (gameName: string) => {
     });
 };
 
-export const installGame = (gameName: string) => {
+export const installGame = async (gameName: string) => {
   if (!checkIfGamesDirectoryExists()) {
     fs.mkdir(settings.getSync("locations.libraryLocation").toString(), () =>
       console.log("created games folder")
@@ -48,15 +48,12 @@ export const installGame = (gameName: string) => {
       )
     )
   ) {
-    decompress(
+    await decompress(
       path.join(
         settings.getSync("locations.libraryLocation").toString(),
         `${gameName}.zip`
       ),
-      path.join(
-        settings.getSync("locations.libraryLocation").toString(),
-        gameName
-      )
+      settings.getSync("locations.libraryLocation").toString()
     )
       .then(() => {
         return;
