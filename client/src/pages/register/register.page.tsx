@@ -1,5 +1,5 @@
 import { AppBar } from "@/components";
-import { Button, Input, Link } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import { BiUser } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
 import { HiOutlineEye } from "react-icons/hi";
@@ -56,10 +56,6 @@ export const Register: React.FC<RegisterProps> = () => {
     }
   };
 
-  const handleGoogle = async (data: RegisterInterface) => {
-    const res = await fetch("http://localhost:4757/api/accounts/google", {});
-  };
-
   const onSubmit = (data: RegisterInterface | any) => {
     registerUser(data);
   };
@@ -104,6 +100,7 @@ export const Register: React.FC<RegisterProps> = () => {
                     helperColor={validateInputComponent("email", true)}
                     helperText={validateInputComponent("email", false)}
                     fullWidth
+                    aria-label="email"
                     bordered
                     {...register("email", {
                       required: "You need to provide us with an e-mail.",
@@ -123,6 +120,7 @@ export const Register: React.FC<RegisterProps> = () => {
                     color={validateInputComponent("username", true)}
                     helperColor={validateInputComponent("username", true)}
                     helperText={validateInputComponent("username", false)}
+                    aria-label="username"
                     fullWidth
                     bordered
                     {...register("username", {
@@ -139,6 +137,7 @@ export const Register: React.FC<RegisterProps> = () => {
                     hiddenIcon={<HiOutlineEye />}
                     color={validateInputComponent("password", true)}
                     helperColor={validateInputComponent("password", true)}
+                    aria-label="password"
                     helperText={validateInputComponent("password", false)}
                     fullWidth
                     bordered
@@ -169,10 +168,7 @@ export const Register: React.FC<RegisterProps> = () => {
             </form>
 
             <p className="text-base text-center font-medium mb-5">
-              Have an account?{" "}
-              <LinkRoute to="/">
-                <Link>Login!</Link>
-              </LinkRoute>
+              Have an account? <LinkRoute to="/">Login!</LinkRoute>
             </p>
           </section>
         </div>

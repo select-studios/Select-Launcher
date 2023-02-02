@@ -19,11 +19,22 @@ export const getUser = async (accessToken: string) => {
   }
 };
 
-export const logout = async (accessToken: string) => {
+export const logout = async (
+  accessToken: string,
+  setLoading: any,
+  removeCookies: any,
+  navigate: any
+) => {
   await fetch(`${API_URI}/accounts/logout`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
+  }).then(() => {
+    setLoading({ state: true, message: "Logging out..." });
+    removeCookies("accessToken");
+    removeCookies("refreshToken");
+
+    navigate("/");
   });
 };

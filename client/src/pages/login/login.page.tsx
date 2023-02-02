@@ -35,7 +35,7 @@ export const Login: React.FC = () => {
     if (res.ok) {
       const { user } = resData;
       const { accessToken, refreshToken } = user;
-      console.log(accessToken);
+
       setCookie("accessToken", accessToken, { path: "/", maxAge: 1800 });
       setCookie("refreshToken", refreshToken, {
         path: "/",
@@ -91,6 +91,7 @@ export const Login: React.FC = () => {
                   <Input
                     placeholder="User123"
                     size="md"
+                    aria-label="Username"
                     color={validateInputComponent("username", true)}
                     helperText={validateInputComponent("username", false)}
                     helperColor={validateInputComponent("username", true)}
@@ -109,6 +110,7 @@ export const Login: React.FC = () => {
                     fullWidth
                     bordered
                     color={validateInputComponent("password", true)}
+                    aria-label="Username"
                     helperText={validateInputComponent("password", false)}
                     helperColor={validateInputComponent("password", true)}
                     visibleIcon={<HiOutlineEyeSlash />}

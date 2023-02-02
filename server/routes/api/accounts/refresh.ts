@@ -12,19 +12,14 @@ const refresh = async (req: any, res: Response) => {
   }
 
   const user = await User.findOne({ refreshTokens: refreshToken });
+
   if (!user?.refreshTokens.includes(refreshToken)) {
     res.status(403).json({ error: "Invalid token." });
     return;
   }
 
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-    const accessToken = jwt.sign(
-      { username: user.username, email: user.email, password: user.password },
-      process.env.ACCESS_TOKEN_SECRET,
-      {
-        expiresIn: process.env.ACCESS_TOKEN_LIFE,
-      }
-    );
+    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
     res.status(201).json({ accessToken });
   });
 };
