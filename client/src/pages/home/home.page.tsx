@@ -1,4 +1,4 @@
-import { Alert, AppBar, Loader } from "@/components";
+import { Alert, AppBar, Loader, Sidebar } from "@/components";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "@/handlers/api";
@@ -27,10 +27,13 @@ export const Home: React.FC = () => {
   }, []);
 
   return !loading ? (
-    <div className="home">
+    <>
       <AppBar dashboard={true} user={user} logoutFn={logoutClient} />
-      <div className="mt-5 flex justify-center">Hello!</div>
-    </div>
+      <div className="home mt-10 inline-block w-full">
+        <div className="flex justify-center">Hello!</div>
+      </div>
+      <Sidebar />
+    </>
   ) : (
     <Loader msg={loading.msg} />
   );

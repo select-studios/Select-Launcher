@@ -11,6 +11,8 @@ import bodyParser = require("body-parser");
 import { Token, User } from "./models";
 import info from "./routes/api/games/info";
 import updateGamesInfo from "./utils/helpers/updateGamesInfo";
+import crypto = require("crypto");
+import { sendEmail } from "./utils/helpers/sendEmail";
 
 dotenv.config();
 
@@ -36,9 +38,38 @@ app.post("/api/accounts/account", jwtAuth, (req: any, res) => {
   return res.status(201).json({ success: true, user: req.user });
 });
 
+app.post("/api/accounts/verify/link", jwtAuth, async (req: any, res) => {
+  const { user } = req;
+
+  if (!user)
+    return res
+      .status(403)
+      .json({ success: false, msg: "User does not exist." });
+  else if (!user.verified) {
+    let token = await Token.findOne({ userId: user._id });
+    if (token) {
+      await token.remove();
+    }
+
+    const newToken = await new Token({
+      userId: user._id,
+      token: crypto.randomBytes(32).toString("hex"),
+    }).save();
+
+    const url = `http://localhost:4757/api/accounts/${user._id}/verify/token/${newToken.token}`;
+    await sendEmail(user.email, url);
+
+    return res
+      .status(201)
+      .json({ msg: "An e-mail has been sent to your account." });
+  } else {
+    return res.status(401).json({ msg: "User is already verified." });
+  }
+});
+
 app.delete("/api/accounts/logout", logout);
 
-app.get("/api/accounts/:id/verify/:token", async (req, res) => {
+app.get("/api/accounts/:id/verify/token/:token", async (req, res) => {
   const { id, token } = req.params;
 
   try {

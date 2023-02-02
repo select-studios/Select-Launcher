@@ -38,3 +38,15 @@ export const logout = async (
     navigate("/");
   });
 };
+
+export const sendVerificationLink = async (accessToken: string) => {
+  await fetch(`${API_URI}/accounts/verify/link`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${accessToken}` },
+  }).then(async (res) => {
+    const data = await res.json();
+    console.log(data);
+
+    return data.msg;
+  });
+};

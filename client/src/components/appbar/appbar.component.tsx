@@ -1,10 +1,14 @@
+import { sendVerificationLink } from "@/handlers/api";
 import { Avatar, Button, Dropdown, User } from "@nextui-org/react";
-import { HiChevronDown, HiLogout, HiUser } from "react-icons/hi";
+import { useCookies } from "react-cookie";
+import { HiCheck, HiChevronDown, HiLogout, HiUser, HiX } from "react-icons/hi";
+import { HiBellAlert } from "react-icons/hi2";
 
 export interface AppBarProps {
   user?: {
     username: string;
     email: string;
+    verified: boolean;
   };
   dashboard?: boolean;
   logoutFn?: () => void;
@@ -15,9 +19,14 @@ export const AppBar: React.FC<AppBarProps> = ({
   user,
   logoutFn,
 }) => {
+  const [cookies, setCookies, removeCookies] = useCookies([
+    "accessToken",
+    "refreshToken",
+  ]);
+
   return (
     <>
-      <header className="bg-secondary py-2 rounded-b-3xl shadow-xl">
+      <header className="w-full bg-secondary py-2 rounded-b-3xl shadow-xl">
         <div className="container mx-auto flex flex-wrap p-2 flex-col md:flex-row items-center">
           <nav className="flex lg:2/5 flex-wrap items-center text-base md:ml-auto"></nav>
           <div className="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-gray-900 lg:items-center lg:justify-center mb-4 md:mb-0">
@@ -45,11 +54,29 @@ export const AppBar: React.FC<AppBarProps> = ({
                     onAction={(key) => {
                       if (key == "logout" && logoutFn) {
                         logoutFn();
+                      } else if (key == "verified" && !user?.verified) {
+                        sendVerificationLink(cookies.accessToken);
                       }
                     }}
                   >
                     <Dropdown.Item icon={<HiUser size="20" />} key="profile">
                       Profile
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      icon={
+                        user?.verified ? (
+                          <HiCheck size="20" />
+                        ) : (
+                          <HiBellAlert size="20" />
+                        )
+                      }
+                      key="verified"
+                      color={user?.verified ? "success" : "warning"}
+                      description={
+                        user?.verified ? "" : "Resend verification link."
+                      }
+                    >
+                      {user?.verified ? "Verified" : "Not verified"}
                     </Dropdown.Item>
                     <Dropdown.Item
                       icon={<HiLogout size="20" />}
@@ -59,20 +86,6 @@ export const AppBar: React.FC<AppBarProps> = ({
                     >
                       Logout
                     </Dropdown.Item>
-                    {/* <Dropdown.Item
-                      className="pt-2 bg-transparent"
-                      key="logout"
-                      withDivider
-                    >
-                      <Button
-                        onClick={logoutFn}
-                        ghost
-                        color="error"
-                        icon={<HiLogout size="20" />}
-                      >
-                        Logout
-                      </Button>
-                    </Dropdown.Item> */}
                   </Dropdown.Menu>
                 </Dropdown>
               </div>

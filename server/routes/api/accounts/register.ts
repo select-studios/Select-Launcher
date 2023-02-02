@@ -49,7 +49,7 @@ export const register = async (req: Request, res: Response) => {
             token: crypto.randomBytes(32).toString("hex"),
           }).save();
 
-          const url = `http://localhost:4757/api/accounts/${user._id}/verify/${token.token}`;
+          const url = `http://localhost:4757/api/accounts/${user._id}/verify/token/${token.token}`;
           await sendEmail(email, url);
 
           res.status(201).json({
