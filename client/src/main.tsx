@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { HashRouter as Router } from "react-router-dom";
 import App from "./App";
 import "./samples/node-api";
 import "styles/index.css";
@@ -37,7 +38,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <NextUIProvider theme={theme}>
     <CookiesProvider>
       <React.StrictMode>
-        <App />
+        <Router>
+          <App />
+        </Router>
       </React.StrictMode>
     </CookiesProvider>
   </NextUIProvider>

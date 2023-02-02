@@ -1,3 +1,5 @@
+import GameInfo from "@/interfaces/GameInfoInterface";
+
 const API_URI = "http://localhost:4757/api";
 
 export const getUser = async (accessToken: string) => {
@@ -9,13 +11,26 @@ export const getUser = async (accessToken: string) => {
   });
 
   const resData = await res.json();
-  console.log(resData);
-  console.log(resData.user);
 
   if (res.ok) {
     return resData.user;
   } else {
     console.error("Error getting user!", resData);
+  }
+};
+
+export const getGameInfo = async () => {
+  const res = await fetch(`${API_URI}/games/info`, {
+    method: "GET",
+  });
+
+  const resData: GameInfo[] = await res.json();
+
+  if (res.ok) {
+    return resData;
+  } else {
+    console.error("Error getting Game Info!");
+    return undefined;
   }
 };
 
@@ -45,7 +60,6 @@ export const sendVerificationLink = async (accessToken: string) => {
     headers: { Authorization: `Bearer ${accessToken}` },
   }).then(async (res) => {
     const data = await res.json();
-    console.log(data);
 
     return data.msg;
   });
