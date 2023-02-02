@@ -3,6 +3,7 @@ declare global {
     gamesAPI: {
       getStorageLocation(): string;
       setStorageLocation(location: string): string;
+      downloadGame(game: string): string;
     };
   }
 }

@@ -21,6 +21,7 @@ import { release, homedir } from "os";
 import path, { join } from "path";
 import fs from "fs";
 import runIpcStorageEvents from "./ipc/ipcStorageEvents";
+import runIpcGameEvents from "./ipc/ipcGameEvents";
 import { checkIfGamesDirectoryExists } from "../api/gameManager";
 
 const logger = new Consola({});
@@ -118,6 +119,7 @@ if (!gotTheLock) {
     }
 
     runIpcStorageEvents();
+    runIpcGameEvents();
   });
 
   // Handle the protocol. In this case, we choose to show an Error Box.

@@ -33,4 +33,7 @@ window.gamesAPI = {
   getStorageLocation: () => ipcRenderer.sendSync("get-storage-location"),
   setStorageLocation: (location: string) =>
     ipcRenderer.sendSync("set-storage-location", location),
+  downloadGame: (game: string) => ipcRenderer.sendSync("download-game", game),
+  installGame: (game: string) => ipcRenderer.sendSync("install-game", game),
+  cleanupGame: (game: string) => ipcRenderer.sendSync("cleanup-game", game),
 };
