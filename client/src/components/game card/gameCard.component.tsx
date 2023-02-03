@@ -7,7 +7,11 @@ import {
   Button,
   Row,
   Spacer,
+  Image,
+  Avatar,
+  Tooltip,
 } from "@nextui-org/react";
+import { HiCheckBadge } from "react-icons/hi2";
 
 interface GameCardProps {
   game: GameInfo;
@@ -19,43 +23,50 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
       isPressable
       isHoverable
       css={{ maxWidth: "400px" }}
-      className="bg-secondary"
+      className="bg-secondary m-5 py-2 px-3 h-48"
     >
       <Card.Header>
-        <img src={game.image.icon} alt="game icon" height={34} width={34} />
+        <Avatar src={game.image.icon} alt={game.name + " Icon"} size="lg" />
         <Grid.Container css={{ pl: "$6" }}>
           <Grid xs={12}>
-            <Text h4 css={{ lineHeight: "$xs" }}>
+            <Text
+              className="text-2xl font-montserrat font-bold flex items-center"
+              css={{ lineHeight: "$xs" }}
+            >
               {game.name}
+              {game.verified && (
+                <Tooltip content="Verified">
+                  <Badge
+                    size="sm"
+                    color="success"
+                    className="ml-1"
+                    disableOutline
+                    variant="flat"
+                  >
+                    <HiCheckBadge size="20" />
+                  </Badge>
+                </Tooltip>
+              )}
             </Text>
           </Grid>
-          <Row>
-            {game.tags.map((tag) => {
-              if (tag === "verified") {
-                return (
-                  <>
-                    <Badge disableOutline enableShadow color="success">
-                      {tag}
-                    </Badge>
-                    <Spacer x={0.2} />
-                  </>
-                );
-              } else {
-                return (
-                  <>
-                    <Badge disableOutline enableShadow>
-                      {tag}
-                    </Badge>
-                    <Spacer x={0.2} />
-                  </>
-                );
-              }
-            })}
+          <Row className="mt-1">
+            {game.tags.map((tag, i) => (
+              <Badge
+                key={i}
+                color="default"
+                className="border-none mr-1"
+                disableOutline
+                size={"sm"}
+              >
+                {tag}
+              </Badge>
+            ))}
           </Row>
         </Grid.Container>
       </Card.Header>
       <Card.Body css={{ py: "$2" }}>
         <Text
+          className="font-medium font-inter"
           css={{
             textOverflow: "ellipsis",
             overflow: "hidden",
@@ -65,13 +76,13 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
           {game.description}
         </Text>
       </Card.Body>
+      <Card.Divider />
       <Card.Footer>
-        <Row justify="flex-start">
-          <Button size="sm" color="primary">
+        <Row justify="flex-end">
+          <Button size="sm" color="primary" auto className="mr-2">
             download
           </Button>
-          <Spacer x={0.5} />
-          <Button size="sm" bordered>
+          <Button size="sm" className="bg-tertiary">
             Learn more
           </Button>
         </Row>

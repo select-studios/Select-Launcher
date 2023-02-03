@@ -7,6 +7,7 @@ const game = new mongoose.Schema({
     icon: { type: String, required: true },
   },
   tags: { type: [String], required: true },
+  verified: { type: Boolean, required: true },
 });
 
 const Game = mongoose.model("game", game);

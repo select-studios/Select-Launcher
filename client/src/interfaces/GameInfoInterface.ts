@@ -6,6 +6,7 @@ export default interface GameInfo {
   description: string;
   image: Image;
   tags: string[];
+  verified: boolean;
 }
 
 export interface Image {

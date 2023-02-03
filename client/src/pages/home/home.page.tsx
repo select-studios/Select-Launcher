@@ -41,23 +41,19 @@ export const Home: React.FC = () => {
 
   return !loading ? (
     <div>
-      <AppBar dashboard={true} user={user} logoutFn={logoutClient} />
       <motion.div exit={{ opacity: 0 }}>
-        <div className="home mt-10 inline-block w-full">
-          <div className="">
-            <Sidebar />
-            <div
-              style={{
-                marginLeft: "15rem",
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gridGap: "30px",
-                alignItems: "start",
-              }}
-            >
-              {gamesInfo?.map((gameInfo) => {
-                return <GameCard game={gameInfo} />;
-              })}
+        <div className="home w-full">
+          <AppBar dashboard={true} user={user} logoutFn={logoutClient} />
+
+          <div className="flex">
+            <Sidebar active="home" />
+
+            <div className="grid mt-10">
+              <div className="mt ml-16 grid-space">
+                {gamesInfo?.map((gameInfo, i) => {
+                  return <GameCard key={i} game={gameInfo} />;
+                })}
+              </div>
             </div>
           </div>
         </div>

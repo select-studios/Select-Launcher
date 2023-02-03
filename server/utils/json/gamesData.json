@@ -6,7 +6,8 @@
     "image": {
       "icon": "https://i.imgur.com/8Q9QY0l.png"
     },
-    "tags": ["action", "momentum", "fast", "verified"]
+    "tags": ["action", "momentum", "fast"],
+    "verified": true
   },
   {
     "name": "Rosehill",
@@ -15,7 +16,8 @@
     "image": {
       "icon": "https://i.imgur.com/8Q9QY0l.png"
     },
-    "tags": ["development", "horror", "verified"]
+    "tags": ["development", "horror"],
+    "verified": true
   },
   {
     "name": "Project L",
@@ -24,6 +26,7 @@
     "image": {
       "icon": "https://i.imgur.com/8Q9QY0l.png"
     },
-    "tags": ["next", "verified"]
+    "tags": ["next"],
+    "verified": true
   }
 ]
