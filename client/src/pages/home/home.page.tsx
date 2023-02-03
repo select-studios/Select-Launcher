@@ -48,8 +48,8 @@ export const Home: React.FC = () => {
           <div className="flex">
             <Sidebar active="home" />
 
-            <div className="grid mt-10">
-              <div className="mt ml-16 grid-space">
+            <div className="mt-10">
+              <div className="grid w-full ml-16 grid-cols-3">
                 {gamesInfo?.map((gameInfo, i) => {
                   return <GameCard key={i} game={gameInfo} />;
                 })}

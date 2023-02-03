@@ -1,15 +1,8 @@
 import { Button } from "@nextui-org/react";
-import {
-  HiCog,
-  HiDownload,
-  HiHome,
-  HiMenuAlt1,
-  HiShoppingBag,
-} from "react-icons/hi";
-import { ImCog, ImDownload } from "react-icons/im";
-import { BsFillBagFill } from "react-icons/bs";
-import { useLocation } from "react-router";
+import { HiCog, HiDownload, HiHome, HiMenuAlt1 } from "react-icons/hi";
 import { BiShoppingBag } from "react-icons/bi";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 interface SidebarProps {
   active: string;
@@ -21,54 +14,85 @@ interface SidebarLinks {
   icon: JSX.Element;
 }
 
-const sidebarLinks: SidebarLinks[] = [
-  {
-    name: "Home",
-    href: "/",
-    icon: <HiHome size="20" />,
+const sidebarVariants = {
+  sidebarOpen: {
+    width: "300px",
+    transition: {
+      when: "beforeChildren",
+    },
   },
-  {
-    name: "Store",
-    href: "/store",
-    icon: <BiShoppingBag size="20" />,
+
+  sidebarClosed: {
+    width: "",
   },
-  {
-    name: "Library",
-    href: "/library",
-    icon: <HiDownload size="20" />,
-  },
-  {
-    name: "Settings",
-    href: "/settings",
-    icon: <HiCog size="20" />,
-  },
-];
+};
 
 export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
+  const [isOpen, setOpen] = useState(true);
+
+  const iconSize = isOpen ? "20" : "25";
+
+  const sidebarLinks: SidebarLinks[] = [
+    {
+      name: "Home",
+      href: "/",
+      icon: <HiHome size={iconSize} />,
+    },
+    {
+      name: "Store",
+      href: "/store",
+      icon: <BiShoppingBag size={iconSize} />,
+    },
+    {
+      name: "Library",
+      href: "/library",
+      icon: <HiDownload size={iconSize} />,
+    },
+    {
+      name: "Settings",
+      href: "/settings",
+      icon: <HiCog size={iconSize} />,
+    },
+  ];
+
   return (
-    <div className="my-auto bg-secondary mt-10">
-      <Button size="lg" auto className="ml-5 mt-5">
-        <HiMenuAlt1 size="25" className="font-bold" />
-      </Button>
-      <div className="flex flex-col h-screen rounded-tr-xl rounded-br-xl p-5">
-        <div className="grid justify-center mt-5">
-          {sidebarLinks.map((link, i) => (
+    <motion.div
+      variants={sidebarVariants}
+      animate={isOpen ? "sidebarOpen" : "sidebarClosed"}
+    >
+      <div className="bg-secondary mt-10 rounded-tr-xl rounded-br-xl">
+        <div className="flex flex-col flex-1 p-5">
+          <div>
             <Button
-              href={link.href}
-              className={`bg-tertiary mt-2 ${
-                link.name.toLowerCase() == active
-                  ? "border-l-4 border-y-0 border-r-0 rounded-l-md border-solid border-primary-base"
-                  : ""
-              }`}
-              icon={link.icon}
-              key={i}
               size="lg"
+              color="primary"
+              className={!isOpen ? "bg-tertiary" : ""}
+              auto
+              onClick={() => setOpen(!isOpen)}
             >
-              {link.name}
+              <HiMenuAlt1 size="25" className="font-bold" />
             </Button>
-          ))}
+          </div>
+          <div className="grid justify-center mt-5">
+            {sidebarLinks.map((link, i) => (
+              <Button
+                href={link.href}
+                className={`bg-tertiary mt-2 ${
+                  link.name.toLowerCase() == active
+                    ? "border-l-2 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
+                    : ""
+                }`}
+                icon={link.icon}
+                key={i}
+                size="lg"
+                auto={!isOpen}
+              >
+                {isOpen && link.name}
+              </Button>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
