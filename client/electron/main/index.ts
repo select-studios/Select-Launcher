@@ -106,7 +106,7 @@ if (!gotTheLock) {
       win.focus();
       win.reload();
       console.log(commandLine);
-      if (commandLine[1] === "select-launcher://verify") {
+      if (commandLine[3].includes("select-launcher://home")) {
         dialog.showMessageBox({
           type: "info",
           title: "Select Launcher",
