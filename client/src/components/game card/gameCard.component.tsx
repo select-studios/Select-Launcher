@@ -11,6 +11,7 @@ import {
   Avatar,
   Tooltip,
 } from "@nextui-org/react";
+import { HiDownload } from "react-icons/hi";
 import { HiCheckBadge } from "react-icons/hi2";
 
 interface GameCardProps {
@@ -23,7 +24,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
       isPressable
       isHoverable
       css={{ maxWidth: "400px" }}
-      className="bg-secondary m-5 py-2 px-3 h-48"
+      className="bg-secondary m-5 py-2 px-3 h-fit"
     >
       <Card.Header>
         <Avatar src={game.image.icon} alt={game.name + " Icon"} size="lg" />
@@ -39,7 +40,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
                   <Badge
                     size="sm"
                     color="success"
-                    className="ml-1"
+                    className="ml-1 bg-primary"
                     disableOutline
                     variant="flat"
                   >
@@ -68,9 +69,8 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
         <Text
           className="font-medium font-inter"
           css={{
-            textOverflow: "ellipsis",
+            overflowWrap: "break-word",
             overflow: "hidden",
-            whiteSpace: "nowrap",
           }}
         >
           {game.description}
@@ -79,11 +79,17 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
       <Card.Divider />
       <Card.Footer>
         <Row justify="flex-end">
-          <Button size="sm" color="primary" auto className="mr-2">
-            download
-          </Button>
-          <Button size="sm" className="bg-tertiary">
+          <Button size="md" className="bg-tertiary">
             Learn more
+          </Button>
+          <Button
+            icon={<HiDownload size="20" />}
+            size="md"
+            color="primary"
+            auto
+            className="ml-2"
+          >
+            download
           </Button>
         </Row>
       </Card.Footer>

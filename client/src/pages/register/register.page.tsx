@@ -188,6 +188,7 @@ export const Register: React.FC<RegisterProps> = () => {
                 icon={<FcGoogle size={30} />}
                 size="lg"
                 className="bg-tertiary"
+                disabled
               >
                 <b className="ml-9">Continue with Google</b>
               </Button>

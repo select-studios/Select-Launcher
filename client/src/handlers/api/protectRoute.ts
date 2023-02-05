@@ -25,6 +25,7 @@ const protectRoute = (
 
         getUser(data.accessToken).then((userData) => {
           setUser(userData);
+          console.log(userData);
           setLoading(false);
         });
       })
@@ -32,6 +33,7 @@ const protectRoute = (
   } else {
     getUser(cookies.accessToken).then((data) => {
       setUser(data);
+      console.log(data, "from protectRoute");
       setLoading(false);
     });
   }

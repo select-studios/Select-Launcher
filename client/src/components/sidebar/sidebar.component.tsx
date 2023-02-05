@@ -1,8 +1,9 @@
-import { Button } from "@nextui-org/react";
+import { Button, Tooltip } from "@nextui-org/react";
 import { HiCog, HiDownload, HiHome, HiMenuAlt1 } from "react-icons/hi";
 import { BiShoppingBag } from "react-icons/bi";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router";
 
 interface SidebarProps {
   active: string;
@@ -29,13 +30,14 @@ const sidebarVariants = {
 
 export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
   const [isOpen, setOpen] = useState(true);
+  const navigate = useNavigate();
 
   const iconSize = isOpen ? "20" : "25";
 
   const sidebarLinks: SidebarLinks[] = [
     {
       name: "Home",
-      href: "/",
+      href: "/home",
       icon: <HiHome size={iconSize} />,
     },
     {
@@ -58,6 +60,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
   return (
     <motion.div
       variants={sidebarVariants}
+      initial={false}
       animate={isOpen ? "sidebarOpen" : "sidebarClosed"}
     >
       <div className="bg-secondary mt-10 rounded-tr-xl rounded-br-xl">
@@ -76,7 +79,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
           <div className="grid justify-center mt-5">
             {sidebarLinks.map((link, i) => (
               <Button
-                href={link.href}
+                onClick={() => navigate(link.href)}
                 className={`bg-tertiary mt-2 ${
                   link.name.toLowerCase() == active
                     ? "border-l-2 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"

@@ -19,10 +19,9 @@ export const AppBar: React.FC<AppBarProps> = ({
   user,
   logoutFn,
 }) => {
-  const [cookies, setCookies, removeCookies] = useCookies([
-    "accessToken",
-    "refreshToken",
-  ]);
+  const [cookies] = useCookies(["accessToken", "refreshToken"]);
+
+  console.log(user?.username);
 
   return (
     <>
@@ -58,6 +57,7 @@ export const AppBar: React.FC<AppBarProps> = ({
                         sendVerificationLink(cookies.accessToken);
                       }
                     }}
+                    disabledKeys={["profile"]}
                   >
                     <Dropdown.Item icon={<HiUser size="20" />} key="profile">
                       Profile

@@ -35,6 +35,7 @@ app.post("/api/accounts/login", login);
 app.post("/api/accounts/register", register);
 app.post("/api/accounts/refresh", refresh);
 app.post("/api/accounts/account", jwtAuth, (req: any, res) => {
+  console.log(req.user);
   return res.status(201).json({ success: true, user: req.user });
 });
 

@@ -105,6 +105,14 @@ if (!gotTheLock) {
       if (win.isMinimized()) win.restore();
       win.focus();
       win.reload();
+      console.log(commandLine);
+      if (commandLine[1] === "select-launcher://verify") {
+        dialog.showMessageBox({
+          type: "info",
+          title: "Select Launcher",
+          message: "Account verification successful!",
+        });
+      }
     }
   });
 

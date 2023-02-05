@@ -35,20 +35,10 @@ export const login = async (req: UserI, res: Response, next: NextFunction) => {
       return;
     }
 
-    const accessToken = getAccessToken({
-      userId: user._id,
-      username,
-      email,
-      password,
-    });
-    const refreshToken = getRefreshToken({
-      userId: user._id,
-      username,
-      email,
-      password,
-    });
+    const accessToken = getAccessToken(user.toObject());
+    const refreshToken = getRefreshToken(user.toObject());
 
-    await user.update({ $push: { refreshTokens: refreshToken } });
+    await user.update({ $push: { refreshTokens: [refreshToken] } });
     await user.save();
 
     res.status(201).json({

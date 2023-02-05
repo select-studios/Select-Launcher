@@ -1,5 +1,5 @@
 import { useRoutes, useLocation } from "react-router-dom";
-import { Register, Home, Login, Verify } from "@/pages";
+import { Register, Home, Login, Verify, Settings } from "@/pages";
 import { AnimatePresence } from "framer-motion";
 import React from "react";
 
@@ -19,10 +19,7 @@ const App: React.FC = () => {
       path: "/register",
       element: <Register />,
     },
-    {
-      path: "/register/:id/verify/:token",
-      element: <Verify />,
-    },
+    { path: "/settings", element: <Settings /> },
   ]);
 
   if (!page) return null;

@@ -16,10 +16,8 @@ const jwtAuth = (req: Request, res: Response, next: NextFunction) => {
         res.status(403).json({ error: "Invalid token." });
         return;
       }
+      const userDb = await User.findOne({ _id: user._id });
       console.log(user);
-
-      const userDb = await User.findOne({ _id: user.userId });
-
       user.refreshTokens = userDb?.refreshTokens;
       (req as any).user = userDb;
       next();

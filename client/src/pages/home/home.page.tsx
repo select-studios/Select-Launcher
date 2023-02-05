@@ -39,6 +39,8 @@ export const Home: React.FC = () => {
     retrieveGameInfo();
   }, []);
 
+  console.log(user);
+
   return !loading ? (
     <div>
       <motion.div exit={{ opacity: 0 }}>
