@@ -39,7 +39,20 @@ const Settings: React.FC<SettingsProps> = () => {
           <div className="flex">
             <Sidebar active="settings" />
 
-            <div className="mt-10">settings</div>
+            <div className="login text-white flex-col h-screen items-center justify-center px-5">
+              <div className="login__box bg-secondary rounded-md shadow-xl w-screen">
+                <section className="account__strip traking-normal flex items-center justify-center bg-tertiary rounded-t-md">
+                  <h2 className="font-montserrat text-2xl font-bold ml-2 mt-2">
+                    Account
+                  </h2>
+                </section>
+                <section className="login__content flex flex-col ml-5 mr-5">
+                  <h2 className="text-lg font-semibold mt-5">
+                    We are so glad to have you back!
+                  </h2>
+                </section>
+              </div>
+            </div>
           </div>
         </div>
       </motion.div>

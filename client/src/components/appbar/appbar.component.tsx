@@ -1,7 +1,15 @@
 import { sendVerificationLink } from "@/handlers/api";
 import { Avatar, Button, Dropdown, User } from "@nextui-org/react";
+import { useNavigate } from "react-router";
 import { useCookies } from "react-cookie";
-import { HiCheck, HiChevronDown, HiLogout, HiUser, HiX } from "react-icons/hi";
+import {
+  HiCheck,
+  HiChevronDown,
+  HiLogout,
+  HiUser,
+  HiX,
+  HiCog,
+} from "react-icons/hi";
 import { HiBellAlert } from "react-icons/hi2";
 
 export interface AppBarProps {
@@ -20,6 +28,7 @@ export const AppBar: React.FC<AppBarProps> = ({
   logoutFn,
 }) => {
   const [cookies] = useCookies(["accessToken", "refreshToken"]);
+  const navigate = useNavigate();
 
   console.log(user?.username);
 
@@ -55,12 +64,17 @@ export const AppBar: React.FC<AppBarProps> = ({
                         logoutFn();
                       } else if (key == "verified" && !user?.verified) {
                         sendVerificationLink(cookies.accessToken);
+                      } else if (key == "settings") {
+                        navigate("/settings");
                       }
                     }}
                     disabledKeys={["profile"]}
                   >
                     <Dropdown.Item icon={<HiUser size="20" />} key="profile">
                       Profile
+                    </Dropdown.Item>
+                    <Dropdown.Item key="settings" icon={<HiCog size="20" />}>
+                      Settings
                     </Dropdown.Item>
                     <Dropdown.Item
                       icon={

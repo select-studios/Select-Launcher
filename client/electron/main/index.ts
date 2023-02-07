@@ -17,6 +17,7 @@ process.env.PUBLIC = app.isPackaged
 
 import { Consola } from "consola";
 import { app, BrowserWindow, shell, ipcMain, dialog } from "electron";
+import settings from "electron-settings";
 import { release, homedir } from "os";
 import path, { join } from "path";
 import fs from "fs";
@@ -120,9 +121,11 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     createWindow();
 
+    // create game storage directory
     if (!checkIfGamesDirectoryExists) {
-      fs.mkdir(path.join(homedir(), "AppData", "Roaming", "Select Games"), () =>
-        console.log("created games folder")
+      fs.mkdir(
+        path.join(settings.getSync("locations.libraryLocation").toString()),
+        () => console.log("created games folder")
       );
       return;
     }
