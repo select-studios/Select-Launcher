@@ -1,4 +1,4 @@
-import { Button, Input, Link } from "@nextui-org/react";
+import { Button, Input, Link, Loading } from "@nextui-org/react";
 import { Alert, AppBar } from "@/components";
 import { BiUser } from "react-icons/bi";
 import { HiOutlineEye } from "react-icons/hi";
@@ -11,9 +11,11 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useAlert } from "@/components/alert/alert.component";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
   const { alert, setAlert } = useAlert();
 
@@ -23,6 +25,7 @@ export const Login: React.FC = () => {
   };
 
   const loginUser = async (data: LoginInterface) => {
+    setLoading(true);
     const res = await fetch("http://localhost:4757/api/accounts/login", {
       method: "POST",
       headers: {
@@ -44,8 +47,10 @@ export const Login: React.FC = () => {
       });
 
       console.log("User logged in!", resData);
+      setLoading(false);
       navigate("/home");
     } else {
+      setLoading(false);
       setAlert({ show: true, msg: resData.error, type: "error" });
       console.error("Error logging the user in!", resData);
     }
@@ -133,8 +138,18 @@ export const Login: React.FC = () => {
                     color="primary"
                     className="my-5 mx-14"
                     size="lg"
+                    disabled={loading}
+                    bordered={loading}
                   >
-                    Login
+                    {loading ? (
+                      <Loading
+                        type="points-opacity"
+                        color="currentColor"
+                        size="lg"
+                      />
+                    ) : (
+                      "Login"
+                    )}
                   </Button>
                 </form>
                 <p className="text-base text-center font-medium mb-5">

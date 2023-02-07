@@ -1,5 +1,5 @@
 import { AppBar } from "@/components";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Loading } from "@nextui-org/react";
 import { BiUser } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
 import { HiOutlineEye } from "react-icons/hi";
@@ -8,6 +8,7 @@ import { Link as LinkRoute, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { passwordStrength } from "check-password-strength";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 import RegisterInterface from "@/interfaces/RegisterInterface";
 import fetch from "node-fetch";
@@ -24,11 +25,13 @@ export const Register: React.FC<RegisterProps> = () => {
   } = useForm({ mode: "onChange" });
 
   const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
+  const [loading, setLoading] = useState<boolean>(false);
   const { alert, setAlert } = useAlert();
 
   const navigate = useNavigate();
 
   const registerUser = async (data: RegisterInterface) => {
+    setLoading(true);
     const res = await fetch("http://localhost:4757/api/accounts/register", {
       method: "POST",
       headers: {
@@ -50,8 +53,10 @@ export const Register: React.FC<RegisterProps> = () => {
       });
 
       console.log("User created!", resData);
+      setLoading(false);
       navigate("/home");
     } else {
+      setLoading(false);
       setAlert({ show: true, msg: resData.error, type: "error" });
       console.error("Error creating the user!", resData);
     }
@@ -165,8 +170,18 @@ export const Register: React.FC<RegisterProps> = () => {
                     color="primary"
                     className="mb-5 mt-7 mx-14"
                     size="lg"
+                    disabled={loading}
+                    bordered={loading}
                   >
-                    Register
+                    {loading ? (
+                      <Loading
+                        type="points-opacity"
+                        color="currentColor"
+                        size="lg"
+                      />
+                    ) : (
+                      "Register"
+                    )}
                   </Button>
                 </form>
                 <p className="text-base text-center font-medium mb-5">
