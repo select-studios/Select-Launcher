@@ -6,8 +6,13 @@ export interface IGamesAPI {
   cleanupGame: (game: string) => void;
 }
 
+export interface IFilesAPI {
+  openFolder: () => void;
+}
+
 declare global {
   interface Window {
     gamesAPI: IGamesAPI;
+    filesAPI: IFilesAPI;
   }
 }

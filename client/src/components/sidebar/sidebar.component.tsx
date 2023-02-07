@@ -9,10 +9,11 @@ interface SidebarProps {
   active: string;
 }
 
-interface SidebarLinks {
+interface SidebarLink {
   name: string;
   href: string;
   icon: JSX.Element;
+  disabled: boolean;
 }
 
 const sidebarVariants = {
@@ -34,26 +35,30 @@ export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
 
   const iconSize = isOpen ? "20" : "25";
 
-  const sidebarLinks: SidebarLinks[] = [
+  const sidebarLinks: SidebarLink[] = [
     {
       name: "Home",
       href: "/home",
       icon: <HiHome size={iconSize} />,
+      disabled: false,
     },
     {
       name: "Store",
       href: "/store",
       icon: <BiShoppingBag size={iconSize} />,
+      disabled: true,
     },
     {
       name: "Library",
       href: "/library",
       icon: <HiDownload size={iconSize} />,
+      disabled: true,
     },
     {
       name: "Settings",
       href: "/settings",
       icon: <HiCog size={iconSize} />,
+      disabled: false,
     },
   ];
 
@@ -80,6 +85,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
             {sidebarLinks.map((link, i) => (
               <Button
                 onClick={() => navigate(link.href)}
+                disabled={link.disabled}
                 className={`bg-tertiary mt-2 ${
                   link.name.toLowerCase() == active
                     ? "border-l-2 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"

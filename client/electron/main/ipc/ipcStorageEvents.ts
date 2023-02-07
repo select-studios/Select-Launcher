@@ -4,11 +4,11 @@ import path from "path";
 import { homedir } from "os";
 
 function runIpcStorageEvents(): void {
-  ipcMain.on("get-storage-location", async (event) => {
-    const location = await settings.get("locations.libraryLocation");
+  ipcMain.on("get-storage-location", (event) => {
+    const location = settings.getSync("locations.libraryLocation");
 
     if (location === undefined) {
-      await settings.set("locations", {
+      settings.setSync("locations", {
         libraryLocation: path.join(
           homedir(),
           "AppData",
@@ -17,18 +17,18 @@ function runIpcStorageEvents(): void {
         ),
       });
       console.log("set library locations");
-      const newLocation = await settings.get("locations.libraryLocation");
+      const newLocation = settings.getSync("locations.libraryLocation");
       event.returnValue = newLocation;
     } else {
       event.returnValue = location;
     }
   });
 
-  ipcMain.on("set-storage-location", async (event, location) => {
-    await settings.set("locations", {
+  ipcMain.on("set-storage-location", (event, location) => {
+    settings.setSync("locations", {
       libraryLocation: location,
     });
-    const newLocation = await settings.get("locations.libraryLocation");
+    const newLocation = settings.getSync("locations.libraryLocation");
     event.returnValue = newLocation;
   });
 }

@@ -40,7 +40,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
                   <Badge
                     size="sm"
                     color="success"
-                    className="ml-1 bg-primary"
+                    className="ml-1"
                     disableOutline
                     variant="flat"
                   >
@@ -69,8 +69,9 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
         <Text
           className="font-medium font-inter"
           css={{
-            overflowWrap: "break-word",
+            textOverflow: "ellipsis",
             overflow: "hidden",
+            whiteSpace: "nowrap",
           }}
         >
           {game.description}

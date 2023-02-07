@@ -37,3 +37,7 @@ window.gamesAPI = {
   installGame: (game: string) => ipcRenderer.sendSync("install-game", game),
   cleanupGame: (game: string) => ipcRenderer.sendSync("cleanup-game", game),
 };
+
+window.filesAPI = {
+  openFolder: () => ipcRenderer.invoke("dialog:openFolder"),
+};

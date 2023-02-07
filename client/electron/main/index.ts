@@ -97,6 +97,22 @@ app.on("window-all-closed", () => {
 
 const gotTheLock = app.requestSingleInstanceLock();
 
+async function handleFolderOpen() {
+  const currentLibraryPath = await (
+    await settings.get("locations.libraryLocation")
+  ).toString();
+  const { canceled, filePaths } = await dialog.showOpenDialog(win, {
+    title: "Select Library Location",
+    defaultPath: currentLibraryPath,
+    properties: ["openDirectory"],
+  });
+  if (canceled) {
+    return;
+  } else {
+    return filePaths[0];
+  }
+}
+
 if (!gotTheLock) {
   app.quit();
 } else {
@@ -130,6 +146,7 @@ if (!gotTheLock) {
       return;
     }
 
+    ipcMain.handle("dialog:openFolder", handleFolderOpen);
     runIpcStorageEvents();
     runIpcGameEvents();
   });

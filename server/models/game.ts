@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const game = new mongoose.Schema({
   name: { type: String, required: true },
+  downloadName: { type: String, required: true },
   description: { type: String, required: true },
   image: {
     icon: { type: String, required: true },
