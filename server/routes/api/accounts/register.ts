@@ -42,7 +42,7 @@ export const register = async (req: Request, res: Response) => {
           const refreshToken = getRefreshToken(user.toObject());
           const accessToken = getAccessToken(user.toObject());
 
-          await user.updateOne({ $push: { refreshTokens: [refreshToken] } });
+          await user.updateOne({ refreshTokens: [refreshToken] });
 
           const token = await new Token({
             userId: user._id,

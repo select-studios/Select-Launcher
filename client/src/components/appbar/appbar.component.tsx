@@ -21,8 +21,6 @@ export const AppBar: React.FC<AppBarProps> = ({
 }) => {
   const [cookies] = useCookies(["accessToken", "refreshToken"]);
 
-  console.log(user?.username);
-
   return (
     <>
       <header className="w-full bg-secondary py-2 rounded-b-3xl shadow-xl">
