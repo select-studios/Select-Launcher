@@ -9,7 +9,7 @@ import * as dotenv from "dotenv";
 import { createTheme, NextUIProvider, Text } from "@nextui-org/react";
 import { CookiesProvider } from "react-cookie";
 
-dotenv.config();
+dotenv.config({ path: "../.env" });
 
 const theme = createTheme({
   type: "dark", // it could be "light" or "dark"
@@ -26,6 +26,8 @@ const theme = createTheme({
       primarySolidHover: "#6b47f8",
       primarySolidContrast: "$white",
       primaryShadow: "#9378fa",
+
+      secondary: "#fff",
 
       link: "#9980FA",
     },

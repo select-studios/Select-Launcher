@@ -9,15 +9,16 @@ import LoginInterface from "@/interfaces/LoginInterface";
 import useCookies from "react-cookie/cjs/useCookies";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import { useAlert } from "@/components/alert/alert.component";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Log } from "@/utils/lib/Log";
+import { alertConfig, removeAlert } from "@/components/alert/alert.component";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
-  const { alert, setAlert } = useAlert();
+  const [alert, setAlert] = useState(alertConfig);
 
   const validateInputComponent = (component: string, color: boolean) => {
     if (color) return (errors[component] ? "error" : "primary") as any;
@@ -46,13 +47,11 @@ export const Login: React.FC = () => {
         maxAge: 60 * 60 * 24 * 30,
       });
 
-      console.log("User logged in!", resData);
       setLoading(false);
       navigate("/home");
     } else {
       setLoading(false);
       setAlert({ show: true, msg: resData.error, type: "error" });
-      console.error("Error logging the user in!", resData);
     }
   };
 
@@ -71,6 +70,8 @@ export const Login: React.FC = () => {
       navigate("/home");
     }
   }, []);
+
+  useEffect(() => removeAlert(setAlert), [alert]);
 
   return (
     <div>

@@ -10,7 +10,7 @@ const protectRoute = (
   if (!cookies.accessToken && !cookies.refreshToken) {
     navigate("/");
   } else if (cookies.refreshToken && !cookies.accessToken) {
-    fetch("http://localhost:4757/api/accounts/refresh", {
+    fetch(`${process.env.REACT_APP_API_URI}/accounts/refresh`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${cookies.refreshToken}`,

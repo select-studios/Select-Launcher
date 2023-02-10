@@ -8,11 +8,15 @@ import { Link as LinkRoute, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { passwordStrength } from "check-password-strength";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import RegisterInterface from "@/interfaces/RegisterInterface";
 import fetch from "node-fetch";
-import { Alert, useAlert } from "@/components/alert/alert.component";
+import {
+  Alert,
+  alertConfig,
+  removeAlert,
+} from "@/components/alert/alert.component";
 import { useCookies } from "react-cookie";
 
 interface RegisterProps {}
@@ -26,19 +30,22 @@ export const Register: React.FC<RegisterProps> = () => {
 
   const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
   const [loading, setLoading] = useState<boolean>(false);
-  const { alert, setAlert } = useAlert();
+  const [alert, setAlert] = useState(alertConfig);
 
   const navigate = useNavigate();
 
   const registerUser = async (data: RegisterInterface) => {
     setLoading(true);
-    const res = await fetch("http://localhost:4757/api/accounts/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const res = await fetch(
+      `${process.env.REACT_APP_API_URI}/accounts/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
     const resData: any = await res.json();
 
@@ -52,19 +59,19 @@ export const Register: React.FC<RegisterProps> = () => {
         maxAge: 60 * 60 * 24 * 30,
       });
 
-      console.log("User created!", resData);
       setLoading(false);
       navigate("/home");
     } else {
       setLoading(false);
       setAlert({ show: true, msg: resData.error, type: "error" });
-      console.error("Error creating the user!", resData);
     }
   };
 
   const onSubmit = (data: RegisterInterface | any) => {
     registerUser(data);
   };
+
+  useEffect(() => removeAlert(setAlert), [alert]);
 
   const validateInputComponent = (component: string, color: boolean) => {
     if (color) return (errors[component] ? "error" : "primary") as any;

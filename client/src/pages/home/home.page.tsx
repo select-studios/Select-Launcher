@@ -7,6 +7,11 @@ import protectRoute from "@/handlers/api/protectRoute";
 import { LoadingState } from "@/components/loader/loader.component";
 import GameInfo from "@/interfaces/GameInfoInterface";
 import { motion } from "framer-motion";
+import {
+  Alert,
+  alertConfig,
+  removeAlert,
+} from "@/components/alert/alert.component";
 
 export const Home: React.FC = () => {
   const [user, setUser] = useState<any>();
@@ -19,6 +24,7 @@ export const Home: React.FC = () => {
     msg: "",
   });
   const [gamesInfo, setGamesInfo] = useState<GameInfo[] | undefined>();
+  const [alert, setAlert] = useState(alertConfig);
   const navigate = useNavigate();
 
   const logoutClient = () => {
@@ -39,7 +45,9 @@ export const Home: React.FC = () => {
     retrieveGameInfo();
   }, []);
 
-  console.log(user);
+  useEffect(() => {
+    removeAlert(setAlert);
+  }, [alert]);
 
   return !loading ? (
     <div>
@@ -60,6 +68,7 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </motion.div>
+      <Alert show={alert.show} msg={alert.msg} type={alert.type} />
     </div>
   ) : (
     <Loader msg={loading.msg} />

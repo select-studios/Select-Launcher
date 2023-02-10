@@ -1,6 +1,6 @@
 import GameInfo from "@/interfaces/GameInfoInterface";
 
-const API_URI = "http://localhost:4757/api";
+const API_URI = process.env.REACT_APP_SERVER_API_URI;
 
 export const getUser = async (accessToken: string) => {
   const res = await fetch(`${API_URI}/accounts/account`, {
@@ -46,7 +46,7 @@ export const logout = async (
       Authorization: `Bearer ${accessToken}`,
     },
   }).then(() => {
-    setLoading({ state: true, message: "Logging out..." });
+    setLoading({ state: true, msg: "Logging out..." });
     removeCookies("accessToken");
     removeCookies("refreshToken");
 

@@ -1,6 +1,5 @@
 import * as express from "express";
 import * as cors from "cors";
-import * as dotenv from "dotenv";
 import * as mongoose from "mongoose";
 import * as cookieParser from "cookie-parser";
 import main, { login, logout, refresh, register } from "./routes";
@@ -13,9 +12,9 @@ import info from "./routes/api/games/info";
 import updateGamesInfo from "./utils/helpers/updateGamesInfo";
 import crypto = require("crypto");
 import { sendEmail } from "./utils/helpers/sendEmail";
+import path = require("path");
 
-dotenv.config();
-
+require("dotenv").config();
 mongoose.set("strictQuery", false);
 
 const Logger = new Log();
@@ -57,7 +56,7 @@ app.post("/api/accounts/verify/link", jwtAuth, async (req: any, res) => {
       token: crypto.randomBytes(32).toString("hex"),
     }).save();
 
-    const url = `http://localhost:4757/api/accounts/${user._id}/verify/token/${newToken.token}`;
+    const url = `${process.env.API_URI}/accounts/${user._id}/verify/token/${newToken.token}`;
     await sendEmail(user.email, url);
 
     return res
@@ -93,7 +92,7 @@ app.get("/api/games/info", info);
 
 app.listen(PORT, () => {
   Logger.ready(
-    `Server has been initiated and is live on http://localhost:${PORT}/`,
+    `Server has been initiated and is live on ${process.env.API_URI}`,
     "server"
   );
 

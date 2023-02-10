@@ -40,24 +40,21 @@ const Settings: React.FC<SettingsProps> = () => {
   return !loading ? (
     <div>
       <motion.div exit={{ opacity: 0 }}>
-        <div className="home w-full">
+        <div className="settings">
           <AppBar dashboard={true} user={user} logoutFn={logoutClient} />
 
           <div className="flex">
             <Sidebar active="settings" />
 
-            <div className="settings text-white flex-col h-screen items-center justify-center ml-5 mt-5">
-              <div
-                className="settings__box bg-secondary rounded-md shadow-xl"
-                style={{ width: "600px", height: "25%" }}
-              >
-                <section className="title__strip traking-normal flex items-center justify-center bg-tertiary rounded-t-md">
+            <div className="settings w-full m-10 mb-20 text-white flex-col items-center justify-center">
+              <div className="settings__box bg-secondary rounded-md shadow-xl h-fit">
+                <section className="title__strip tracking-normal flex items-center justify-center bg-tertiary rounded-t-md">
                   <h2 className="font-montserrat text-2xl font-bold ml-2 mt-2">
                     Settings
                   </h2>
                 </section>
-                <section className="settings__content flex flex-col ml-5 mr-5">
-                  <h2 className="text-lg font-semibold mt-5">
+                <section className="settings__content flex flex-col p-10">
+                  <h2 className="text-lg font-semibold">
                     <Input
                       size="xl"
                       readOnly
