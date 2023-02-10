@@ -13,7 +13,9 @@ interface EmailProps {
   url: string;
 }
 
-export default function Email({ username, url }: EmailProps) {
+export function VerifyEmail(props): React.ReactElement {
+  const { username, url }: EmailProps = props;
+
   return (
     <Html>
       <Head />

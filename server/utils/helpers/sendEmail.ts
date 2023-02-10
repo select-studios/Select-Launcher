@@ -1,5 +1,5 @@
-import nodemailer = require("nodemailer");
-import VerifyEmail from "../../data/emails/verify/verify";
+import nodemailer from "nodemailer";
+import { VerifyEmail } from "../../data/emails/verify/verify";
 import { render } from "@react-email/render";
 
 export const sendEmail = async (email: string, url: string) => {
