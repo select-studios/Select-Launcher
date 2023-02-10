@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import * as nodemailer from "nodemailer";
 import { VerifyEmail } from "../../data/emails/verify/verify";
 import { render } from "@react-email/render";
 

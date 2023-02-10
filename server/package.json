@@ -1,7 +1,7 @@
 {
   "name": "server",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --skipLibCheck",
     "export-email": "email export --dir=\"data/emails/verify/\" --outDir=\"data/emails/verify/out/\"",
     "clean": "tsc --build --clean",
     "dev": "nodemon app.ts",
@@ -56,6 +56,5 @@
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.4",
     "ts-node": "^10.9.1"
-  },
-  "packageManager": "yarn@1.22.19"
+  }
 }

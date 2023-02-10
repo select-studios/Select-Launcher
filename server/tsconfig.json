@@ -5,8 +5,8 @@
     "lib": ["es6"],
     "sourceMap": true,
     "outDir": "./release",
-    "jsx": "react",
-    "allowSyntheticDefaultImports": true
+    "jsx": "react"
   },
-  "exclude": ["node_modules/@react-email"],
+  "exclude": ["node_modules"],
+  "include": ["data", "interfaces", "middleware", "models", "public", "routes", "utils", "app.ts"]
 }
