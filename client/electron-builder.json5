@@ -4,7 +4,7 @@
 {
   appId: "com.selectstudios.selectlauncher",
   productName: "Select Launcher",
-  copyright: "Copyright © 2022 Select Studios",
+  copyright: "Copyright © 2023 Select Studios",
   asar: true,
   directories: {
     output: "release/${version}",
@@ -25,6 +25,9 @@
     perMachine: false,
     allowToChangeInstallationDirectory: true,
     deleteAppDataOnUninstall: false,
+    allowElevation: true,
+    installerIcon: "installerIcon.ico",
+    uninstallerIcon: "uninstallerIcon.ico"
   },
   mac: {
     target: ["dmg"],
