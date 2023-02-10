@@ -12,19 +12,20 @@ export const checkIfGamesDirectoryExists = (): boolean => {
   return false;
 };
 
-export const downloadGame = async (gameName: string) => {
+export const downloadGame = (gameName: string) => {
   if (!checkIfGamesDirectoryExists()) {
     fs.mkdir(settings.getSync("locations.libraryLocation").toString(), () =>
       console.log("created games folder")
     );
   }
 
-  await download(
+  download(
     `https://raw.githubusercontent.com/select-studios/LauncherGames/main/${gameName}.zip`,
     settings.getSync("locations.libraryLocation").toString(),
     { decompress: false }
   )
     .then(() => {
+      installGame(gameName);
       return;
     })
     .catch((e) => {
@@ -33,7 +34,7 @@ export const downloadGame = async (gameName: string) => {
     });
 };
 
-export const installGame = async (gameName: string) => {
+export const installGame = (gameName: string) => {
   if (!checkIfGamesDirectoryExists()) {
     fs.mkdir(settings.getSync("locations.libraryLocation").toString(), () =>
       console.log("created games folder")
@@ -48,7 +49,7 @@ export const installGame = async (gameName: string) => {
       )
     )
   ) {
-    await decompress(
+    decompress(
       path.join(
         settings.getSync("locations.libraryLocation").toString(),
         `${gameName}.zip`
@@ -56,6 +57,7 @@ export const installGame = async (gameName: string) => {
       settings.getSync("locations.libraryLocation").toString()
     )
       .then(() => {
+        cleanupGame(gameName);
         return;
       })
       .catch((e) => {

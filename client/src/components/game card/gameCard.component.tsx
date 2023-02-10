@@ -89,6 +89,9 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
             color="primary"
             auto
             className="ml-2"
+            onClick={() => {
+              window.gamesAPI.downloadGame(game.downloadName);
+            }}
           >
             download
           </Button>
