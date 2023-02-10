@@ -4,7 +4,7 @@
   "private": true,
   "version": "1.0.2-alpha",
   "description": "Official launcher for all the games made by SelectStudios.",
-  "author": "Aktindo, Game Glide @Select Studios",
+  "author": "Select Studios",
   "license": "GNU Public License v3",
   "main": "dist-electron/electron/main/index.js",
   "scripts": {

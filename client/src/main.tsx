@@ -27,12 +27,17 @@ const theme = createTheme({
       primarySolidContrast: "$white",
       primaryShadow: "#9378fa",
 
-      secondary: "#fff",
+      link: "#3b82f6",
 
-      link: "#9980FA",
+      background: "#242425",
     },
     space: {},
-    fonts: {},
+    fonts: {
+      sans_serif:
+        '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",\n' +
+        '    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",\n' +
+        "    sans-serif",
+    },
   },
 });
 

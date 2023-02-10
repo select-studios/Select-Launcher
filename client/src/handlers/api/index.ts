@@ -1,6 +1,11 @@
 import GameInfo from "@/interfaces/GameInfoInterface";
 
-const API_URI = process.env.REACT_APP_SERVER_API_URI;
+const API_URI =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:4757/api"
+    : "https://selectlauncherapi.up.railway.app/api";
+
+console.log(`API Url is ${API_URI}`);
 
 export const getUser = async (accessToken: string) => {
   const res = await fetch(`${API_URI}/accounts/account`, {

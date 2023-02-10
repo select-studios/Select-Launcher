@@ -19,6 +19,10 @@ export const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
   const [alert, setAlert] = useState(alertConfig);
+  const API_URI =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:4757/api"
+      : "https://selectlauncherapi.up.railway.app/api";
 
   const validateInputComponent = (component: string, color: boolean) => {
     if (color) return (errors[component] ? "error" : "primary") as any;
@@ -27,7 +31,7 @@ export const Login: React.FC = () => {
 
   const loginUser = async (data: LoginInterface) => {
     setLoading(true);
-    const res = await fetch("http://localhost:4757/api/accounts/login", {
+    const res = await fetch(`${API_URI}/accounts/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
