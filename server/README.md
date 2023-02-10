@@ -1,4 +1,4 @@
-# SelectStudios API
+# SelectStudios API (initiated deployment)
 
 This API is specifically designed for private-use i.e to be used by the SelectStudios team to support the frontend and provide necessary features. Public-use might be rolled out later.
 
