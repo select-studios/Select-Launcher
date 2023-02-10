@@ -2,7 +2,7 @@
   "name": "select-launcher",
   "productName": "Select Launcher",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.2-alpha",
   "description": "Official launcher for all the games made by SelectStudios.",
   "author": "Aktindo, Game Glide @Select Studios",
   "license": "GNU Public License v3",

@@ -1,6 +1,6 @@
 {
   "name": "select_launcher",
-  "version": "1.0.0",
+  "version": "1.0.2-alpha",
   "description": "One stop to all select games.",
   "main": "index.js",
   "scripts": {
