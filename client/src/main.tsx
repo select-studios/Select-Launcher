@@ -4,6 +4,8 @@ import { HashRouter as Router } from "react-router-dom";
 import App from "./App";
 import "./samples/node-api";
 import "styles/index.css";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import * as dotenv from "dotenv";
 
 import { createTheme, NextUIProvider, Text } from "@nextui-org/react";
@@ -30,6 +32,9 @@ const theme = createTheme({
       link: "#3b82f6",
 
       background: "#242425",
+      tertiary: "#393C40",
+
+      "primary-base": "#9980FA",
     },
     space: {},
     fonts: {
@@ -47,6 +52,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <React.StrictMode>
         <Router>
           <App />
+          <ToastContainer
+            toastClassName="bg-red-500"
+            position="bottom-right"
+            theme="colored"
+          />
         </Router>
       </React.StrictMode>
     </CookiesProvider>

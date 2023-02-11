@@ -62,12 +62,12 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
             {user?.verified ? "Verified" : "Not verified"}
           </Dropdown.Item>
 
-          <Dropdown.Item key="logout" withDivider>
+          <Dropdown.Item className="px-0" key="logout" withDivider>
             <ButtonLoader
               loading={loggingOut}
               button={
                 <Button
-                  className="w-full"
+                  className="w-full mt-2 mx-0"
                   icon={<HiLogout size="20" />}
                   color="error"
                   flat

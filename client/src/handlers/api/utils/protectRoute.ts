@@ -1,8 +1,8 @@
+import { getTokensCookie, setTokensCookie } from "@/utils/storage";
 import { API_URI, getUser } from "..";
 
 const protectRoute = (
   cookies: any,
-  setCookie: any,
   setUser: any,
   setLoading: any,
   navigate: any
@@ -18,12 +18,10 @@ const protectRoute = (
     })
       .then((res) => res.json())
       .then((data) => {
-        setCookie("accessToken", data.accessToken, {
-          path: "/",
-          maxAge: 1800,
-        });
+        const { accessToken } = data;
+        setTokensCookie(accessToken, cookies.refreshToken);
 
-        getUser(data.accessToken).then((userData) => {
+        getUser(accessToken).then((userData) => {
           setUser(userData);
           console.log(userData);
           setLoading(false);

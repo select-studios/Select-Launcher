@@ -42,7 +42,6 @@ export const getGameInfo = async () => {
 export const logout = async (
   accessToken: string,
   setLoading: any,
-  removeCookies: any,
   navigate: any
 ) => {
   await fetch(`${API_URI}/accounts/logout`, {
@@ -52,8 +51,7 @@ export const logout = async (
     },
   }).then(() => {
     setLoading({ state: true, msg: "Logging out..." });
-    removeCookies("accessToken");
-    removeCookies("refreshToken");
+    localStorage.clear();
 
     navigate("/");
   });

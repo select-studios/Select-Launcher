@@ -1,5 +1,5 @@
 import { Button, Input, Link, Loading } from "@nextui-org/react";
-import { Alert, AppBar } from "@/components";
+import { AppBar } from "@/components";
 import { BiUser } from "react-icons/bi";
 import { HiOutlineEye } from "react-icons/hi";
 import { HiOutlineEyeSlash } from "react-icons/hi2";
@@ -10,17 +10,17 @@ import useCookies from "react-cookie/cjs/useCookies";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
+import { ToastContainer, toast } from "react-toastify";
 import { useState } from "react";
 import { Log } from "@/utils/lib/Log";
-import { alertConfig, removeAlert } from "@/components/alert/alert.component";
 import { API_URI } from "@/handlers/api";
 import ButtonLoader from "@/components/loader/button/buttonloader.component";
+import { getTokensCookie, setTokensCookie } from "@/utils/storage";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
-  const [alert, setAlert] = useState(alertConfig);
 
   const validateInputComponent = (component: string, color: boolean) => {
     if (color) return (errors[component] ? "error" : "primary") as any;
@@ -42,17 +42,13 @@ export const Login: React.FC = () => {
         const { accessToken, refreshToken } = resData.user;
         console.log(resData);
 
-        setCookie("accessToken", accessToken, { path: "/", maxAge: 1800 });
-        setCookie("refreshToken", refreshToken, {
-          path: "/",
-          maxAge: 60 * 60 * 24 * 30,
-        });
+        setTokensCookie(accessToken, refreshToken);
 
         setLoading(false);
         navigate("/home");
       } else {
         setLoading(false);
-        setAlert({ show: true, msg: resData.error, type: "error" });
+        toast.error(resData.error);
       }
     });
   };
@@ -68,12 +64,13 @@ export const Login: React.FC = () => {
   };
 
   useEffect(() => {
-    if (cookies.accessToken || cookies.refreshToken) {
-      navigate("/home");
-    }
-  }, []);
+    const cookies = getTokensCookie();
 
-  useEffect(() => removeAlert(setAlert), [alert]);
+    if (cookies)
+      if (cookies.accessToken || cookies.refreshToken) {
+        navigate("/home");
+      }
+  }, []);
 
   return (
     <div>
@@ -177,7 +174,6 @@ export const Login: React.FC = () => {
               </Button>
             </div>
           </div>
-          <Alert show={alert.show} type={alert.type} msg={alert.msg} />
         </div>
       </motion.div>
     </div>

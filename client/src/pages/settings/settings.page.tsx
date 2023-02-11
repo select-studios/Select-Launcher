@@ -8,14 +8,12 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router";
 import { BsFileEarmarkPlusFill } from "react-icons/bs";
+import { getTokensCookie } from "@/utils/storage";
 
 interface SettingsProps {}
 
 const Settings: React.FC<SettingsProps> = () => {
-  const [cookies, setCookie, removeCookie] = useCookies([
-    "accessToken",
-    "refreshToken",
-  ]);
+  const cookies = getTokensCookie();
   const [user, setUser] = useState<any>();
   const [loading, setLoading] = useState<LoadingState>({
     state: true,
@@ -30,11 +28,11 @@ const Settings: React.FC<SettingsProps> = () => {
   });
 
   const logoutClient = () => {
-    logout(cookies.refreshToken, setLoading, removeCookie, navigate);
+    cookies && logout(cookies.refreshToken || "", setLoading, navigate);
   };
 
   useEffect(() => {
-    protectRoute(cookies, setCookie, setUser, setLoading, navigate);
+    protectRoute(cookies, setUser, setLoading, navigate);
   }, []);
 
   return !loading ? (

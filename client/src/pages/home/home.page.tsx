@@ -7,34 +7,26 @@ import protectRoute from "@/handlers/api/utils/protectRoute";
 import { LoadingState } from "@/components/loader/loader.component";
 import GameInfo from "@/interfaces/GameInfoInterface";
 import { motion } from "framer-motion";
-import {
-  Alert,
-  alertConfig,
-  removeAlert,
-} from "@/components/alert/alert.component";
-import { Button, Container } from "@nextui-org/react";
-import ButtonLoader from "@/components/loader/button/buttonloader.component";
+import { getTokensCookie } from "@/utils/storage";
 
 export const Home: React.FC = () => {
   const [user, setUser] = useState<any>();
-  const [cookies, setCookie, removeCookie] = useCookies([
-    "accessToken",
-    "refreshToken",
-  ]);
+  const cookies = getTokensCookie();
+
   const [loading, setLoading] = useState<LoadingState>({
     state: true,
     msg: "",
   });
   const [gamesInfo, setGamesInfo] = useState<GameInfo[] | undefined>();
-  const [alert, setAlert] = useState(alertConfig);
   const navigate = useNavigate();
 
   const logoutClient = () => {
-    logout(cookies.refreshToken, setLoading, removeCookie, navigate);
+    cookies && logout(cookies.refreshToken || "", setLoading, navigate);
   };
 
   useEffect(() => {
-    protectRoute(cookies, setCookie, setUser, setLoading, navigate);
+    console.log(cookies);
+    protectRoute(cookies, setUser, setLoading, navigate);
 
     async function retrieveGameInfo() {
       const fetchedGameInfo = await getGameInfo();
@@ -46,10 +38,6 @@ export const Home: React.FC = () => {
 
     retrieveGameInfo();
   }, []);
-
-  useEffect(() => {
-    removeAlert(setAlert);
-  }, [alert]);
 
   return !loading.state ? (
     <div>
@@ -74,7 +62,6 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </motion.div>
-      <Alert show={alert.show} msg={alert.msg} type={alert.type} />
     </div>
   ) : (
     <Loader msg={loading.msg} />

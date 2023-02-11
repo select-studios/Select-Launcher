@@ -12,11 +12,7 @@ import { useState, useEffect } from "react";
 
 import RegisterInterface from "@/interfaces/RegisterInterface";
 import fetch from "node-fetch";
-import {
-  Alert,
-  alertConfig,
-  removeAlert,
-} from "@/components/alert/alert.component";
+import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
 import { API_URI } from "@/handlers/api";
 import ButtonLoader from "@/components/loader/button/buttonloader.component";
@@ -32,7 +28,6 @@ export const Register: React.FC<RegisterProps> = () => {
 
   const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [alert, setAlert] = useState(alertConfig);
 
   const navigate = useNavigate();
 
@@ -52,6 +47,15 @@ export const Register: React.FC<RegisterProps> = () => {
       const { user } = resData;
       const { accessToken, refreshToken } = user;
 
+      localStorage.setItem(
+        "tokens",
+        JSON.stringify({
+          accessToken,
+          refreshToken,
+          expires: Date.now() + 1800000,
+        })
+      );
+
       setCookie("accessToken", accessToken, { path: "/", maxAge: 1800 });
       setCookie("refreshToken", refreshToken, {
         path: "/",
@@ -62,15 +66,13 @@ export const Register: React.FC<RegisterProps> = () => {
       navigate("/home");
     } else {
       setLoading(false);
-      setAlert({ show: true, msg: resData.error, type: "error" });
+      toast.error(resData.error);
     }
   };
 
   const onSubmit = (data: RegisterInterface | any) => {
     registerUser(data);
   };
-
-  useEffect(() => removeAlert(setAlert), [alert]);
 
   const validateInputComponent = (component: string, color: boolean) => {
     if (color) return (errors[component] ? "error" : "primary") as any;
@@ -212,7 +214,6 @@ export const Register: React.FC<RegisterProps> = () => {
               </Button>
             </div>
           </div>
-          <Alert show={alert.show} type={alert.type} msg={alert.msg} />
         </div>
       </motion.div>
     </div>
