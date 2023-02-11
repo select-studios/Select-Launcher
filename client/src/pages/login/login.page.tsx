@@ -29,33 +29,32 @@ export const Login: React.FC = () => {
 
   const loginUser = async (data: LoginInterface) => {
     setLoading(true);
-    const res = await fetch(`${API_URI}/accounts/login`, {
+    await fetch(`${API_URI}/accounts/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
+    }).then(async (res) => {
+      const resData = await res.json();
+
+      if (res.ok) {
+        const { accessToken, refreshToken } = resData.user;
+        console.log(resData);
+
+        setCookie("accessToken", accessToken, { path: "/", maxAge: 1800 });
+        setCookie("refreshToken", refreshToken, {
+          path: "/",
+          maxAge: 60 * 60 * 24 * 30,
+        });
+
+        setLoading(false);
+        navigate("/home");
+      } else {
+        setLoading(false);
+        setAlert({ show: true, msg: resData.error, type: "error" });
+      }
     });
-
-    if (res.ok) {
-      const resData = await res.json();
-      const { user } = resData;
-      const { accessToken, refreshToken } = user;
-      console.log(resData);
-
-      setCookie("accessToken", accessToken, { path: "/", maxAge: 1800 });
-      setCookie("refreshToken", refreshToken, {
-        path: "/",
-        maxAge: 60 * 60 * 24 * 30,
-      });
-
-      setLoading(false);
-      navigate("/home");
-    } else {
-      const resData = await res.json();
-      setLoading(false);
-      setAlert({ show: true, msg: resData.error, type: "error" });
-    }
   };
 
   const {

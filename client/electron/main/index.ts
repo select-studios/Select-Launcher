@@ -67,6 +67,7 @@ async function createWindow() {
       contextIsolation: false,
     },
     autoHideMenuBar: true,
+    roundedCorners: true,
   });
 
   if (process.env.VITE_DEV_SERVER_URL) {
