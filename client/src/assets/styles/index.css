@@ -20,11 +20,11 @@ body {
 
 ::-moz-selection {
   /* Code for Firefox */
-  @apply bg-blue-500;
+  background-color: rgb(59 130 246);
 }
 
 ::selection {
-  @apply bg-blue-500;
+  background-color: rgb(59 130 246);
 }
 
 code {
@@ -45,9 +45,11 @@ h3 {
 }
 
 .nextui-input-helper-text {
-  @apply text-xs !important;
+  font-size: 0.75rem !important;
+  line-height: 1rem !important;
 }
 
 .Toastify__toast {
-  @apply font-inter font-medium;
+  font-weight: 500;
+  font-family: "Inter" sans-serif;
 }

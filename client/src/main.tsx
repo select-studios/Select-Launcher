@@ -38,9 +38,7 @@ const theme = createTheme({
     space: {},
     fonts: {
       sans_serif:
-        '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",\n' +
-        '    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",\n' +
-        "    sans-serif",
+        "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Montserrat', 'Inter', sans-serif;",
     },
   },
 });

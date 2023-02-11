@@ -23,7 +23,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
     <Card
       isPressable
       isHoverable
-      css={{ maxWidth: "400px" }}
+      css={{ maxWidth: "400px", backgroundColor: "#282A2D" }}
       className="bg-secondary m-5 py-2 px-3 h-fit"
     >
       <Card.Header>
@@ -80,7 +80,13 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
       <Card.Divider />
       <Card.Footer>
         <Row justify="flex-end">
-          <Button size="md" className="bg-tertiary">
+          <Button
+            size="md"
+            className="bg-tertiary"
+            css={{
+              backgroundColor: "#393C40",
+            }}
+          >
             Learn more
           </Button>
           <Button

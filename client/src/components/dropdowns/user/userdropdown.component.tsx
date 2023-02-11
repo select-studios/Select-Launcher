@@ -21,7 +21,11 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
   return (
     <div>
       <Dropdown>
-        <Dropdown.Button className="bg-tertiary" size="lg">
+        <Dropdown.Button
+          className="bg-tertiary"
+          size="lg"
+          css={{ background: "#393C40" }}
+        >
           <div className="flex items-center">
             <Avatar
               text={user?.username.substring(0, 2)}

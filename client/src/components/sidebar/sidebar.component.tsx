@@ -77,6 +77,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
               className={!isOpen ? "bg-tertiary" : ""}
               auto
               onClick={() => setOpen(!isOpen)}
+              css={{
+                backgroundColor: !isOpen ? "#393C40" : "",
+              }}
             >
               <HiMenuAlt1 size="25" className="font-bold" />
             </Button>
@@ -91,6 +94,27 @@ export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
                     ? "border-l-2 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
                     : ""
                 }`}
+                css={{
+                  backgroundColor: "#393C40",
+                  borderLeftWidth:
+                    link.name.toLowerCase() == active ? "2px" : "",
+                  borderTopWidth:
+                    link.name.toLowerCase() == active ? "0px" : "",
+                  borderBottomWidth:
+                    link.name.toLowerCase() == active ? "0px" : "",
+                  borderRightWidth:
+                    link.name.toLowerCase() == active ? "0px" : "",
+                  borderTopLeftRadius:
+                    link.name.toLowerCase() == active ? "0.125rem" : "",
+                  borderBottomLeftRadius:
+                    link.name.toLowerCase() == active ? "0.125rem" : "",
+                  border: link.name.toLowerCase() == active ? "solid" : "",
+                  borderColor:
+                    link.name.toLowerCase() == active ? "#9980FA" : "",
+                  borderTopStyle: "none",
+                  borderBottomStyle: "none",
+                  borderRightStyle: "none",
+                }}
                 icon={link.icon}
                 key={i}
                 size="lg"
