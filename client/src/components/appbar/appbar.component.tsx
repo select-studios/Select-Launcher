@@ -1,18 +1,5 @@
-import { logout, sendVerificationLink } from "@/handlers/api";
-import { Avatar, Button, Dropdown, User } from "@nextui-org/react";
-import { useNavigate } from "react-router";
-import { useCookies } from "react-cookie";
-import {
-  HiCheck,
-  HiChevronDown,
-  HiLogout,
-  HiUser,
-  HiX,
-  HiCog,
-} from "react-icons/hi";
-import { HiBellAlert } from "react-icons/hi2";
 import UserDropdown from "../dropdowns/user/userdropdown.component";
-import { Loader } from "../loader/loader.component";
+import { getTokensCookie } from "@/utils/storage";
 
 export interface AppBarProps {
   user?: {
@@ -31,7 +18,7 @@ export const AppBar: React.FC<AppBarProps> = ({
   logoutFn,
   loggingOut,
 }) => {
-  const [cookies] = useCookies(["accessToken", "refreshToken"]);
+  const cookies = getTokensCookie();
 
   return (
     <>
@@ -50,7 +37,7 @@ export const AppBar: React.FC<AppBarProps> = ({
                 user={{
                   username: user?.username || "",
                   verified: user?.verified || false,
-                  accessToken: cookies.accessToken,
+                  accessToken: cookies.accessToken || "",
                 }}
                 logoutFn={logoutFn}
               />

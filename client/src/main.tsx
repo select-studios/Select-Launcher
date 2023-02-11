@@ -9,7 +9,6 @@ import { ToastContainer } from "react-toastify";
 import * as dotenv from "dotenv";
 
 import { createTheme, NextUIProvider, Text } from "@nextui-org/react";
-import { CookiesProvider } from "react-cookie";
 
 dotenv.config({ path: "../.env" });
 
@@ -48,17 +47,15 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <NextUIProvider theme={theme}>
-    <CookiesProvider>
-      <React.StrictMode>
-        <Router>
-          <App />
-          <ToastContainer
-            toastClassName="bg-red-500"
-            position="bottom-right"
-            theme="colored"
-          />
-        </Router>
-      </React.StrictMode>
-    </CookiesProvider>
+    <React.StrictMode>
+      <Router>
+        <App />
+        <ToastContainer
+          toastClassName="bg-red-500"
+          position="bottom-right"
+          theme="colored"
+        />
+      </Router>
+    </React.StrictMode>
   </NextUIProvider>
 );

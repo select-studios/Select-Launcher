@@ -5,7 +5,6 @@ import { logout } from "@/handlers/api";
 import protectRoute from "@/handlers/api/utils/protectRoute";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router";
 import { BsFileEarmarkPlusFill } from "react-icons/bs";
 import { getTokensCookie } from "@/utils/storage";

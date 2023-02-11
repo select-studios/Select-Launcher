@@ -2,7 +2,6 @@ import { AppBar, Loader, Sidebar, GameCard } from "@/components";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logout, getGameInfo } from "@/handlers/api";
-import { useCookies } from "react-cookie";
 import protectRoute from "@/handlers/api/utils/protectRoute";
 import { LoadingState } from "@/components/loader/loader.component";
 import GameInfo from "@/interfaces/GameInfoInterface";

@@ -13,9 +13,9 @@ import { useState, useEffect } from "react";
 import RegisterInterface from "@/interfaces/RegisterInterface";
 import fetch from "node-fetch";
 import { toast } from "react-toastify";
-import { useCookies } from "react-cookie";
 import { API_URI } from "@/handlers/api";
 import ButtonLoader from "@/components/loader/button/buttonloader.component";
+import { getTokensCookie, setTokensCookie } from "@/utils/storage";
 
 interface RegisterProps {}
 
@@ -26,7 +26,6 @@ export const Register: React.FC<RegisterProps> = () => {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
-  const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -55,12 +54,7 @@ export const Register: React.FC<RegisterProps> = () => {
           expires: Date.now() + 1800000,
         })
       );
-
-      setCookie("accessToken", accessToken, { path: "/", maxAge: 1800 });
-      setCookie("refreshToken", refreshToken, {
-        path: "/",
-        maxAge: 60 * 60 * 24 * 30,
-      });
+      setTokensCookie(accessToken, refreshToken);
 
       setLoading(false);
       navigate("/home");
