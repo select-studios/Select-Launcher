@@ -41,7 +41,7 @@ export const login = async (req: UserI, res: Response, next: NextFunction) => {
     await user.update({ refreshTokens: [refreshToken] });
     await user.save();
 
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       user: {
         username: user.username,
