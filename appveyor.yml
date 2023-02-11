@@ -30,5 +30,5 @@ install:
   - npm install
 
 test_script:
-  - npm run package
+  - npm run build
   # - npm test we do this after I setup mocking framework
