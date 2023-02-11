@@ -39,8 +39,14 @@ export const register = async (req: Request, res: Response) => {
           username,
           password: hash,
         }).then(async (user) => {
-          const refreshToken = getRefreshToken(user.toObject());
-          const accessToken = getAccessToken(user.toObject());
+          const newUser = {
+      username: user.username,
+      password: user.password,
+      _id: user._id,
+    };
+
+    const accessToken = getAccessToken(newUser);
+    const refreshToken = getRefreshToken(newUser);
 
           await user.updateOne({ refreshTokens: [refreshToken] });
 
