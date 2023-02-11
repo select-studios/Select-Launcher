@@ -1,11 +1,13 @@
-import mongoose from 'mongoose';
+import * as mongoose from "mongoose";
 
 const user = new mongoose.Schema({
-    id: String, // mongoose is retarded and won't accept numbers in search for no reason.
-    icon: String,
-    username: String,
-    password: String,
+  email: { type: String, required: true },
+  username: { type: String, required: true },
+  password: { type: String, required: true },
+  pfp: { type: String, required: false },
+  verified: { type: Boolean, required: true, default: false },
+  refreshTokens: [String],
 });
 
-const User = mongoose.model('user', user);
-export default User;
+const User = mongoose.model("user", user);
+export { User };

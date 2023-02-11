@@ -1,29 +1,23 @@
 {
-  "name": "selectlauncher",
-  "version": "1.0.0",
-  "description": "Launcher for select studio games, currently for staff only and in dev.",
+  "name": "select_launcher",
+  "version": "1.0.2-alpha",
+  "description": "One stop to all select games.",
   "main": "index.js",
   "scripts": {
-    "heroku-prebuild": "npm install --prefix server && npm install",
-    "heroku-postbuild": "npm run build --prefix server",
-    "start": "concurrently \"cd client && npm run start\" \"cd server && npm run dev\""
-  },
-  "engines": {
-    "node": "16.13.0"
+    "dev": "concurrently \"cd client && yarn dev\" \"cd server && yarn dev\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/select-studios/Launcher.git"
+    "url": "git+https://github.com/select-studios/Select-Launcher.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Select Studios",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/select-studios/Launcher/issues"
+    "url": "https://github.com/select-studios/Select-Launcher/issues"
   },
-  "homepage": "https://github.com/select-studios/Launcher#readme",
-  "dependencies": {
-    "concurrently": "^7.2.1",
-    "electron-store": "^8.0.2"
+  "homepage": "https://github.com/select-studios/Select-Launcher#readme",
+  "devDependencies": {
+    "concurrently": "^7.6.0"
   }
 }

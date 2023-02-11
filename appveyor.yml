@@ -26,8 +26,8 @@ clone_depth: 1
 install:
   - ps: Install-Product node $env:nodejs_version x64
   - npm install
-  - cd client 
-  - npm install primereact primeflex primeicons
+  - cd client
+  - npm install
 
 test_script:
   - npm run package

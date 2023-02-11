@@ -4,7 +4,9 @@
     "target": "es6",
     "lib": ["es6"],
     "sourceMap": true,
-    "outDir": "./release"
+    "outDir": "./release",
+    "jsx": "react"
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "include": ["data", "interfaces", "middleware", "models", "public", "routes", "utils", "app.ts"]
 }

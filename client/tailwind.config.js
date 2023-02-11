@@ -1,10 +1,21 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/renderer/**/*.{js,jsx,ts,tsx,ejs}'],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#242425",
+        secondary: "#282A2D",
+        tertiary: "#393C40",
+
+        "primary-base": "#9980FA",
+      },
+    },
+    fontFamily: {
+      inter: ["Inter", "sans-serif"],
+      montserrat: ["Montserrat", "sans-serif"],
+    },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [require('@tailwindcss/typography'), require('daisyui')],
+
+  plugins: [],
 };
