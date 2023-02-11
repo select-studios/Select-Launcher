@@ -48,8 +48,8 @@ export const AppBar: React.FC<AppBarProps> = ({
               <UserDropdown
                 loggingOut={loggingOut || false}
                 user={{
-                  username: user!.username,
-                  verified: user!.verified,
+                  username: user?.username || "",
+                  verified: user?.verified || false,
                   accessToken: cookies.accessToken,
                 }}
                 logoutFn={logoutFn}
