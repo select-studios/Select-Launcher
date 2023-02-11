@@ -15,7 +15,6 @@ process.env.PUBLIC = app.isPackaged
   ? process.env.DIST
   : join(process.env.DIST_ELECTRON, "../public");
 
-import { Consola } from "consola";
 import { app, BrowserWindow, shell, ipcMain, dialog } from "electron";
 import settings from "electron-settings";
 import { release, homedir } from "os";
@@ -24,8 +23,6 @@ import fs from "fs";
 import runIpcStorageEvents from "./ipc/ipcStorageEvents";
 import runIpcGameEvents from "./ipc/ipcGameEvents";
 import { checkIfGamesDirectoryExists } from "../api/gameManager";
-
-const logger = new Consola({});
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
@@ -43,9 +40,6 @@ let win: BrowserWindow | null = null;
 const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
-
-logger.success("Loaded preload scripts");
-logger.success("Loaded rendered index.html");
 
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
