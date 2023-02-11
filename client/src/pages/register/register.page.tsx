@@ -18,6 +18,8 @@ import {
   removeAlert,
 } from "@/components/alert/alert.component";
 import { useCookies } from "react-cookie";
+import { API_URI } from "@/handlers/api";
+import ButtonLoader from "@/components/loader/button/buttonloader.component";
 
 interface RegisterProps {}
 
@@ -36,16 +38,13 @@ export const Register: React.FC<RegisterProps> = () => {
 
   const registerUser = async (data: RegisterInterface) => {
     setLoading(true);
-    const res = await fetch(
-      `${process.env.REACT_APP_API_URI}/accounts/register`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    );
+    const res = await fetch(`${API_URI}/accounts/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
     const resData: any = await res.json();
 
@@ -172,24 +171,21 @@ export const Register: React.FC<RegisterProps> = () => {
                       />
                     </div>
                   </div>
-                  <Button
-                    type="submit"
-                    color="primary"
-                    className="mb-5 mt-7 mx-14"
+                  <ButtonLoader
+                    className="my-5 mx-14"
                     size="lg"
-                    disabled={loading}
-                    bordered={loading}
-                  >
-                    {loading ? (
-                      <Loading
-                        type="points-opacity"
-                        color="currentColor"
+                    button={
+                      <Button
+                        type="submit"
+                        color="primary"
+                        className="my-5 mx-14"
                         size="lg"
-                      />
-                    ) : (
-                      "Register"
-                    )}
-                  </Button>
+                      >
+                        Register
+                      </Button>
+                    }
+                    loading={loading}
+                  />
                 </form>
                 <p className="text-base text-center font-medium mb-5">
                   Have an account? <LinkRoute to="/">Login!</LinkRoute>

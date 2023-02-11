@@ -1,4 +1,4 @@
-import { sendVerificationLink } from "@/handlers/api";
+import { logout, sendVerificationLink } from "@/handlers/api";
 import { Avatar, Button, Dropdown, User } from "@nextui-org/react";
 import { useNavigate } from "react-router";
 import { useCookies } from "react-cookie";
@@ -11,6 +11,8 @@ import {
   HiCog,
 } from "react-icons/hi";
 import { HiBellAlert } from "react-icons/hi2";
+import UserDropdown from "../dropdowns/user/userdropdown.component";
+import { Loader } from "../loader/loader.component";
 
 export interface AppBarProps {
   user?: {
@@ -20,15 +22,16 @@ export interface AppBarProps {
   };
   dashboard?: boolean;
   logoutFn?: () => void;
+  loggingOut?: boolean;
 }
 
 export const AppBar: React.FC<AppBarProps> = ({
   dashboard,
   user,
   logoutFn,
+  loggingOut,
 }) => {
   const [cookies] = useCookies(["accessToken", "refreshToken"]);
-  const navigate = useNavigate();
 
   return (
     <>
@@ -41,66 +44,16 @@ export const AppBar: React.FC<AppBarProps> = ({
             </p>
           </div>
           <div className="lg:w-2/5 inline-flex lg:justify-end">
-            {dashboard && (
-              <div>
-                <Dropdown>
-                  <Dropdown.Button className="bg-tertiary" size="lg">
-                    <div className="flex items-center">
-                      <Avatar
-                        text={user?.username.substring(0, 2)}
-                        className="mr-2"
-                        color="primary"
-                        size="md"
-                      />
-                      <span className="normal-case">@{user?.username}</span>
-                    </div>
-                  </Dropdown.Button>
-                  <Dropdown.Menu
-                    className="bg-secondary"
-                    onAction={(key) => {
-                      if (key == "logout" && logoutFn) {
-                        logoutFn();
-                      } else if (key == "verified" && !user?.verified) {
-                        sendVerificationLink(cookies.accessToken);
-                      } else if (key == "settings") {
-                        navigate("/settings");
-                      }
-                    }}
-                    disabledKeys={["profile"]}
-                  >
-                    <Dropdown.Item icon={<HiUser size="20" />} key="profile">
-                      Profile
-                    </Dropdown.Item>
-                    <Dropdown.Item key="settings" icon={<HiCog size="20" />}>
-                      Settings
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      icon={
-                        user?.verified ? (
-                          <HiCheck size="20" />
-                        ) : (
-                          <HiBellAlert size="20" />
-                        )
-                      }
-                      key="verified"
-                      color={user?.verified ? "success" : "warning"}
-                      description={
-                        user?.verified ? "" : "Resend verification link."
-                      }
-                    >
-                      {user?.verified ? "Verified" : "Not verified"}
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      icon={<HiLogout size="20" />}
-                      key="logout"
-                      withDivider
-                      color="error"
-                    >
-                      Logout
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
+            {dashboard && logoutFn && (
+              <UserDropdown
+                loggingOut={loggingOut || false}
+                user={{
+                  username: user!.username,
+                  verified: user!.verified,
+                  accessToken: cookies.accessToken,
+                }}
+                logoutFn={logoutFn}
+              />
             )}
           </div>
         </div>

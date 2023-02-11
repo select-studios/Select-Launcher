@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logout, getGameInfo } from "@/handlers/api";
 import { useCookies } from "react-cookie";
-import protectRoute from "@/handlers/api/protectRoute";
+import protectRoute from "@/handlers/api/utils/protectRoute";
 import { LoadingState } from "@/components/loader/loader.component";
 import GameInfo from "@/interfaces/GameInfoInterface";
 import { motion } from "framer-motion";
@@ -12,6 +12,8 @@ import {
   alertConfig,
   removeAlert,
 } from "@/components/alert/alert.component";
+import { Button, Container } from "@nextui-org/react";
+import ButtonLoader from "@/components/loader/button/buttonloader.component";
 
 export const Home: React.FC = () => {
   const [user, setUser] = useState<any>();
@@ -49,12 +51,16 @@ export const Home: React.FC = () => {
     removeAlert(setAlert);
   }, [alert]);
 
-  return !loading ? (
+  return !loading.state ? (
     <div>
       <motion.div exit={{ opacity: 0 }}>
-        <div className="home w-full">
-          <AppBar dashboard={true} user={user} logoutFn={logoutClient} />
-
+        <Container fluid className="home">
+          <AppBar
+            dashboard={true}
+            user={user}
+            logoutFn={logoutClient}
+            loggingOut={loading.state}
+          />
           <div className="flex">
             <Sidebar active="home" />
 
@@ -66,7 +72,7 @@ export const Home: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </motion.div>
       <Alert show={alert.show} msg={alert.msg} type={alert.type} />
     </div>

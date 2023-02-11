@@ -2,7 +2,7 @@ import { AppBar, Sidebar } from "@/components";
 import { Loader, LoadingState } from "@/components/loader/loader.component";
 import { Button, Input } from "@nextui-org/react";
 import { logout } from "@/handlers/api";
-import protectRoute from "@/handlers/api/protectRoute";
+import protectRoute from "@/handlers/api/utils/protectRoute";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";

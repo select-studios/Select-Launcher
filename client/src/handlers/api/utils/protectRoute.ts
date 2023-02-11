@@ -1,4 +1,4 @@
-import { getUser } from ".";
+import { API_URI, getUser } from "..";
 
 const protectRoute = (
   cookies: any,
@@ -10,7 +10,7 @@ const protectRoute = (
   if (!cookies.accessToken && !cookies.refreshToken) {
     navigate("/");
   } else if (cookies.refreshToken && !cookies.accessToken) {
-    fetch(`${process.env.REACT_APP_API_URI}/accounts/refresh`, {
+    fetch(`${API_URI}/accounts/refresh`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${cookies.refreshToken}`,

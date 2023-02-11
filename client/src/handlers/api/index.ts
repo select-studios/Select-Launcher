@@ -1,6 +1,6 @@
 import GameInfo from "@/interfaces/GameInfoInterface";
 
-const API_URI =
+export const API_URI =
   process.env.NODE_ENV === "development"
     ? "http://localhost:4757/api"
     : "https://selectlauncherapi.up.railway.app/api";

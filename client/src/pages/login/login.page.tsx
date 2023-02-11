@@ -13,16 +13,14 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Log } from "@/utils/lib/Log";
 import { alertConfig, removeAlert } from "@/components/alert/alert.component";
+import { API_URI } from "@/handlers/api";
+import ButtonLoader from "@/components/loader/button/buttonloader.component";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
   const [alert, setAlert] = useState(alertConfig);
-  const API_URI =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:4757/api"
-      : "https://selectlauncherapi.up.railway.app/api";
 
   const validateInputComponent = (component: string, color: boolean) => {
     if (color) return (errors[component] ? "error" : "primary") as any;
@@ -138,24 +136,21 @@ export const Login: React.FC = () => {
                       />
                     </div>
                   </div>
-                  <Button
-                    type="submit"
-                    color="primary"
+                  <ButtonLoader
                     className="my-5 mx-14"
                     size="lg"
-                    disabled={loading}
-                    bordered={loading}
-                  >
-                    {loading ? (
-                      <Loading
-                        type="points-opacity"
-                        color="currentColor"
+                    button={
+                      <Button
+                        type="submit"
+                        color="primary"
+                        className="my-5 mx-14"
                         size="lg"
-                      />
-                    ) : (
-                      "Login"
-                    )}
-                  </Button>
+                      >
+                        Login
+                      </Button>
+                    }
+                    loading={loading}
+                  />
                 </form>
                 <p className="text-base text-center font-medium mb-5">
                   No account? <LinkRoute to="/register">Create one!</LinkRoute>
