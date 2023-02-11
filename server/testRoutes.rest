@@ -12,8 +12,8 @@ POST http://localhost:4757/api/accounts/login
 Content-Type: application/json
 
 {
-    "username": "Game Glide",
-    "password": "somethingidk"
+    "username": "Zame Zlide",
+    "password": "Somethingidk@1"
 }
 
 ###
