@@ -6,7 +6,6 @@ import { HiOutlineEyeSlash } from "react-icons/hi2";
 import { FcGoogle } from "react-icons/fc";
 import { Link as LinkRoute, useNavigate } from "react-router-dom";
 import LoginInterface from "@/interfaces/LoginInterface";
-import useCookies from "react-cookie/cjs/useCookies";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
@@ -20,7 +19,6 @@ import { getTokensCookie, setTokensCookie } from "@/utils/storage";
 export const Login: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
 
   const validateInputComponent = (component: string, color: boolean) => {
     if (color) return (errors[component] ? "error" : "primary") as any;
