@@ -37,11 +37,11 @@ export const Login: React.FC = () => {
       body: JSON.stringify(data),
     });
 
-    const resData = await res.json();
-
     if (res.ok) {
+      const resData = await res.json();
       const { user } = resData;
       const { accessToken, refreshToken } = user;
+      console.log(resData);
 
       setCookie("accessToken", accessToken, { path: "/", maxAge: 1800 });
       setCookie("refreshToken", refreshToken, {
@@ -52,6 +52,7 @@ export const Login: React.FC = () => {
       setLoading(false);
       navigate("/home");
     } else {
+      const resData = await res.json();
       setLoading(false);
       setAlert({ show: true, msg: resData.error, type: "error" });
     }

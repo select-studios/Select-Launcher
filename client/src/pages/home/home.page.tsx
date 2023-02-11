@@ -54,7 +54,7 @@ export const Home: React.FC = () => {
   return !loading.state ? (
     <div>
       <motion.div exit={{ opacity: 0 }}>
-        <Container fluid className="home">
+        <div className="home">
           <AppBar
             dashboard={true}
             user={user}
@@ -72,7 +72,7 @@ export const Home: React.FC = () => {
               </div>
             </div>
           </div>
-        </Container>
+        </div>
       </motion.div>
       <Alert show={alert.show} msg={alert.msg} type={alert.type} />
     </div>
