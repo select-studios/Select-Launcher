@@ -72,6 +72,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
             textOverflow: "ellipsis",
             overflow: "hidden",
             whiteSpace: "nowrap",
+            fontFamily: "'Inter', sans-serif;",
           }}
         >
           {game.description}
