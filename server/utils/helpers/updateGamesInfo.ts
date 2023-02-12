@@ -7,7 +7,7 @@ const gamesData = [
     description:
       "Fast pace action experience. An experience that is hand-picked to be enjoyed by players. Movement designed to immerse you in the experience of AceRace. Your objective is to reach the end of the game without dying once! Doing so will give you a surprise level!",
     image: {
-      icon: "https://i.imgur.com/UWQr98m.png",
+      icon: "https://i.imgur.com/7XHXj3n.png",
     },
     tags: ["action", "momentum", "fast"],
     verified: true,
@@ -24,13 +24,13 @@ const gamesData = [
     verified: true,
   },
   {
-    name: "Comming soon",
+    name: "Prokect L",
     downloadName: "Project_L-0.1",
-    description: "Currently in development. Stay tuned!",
+    description: "Comming soon!",
     image: {
       icon: "https://i.imgur.com/c30fFsi.png",
     },
-    tags: ["next"],
+    tags: ["development"],
     verified: false,
   },
 ];
