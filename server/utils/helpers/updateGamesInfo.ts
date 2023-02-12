@@ -28,7 +28,7 @@ const gamesData = [
     downloadName: "Project_L-0.1",
     description: "Currently in development. Stay tuned!",
     image: {
-      icon: "https://i.imgur.com/8Q9QY0l.png",
+      icon: "https://i.imgur.com/c30fFsi.png",
     },
     tags: ["next"],
     verified: false,
