@@ -22,11 +22,11 @@
   {
     "name": "Project L",
     "downloadName": "Project_L-0.1",
-    "description": "Currently in development. Stay tuned!",
+    "description": "Comming soon!",
     "image": {
-      "icon": "https://i.imgur.com/8Q9QY0l.png"
+      "icon": "https://i.imgur.com/c30fFsi.png"
     },
-    "tags": ["next"],
-    "verified": true
+    "tags": ["development"],
+    "verified": false
   }
 ]
