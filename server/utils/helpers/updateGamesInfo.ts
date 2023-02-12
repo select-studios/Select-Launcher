@@ -24,7 +24,7 @@ const gamesData = [
     verified: true,
   },
   {
-    name: "Prokect L",
+    name: "Project L",
     downloadName: "Project_L-0.1",
     description: "Comming soon!",
     image: {
