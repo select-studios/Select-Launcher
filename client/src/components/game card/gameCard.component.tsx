@@ -24,7 +24,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
       isPressable
       isHoverable
       css={{ maxWidth: "400px", backgroundColor: "#282A2D" }}
-      className="bg-secondary m-5 py-2 px-3 h-fit"
+      className="bg-secondary m-5 py-2 px-3 h-fit w-fit"
     >
       <Card.Header>
         <Avatar src={game.image.icon} alt={game.name + " Icon"} size="lg" />
