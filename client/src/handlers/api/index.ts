@@ -22,6 +22,7 @@ export const getUser = async (accessToken: string) => {
     return resData.user;
   } else {
     Log.error("Error getting USER information.", "Authentication");
+    throw new Error();
   }
 };
 
