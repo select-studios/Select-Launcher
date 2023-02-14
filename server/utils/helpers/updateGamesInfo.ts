@@ -24,14 +24,14 @@ const gamesData = [
     verified: true,
   },
   {
-    name: "Coming Soon",
+    name: "Project L",
     downloadName: "Project_L-0.1",
     description: "Comming soon!",
     image: {
       icon: "https://i.imgur.com/c30fFsi.png",
     },
-    tags: ["next"],
-    verified: false,
+    tags: ["development"],
+    verified: true,
   },
 ];
 
