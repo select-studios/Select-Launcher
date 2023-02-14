@@ -38,8 +38,7 @@ const theme = createTheme({
     },
     space: {},
     fonts: {
-      sans:
-        "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Montserrat', 'Inter', sans-serif;",
+      sans: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Montserrat', 'Inter', sans-serif;",
     },
   },
 });
@@ -48,6 +47,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <NextUIProvider theme={theme}>
     <React.StrictMode>
       <Router>
+        <div className="w-screen h-11 bg-secondary appbar Draggable-Region" />
         <App />
         <ToastContainer
           toastClassName="bg-red-500"
