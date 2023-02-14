@@ -68,7 +68,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
       initial={false}
       animate={isOpen ? "sidebarOpen" : "sidebarClosed"}
     >
-      <div className="bg-secondary mt-10 rounded-tr-xl rounded-br-xl">
+      <div className="bg-secondary mt-10 h-screen rounded-tr-xl rounded-br-xl">
         <div className="flex flex-col flex-1 p-5">
           <div>
             <Button
@@ -91,7 +91,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
                 disabled={link.disabled}
                 className={`bg-tertiary mt-2 ${
                   link.name.toLowerCase() == active
-                    ? "border-l-2 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
+                    ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
                     : ""
                 }`}
                 css={{
