@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.appbar {
+  -webkit-app-region: drag;
+}
+
 html,
 body {
   @apply bg-primary;

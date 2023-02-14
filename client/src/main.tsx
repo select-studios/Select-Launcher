@@ -29,6 +29,7 @@ const theme = createTheme({
       primaryShadow: "#9378fa",
 
       link: "#3b82f6",
+      selection: "3882F6",
 
       background: "#242425",
       tertiary: "#393C40",
@@ -37,7 +38,7 @@ const theme = createTheme({
     },
     space: {},
     fonts: {
-      sans_serif:
+      sans:
         "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Montserrat', 'Inter', sans-serif;",
     },
   },

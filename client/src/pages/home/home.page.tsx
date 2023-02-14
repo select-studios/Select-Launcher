@@ -73,6 +73,7 @@ export const Home: React.FC = () => {
                 )}
               </div>
             </div>
+            
           </div>
         </div>
       </motion.div>

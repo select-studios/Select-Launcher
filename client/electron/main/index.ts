@@ -61,7 +61,14 @@ async function createWindow() {
       contextIsolation: false,
     },
     autoHideMenuBar: true,
-    roundedCorners: true,
+    titleBarStyle: "hidden",
+    titleBarOverlay: {
+      color: "#282A2D",
+      symbolColor: "#fff",
+      height: 20,
+    },
+    minWidth: 515,
+    minHeight: 615,
   });
 
   if (process.env.VITE_DEV_SERVER_URL) {
