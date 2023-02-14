@@ -2,6 +2,7 @@ import { useRoutes, useLocation } from "react-router-dom";
 import { Register, Home, Login, Verify, Settings } from "@/pages";
 import { AnimatePresence } from "framer-motion";
 import React from "react";
+import ProfileSettings from "./pages/settings/profile/profilesettings.page";
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -19,7 +20,8 @@ const App: React.FC = () => {
       path: "/register",
       element: <Register />,
     },
-    { path: "/settings", element: <Settings /> },
+    { path: "/settings", element: <Settings />, index: true },
+    { path: "/settings/profile", element: <ProfileSettings />, index: true },
   ]);
 
   if (!page) return null;

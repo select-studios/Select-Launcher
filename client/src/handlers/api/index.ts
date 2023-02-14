@@ -1,11 +1,12 @@
 import GameInfo from "@/interfaces/GameInfoInterface";
+import { Log } from "@/utils/lib/Log";
 
 export const API_URI =
   process.env.NODE_ENV === "development"
     ? "http://localhost:4757/api"
     : "https://selectlauncherapi.up.railway.app/api";
 
-console.log(`API Url is ${API_URI}`);
+Log.ready("API URI is ready on " + API_URI, "API Handler");
 
 export const getUser = async (accessToken: string) => {
   const res = await fetch(`${API_URI}/accounts/account`, {
@@ -20,7 +21,7 @@ export const getUser = async (accessToken: string) => {
   if (res.ok) {
     return resData.user;
   } else {
-    console.error("Error getting user!", resData);
+    Log.error("Error getting USER information.", "Authentication");
   }
 };
 
@@ -32,9 +33,10 @@ export const getGameInfo = async () => {
   const resData: GameInfo[] = await res.json();
 
   if (res.ok) {
+    Log.success("GAME information retrieved.", "Games Handler", resData);
     return resData;
   } else {
-    console.error("Error getting Game Info!");
+    Log.error("Error getting GAME information.", "Games Handler");
     return undefined;
   }
 };

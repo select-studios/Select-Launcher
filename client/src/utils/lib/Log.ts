@@ -1,42 +1,46 @@
 class Log {
-  public static info(msg: string, type?: string) {
+  public static info(msg: string, type?: string, args?: any) {
     console.info(
-      `${this.getLogDate(new Date())} [${
+      `${this.getLogDate(new Date())}: INFO [${
         type ? type.toLowerCase() : "other"
-      }] -> ${msg}`
+      }] -> ${msg}`,
+      args ? args : ""
     );
   }
 
-  public static success(msg: string, type?: string) {
+  public static success(msg: string, type?: string, args?: any) {
     console.log(
-      `${this.getLogDate(new Date())} [${
+      `${this.getLogDate(new Date())}: SUCCESS [${
         type ? type.toLowerCase() : "other"
-      }] -> ${msg}`
+      }] -> ${msg}`,
+      args ? args : ""
     );
   }
 
-  public static warn(msg: string, type?: string) {
+  public static warn(msg: string, type?: string, args?: any) {
     console.warn(
-      `${this.getLogDate(new Date())} [${
+      `${this.getLogDate(new Date())}: WARN [${
         type ? type.toLowerCase() : "other"
-      }] -> ${msg}`
+      }] -> ${msg}`,
+      args ? args : ""
     );
   }
 
-  public static ready(msg: string, type?: string) {
+  public static ready(msg: string, type?: string, args?: any) {
     console.info(
-      `${this.getLogDate(new Date())} [${
+      `${this.getLogDate(new Date())}: READY [${
         type ? type.toLowerCase() : "other"
-      }] -> ${msg}`
+      }] -> ${msg}`,
+      args ? args : ""
     );
   }
 
-  public static error(msg: string, err: Error, type?: string) {
-    console.error(
-      `${this.getLogDate(new Date())} [${
+  public static error(msg: string, type?: string, args?: any) {
+    console.log(
+      `${this.getLogDate(new Date())}: ERROR [${
         type ? type.toLowerCase() : "other"
-      }] -> ${msg}\n\n`,
-      err
+      }] -> ${msg}`,
+      args ? args : ""
     );
   }
 

@@ -1,3 +1,4 @@
+import { Log } from "@/utils/lib/Log";
 import { getTokensCookie, setTokensCookie } from "@/utils/storage";
 import { API_URI, getUser } from "..";
 
@@ -20,10 +21,16 @@ const protectRoute = (
       .then((data) => {
         const { accessToken } = data;
         setTokensCookie(accessToken, cookies.refreshToken);
+        Log.success("New access token has been set.", "Authentication");
 
         getUser(accessToken).then((userData) => {
           setUser(userData);
-          console.log(userData);
+          Log.success(
+            "User information retrieved.",
+            "Authentication",
+            userData
+          );
+
           setLoading(false);
         });
       })
@@ -31,7 +38,7 @@ const protectRoute = (
   } else {
     getUser(cookies.accessToken).then((data) => {
       setUser(data);
-      console.log(data, "from protectRoute");
+      Log.success("User information retrieved.", "Authentication", data);
       setLoading(false);
     });
   }
