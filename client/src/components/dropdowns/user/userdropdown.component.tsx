@@ -43,11 +43,12 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
               logoutFn();
             } else if (key == "verified" && !user?.verified) {
               sendVerificationLink(user.accessToken);
+            } else if (key == "profile") {
+              navigate("/settings/profile");
             } else if (key == "settings") {
               navigate("/settings");
             }
           }}
-          disabledKeys={["profile"]}
         >
           <Dropdown.Item icon={<HiUser size="20" />} key="profile">
             Profile

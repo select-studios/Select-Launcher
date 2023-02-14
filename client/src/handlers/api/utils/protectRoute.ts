@@ -1,3 +1,4 @@
+import { Log } from "@/utils/lib/Log";
 import { getTokensCookie, setTokensCookie } from "@/utils/storage";
 import { API_URI, getUser } from "..";
 
@@ -20,20 +21,38 @@ const protectRoute = (
       .then((data) => {
         const { accessToken } = data;
         setTokensCookie(accessToken, cookies.refreshToken);
+        Log.success("New access token has been set.", "Authentication");
 
         getUser(accessToken).then((userData) => {
           setUser(userData);
-          console.log(userData);
+          Log.success(
+            "User information retrieved.",
+            "Authentication",
+            userData
+          );
+
           setLoading(false);
         });
       })
-      .catch((e) => console.error(e));
+      .catch((e) => {
+        Log.error(
+          "There was an error generating a new access token.",
+          "Authentication",
+          e
+        );
+        navigate("/");
+      });
   } else {
-    getUser(cookies.accessToken).then((data) => {
-      setUser(data);
-      console.log(data, "from protectRoute");
-      setLoading(false);
-    });
+    getUser(cookies.accessToken)
+      .then((data) => {
+        setUser(data);
+        Log.success("User information retrieved.", "Authentication", data);
+        setLoading(false);
+      })
+      .catch((e) => {
+        Log.error("There was an error getting the user.", "Authentication", e);
+        navigate("/");
+      });
   }
 };
 
