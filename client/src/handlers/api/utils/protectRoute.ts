@@ -34,13 +34,25 @@ const protectRoute = (
           setLoading(false);
         });
       })
-      .catch((e) => console.error(e));
+      .catch((e) => {
+        Log.error(
+          "There was an error generating a new access token.",
+          "Authentication",
+          e
+        );
+        navigate("/");
+      });
   } else {
-    getUser(cookies.accessToken).then((data) => {
-      setUser(data);
-      Log.success("User information retrieved.", "Authentication", data);
-      setLoading(false);
-    });
+    getUser(cookies.accessToken)
+      .then((data) => {
+        setUser(data);
+        Log.success("User information retrieved.", "Authentication", data);
+        setLoading(false);
+      })
+      .catch((e) => {
+        Log.error("There was an error getting the user.", "Authentication", e);
+        navigate("/");
+      });
   }
 };
 
