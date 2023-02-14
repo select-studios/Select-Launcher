@@ -59,7 +59,7 @@ export const Home: React.FC = () => {
             <Sidebar active="home" />
 
             <div className="mt-5">
-              <div className="grid w-full ml-16 grid-cols-3">
+              <div className="game-grid">
                 {gamesInfo ? (
                   gamesInfo.map((gameInfo, i) => {
                     return <GameCard key={i} game={gameInfo} />;
@@ -73,7 +73,6 @@ export const Home: React.FC = () => {
                 )}
               </div>
             </div>
-            
           </div>
         </div>
       </motion.div>

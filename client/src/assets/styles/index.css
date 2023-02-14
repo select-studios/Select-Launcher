@@ -57,3 +57,18 @@ h3 {
   font-weight: 500;
   font-family: "Inter" sans-serif;
 }
+
+.game-grid {
+  display: grid;
+  width: 100%;
+  margin-left: 0.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  transition: all 0.8s ease-in-out;
+}
+
+@media screen and (min-width: 1482px) {
+  .game-grid {
+    margin-left: 4rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
