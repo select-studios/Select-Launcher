@@ -1,7 +1,8 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
-
 use eframe::egui;
 use egui::{Color32, Spinner};
+mod updateFunctions;
+use updateFunctions::update;
 
 fn main() {
     tracing_subscriber::fmt::init();
@@ -17,7 +18,8 @@ fn main() {
         "Select Launcher | Updater",
         options,
         Box::new(|_cc| Box::new(Updater::default())),
-    )
+    );
+    update::check_for_updates();
 }
 
 struct Updater {}
