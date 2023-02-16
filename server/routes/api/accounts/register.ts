@@ -40,6 +40,7 @@ export const register = async (req: Request, res: Response) => {
           password: hash,
         }).then(async (user) => {
           const newUser = {
+            email: user.email,
             username: user.username,
             password: user.password,
             _id: user._id,

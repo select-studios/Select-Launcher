@@ -36,7 +36,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
             >
               {game.name}
               {game.verified && (
-                <Tooltip content="Verified">
+                <Tooltip content="Verified" color="success">
                   <Badge
                     size="sm"
                     color="success"
@@ -55,7 +55,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
               <Badge
                 key={i}
                 color="default"
-                className="border-none mr-1"
+                className="border-none font-medium mr-1"
                 disableOutline
                 size={"sm"}
               >

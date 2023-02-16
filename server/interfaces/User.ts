@@ -1,7 +1,8 @@
 import { Request } from "express";
+import { Types } from "mongoose";
 
-interface User extends Request {
-  userId: string;
+interface User {
+  _id: Types.ObjectId;
   email: string;
   username: string;
   password: string;

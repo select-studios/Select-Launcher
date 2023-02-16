@@ -2,7 +2,7 @@ import * as express from "express";
 import * as cors from "cors";
 import * as mongoose from "mongoose";
 import * as cookieParser from "cookie-parser";
-import main, { login, logout, refresh, register } from "./routes";
+import { apiRouter } from "./routes";
 
 import { Log } from "./utils/handlers/index";
 import jwtAuth from "./middleware/jwt";
@@ -21,6 +21,8 @@ const Logger = new Log();
 const app = express();
 const PORT = process.env.PORT || 4757;
 
+const router = express.Router();
+
 // Middleware
 app.use(cors());
 app.use(cookieParser());
@@ -28,15 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
-app.get("/", main);
-
-app.post("/api/accounts/login", login);
-app.post("/api/accounts/register", register);
-app.post("/api/accounts/refresh", refresh);
-app.post("/api/accounts/account", jwtAuth, (req: any, res) => {
-  console.log(req.user);
-  return res.status(201).json({ success: true, user: req.user });
-});
+app.use("/api", apiRouter);
 
 app.post("/api/accounts/verify/link", jwtAuth, async (req: any, res) => {
   const { user } = req;
@@ -67,8 +61,6 @@ app.post("/api/accounts/verify/link", jwtAuth, async (req: any, res) => {
   }
 });
 
-app.delete("/api/accounts/logout", logout);
-
 app.get("/api/accounts/:id/verify/token/:token", async (req, res) => {
   const { id, token } = req.params;
 
@@ -87,8 +79,6 @@ app.get("/api/accounts/:id/verify/token/:token", async (req, res) => {
     res.status(500).json({ error: "There was an error verifying the user." });
   }
 });
-
-app.get("/api/games/info", info);
 
 app.listen(PORT, () => {
   Logger.ready(
@@ -115,4 +105,4 @@ app.listen(PORT, () => {
     });
 });
 
-export { Logger };
+export { Logger, router };

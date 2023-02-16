@@ -3,6 +3,7 @@ import { User } from "../../../models";
 import { User as UserI } from "../../../interfaces/index";
 import bcrypt = require("bcrypt");
 import { getAccessToken, getRefreshToken } from "../../../utils/helpers/genJwt";
+import { Request } from "express-serve-static-core";
 
 const getUser = async (query: { username?: string; email?: string }) => {
   const userDb = query.username
@@ -12,7 +13,11 @@ const getUser = async (query: { username?: string; email?: string }) => {
   return userDb;
 };
 
-export const login = async (req: UserI, res: Response, next: NextFunction) => {
+export const login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { email, username, password } = req.body;
 
   const user = username
@@ -36,6 +41,7 @@ export const login = async (req: UserI, res: Response, next: NextFunction) => {
     }
 
     const newUser = {
+      email: user.email,
       username: user.username,
       password: user.password,
       _id: user._id,

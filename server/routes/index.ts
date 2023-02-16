@@ -1,12 +1,17 @@
-import { Request, Response } from "express";
+import { Request, Response, Router } from "express";
 import path = require("path");
+import accountsRouter from "./api/accounts";
+import gamesRouter from "./api/games";
+
+const apiRouter = Router();
 
 const main = (req: Request, res: Response) => {
-  return res.sendFile(path.join(__dirname, "../../public/index.html"));
+  return res.sendFile(path.join(__dirname, "../public/index.html"));
 };
 
-export default main;
-export { login } from "./api/accounts/login";
-export { register } from "./api/accounts/register";
-export { refresh } from "./api/accounts/refresh";
-export { logout } from "./api/accounts/logout";
+apiRouter.route("/").get(main);
+
+apiRouter.use("/accounts", accountsRouter);
+apiRouter.use("/games", gamesRouter);
+
+export { apiRouter };

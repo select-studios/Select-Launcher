@@ -13,8 +13,8 @@ interface EmailProps {
   url: string;
 }
 
-export function VerifyEmail(props): React.ReactElement {
-  const { username, url }: EmailProps = props;
+export const VerifyEmail: React.FC<EmailProps> = (props) => {
+  const { username, url } = props;
 
   return (
     <Html>
@@ -42,6 +42,11 @@ export function VerifyEmail(props): React.ReactElement {
               Verify Account
             </Button>
             <Text style={text}>
+              If you are having trouble clicking the button, copy and paste the
+              URL below into your web browser.
+              {"\n" + url}
+            </Text>
+            <Text style={text}>
               If you did not register for a Select Studios account, you can
               safely ignore this email.
             </Text>
@@ -55,7 +60,7 @@ export function VerifyEmail(props): React.ReactElement {
       </Section>
     </Html>
   );
-}
+};
 
 const main = {
   backgroundColor: "#f6f9fc",
