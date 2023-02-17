@@ -1,8 +1,9 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 use eframe::egui;
 use egui::{Color32, Spinner};
-mod updateFunctions;
-use updateFunctions::update;
+mod update_functions;
+use std::{env, thread};
+use update_functions::update;
 
 fn main() {
     tracing_subscriber::fmt::init();
@@ -12,14 +13,28 @@ fn main() {
         centered: true,
         resizable: false,
         decorated: false,
+        always_on_top: true,
         ..Default::default()
     };
+
+    thread::spawn(|| {
+        let args: Vec<String> = env::args().collect();
+
+        update::check_for_updates(
+            args[1]
+                .clone()
+                .to_string()
+                .replace("--version=", "")
+                .trim_start(),
+        );
+    });
+
     eframe::run_native(
         "Select Launcher | Updater",
         options,
         Box::new(|_cc| Box::new(Updater::default())),
-    );
-    update::check_for_updates();
+    )
+    .expect("App could not start");
 }
 
 struct Updater {}
@@ -35,7 +50,7 @@ impl eframe::App for Updater {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.vertical_centered(|ui| {
                 ui.heading("Select Launcher | Updater");
-                ui.label("Please wait while we check for updates!")
+                ui.label("Please wait while we install updates...")
             });
             ui.spacing();
             ui.centered_and_justified(|ui| {

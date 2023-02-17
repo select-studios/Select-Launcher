@@ -23,6 +23,7 @@ import fs from "fs";
 import runIpcStorageEvents from "./ipc/ipcStorageEvents";
 import runIpcGameEvents from "./ipc/ipcGameEvents";
 import { checkIfGamesDirectoryExists } from "../api/gameManager";
+import { checkForUpdates } from "../api/updates/updatateManager";
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
@@ -53,7 +54,7 @@ if (process.defaultApp) {
 
 async function createWindow() {
   win = new BrowserWindow({
-    title: "Main Window",
+    title: "Select Launcher",
     icon: join(process.env.PUBLIC, "favicon.ico"),
     webPreferences: {
       preload,
@@ -137,6 +138,10 @@ if (!gotTheLock) {
 
   // Create mainWindow, load the rest of the app, etc...
   app.whenReady().then(async () => {
+    if (process.env.VITE_DEV_SERVER_URL) {
+      await checkForUpdates();
+    }
+
     createWindow();
 
     // create game storage directory
