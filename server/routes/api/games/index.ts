@@ -1,8 +1,8 @@
-import { info } from "console";
+import info from "./info";
 import { Router } from "express";
 
 const gamesRouter = Router();
 
-gamesRouter.route("/info").get(info);
+gamesRouter.get("/info", info);
 
 export default gamesRouter;
