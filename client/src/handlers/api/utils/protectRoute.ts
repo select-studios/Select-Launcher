@@ -24,6 +24,8 @@ const protectRoute = (
         Log.success("New access token has been set.", "Authentication");
 
         getUser(accessToken).then((userData) => {
+        if (!data) return navigate("/");
+
           setUser(userData);
           Log.success(
             "User information retrieved.",
@@ -45,6 +47,7 @@ const protectRoute = (
   } else {
     getUser(cookies.accessToken)
       .then((data) => {
+        if (!data) return navigate("/");
         setUser(data);
         Log.success("User information retrieved.", "Authentication", data);
         setLoading(false);

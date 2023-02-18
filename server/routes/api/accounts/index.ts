@@ -1,4 +1,5 @@
 import { Router } from "express";
+import jwtAuth from "../../../middleware/jwt";
 import { account } from "./account";
 import { login } from "./login";
 import { logout } from "./logout";
@@ -10,7 +11,7 @@ const accountsRouter = Router();
 accountsRouter.post("/login", login);
 accountsRouter.post("/register", register);
 accountsRouter.post("/refresh", refresh);
-accountsRouter.post("/account", account);
+accountsRouter.post("/account", jwtAuth, account);
 
 accountsRouter.delete("/logout", logout);
 
