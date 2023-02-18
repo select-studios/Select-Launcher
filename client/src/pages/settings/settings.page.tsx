@@ -37,6 +37,7 @@ const settingsList = [
   },
   {
     label: "User",
+    id: "user",
     icon: <FiUser size={settingIconSize} />,
     tags: ["user privacy", "user settings", "profile customization"],
   },
