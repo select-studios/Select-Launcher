@@ -23,6 +23,8 @@
     "download": "^8.0.0",
     "electron-settings": "^4.0.2",
     "framer-motion": "^8.4.2",
+    "mobx": "^6.8.0",
+    "mobx-react": "^7.6.0",
     "node-fetch": "^3.3.0",
     "react-hook-form": "^7.42.0",
     "react-icons": "^4.7.1",

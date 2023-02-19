@@ -1,5 +1,5 @@
 import { AppBar, Loader, Sidebar, GameCard } from "@/components";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logout, getGameInfo } from "@/handlers/api";
 import protectRoute from "@/handlers/api/utils/protectRoute";
@@ -8,26 +8,26 @@ import GameInfo from "@/interfaces/GameInfoInterface";
 import { motion } from "framer-motion";
 import { getTokensCookie } from "@/utils/storage";
 import CardLoader from "@/components/loader/card/cardloader.component";
+import { UserStore_Impl } from "@/stores/UserStore";
 
-export const Home: React.FC = () => {
-  const [user, setUser] = useState<any>();
-  const cookies = getTokensCookie();
+interface HomeProps {
+  userStore: UserStore_Impl;
+}
 
-  const [loading, setLoading] = useState<LoadingState>({
-    state: true,
-    msg: "",
-  });
+export const logoutClient = (
+  refreshToken: string,
+  setLoading: any,
+  navigate: any
+) => {
+  logout(refreshToken || "", setLoading, navigate);
+};
+
+export const Home: React.FC<HomeProps> = ({ userStore }) => {
   const [gamesInfo, setGamesInfo] = useState<GameInfo[] | undefined>();
   const [gamesN, setGamesN] = useState<number>(0);
   const navigate = useNavigate();
 
-  const logoutClient = () => {
-    cookies && logout(cookies.refreshToken || "", setLoading, navigate);
-  };
-
   useEffect(() => {
-    protectRoute(cookies, setUser, setLoading, navigate);
-
     const storedGamesN = localStorage.getItem("gamesN");
     if (storedGamesN) {
       setGamesN(parseInt(storedGamesN));
@@ -45,15 +45,15 @@ export const Home: React.FC = () => {
     retrieveGameInfo();
   }, []);
 
-  return !loading.state ? (
+  return (
     <div>
       <motion.div exit={{ opacity: 0 }}>
         <div className="home">
           <AppBar
             dashboard={true}
-            user={user}
-            logoutFn={logoutClient}
-            loggingOut={loading.state}
+            user={userStore.user!}
+            // logoutFn={() => logoutClient(userStore.user?.tokens.refreshToken)}
+            loggingOut={false}
           />
           <div className="flex">
             <Sidebar active="home" />
@@ -77,7 +77,5 @@ export const Home: React.FC = () => {
         </div>
       </motion.div>
     </div>
-  ) : (
-    <Loader msg={loading.msg} />
   );
 };

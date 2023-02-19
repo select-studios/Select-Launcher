@@ -1,12 +1,9 @@
 import UserDropdown from "../dropdowns/user/userdropdown.component";
 import { getTokensCookie } from "@/utils/storage";
+import { User } from "@/stores/UserStore";
 
 export interface AppBarProps {
-  user?: {
-    username: string;
-    email: string;
-    verified: boolean;
-  };
+  user?: User;
   dashboard?: boolean;
   logoutFn?: () => void;
   loggingOut?: boolean;
@@ -15,7 +12,6 @@ export interface AppBarProps {
 export const AppBar: React.FC<AppBarProps> = ({
   dashboard,
   user,
-  logoutFn,
   loggingOut,
 }) => {
   const cookies = getTokensCookie();
@@ -31,7 +27,7 @@ export const AppBar: React.FC<AppBarProps> = ({
             </p>
           </div>
           <div className="lg:w-2/5 inline-flex lg:justify-end">
-            {dashboard && logoutFn && (
+            {dashboard && (
               <UserDropdown
                 loggingOut={loggingOut || false}
                 user={{
@@ -39,7 +35,6 @@ export const AppBar: React.FC<AppBarProps> = ({
                   verified: user?.verified || false,
                   accessToken: cookies.accessToken || "",
                 }}
-                logoutFn={logoutFn}
               />
             )}
           </div>

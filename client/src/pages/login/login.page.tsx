@@ -15,8 +15,13 @@ import { Log } from "@/utils/lib/Log";
 import { API_URI } from "@/handlers/api";
 import ButtonLoader from "@/components/loader/button/buttonloader.component";
 import { getTokensCookie, setTokensCookie } from "@/utils/storage";
+import { UserStore_Impl } from "@/stores/UserStore";
 
-export const Login: React.FC = () => {
+interface LoginProps {
+  userStore: UserStore_Impl;
+}
+
+export const Login: React.FC<LoginProps> = ({ userStore }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -41,6 +46,10 @@ export const Login: React.FC = () => {
         console.log(resData);
 
         setTokensCookie(accessToken, refreshToken);
+        userStore.setUser({
+          ...resData.user,
+          tokens: { accessToken, refreshToken },
+        });
 
         setLoading(false);
         navigate("/home");

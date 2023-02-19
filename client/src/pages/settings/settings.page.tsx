@@ -18,8 +18,11 @@ import { BsFileEarmarkPlusFill } from "react-icons/bs";
 import { getTokensCookie } from "@/utils/storage";
 import { HiCog, HiX } from "react-icons/hi";
 import { FiMonitor, FiSearch, FiUser } from "react-icons/fi";
+import { UserStore_Impl } from "@/stores/UserStore";
 
-interface SettingsProps {}
+interface SettingsProps {
+  userStore: UserStore_Impl;
+}
 
 const settingIconSize = "40";
 
@@ -43,34 +46,21 @@ const settingsList = [
   },
 ];
 
-const Settings: React.FC<SettingsProps> = () => {
-  const cookies = getTokensCookie();
-  const [user, setUser] = useState<any>();
-  const [loading, setLoading] = useState<LoadingState>({
-    state: true,
-    msg: "",
-  });
+const Settings: React.FC<SettingsProps> = ({ userStore }) => {
   const [libraryLocation, setLibraryLocation] = useState<string>();
-
   const navigate = useNavigate();
+
+  const { user } = userStore;
 
   useEffect(() => {
     setLibraryLocation(window.gamesAPI.getStorageLocation());
   });
 
-  const logoutClient = () => {
-    cookies && logout(cookies.refreshToken || "", setLoading, navigate);
-  };
-
-  useEffect(() => {
-    protectRoute(cookies, setUser, setLoading, navigate);
-  }, []);
-
-  return !loading ? (
+  return (
     <div>
       <motion.div exit={{ opacity: 0 }}>
         <div className="settings font-inter">
-          <AppBar dashboard={true} user={user} logoutFn={logoutClient} />
+          <AppBar dashboard={true} user={user as any} />
           <div className="settings__content mx-20 mt-20 flex text-white">
             <div className="settings__content+header">
               <p className="text-4xl text-white font-extrabold font-montserrat opacity-100 flex items-center">
@@ -177,8 +167,6 @@ const Settings: React.FC<SettingsProps> = () => {
         </div>
       </motion.div>
     </div>
-  ) : (
-    <Loader msg={loading.msg} />
   );
 };
 

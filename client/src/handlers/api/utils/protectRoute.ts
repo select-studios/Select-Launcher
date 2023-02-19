@@ -1,10 +1,11 @@
+import { UserStore_Impl } from "@/stores/UserStore";
 import { Log } from "@/utils/lib/Log";
 import { getTokensCookie, setTokensCookie } from "@/utils/storage";
 import { API_URI, getUser } from "..";
 
 const protectRoute = (
+  userStore: UserStore_Impl,
   cookies: any,
-  setUser: any,
   setLoading: any,
   navigate: any
 ) => {
@@ -24,9 +25,15 @@ const protectRoute = (
         Log.success("New access token has been set.", "Authentication");
 
         getUser(accessToken).then((userData) => {
-        if (!data) return navigate("/");
+          if (!data) return navigate("/");
 
-          setUser(userData);
+          userStore.setUser({
+            ...userData,
+            tokens: {
+              accessToken,
+              refreshToken: cookies.refreshToken,
+            },
+          });
           Log.success(
             "User information retrieved.",
             "Authentication",
@@ -47,8 +54,10 @@ const protectRoute = (
   } else {
     getUser(cookies.accessToken)
       .then((data) => {
+        const { accessToken, refreshToken } = cookies;
+
         if (!data) return navigate("/");
-        setUser(data);
+        userStore.setUser({ ...data, tokens: { accessToken, refreshToken } });
         Log.success("User information retrieved.", "Authentication", data);
         setLoading(false);
       })
