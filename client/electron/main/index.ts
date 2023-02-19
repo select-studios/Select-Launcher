@@ -23,7 +23,7 @@ import fs from "fs";
 import runIpcStorageEvents from "./ipc/ipcStorageEvents";
 import runIpcGameEvents from "./ipc/ipcGameEvents";
 import { checkIfGamesDirectoryExists } from "../api/gameManager";
-import { checkForUpdates } from "../api/updates/updatateManager";
+import { checkForUpdates } from "../api/updates/updateManager";
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
@@ -138,7 +138,7 @@ if (!gotTheLock) {
 
   // Create mainWindow, load the rest of the app, etc...
   app.whenReady().then(async () => {
-    if (process.env.VITE_DEV_SERVER_URL) {
+    if (!process.env.VITE_DEV_SERVER_URL) {
       await checkForUpdates();
     }
 
