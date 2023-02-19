@@ -7,15 +7,10 @@ import { useNavigate } from "react-router";
 
 interface UserDropdownProps {
   user: { username: string; verified: boolean; accessToken: string };
-  logoutFn: () => void;
   loggingOut: boolean;
 }
 
-const UserDropdown: React.FC<UserDropdownProps> = ({
-  user,
-  logoutFn,
-  loggingOut,
-}) => {
+const UserDropdown: React.FC<UserDropdownProps> = ({ user, loggingOut }) => {
   const navigate = useNavigate();
 
   return (
@@ -39,8 +34,8 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
         <Dropdown.Menu
           className="bg-secondary"
           onAction={(key) => {
-            if (key == "logout" && logoutFn) {
-              logoutFn();
+            if (key == "logout") {
+              logout;
             } else if (key == "verified" && !user?.verified) {
               sendVerificationLink(user.accessToken);
             } else if (key == "profile") {
