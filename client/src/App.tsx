@@ -26,8 +26,22 @@ const App: React.FC = () => {
       path: "/register",
       element: <Register />,
     },
-    { path: "/settings", element: <Settings userStore={UserStore} /> },
-    { path: "/settings/user", element: <UserSettings /> },
+    {
+      path: "/settings",
+      element: (
+        <AuthAPI userStore={UserStore}>
+          <Settings userStore={UserStore} />
+        </AuthAPI>
+      ),
+    },
+    {
+      path: "/settings/user",
+      element: (
+        <AuthAPI userStore={UserStore}>
+          <UserSettings userStore={UserStore} />
+        </AuthAPI>
+      ),
+    },
     { path: "*", element: <NotFound_E /> },
   ]);
 
@@ -35,13 +49,6 @@ const App: React.FC = () => {
 
   return (
     <AnimatePresence mode="wait">
-      {/* 
-      Routes
-        ROUTE 1 (NOT PROTECTED LOGIN)
-        <AUTHAPI>
-          ROUTE 2 (HOME, PROTECTED)
-          ROUTE 3 (settings, protected)
-       */}
       {React.cloneElement(page, { key: location.pathname })}
     </AnimatePresence>
   );

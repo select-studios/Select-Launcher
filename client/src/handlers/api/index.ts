@@ -70,3 +70,31 @@ export const sendVerificationLink = async (accessToken: string) => {
     return data.msg;
   });
 };
+
+export const editAccount = async (
+  accessToken: string,
+  put: {
+    username?: string;
+    email?: string;
+    password?: string;
+  }
+) => {
+  const res = await fetch(`${API_URI}/accounts/account/edit`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(put),
+  });
+
+  const resData = await res.json();
+  console.log(resData);
+
+  if (res.ok) {
+    return resData.user;
+  } else {
+    Log.error("Error editing account.", "Authentication");
+    throw new Error();
+  }
+};

@@ -4,12 +4,15 @@ import {
   Avatar,
   Button,
   Card,
+  Checkbox,
   Grid,
   Input,
   Link,
+  Modal,
+  Row,
   Text,
 } from "@nextui-org/react";
-import { logout } from "@/handlers/api";
+import { editAccount, logout } from "@/handlers/api";
 import protectRoute from "@/handlers/api/utils/protectRoute";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -19,6 +22,7 @@ import { getTokensCookie } from "@/utils/storage";
 import { HiCog, HiX } from "react-icons/hi";
 import { FiMonitor, FiSearch, FiUser } from "react-icons/fi";
 import { UserStore_Impl } from "@/stores/UserStore";
+import { useForm } from "react-hook-form";
 
 interface SettingsProps {
   userStore: UserStore_Impl;
@@ -50,11 +54,32 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
   const [libraryLocation, setLibraryLocation] = useState<string>();
   const navigate = useNavigate();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const [visible, setVisible] = useState(false);
+  const handler = () => setVisible(true);
+
+  const closeHandler = () => {
+    setVisible(false);
+  };
+
   const { user } = userStore;
 
   useEffect(() => {
+    console.log(userStore);
     setLibraryLocation(window.gamesAPI.getStorageLocation());
   });
+
+  const onSubmit = (data: any) => {
+    editAccount(user?.tokens.accessToken as string, data).then((newUser) => {
+      console.log("tf");
+      return userStore.setUser({ ...newUser });
+    });
+  };
 
   return (
     <div>
@@ -129,11 +154,11 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
               ))}
             </div>
             <div className="ml-auto">
-              <Card css={{ p: "$6" }} className="bg-secondary">
+              <Card css={{ p: "$6" }} className="bg-secondary h-96">
                 <Card.Header className="">
                   <Avatar
                     src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-                    className="mr-2 "
+                    className="mr-2"
                     size="xl"
                     bordered
                     color={"success"}
@@ -149,7 +174,7 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
                           {user?.email}
                         </span>
                       </p>
-                      <Button className="ml-5" auto>
+                      <Button className="ml-5" auto onPress={handler}>
                         Edit Profile
                       </Button>
                     </Grid>
@@ -157,15 +182,69 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
                 </Card.Header>
                 <Card.Divider />
                 <Card.Body css={{ py: "$2", mt: "$4" }}>
-                  <Button className="bg-tertiary">Library</Button>
-                  <Button className="bg-tertiary mt-2">Statistics</Button>
-                  <Button className="bg-tertiary mt-2">Community</Button>
+                  <div className="grid items-center h-full">
+                    <Button className="bg-tertiary">Library</Button>
+                    <Button className="bg-tertiary mt-2">Statistics</Button>
+                    <Button className="bg-tertiary mt-2">Community</Button>
+                  </div>
                 </Card.Body>
               </Card>
             </div>
           </div>
         </div>
       </motion.div>
+      <Modal
+        closeButton
+        aria-labelledby="modal-title"
+        open={visible}
+        onClose={closeHandler}
+      >
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Modal.Header>
+            <Avatar
+              src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+              className="mr-2 w-20 h-20"
+              size="xl"
+              bordered
+              color={"success"}
+            />
+          </Modal.Header>
+          <Modal.Body>
+            <Input
+              clearable
+              bordered
+              fullWidth
+              color="primary"
+              size="lg"
+              label="Username"
+              placeholder={user?.username}
+              {...register("username", {
+                required: "Username is required",
+              })}
+            />
+            <Input
+              clearable
+              bordered
+              fullWidth
+              color="primary"
+              size="lg"
+              label="E-mail"
+              placeholder={user?.email}
+              {...register("email", {
+                required: "Email is required",
+              })}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button auto color="primary" type="submit">
+              Edit
+            </Button>
+            <Button auto flat color="error" onPress={closeHandler}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </form>
+      </Modal>
     </div>
   );
 };

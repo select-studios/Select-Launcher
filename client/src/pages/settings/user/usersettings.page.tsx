@@ -1,4 +1,6 @@
-interface UserSettingsProps {}
+interface UserSettingsProps {
+  userStore: UserStore_Impl;
+}
 
 import { Loader, LoadingState } from "@/components/loader/loader.component";
 import { useEffect, useState } from "react";
@@ -8,8 +10,9 @@ import { logout } from "@/handlers/api";
 import protectRoute from "@/handlers/api/utils/protectRoute";
 import { AppBar } from "@/components";
 import { Input, Link } from "@nextui-org/react";
+import { UserStore_Impl } from "@/stores/UserStore";
 
-const UserSettings: React.FC<UserSettingsProps> = () => {
+const UserSettings: React.FC<UserSettingsProps> = ({ userStore }) => {
   const cookies = getTokensCookie();
   const [user, setUser] = useState<any>();
   const [loading, setLoading] = useState<LoadingState>({
@@ -19,17 +22,13 @@ const UserSettings: React.FC<UserSettingsProps> = () => {
 
   const navigate = useNavigate();
 
-  const logoutClient = () => {
-    cookies && logout(cookies.refreshToken || "", setLoading, navigate);
-  };
-
   useEffect(() => {
-    protectRoute(cookies, setUser, setLoading, navigate);
+    protectRoute(userStore, cookies, setLoading, navigate);
   }, []);
 
   return !loading ? (
     <div>
-      <AppBar dashboard user={user} logoutFn={logoutClient} />
+      <AppBar dashboard user={user} />
       <form className="mt-5">
         <Input type="file" name="avatar" id="avatar" />
       </form>

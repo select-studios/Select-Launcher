@@ -5,15 +5,9 @@ import { User } from "@/stores/UserStore";
 export interface AppBarProps {
   user?: User;
   dashboard?: boolean;
-  logoutFn?: () => void;
-  loggingOut?: boolean;
 }
 
-export const AppBar: React.FC<AppBarProps> = ({
-  dashboard,
-  user,
-  loggingOut,
-}) => {
+export const AppBar: React.FC<AppBarProps> = ({ dashboard, user }) => {
   const cookies = getTokensCookie();
 
   return (
@@ -29,7 +23,6 @@ export const AppBar: React.FC<AppBarProps> = ({
           <div className="lg:w-2/5 inline-flex lg:justify-end">
             {dashboard && (
               <UserDropdown
-                loggingOut={loggingOut || false}
                 user={{
                   username: user?.username || "",
                   verified: user?.verified || false,

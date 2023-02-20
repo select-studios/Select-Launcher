@@ -49,12 +49,7 @@ export const Home: React.FC<HomeProps> = ({ userStore }) => {
     <div>
       <motion.div exit={{ opacity: 0 }}>
         <div className="home">
-          <AppBar
-            dashboard={true}
-            user={userStore.user!}
-            // logoutFn={() => logoutClient(userStore.user?.tokens.refreshToken)}
-            loggingOut={false}
-          />
+          <AppBar dashboard={true} user={userStore.user!} />
           <div className="flex">
             <Sidebar active="home" />
 

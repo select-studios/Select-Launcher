@@ -1,5 +1,5 @@
 import ButtonLoader from "@/components/loader/button/buttonloader.component";
-import { sendVerificationLink } from "@/handlers/api";
+import { logout, sendVerificationLink } from "@/handlers/api";
 import { Avatar, Button, Dropdown } from "@nextui-org/react";
 import { HiCheck, HiCog, HiLogout, HiUser } from "react-icons/hi";
 import { HiBellAlert } from "react-icons/hi2";
@@ -7,10 +7,9 @@ import { useNavigate } from "react-router";
 
 interface UserDropdownProps {
   user: { username: string; verified: boolean; accessToken: string };
-  loggingOut: boolean;
 }
 
-const UserDropdown: React.FC<UserDropdownProps> = ({ user, loggingOut }) => {
+const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
   const navigate = useNavigate();
 
   return (
@@ -35,7 +34,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user, loggingOut }) => {
           className="bg-secondary"
           onAction={(key) => {
             if (key == "logout") {
-              logout;
+              logout(user.accessToken, null, navigate);
             } else if (key == "verified" && !user?.verified) {
               sendVerificationLink(user.accessToken);
             } else if (key == "profile") {

@@ -25,6 +25,7 @@
     "framer-motion": "^8.4.2",
     "mobx": "^6.8.0",
     "mobx-react": "^7.6.0",
+    "mongoose": "^6.9.2",
     "node-fetch": "^3.3.0",
     "react-hook-form": "^7.42.0",
     "react-icons": "^4.7.1",
