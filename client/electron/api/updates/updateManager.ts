@@ -19,6 +19,10 @@ export async function checkForUpdates() {
 }
 
 function update(version: string) {
-  spawn(`./updater.exe --version="${version}"`);
+  console.log("starting updater");
+  spawn(`./updater.exe --version="${version}"`, {
+    detached: true,
+    stdio: "ignore",
+  });
   app.quit();
 }

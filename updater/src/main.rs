@@ -2,7 +2,10 @@
 use eframe::egui;
 use egui::{Color32, Spinner};
 mod update_functions;
-use std::{env, thread};
+use std::{
+    env,
+    thread::{self, JoinHandle},
+};
 use update_functions::update;
 
 fn main() {
@@ -17,18 +20,6 @@ fn main() {
         ..Default::default()
     };
 
-    thread::spawn(|| {
-        let args: Vec<String> = env::args().collect();
-
-        update::check_for_updates(
-            args[1]
-                .clone()
-                .to_string()
-                .replace("--version=", "")
-                .trim_start(),
-        );
-    });
-
     eframe::run_native(
         "Select Launcher | Updater",
         options,
@@ -37,11 +28,29 @@ fn main() {
     .expect("App could not start");
 }
 
-struct Updater {}
+struct Updater {
+    download_thread: JoinHandle<()>,
+}
 
 impl Default for Updater {
     fn default() -> Self {
-        Self {}
+        let thread = thread::Builder::new()
+            .name("Downloading Thread".to_string())
+            .spawn(|| {
+                let args: Vec<String> = env::args().collect();
+
+                update::check_for_updates(
+                    args[1]
+                        .clone()
+                        .to_string()
+                        .replace("--version=", "")
+                        .trim_start(),
+                );
+            })
+            .expect("Thread failed");
+        Self {
+            download_thread: thread,
+        }
     }
 }
 
@@ -61,5 +70,9 @@ impl eframe::App for Updater {
                 );
             })
         });
+        if self.download_thread.is_finished() {
+            println!("Finished downloading!");
+            _frame.close();
+        }
     }
 }
