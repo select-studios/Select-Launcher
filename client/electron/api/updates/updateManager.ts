@@ -18,8 +18,13 @@ export async function checkForUpdates() {
 
 function update(version: string) {
   console.log("starting updater");
-  execFile(process.execPath.replace("Select Launcher.exe", "updater.exe"), [
-    `--version="${version}"`,
+  const pathToUpdater = process.execPath.replace(
+    "Select Launcher.exe",
+    "updater.exe"
+  );
+  execFile(`Start-Process`, [
+    `-FilePath "${pathToUpdater}"`,
+    "-Verb RunAs",
+    `-ArgumentList "--version=\"${version}\""`,
   ]);
-  app.exit(0);
 }
