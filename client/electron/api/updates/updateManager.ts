@@ -1,10 +1,8 @@
-import fs from "fs";
-import path from "path";
 import { Release } from "../interfaces/release";
 import axios from "axios";
 import { neq, SemVer, parse } from "semver";
 import { app } from "electron";
-import { spawn } from "child_process";
+import { execFile } from "child_process";
 
 export async function checkForUpdates() {
   var releases: Release[] = await axios
@@ -20,9 +18,8 @@ export async function checkForUpdates() {
 
 function update(version: string) {
   console.log("starting updater");
-  spawn(`./updater.exe --version="${version}"`, {
-    detached: true,
-    stdio: "ignore",
-  });
-  app.quit();
+  execFile(process.execPath.replace("Select Launcher.exe", "updater.exe"), [
+    `--version="${version}"`,
+  ]);
+  app.exit(0);
 }

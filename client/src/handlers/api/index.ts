@@ -1,4 +1,5 @@
 import GameInfo from "@/interfaces/GameInfoInterface";
+import { UserStore_Impl } from "@/stores/UserStore";
 import { Log } from "@/utils/lib/Log";
 
 export const API_URI =
@@ -43,6 +44,7 @@ export const getGameInfo = async () => {
 };
 
 export const logout = async (
+  userStore: UserStore_Impl,
   accessToken: string,
   setLoading: any,
   navigate: any
@@ -53,8 +55,8 @@ export const logout = async (
       Authorization: `Bearer ${accessToken}`,
     },
   }).then(() => {
-    setLoading({ state: true, msg: "Logging out..." });
     localStorage.clear();
+    userStore.user = null;
 
     navigate("/");
   });

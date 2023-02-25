@@ -8,21 +8,20 @@ import GameInfo from "@/interfaces/GameInfoInterface";
 import { motion } from "framer-motion";
 import { getTokensCookie } from "@/utils/storage";
 import CardLoader from "@/components/loader/card/cardloader.component";
-import { UserStore_Impl } from "@/stores/UserStore";
+import { UserStore } from "@/stores/UserStore";
+import { observer } from "mobx-react";
 
-interface HomeProps {
-  userStore: UserStore_Impl;
-}
+interface HomeProps {}
 
 export const logoutClient = (
   refreshToken: string,
   setLoading: any,
   navigate: any
 ) => {
-  logout(refreshToken || "", setLoading, navigate);
+  logout(UserStore, refreshToken || "", setLoading, navigate);
 };
 
-export const Home: React.FC<HomeProps> = ({ userStore }) => {
+const HomeComp: React.FC<HomeProps> = () => {
   const [gamesInfo, setGamesInfo] = useState<GameInfo[] | undefined>();
   const [gamesN, setGamesN] = useState<number>(0);
   const navigate = useNavigate();
@@ -49,7 +48,7 @@ export const Home: React.FC<HomeProps> = ({ userStore }) => {
     <div>
       <motion.div exit={{ opacity: 0 }}>
         <div className="home">
-          <AppBar dashboard={true} user={userStore.user!} />
+          <AppBar dashboard={true} user={UserStore.user!} />
           <div className="flex">
             <Sidebar active="home" />
 
@@ -74,3 +73,5 @@ export const Home: React.FC<HomeProps> = ({ userStore }) => {
     </div>
   );
 };
+
+export const Home = observer(HomeComp);

@@ -13,6 +13,8 @@ import {
 } from "@nextui-org/react";
 import { HiDownload } from "react-icons/hi";
 import { HiCheckBadge } from "react-icons/hi2";
+import { toast } from "react-toastify";
+import { ipcRenderer } from "electron";
 
 interface GameCardProps {
   game: GameInfo;
@@ -98,6 +100,9 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
             className="ml-2"
             onClick={() => {
               window.gamesAPI.downloadGame(game.downloadName);
+              ipcRenderer.on("finish-download", (event, message) => {
+                toast.success(message);
+              });
             }}
           >
             download

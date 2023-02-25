@@ -4,6 +4,7 @@ import os from "os";
 import download from "download";
 import settings from "electron-settings";
 import decompress from "decompress";
+import { win } from "../main/index";
 
 export const checkIfGamesDirectoryExists = (): boolean => {
   if (fs.existsSync(settings.getSync("locations.libraryLocation").toString())) {
@@ -77,6 +78,7 @@ export const cleanupGame = (gameName: string) => {
     ),
     { force: true }
   );
+  win.webContents.send("finish-download", `Finished downloading ${gameName}`);
 };
 
 export const uninstallGame = async (gameName: string) => {

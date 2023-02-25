@@ -21,12 +21,11 @@ import { BsFileEarmarkPlusFill } from "react-icons/bs";
 import { getTokensCookie } from "@/utils/storage";
 import { HiCog, HiX } from "react-icons/hi";
 import { FiMonitor, FiSearch, FiUser } from "react-icons/fi";
-import { UserStore_Impl } from "@/stores/UserStore";
+import { UserStore } from "@/stores/UserStore";
 import { useForm } from "react-hook-form";
+import { observer } from "mobx-react";
 
-interface SettingsProps {
-  userStore: UserStore_Impl;
-}
+interface SettingsProps {}
 
 const settingIconSize = "40";
 
@@ -50,7 +49,7 @@ const settingsList = [
   },
 ];
 
-const Settings: React.FC<SettingsProps> = ({ userStore }) => {
+const SettingsComp: React.FC<SettingsProps> = () => {
   const [libraryLocation, setLibraryLocation] = useState<string>();
   const navigate = useNavigate();
 
@@ -67,17 +66,17 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
     setVisible(false);
   };
 
-  const { user } = userStore;
+  const { user } = UserStore;
 
   useEffect(() => {
-    console.log(userStore);
+    console.log(UserStore);
     setLibraryLocation(window.gamesAPI.getStorageLocation());
   });
 
   const onSubmit = (data: any) => {
     editAccount(user?.tokens.accessToken as string, data).then((newUser) => {
       console.log("tf");
-      return userStore.setUser({ ...newUser });
+      return UserStore.setUser({ ...newUser });
     });
   };
 
@@ -249,4 +248,4 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
   );
 };
 
-export { Settings };
+export const Settings = observer(SettingsComp);

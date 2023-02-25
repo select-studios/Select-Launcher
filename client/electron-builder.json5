@@ -11,6 +11,7 @@
     buildResources: "electron/resources",
   },
   files: ["dist-electron", "dist"],
+  extraFiles: ["updater.exe"],
   win: {
     target: [
       {
@@ -19,6 +20,7 @@
       },
     ],
     artifactName: "${productName}-Windows-${version}-Setup.${ext}",
+    requestedExecutionLevel: "requireAdministrator",
   },
   nsis: {
     oneClick: false,
@@ -27,7 +29,7 @@
     deleteAppDataOnUninstall: false,
     allowElevation: true,
     installerIcon: "installerIcon.ico",
-    uninstallerIcon: "uninstallerIcon.ico"
+    uninstallerIcon: "uninstallerIcon.ico",
   },
   mac: {
     target: ["dmg"],

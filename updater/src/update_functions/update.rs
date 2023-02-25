@@ -16,7 +16,7 @@ pub fn check_for_updates(version: &str) {
     let releases = client
         .get("https://api.github.com/repos/select-studios/Select-Launcher/releases")
         .header(ACCEPT, "application/vnd.github+json")
-        .header(AUTHORIZATION, "Bearer [TOKEN]")
+        .header(AUTHORIZATION, "Bearer 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")
         .header(USER_AGENT, "Select-Launcher")
         .send()
         .expect("could not send request")

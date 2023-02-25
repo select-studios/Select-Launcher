@@ -4,7 +4,6 @@ import { AnimatePresence } from "framer-motion";
 import React, { useEffect } from "react";
 import UserSettings from "./pages/settings/user/usersettings.page";
 import { NotFound_E } from "./pages/errors";
-import { UserStore } from "./stores/UserStore";
 import AuthAPI from "./handlers/api/components/Auth";
 
 const App: React.FC = () => {
@@ -12,13 +11,13 @@ const App: React.FC = () => {
   const page = useRoutes([
     {
       path: "/",
-      element: <Login userStore={UserStore} />,
+      element: <Login />,
     },
     {
       path: "/home",
       element: (
-        <AuthAPI userStore={UserStore}>
-          <Home userStore={UserStore} />
+        <AuthAPI>
+          <Home />
         </AuthAPI>
       ),
     },
@@ -29,16 +28,16 @@ const App: React.FC = () => {
     {
       path: "/settings",
       element: (
-        <AuthAPI userStore={UserStore}>
-          <Settings userStore={UserStore} />
+        <AuthAPI>
+          <Settings />
         </AuthAPI>
       ),
     },
     {
       path: "/settings/user",
       element: (
-        <AuthAPI userStore={UserStore}>
-          <UserSettings userStore={UserStore} />
+        <AuthAPI>
+          <UserSettings />
         </AuthAPI>
       ),
     },

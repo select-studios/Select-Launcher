@@ -4,6 +4,8 @@ import { Avatar, Button, Dropdown } from "@nextui-org/react";
 import { HiCheck, HiCog, HiLogout, HiUser } from "react-icons/hi";
 import { HiBellAlert } from "react-icons/hi2";
 import { useNavigate } from "react-router";
+import { observer } from "mobx-react";
+import { UserStore } from "@/stores/UserStore";
 
 interface UserDropdownProps {
   user: { username: string; verified: boolean; accessToken: string };
@@ -34,7 +36,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
           className="bg-secondary"
           onAction={(key) => {
             if (key == "logout") {
-              logout(user.accessToken, null, navigate);
+              logout(UserStore, user.accessToken, null, navigate);
             } else if (key == "verified" && !user?.verified) {
               sendVerificationLink(user.accessToken);
             } else if (key == "profile") {
