@@ -20,6 +20,7 @@
     ],
     artifactName: "${productName}-Windows-${version}-Setup.${ext}",
     requestedExecutionLevel: "requireAdministrator",
+    publish: ["github"],
   },
   nsis: {
     oneClick: false,

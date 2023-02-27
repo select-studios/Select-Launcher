@@ -23,6 +23,7 @@ import fs from "fs";
 import runIpcStorageEvents from "./ipc/ipcStorageEvents";
 import runIpcGameEvents from "./ipc/ipcGameEvents";
 import { checkIfGamesDirectoryExists } from "../api/gameManager";
+import { autoUpdater } from "electron-updater";
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
@@ -137,6 +138,10 @@ if (!gotTheLock) {
 
   // Create mainWindow, load the rest of the app, etc...
   app.whenReady().then(async () => {
+    if (app.isPackaged) {
+      autoUpdater.checkForUpdatesAndNotify();
+    }
+
     createWindow();
 
     // create game storage directory
