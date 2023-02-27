@@ -11,7 +11,6 @@
     buildResources: "electron/resources",
   },
   files: ["dist-electron", "dist"],
-  extraFiles: ["updater.exe"],
   win: {
     target: [
       {
@@ -21,6 +20,7 @@
     ],
     artifactName: "${productName}-Windows-${version}-Setup.${ext}",
     requestedExecutionLevel: "requireAdministrator",
+    publish: ["github"],
   },
   nsis: {
     oneClick: false,
