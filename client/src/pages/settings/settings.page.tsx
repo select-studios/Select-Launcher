@@ -120,8 +120,8 @@ const SettingsComp: React.FC<SettingsProps> = () => {
             <div className="flex">
               {settingsList.map((setting, i) => (
                 <Card
-                  css={{ p: "$6", mw: "400px" }}
-                  className="bg-secondary my-2 mr-5"
+                  css={{ p: "$6", mw: "400px", backgroundColor: "#282A2D" }}
+                  className="my-2 mr-5"
                   isHoverable
                   isPressable
                   onClick={() => navigate("/settings/" + setting.id)}
@@ -153,7 +153,10 @@ const SettingsComp: React.FC<SettingsProps> = () => {
               ))}
             </div>
             <div className="ml-auto">
-              <Card css={{ p: "$6" }} className="bg-secondary h-96">
+              <Card
+                css={{ p: "$6", backgroundColor: "#282A2D" }}
+                className="h-96"
+              >
                 <Card.Header className="">
                   <Avatar
                     src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
@@ -182,9 +185,21 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                 <Card.Divider />
                 <Card.Body css={{ py: "$2", mt: "$4" }}>
                   <div className="grid items-center h-full">
-                    <Button className="bg-tertiary">Library</Button>
-                    <Button className="bg-tertiary mt-2">Statistics</Button>
-                    <Button className="bg-tertiary mt-2">Community</Button>
+                    <Button css={{ backgroundColor: "#393C40" }}>
+                      Library
+                    </Button>
+                    <Button
+                      css={{ backgroundColor: "#393C40" }}
+                      className="mt-2"
+                    >
+                      Statistics
+                    </Button>
+                    <Button
+                      css={{ backgroundColor: "#393C40" }}
+                      className="mt-2"
+                    >
+                      Community
+                    </Button>
                   </div>
                 </Card.Body>
               </Card>

@@ -138,7 +138,7 @@ if (!gotTheLock) {
 
   // Create mainWindow, load the rest of the app, etc...
   app.whenReady().then(async () => {
-    if (!process.env.VITE_DEV_SERVER_URL) {
+    if (app.isPackaged) {
       await checkForUpdates();
     }
 
