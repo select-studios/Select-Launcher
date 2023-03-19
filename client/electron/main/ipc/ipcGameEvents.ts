@@ -1,5 +1,11 @@
 import { ipcMain } from "electron";
-import { downloadGame, installGame, cleanupGame } from "../../api/gameManager";
+import {
+  downloadGame,
+  installGame,
+  cleanupGame,
+  uninstallGame,
+  startGame,
+} from "../../api/gameManager";
 
 function runIpcGameEvents() {
   ipcMain.on("download-game", async (event, game) => {
@@ -23,6 +29,14 @@ function runIpcGameEvents() {
   ipcMain.on("cleanup-game", async (event, game) => {
     cleanupGame(game);
     event.returnValue = `successfully cleaned up install of ${game}`;
+  });
+  ipcMain.on("uninstall-game", async (event, game) => {
+    uninstallGame(game);
+    event.returnValue = `successfully uninstalled ${game}`;
+  });
+  ipcMain.on("start-game", async (event, game) => {
+    startGame(game);
+    event.returnValue = `successfully started ${game}`;
   });
 }
 

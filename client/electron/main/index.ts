@@ -138,9 +138,9 @@ if (!gotTheLock) {
 
   // Create mainWindow, load the rest of the app, etc...
   app.whenReady().then(async () => {
-    if (app.isPackaged) {
-      await checkForUpdates();
-    }
+    // if (app.isPackaged) {
+    //   await checkForUpdates();
+    // }
 
     createWindow();
 

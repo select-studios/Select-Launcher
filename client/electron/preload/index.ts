@@ -36,6 +36,8 @@ window.gamesAPI = {
   downloadGame: (game: string) => ipcRenderer.sendSync("download-game", game),
   installGame: (game: string) => ipcRenderer.sendSync("install-game", game),
   cleanupGame: (game: string) => ipcRenderer.sendSync("cleanup-game", game),
+  uninstallGame: (game: string) => ipcRenderer.sendSync("uninstall-game", game),
+  startGame: (game: string) => ipcRenderer.sendSync("start-game", game),
 };
 
 window.filesAPI = {

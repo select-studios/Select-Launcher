@@ -12,7 +12,9 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { HiDownload } from "react-icons/hi";
+import { ImBoxRemove } from "react-icons/im";
 import { HiCheckBadge } from "react-icons/hi2";
+import { BsPlayFill } from "react-icons/bs";
 import { toast } from "react-toastify";
 import { ipcRenderer } from "electron";
 
@@ -26,7 +28,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
       isPressable
       isHoverable
       css={{ maxWidth: "400px", backgroundColor: "#282A2D" }}
-      className="bg-secondary m-5 py-2 px-3 h-fit w-fit"
+      className="bg-secondary m-5 py-2 px-1 h-fit w-fit"
     >
       <Card.Header>
         <Avatar src={game.image.icon} alt={game.name + " Icon"} size="lg" />
@@ -67,7 +69,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
           </Row>
         </Grid.Container>
       </Card.Header>
-      <Card.Body css={{ py: "$2" }}>
+      <Card.Body css={{ py: "$4" }}>
         <Text
           className="font-medium font-inter"
           css={{
@@ -83,7 +85,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
       <Card.Divider />
       <Card.Footer>
         <Row justify="flex-end">
-          <Button
+          {/* <Button
             size="md"
             className="bg-tertiary"
             css={{
@@ -91,6 +93,16 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
             }}
           >
             Learn more
+          </Button> */}
+          <Button
+            color="success"
+            auto
+            onClick={() => {
+              window.gamesAPI.startGame(game.name);
+              toast.success(`Starting ${game.name}`);
+            }}
+          >
+            <BsPlayFill size={20} />
           </Button>
           <Button
             icon={<HiDownload size="20" />}
@@ -106,6 +118,21 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
             }}
           >
             download
+          </Button>
+          <Button
+            icon={<ImBoxRemove size="20" />}
+            size="md"
+            color="error"
+            auto
+            className="ml-2"
+            onClick={() => {
+              window.gamesAPI.uninstallGame(game.name);
+              ipcRenderer.on("finish-uninstall", (event, message) => {
+                toast.error(message);
+              });
+            }}
+          >
+            uninstall
           </Button>
         </Row>
       </Card.Footer>
