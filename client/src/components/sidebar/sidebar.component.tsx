@@ -1,9 +1,11 @@
 import { Button, Tooltip } from "@nextui-org/react";
-import { HiCog, HiDownload, HiHome, HiMenuAlt1 } from "react-icons/hi";
-import { BiShoppingBag } from "react-icons/bi";
+import { HiCog, HiHome, HiMenuAlt1 } from "react-icons/hi";
+import { BiShoppingBag, BiLibrary } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
+import { SidebarStore } from "@/stores/SidebarStore";
+import { observer } from "mobx-react";
 
 interface SidebarProps {
   active: string;
@@ -29,11 +31,10 @@ const sidebarVariants = {
   },
 };
 
-export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
-  const [isOpen, setOpen] = useState(true);
+const SidebarComp: React.FC<SidebarProps> = ({ active }) => {
   const navigate = useNavigate();
 
-  const iconSize = isOpen ? "20" : "25";
+  const iconSize = SidebarStore.isOpen ? "20" : "25";
 
   const sidebarLinks: SidebarLink[] = [
     {
@@ -51,7 +52,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
     {
       name: "Library",
       href: "/library",
-      icon: <HiDownload size={iconSize} />,
+      icon: <BiLibrary size={iconSize} />,
       disabled: true,
     },
     {
@@ -66,7 +67,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
     <motion.div
       variants={sidebarVariants}
       initial={false}
-      animate={isOpen ? "sidebarOpen" : "sidebarClosed"}
+      animate={SidebarStore.isOpen ? "sidebarOpen" : "sidebarClosed"}
     >
       <div className="bg-secondary mt-10 h-screen rounded-tr-xl rounded-br-xl">
         <div className="flex flex-col flex-1 p-5">
@@ -74,11 +75,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
             <Button
               size="lg"
               color="primary"
-              className={!isOpen ? "bg-tertiary" : ""}
+              className={!SidebarStore.isOpen ? "bg-tertiary" : ""}
               auto
-              onClick={() => setOpen(!isOpen)}
+              onClick={() => (SidebarStore.isOpen = !SidebarStore.isOpen)}
               css={{
-                backgroundColor: !isOpen ? "#393C40" : "",
+                backgroundColor: !SidebarStore.isOpen ? "#393C40" : "",
               }}
             >
               <HiMenuAlt1 size="25" className="font-bold" />
@@ -118,9 +119,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
                 icon={link.icon}
                 key={i}
                 size="lg"
-                auto={!isOpen}
+                auto={!SidebarStore.isOpen}
               >
-                {isOpen && link.name}
+                {SidebarStore.isOpen && link.name}
               </Button>
             ))}
           </div>
@@ -129,3 +130,5 @@ export const Sidebar: React.FC<SidebarProps> = ({ active }) => {
     </motion.div>
   );
 };
+
+export const Sidebar = observer(SidebarComp);

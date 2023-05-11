@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import { Release } from "../interfaces/release";
 import axios from "axios";
 import { neq, SemVer, parse } from "semver";
@@ -20,9 +18,12 @@ export async function checkForUpdates() {
 
 function update(version: string) {
   console.log("starting updater");
-  spawn(`./updater.exe --version="${version}"`, {
+  const pathToUpdater = process.execPath.replace("Select Launcher.exe", "");
+  const updaterProcess = spawn("updater.exe", [`--version=${version}`], {
     detached: true,
     stdio: "ignore",
+    cwd: pathToUpdater,
   });
+  updaterProcess.unref();
   app.quit();
 }

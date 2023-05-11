@@ -4,6 +4,8 @@ import { Avatar, Button, Dropdown } from "@nextui-org/react";
 import { HiCheck, HiCog, HiLogout, HiUser } from "react-icons/hi";
 import { HiBellAlert } from "react-icons/hi2";
 import { useNavigate } from "react-router";
+import { observer } from "mobx-react";
+import { UserStore } from "@/stores/UserStore";
 
 interface UserDropdownProps {
   user: { username: string; verified: boolean; accessToken: string };

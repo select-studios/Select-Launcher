@@ -15,13 +15,12 @@ import { Log } from "@/utils/lib/Log";
 import { API_URI } from "@/handlers/api";
 import ButtonLoader from "@/components/loader/button/buttonloader.component";
 import { getTokensCookie, setTokensCookie } from "@/utils/storage";
-import { UserStore_Impl } from "@/stores/UserStore";
+import { UserStore } from "@/stores/UserStore";
+import { observer } from "mobx-react";
 
-interface LoginProps {
-  userStore: UserStore_Impl;
-}
+interface LoginProps {}
 
-export const Login: React.FC<LoginProps> = ({ userStore }) => {
+export const LoginComp: React.FC<LoginProps> = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -46,7 +45,7 @@ export const Login: React.FC<LoginProps> = ({ userStore }) => {
         console.log(resData);
 
         setTokensCookie(accessToken, refreshToken);
-        userStore.setUser({
+        UserStore.setUser({
           ...resData.user,
           tokens: { accessToken, refreshToken },
         });
@@ -186,3 +185,5 @@ export const Login: React.FC<LoginProps> = ({ userStore }) => {
     </div>
   );
 };
+
+export const Login = observer(LoginComp);

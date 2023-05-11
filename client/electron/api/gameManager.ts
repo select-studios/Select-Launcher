@@ -1,9 +1,10 @@
 import fs from "fs";
 import path from "path";
-import os from "os";
+import { execFile } from "child_process";
 import download from "download";
 import settings from "electron-settings";
 import decompress from "decompress";
+import { win } from "../main/index";
 
 export const checkIfGamesDirectoryExists = (): boolean => {
   if (fs.existsSync(settings.getSync("locations.libraryLocation").toString())) {
@@ -77,6 +78,7 @@ export const cleanupGame = (gameName: string) => {
     ),
     { force: true }
   );
+  win.webContents.send("finish-download", `Finished downloading ${gameName}`);
 };
 
 export const uninstallGame = async (gameName: string) => {
@@ -86,8 +88,28 @@ export const uninstallGame = async (gameName: string) => {
     );
   }
   fs.rmSync(
-    path.join(os.homedir(), "AppData", "Roaming", "Select Games", gameName),
+    path.join(
+      settings.getSync("locations.libraryLocation").toString(),
+      gameName
+    ),
     { recursive: true, force: true }
+  );
+  win.webContents.send("finish-uninstall", `Finished uninstalling ${gameName}`);
+};
+
+export const startGame = async (gameName: string) => {
+  if (!checkIfGamesDirectoryExists()) {
+    fs.mkdir(settings.getSync("locations.libraryLocation").toString(), () =>
+      console.log("created games folder")
+    );
+  }
+
+  execFile(
+    path.join(
+      settings.getSync("locations.libraryLocation").toString(),
+      gameName,
+      `${gameName}.exe`
+    )
   );
 };
 

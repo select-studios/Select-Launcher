@@ -19,6 +19,8 @@
       },
     ],
     artifactName: "${productName}-Windows-${version}-Setup.${ext}",
+    requestedExecutionLevel: "requireAdministrator",
+    publish: ["github"],
   },
   nsis: {
     oneClick: false,
@@ -27,7 +29,7 @@
     deleteAppDataOnUninstall: false,
     allowElevation: true,
     installerIcon: "installerIcon.ico",
-    uninstallerIcon: "uninstallerIcon.ico"
+    uninstallerIcon: "uninstallerIcon.ico",
   },
   mac: {
     target: ["dmg"],

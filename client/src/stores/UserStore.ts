@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from "mobx";
+import { makeAutoObservable } from "mobx";
 
 export interface User {
   _id: string;
@@ -16,10 +16,7 @@ export class UserStore_Impl {
   user: User | null = null;
 
   constructor() {
-    makeObservable(this, {
-      user: observable,
-      setUser: action,
-    });
+    makeAutoObservable(this);
   }
 
   setUser(user: User) {

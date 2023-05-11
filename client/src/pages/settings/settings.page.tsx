@@ -4,36 +4,22 @@ import {
   Avatar,
   Button,
   Card,
-  Checkbox,
   Grid,
   Input,
-  Link,
   Modal,
-  Row,
   Text,
 } from "@nextui-org/react";
-import { editAccount, logout } from "@/handlers/api";
-import protectRoute from "@/handlers/api/utils/protectRoute";
+import { editAccount } from "@/handlers/api";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { BsFileEarmarkPlusFill } from "react-icons/bs";
-import { getTokensCookie } from "@/utils/storage";
 import { HiCog, HiX } from "react-icons/hi";
-import {
-  FiEdit,
-  FiEdit2,
-  FiEdit3,
-  FiMonitor,
-  FiSearch,
-  FiUser,
-} from "react-icons/fi";
-import { UserStore_Impl } from "@/stores/UserStore";
+import { FiEdit3, FiMonitor, FiSearch, FiUser } from "react-icons/fi";
+import { UserStore } from "@/stores/UserStore";
 import { useForm } from "react-hook-form";
+import { observer } from "mobx-react";
 
-interface SettingsProps {
-  userStore: UserStore_Impl;
-}
+interface SettingsProps {}
 
 const settingIconSize = "40";
 
@@ -57,7 +43,7 @@ const settingsList = [
   },
 ];
 
-const Settings: React.FC<SettingsProps> = ({ userStore }) => {
+const SettingsComp: React.FC<SettingsProps> = () => {
   const [libraryLocation, setLibraryLocation] = useState<string>();
   const navigate = useNavigate();
 
@@ -74,10 +60,10 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
     setVisible(false);
   };
 
-  let { user: storedUser } = userStore;
+  const { user: storedUser } = UserStore;
 
   useEffect(() => {
-    console.log(userStore);
+    console.log(UserStore);
     setLibraryLocation(window.gamesAPI.getStorageLocation());
   });
 
@@ -85,7 +71,7 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
     editAccount(storedUser?.tokens.accessToken as string, data).then(
       (newUser) => {
         console.log("tf");
-        userStore.setUser({ ...newUser });
+        UserStore.setUser({ ...newUser });
 
         window.location.reload();
       }
@@ -132,8 +118,8 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
             <div className="flex">
               {settingsList.map((setting, i) => (
                 <Card
-                  css={{ p: "$6", mw: "400px" }}
-                  className="bg-secondary my-2 mr-5"
+                  css={{ p: "$6", mw: "400px", backgroundColor: "#282A2D" }}
+                  className="my-2 mr-5"
                   isHoverable
                   isPressable
                   onClick={() => navigate("/settings/" + setting.id)}
@@ -192,66 +178,66 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
                   </Grid.Container>
                 </Card.Header>{" "}
               </Card>
+              <Modal
+                closeButton
+                aria-labelledby="modal-title"
+                open={visible}
+                onClose={closeHandler}
+              >
+                <form onSubmit={() => handleSubmit(onSubmit)}>
+                  <Modal.Header justify="flex-start">
+                    <p className="text-2xl font-bold flex items-center">
+                      <FiEdit3 size="20" className="mr-2" /> Edit Profile
+                    </p>
+                  </Modal.Header>
+                  <Modal.Header>
+                    <Avatar
+                      src="https://i.pravatar.cc/250?u=a042581f4e29026024d"
+                      css={{ size: "$20" }}
+                    />
+                  </Modal.Header>
+                  <Modal.Body>
+                    <Input
+                      clearable
+                      bordered
+                      fullWidth
+                      color="primary"
+                      size="lg"
+                      label="Username"
+                      placeholder={storedUser?.username}
+                      {...register("username", {
+                        required: "Username is required",
+                      })}
+                    />
+                    <Input
+                      clearable
+                      bordered
+                      fullWidth
+                      color="primary"
+                      size="lg"
+                      label="E-mail"
+                      placeholder={storedUser?.email}
+                      {...register("email", {
+                        required: "Email is required",
+                      })}
+                    />
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button auto color="primary" type="submit">
+                      Edit
+                    </Button>
+                    <Button auto flat color="error" onPress={closeHandler}>
+                      Close
+                    </Button>
+                  </Modal.Footer>
+                </form>
+              </Modal>
             </div>
           </div>
         </div>
       </motion.div>
-      <Modal
-        closeButton
-        aria-labelledby="modal-title"
-        open={visible}
-        onClose={closeHandler}
-      >
-        <form onSubmit={() => handleSubmit(onSubmit)}>
-          <Modal.Header justify="flex-start">
-            <p className="text-2xl font-bold flex items-center">
-              <FiEdit3 size="20" className="mr-2" /> Edit Profile
-            </p>
-          </Modal.Header>
-          <Modal.Header>
-            <Avatar
-              src="https://i.pravatar.cc/250?u=a042581f4e29026024d"
-              css={{ size: "$20" }}
-            />
-          </Modal.Header>
-          <Modal.Body>
-            <Input
-              clearable
-              bordered
-              fullWidth
-              color="primary"
-              size="lg"
-              label="Username"
-              placeholder={storedUser?.username}
-              {...register("username", {
-                required: "Username is required",
-              })}
-            />
-            <Input
-              clearable
-              bordered
-              fullWidth
-              color="primary"
-              size="lg"
-              label="E-mail"
-              placeholder={storedUser?.email}
-              {...register("email", {
-                required: "Email is required",
-              })}
-            />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button auto color="primary" type="submit">
-              Edit
-            </Button>
-            <Button auto flat color="error" onPress={closeHandler}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </form>
-      </Modal>
     </div>
   );
 };
 
-export { Settings };
+export const Settings = observer(SettingsComp);

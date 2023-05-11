@@ -1,16 +1,16 @@
 import { Loader, LoadingState } from "@/components/loader/loader.component";
-import { UserStore_Impl } from "@/stores/UserStore";
+import { UserStore } from "@/stores/UserStore";
 import { getTokensCookie } from "@/utils/storage";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import protectRoute from "../utils/protectRoute";
+import { observer } from "mobx-react";
 
 interface AuthAPIProps {
-  userStore: UserStore_Impl;
   children: React.ReactNode;
 }
 
-const AuthAPI: React.FC<AuthAPIProps> = ({ userStore, children }) => {
+const AuthAPI: React.FC<AuthAPIProps> = ({ children }) => {
   const cookies = getTokensCookie();
   const navigate = useNavigate();
 
@@ -20,10 +20,10 @@ const AuthAPI: React.FC<AuthAPIProps> = ({ userStore, children }) => {
   });
 
   useEffect(() => {
-    protectRoute(userStore, cookies, setLoading, navigate);
+    protectRoute(UserStore, cookies, setLoading, navigate);
   }, []);
 
   return !loading ? <div>{children}</div> : <Loader msg={loading.msg} />;
 };
 
-export default AuthAPI;
+export default observer(AuthAPI);

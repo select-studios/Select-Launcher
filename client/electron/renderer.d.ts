@@ -4,6 +4,8 @@ export interface IGamesAPI {
   downloadGame: (game: string) => void;
   installGame: (game: string) => void;
   cleanupGame: (game: string) => void;
+  uninstallGame: (game: string) => void;
+  startGame: (game: string) => void;
 }
 
 export interface IFilesAPI {
