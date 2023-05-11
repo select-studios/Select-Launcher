@@ -20,7 +20,14 @@ import { useNavigate } from "react-router";
 import { BsFileEarmarkPlusFill } from "react-icons/bs";
 import { getTokensCookie } from "@/utils/storage";
 import { HiCog, HiX } from "react-icons/hi";
-import { FiMonitor, FiSearch, FiUser } from "react-icons/fi";
+import {
+  FiEdit,
+  FiEdit2,
+  FiEdit3,
+  FiMonitor,
+  FiSearch,
+  FiUser,
+} from "react-icons/fi";
 import { UserStore_Impl } from "@/stores/UserStore";
 import { useForm } from "react-hook-form";
 
@@ -67,7 +74,7 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
     setVisible(false);
   };
 
-  const { user } = userStore;
+  let { user: storedUser } = userStore;
 
   useEffect(() => {
     console.log(userStore);
@@ -75,17 +82,21 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
   });
 
   const onSubmit = (data: any) => {
-    editAccount(user?.tokens.accessToken as string, data).then((newUser) => {
-      console.log("tf");
-      return userStore.setUser({ ...newUser });
-    });
+    editAccount(storedUser?.tokens.accessToken as string, data).then(
+      (newUser) => {
+        console.log("tf");
+        userStore.setUser({ ...newUser });
+
+        window.location.reload();
+      }
+    );
   };
 
   return (
     <div>
       <motion.div exit={{ opacity: 0 }}>
         <div className="settings font-inter">
-          <AppBar dashboard={true} user={user as any} />
+          <AppBar dashboard={true} user={storedUser as any} />
           <div className="settings__content mx-20 mt-20 flex text-white">
             <div className="settings__content+header">
               <p className="text-4xl text-white font-extrabold font-montserrat opacity-100 flex items-center">
@@ -154,10 +165,10 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
               ))}
             </div>
             <div className="ml-auto">
-              <Card css={{ p: "$6" }} className="bg-secondary h-96">
+              <Card css={{ p: "$6" }} className="bg-secondary">
                 <Card.Header className="">
                   <Avatar
-                    src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                    src="https://i.pravatar.cc/300"
                     className="mr-2"
                     size="xl"
                     bordered
@@ -167,11 +178,11 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
                     <Grid xs={12}>
                       <p>
                         <span className="text-xl font-montserrat font-bold">
-                          @{user?.username}
+                          @{storedUser?.username}
                         </span>
                         <br />
                         <span className="text-gray-300 font-inter">
-                          {user?.email}
+                          {storedUser?.email}
                         </span>
                       </p>
                       <Button className="ml-5" auto onPress={handler}>
@@ -179,15 +190,7 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
                       </Button>
                     </Grid>
                   </Grid.Container>
-                </Card.Header>
-                <Card.Divider />
-                <Card.Body css={{ py: "$2", mt: "$4" }}>
-                  <div className="grid items-center h-full">
-                    <Button className="bg-tertiary">Library</Button>
-                    <Button className="bg-tertiary mt-2">Statistics</Button>
-                    <Button className="bg-tertiary mt-2">Community</Button>
-                  </div>
-                </Card.Body>
+                </Card.Header>{" "}
               </Card>
             </div>
           </div>
@@ -199,14 +202,16 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
         open={visible}
         onClose={closeHandler}
       >
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={() => handleSubmit(onSubmit)}>
+          <Modal.Header justify="flex-start">
+            <p className="text-2xl font-bold flex items-center">
+              <FiEdit3 size="20" className="mr-2" /> Edit Profile
+            </p>
+          </Modal.Header>
           <Modal.Header>
             <Avatar
-              src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-              className="mr-2 w-20 h-20"
-              size="xl"
-              bordered
-              color={"success"}
+              src="https://i.pravatar.cc/250?u=a042581f4e29026024d"
+              css={{ size: "$20" }}
             />
           </Modal.Header>
           <Modal.Body>
@@ -217,7 +222,7 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
               color="primary"
               size="lg"
               label="Username"
-              placeholder={user?.username}
+              placeholder={storedUser?.username}
               {...register("username", {
                 required: "Username is required",
               })}
@@ -229,7 +234,7 @@ const Settings: React.FC<SettingsProps> = ({ userStore }) => {
               color="primary"
               size="lg"
               label="E-mail"
-              placeholder={user?.email}
+              placeholder={storedUser?.email}
               {...register("email", {
                 required: "Email is required",
               })}

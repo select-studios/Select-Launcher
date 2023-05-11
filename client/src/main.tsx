@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { HashRouter as Router } from "react-router-dom";
 import App from "./App";
 import "./samples/node-api";
-import "styles/index.css";
+import "./assets/styles/index.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import * as dotenv from "dotenv";
@@ -38,7 +38,7 @@ const theme = createTheme({
     },
     space: {},
     fonts: {
-      sans: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Montserrat', 'Inter', sans-serif;",
+      sans: "'Inter', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Montserrat', 'Inter', sans-serif;",
     },
   },
 });

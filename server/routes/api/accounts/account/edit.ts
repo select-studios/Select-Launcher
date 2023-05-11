@@ -11,12 +11,9 @@ export const editAccount = async (req: any, res: any) => {
     return res.status(400).json({ success: false, message: "User not found." });
 
   try {
-    await user.updateOne(
-      { username, email, password },
-      { returnOriginal: false }
-    );
+    const newUser = await user.updateOne({ username, email, password });
 
-    return res.status(201).json({ success: true, user });
+    return res.status(201).json({ success: true, newUser });
   } catch (error) {
     console.log(error);
 

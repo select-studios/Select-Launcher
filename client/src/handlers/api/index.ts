@@ -42,18 +42,13 @@ export const getGameInfo = async () => {
   }
 };
 
-export const logout = async (
-  accessToken: string,
-  setLoading: any,
-  navigate: any
-) => {
+export const logout = async (accessToken: string, navigate: any) => {
   await fetch(`${API_URI}/accounts/logout`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   }).then(() => {
-    setLoading({ state: true, msg: "Logging out..." });
     localStorage.clear();
 
     navigate("/");

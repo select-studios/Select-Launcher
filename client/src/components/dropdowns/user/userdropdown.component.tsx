@@ -34,7 +34,11 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
           className="bg-secondary"
           onAction={(key) => {
             if (key == "logout") {
-              logout(user.accessToken, null, navigate);
+              const storedRfToken = localStorage.getItem("refreshToken");
+              if (storedRfToken && storedRfToken.length) {
+                const refreshToken = JSON.parse(storedRfToken).refreshToken;
+                logout(refreshToken, navigate);
+              }
             } else if (key == "verified" && !user?.verified) {
               sendVerificationLink(user.accessToken);
             } else if (key == "profile") {

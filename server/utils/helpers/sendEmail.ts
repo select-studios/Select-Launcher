@@ -28,7 +28,7 @@ export const sendEmail = async (email: string, url: string) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: "[Select Studios] - Verify your account registration.",
+    subject: "Select Studios - Verify your account registration.",
     html: emailHtml,
   };
 
