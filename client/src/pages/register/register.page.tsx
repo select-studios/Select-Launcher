@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import { API_URI } from "@/handlers/api";
 import ButtonLoader from "@/components/loader/button/buttonloader.component";
 import { getTokensCookie, setTokensCookie } from "@/utils/storage";
+import { validateInputComponent } from "@/utils/form";
 
 interface RegisterProps {}
 
@@ -68,11 +69,6 @@ export const Register: React.FC<RegisterProps> = () => {
     registerUser(data);
   };
 
-  const validateInputComponent = (component: string, color: boolean) => {
-    if (color) return (errors[component] ? "error" : "primary") as any;
-    return errors[component]?.message?.toString() || "";
-  };
-
   const checkPasswordStrength = (password: string) => {
     const strength = passwordStrength(password);
     console.log(strength);
@@ -106,9 +102,17 @@ export const Register: React.FC<RegisterProps> = () => {
                       <Input
                         placeholder="johndoe@yourmom.com"
                         size="md"
-                        color={validateInputComponent("email", true)}
-                        helperColor={validateInputComponent("email", true)}
-                        helperText={validateInputComponent("email", false)}
+                        color={validateInputComponent(errors, "email", true)}
+                        helperColor={validateInputComponent(
+                          errors,
+                          "email",
+                          true
+                        )}
+                        helperText={validateInputComponent(
+                          errors,
+                          "email",
+                          false
+                        )}
                         fullWidth
                         aria-label="email"
                         bordered
@@ -127,9 +131,17 @@ export const Register: React.FC<RegisterProps> = () => {
                       <Input
                         placeholder="johndoe256"
                         size="md"
-                        color={validateInputComponent("username", true)}
-                        helperColor={validateInputComponent("username", true)}
-                        helperText={validateInputComponent("username", false)}
+                        color={validateInputComponent(errors, "username", true)}
+                        helperColor={validateInputComponent(
+                          errors,
+                          "username",
+                          true
+                        )}
+                        helperText={validateInputComponent(
+                          errors,
+                          "username",
+                          false
+                        )}
                         aria-label="username"
                         fullWidth
                         bordered
@@ -145,10 +157,18 @@ export const Register: React.FC<RegisterProps> = () => {
                         size="md"
                         visibleIcon={<HiOutlineEyeSlash />}
                         hiddenIcon={<HiOutlineEye />}
-                        color={validateInputComponent("password", true)}
-                        helperColor={validateInputComponent("password", true)}
+                        color={validateInputComponent(errors, "password", true)}
+                        helperColor={validateInputComponent(
+                          errors,
+                          "password",
+                          true
+                        )}
                         aria-label="password"
-                        helperText={validateInputComponent("password", false)}
+                        helperText={validateInputComponent(
+                          errors,
+                          "password",
+                          false
+                        )}
                         fullWidth
                         bordered
                         {...register("password", {

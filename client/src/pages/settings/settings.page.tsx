@@ -12,11 +12,12 @@ import { editAccount } from "@/handlers/api";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { HiCog, HiX } from "react-icons/hi";
+import { HiCog, HiMail, HiX } from "react-icons/hi";
 import { FiEdit3, FiMonitor, FiSearch, FiUser } from "react-icons/fi";
 import { UserStore } from "@/stores/UserStore";
 import { useForm } from "react-hook-form";
 import { observer } from "mobx-react";
+import { validateInputComponent } from "@/utils/form";
 
 interface SettingsProps {}
 
@@ -50,7 +51,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ mode: "onChange" });
 
   const [visible, setVisible] = useState(false);
   const handler = () => setVisible(true);
@@ -62,16 +63,15 @@ const SettingsComp: React.FC<SettingsProps> = () => {
   const { user: storedUser } = UserStore;
 
   useEffect(() => {
-    console.log(UserStore);
     setLibraryLocation(window.gamesAPI.getStorageLocation());
   });
 
   const onSubmit = (data: any) => {
     editAccount(storedUser?.tokens.accessToken as string, data).then(
       (newUser) => {
-        console.log("tf");
         UserStore.setUser({ ...newUser });
 
+        closeHandler();
         window.location.reload();
       }
     );
@@ -153,7 +153,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
               <Card css={{ p: "$6" }} className="bg-secondary">
                 <Card.Header className="">
                   <Avatar
-                    src="https://i.pravatar.cc/300"
+                    src="https://i.imgur.com/c30fFsi.png"
                     className="mr-2"
                     size="xl"
                     bordered
@@ -166,24 +166,30 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                           @{storedUser?.username}
                         </span>
                         <br />
-                        <span className="text-gray-300 font-inter">
+                        <span className="text-gray-300 font-inter flex items-center">
+                          <HiMail size="20" className="mr-1" />{" "}
                           {storedUser?.email}
                         </span>
                       </p>
-                      <Button className="ml-5" auto onPress={handler}>
-                        Edit Profile
+                      <Button
+                        icon={<FiEdit3 size="20" />}
+                        className="ml-5"
+                        auto
+                        onPress={handler}
+                      >
+                        Edit
                       </Button>
                     </Grid>
                   </Grid.Container>
                 </Card.Header>{" "}
               </Card>
-              <form onSubmit={() => handleSubmit(onSubmit)}>
-                <Modal
-                  closeButton
-                  aria-labelledby="modal-title"
-                  open={visible}
-                  onClose={closeHandler}
-                >
+              <Modal
+                closeButton
+                aria-labelledby="modal-title"
+                open={visible}
+                onClose={closeHandler}
+              >
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <Modal.Header justify="flex-start">
                     <p className="text-2xl font-bold flex items-center">
                       <FiEdit3 size="20" className="mr-2" /> Edit Profile
@@ -191,33 +197,59 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                   </Modal.Header>
                   <Modal.Header>
                     <Avatar
-                      src="https://i.pravatar.cc/250?u=a042581f4e29026024d"
+                      src="https://i.imgur.com/c30fFsi.png"
                       css={{ size: "$20" }}
                     />
                   </Modal.Header>
                   <Modal.Body>
                     <Input
-                      clearable
                       bordered
                       fullWidth
-                      color="primary"
+                      color={validateInputComponent(errors, "username", true)}
+                      helperColor={validateInputComponent(
+                        errors,
+                        "username",
+                        true
+                      )}
+                      helperText={validateInputComponent(
+                        errors,
+                        "username",
+                        false
+                      )}
                       size="lg"
                       label="Username"
                       placeholder={storedUser?.username}
                       {...register("username", {
                         required: "You must enter a username.",
+                        minLength: 2,
                       })}
                     />
+                    <span className="my-1"></span>
                     <Input
                       clearable
                       bordered
                       fullWidth
-                      color="primary"
+                      color={validateInputComponent(errors, "email", true)}
+                      helperColor={validateInputComponent(
+                        errors,
+                        "email",
+                        true
+                      )}
+                      helperText={validateInputComponent(
+                        errors,
+                        "email",
+                        false
+                      )}
                       size="lg"
                       label="E-mail"
                       placeholder={storedUser?.email}
                       {...register("email", {
-                        required: "You must enter an e-mail.",
+                        required: "You need to provide us with an e-mail.",
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message:
+                            "Oops! That e-mail address does not look right.",
+                        },
                       })}
                     />
                   </Modal.Body>
@@ -229,8 +261,8 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                       Close
                     </Button>
                   </Modal.Footer>
-                </Modal>
-              </form>
+                </form>
+              </Modal>
             </div>
           </div>
         </div>

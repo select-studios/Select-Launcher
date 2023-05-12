@@ -17,17 +17,13 @@ import ButtonLoader from "@/components/loader/button/buttonloader.component";
 import { getTokensCookie, setTokensCookie } from "@/utils/storage";
 import { UserStore } from "@/stores/UserStore";
 import { observer } from "mobx-react";
+import { validateInputComponent } from "@/utils/form";
 
 interface LoginProps {}
 
 export const LoginComp: React.FC<LoginProps> = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
-  const validateInputComponent = (component: string, color: boolean) => {
-    if (color) return (errors[component] ? "error" : "primary") as any;
-    return errors[component]?.message?.toString() || "";
-  };
 
   const loginUser = async (data: LoginInterface) => {
     setLoading(true);
@@ -63,7 +59,7 @@ export const LoginComp: React.FC<LoginProps> = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ mode: "onChange" });
 
   const onSubmit = (data: LoginInterface | any) => {
     loginUser(data);
@@ -106,9 +102,17 @@ export const LoginComp: React.FC<LoginProps> = () => {
                         placeholder="User123"
                         size="md"
                         aria-label="Username"
-                        color={validateInputComponent("username", true)}
-                        helperText={validateInputComponent("username", false)}
-                        helperColor={validateInputComponent("username", true)}
+                        color={validateInputComponent(errors, "username", true)}
+                        helperText={validateInputComponent(
+                          errors,
+                          "username",
+                          false
+                        )}
+                        helperColor={validateInputComponent(
+                          errors,
+                          "username",
+                          true
+                        )}
                         fullWidth
                         bordered
                         {...register("username", {
@@ -123,10 +127,18 @@ export const LoginComp: React.FC<LoginProps> = () => {
                         size="md"
                         fullWidth
                         bordered
-                        color={validateInputComponent("password", true)}
-                        aria-label="Username"
-                        helperText={validateInputComponent("password", false)}
-                        helperColor={validateInputComponent("password", true)}
+                        color={validateInputComponent(errors, "password", true)}
+                        aria-label="Password"
+                        helperText={validateInputComponent(
+                          errors,
+                          "password",
+                          false
+                        )}
+                        helperColor={validateInputComponent(
+                          errors,
+                          "password",
+                          true
+                        )}
                         visibleIcon={<HiOutlineEyeSlash />}
                         hiddenIcon={<HiOutlineEye />}
                         {...register("password", {
