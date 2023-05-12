@@ -19,14 +19,4 @@
     "tags": ["development", "horror"],
     "verified": true
   },
-  {
-    "name": "Project L",
-    "downloadName": "Project_L-0.1",
-    "description": "Coming soon!",
-    "image": {
-      "icon": "https://i.imgur.com/c30fFsi.png"
-    },
-    "tags": ["development"],
-    "verified": false
-  }
-]
+
