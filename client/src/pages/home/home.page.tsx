@@ -18,7 +18,7 @@ export const logoutClient = (
   setLoading: any,
   navigate: any
 ) => {
-  logout(UserStore, refreshToken || "", setLoading, navigate);
+  logout(refreshToken, navigate);
 };
 
 const HomeComp: React.FC<HomeProps> = () => {
