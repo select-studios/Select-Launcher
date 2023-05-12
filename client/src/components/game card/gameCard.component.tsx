@@ -71,11 +71,9 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
       </Card.Header>
       <Card.Body css={{ py: "$4" }}>
         <Text
-          className="font-medium font-inter"
+          className="font-medium font-inter max-h-20"
           css={{
             textOverflow: "ellipsis",
-            overflow: "hidden",
-            whiteSpace: "nowrap",
             fontFamily: "'Inter', sans-serif;",
           }}
         >

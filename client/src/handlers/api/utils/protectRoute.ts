@@ -49,6 +49,9 @@ const protectRoute = (
           "Authentication",
           e
         );
+
+        localStorage.removeItem("refreshToken");
+
         navigate("/");
       });
   } else {

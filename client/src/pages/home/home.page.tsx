@@ -10,6 +10,7 @@ import { getTokensCookie } from "@/utils/storage";
 import CardLoader from "@/components/loader/card/cardloader.component";
 import { UserStore } from "@/stores/UserStore";
 import { observer } from "mobx-react";
+import { HiSparkles } from "react-icons/hi";
 
 interface HomeProps {}
 
@@ -52,7 +53,12 @@ const HomeComp: React.FC<HomeProps> = () => {
           <div className="flex">
             <Sidebar active="home" />
 
-            <div className="mt-5">
+            <div className="mt-5 ">
+              <p className="text-3xl flex items-center mt-7 ml-20 mb-5 font-bold font-montserrat">
+                <HiSparkles size="30" className="mr-1" />
+                <span className="text-primary-base mr-2">Featured</span> Games
+              </p>
+
               <div className="game-grid">
                 {gamesInfo ? (
                   gamesInfo.map((gameInfo, i) => {

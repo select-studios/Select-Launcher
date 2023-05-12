@@ -45,6 +45,7 @@ const settingsList = [
 
 const SettingsComp: React.FC<SettingsProps> = () => {
   const [libraryLocation, setLibraryLocation] = useState<string>();
+  const [settingsSF, setSettingsSF] = useState<string>("");
   const navigate = useNavigate();
 
   const {
@@ -111,11 +112,19 @@ const SettingsComp: React.FC<SettingsProps> = () => {
               labelPlaceholder="Search for a setting"
               size="lg"
               color="primary"
+              onChange={(e) => setSettingsSF(e.target.value)}
             />
           </div>
           <div className="flex mx-20 mt-10">
             <div className="flex">
-              {settingsList.map((setting, i) => (
+              {(settingsSF.length
+                ? settingsList.filter(
+                    (setting) =>
+                      settingsSF.includes(setting.id) ||
+                      setting.tags.join(", ").includes(settingsSF)
+                  )
+                : settingsList
+              ).map((setting, i) => (
                 <Card
                   css={{ p: "$6", mw: "400px", backgroundColor: "#282A2D" }}
                   className="my-2 mr-5"
