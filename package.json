@@ -19,5 +19,8 @@
   "homepage": "https://github.com/select-studios/Select-Launcher#readme",
   "devDependencies": {
     "concurrently": "^7.6.0"
+  },
+  "dependencies": {
+    "eslint": "^8.40.0"
   }
 }

@@ -1,5 +1,4 @@
-import { AppBar, Sidebar } from "@/components";
-import { Loader, LoadingState } from "@/components/loader/loader.component";
+import { AppBar } from "@/components";
 import {
   Avatar,
   Button,
@@ -178,13 +177,13 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                   </Grid.Container>
                 </Card.Header>{" "}
               </Card>
-              <Modal
-                closeButton
-                aria-labelledby="modal-title"
-                open={visible}
-                onClose={closeHandler}
-              >
-                <form onSubmit={() => handleSubmit(onSubmit)}>
+              <form onSubmit={() => handleSubmit(onSubmit)}>
+                <Modal
+                  closeButton
+                  aria-labelledby="modal-title"
+                  open={visible}
+                  onClose={closeHandler}
+                >
                   <Modal.Header justify="flex-start">
                     <p className="text-2xl font-bold flex items-center">
                       <FiEdit3 size="20" className="mr-2" /> Edit Profile
@@ -206,7 +205,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                       label="Username"
                       placeholder={storedUser?.username}
                       {...register("username", {
-                        required: "Username is required",
+                        required: "You must enter a username.",
                       })}
                     />
                     <Input
@@ -218,7 +217,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                       label="E-mail"
                       placeholder={storedUser?.email}
                       {...register("email", {
-                        required: "Email is required",
+                        required: "You must enter an e-mail.",
                       })}
                     />
                   </Modal.Body>
@@ -230,8 +229,8 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                       Close
                     </Button>
                   </Modal.Footer>
-                </form>
-              </Modal>
+                </Modal>
+              </form>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import GameInfo from "@/interfaces/GameInfoInterface";
-import { UserStore_Impl } from "@/stores/UserStore";
+import { UserStore, UserStore_Impl } from "@/stores/UserStore";
 import { Log } from "@/utils/lib/Log";
 
 export const API_URI =
@@ -43,16 +43,7 @@ export const getGameInfo = async () => {
   }
 };
 
-<<<<<<< HEAD
 export const logout = async (accessToken: string, navigate: any) => {
-=======
-export const logout = async (
-  userStore: UserStore_Impl,
-  accessToken: string,
-  setLoading: any,
-  navigate: any
-) => {
->>>>>>> 32999b28f96302a93b3b8225741534a15efdef86
   await fetch(`${API_URI}/accounts/logout`, {
     method: "DELETE",
     headers: {
@@ -60,7 +51,7 @@ export const logout = async (
     },
   }).then(() => {
     localStorage.clear();
-    userStore.user = null;
+    UserStore.user = null;
 
     navigate("/");
   });
