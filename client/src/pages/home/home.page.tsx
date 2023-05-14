@@ -11,6 +11,7 @@ import CardLoader from "@/components/loader/card/cardloader.component";
 import { UserStore } from "@/stores/UserStore";
 import { observer } from "mobx-react";
 import { HiSparkles } from "react-icons/hi";
+import { BiCompass } from "react-icons/bi";
 
 interface HomeProps {}
 
@@ -55,8 +56,8 @@ const HomeComp: React.FC<HomeProps> = () => {
 
             <div className="mt-5 ">
               <p className="text-3xl flex items-center mt-7 ml-20 mb-5 font-bold font-montserrat">
-                <HiSparkles size="30" className="mr-1" />
-                <span className="text-primary-base mr-2">Featured</span> Games
+                <BiCompass size="30" className="mr-1" />
+                Discover
               </p>
 
               <div className="game-grid">

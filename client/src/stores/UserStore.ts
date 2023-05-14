@@ -5,6 +5,7 @@ export interface User {
   email: string;
   username: string;
   password: string;
+  moderator: boolean;
   verified: boolean;
   tokens: {
     accessToken: string;

@@ -27,6 +27,7 @@ export const AppBar: React.FC<AppBarProps> = ({ dashboard, user }) => {
                   username: user?.username || "",
                   verified: user?.verified || false,
                   accessToken: cookies.accessToken || "",
+                  moderator: user?.moderator || false,
                 }}
               />
             )}

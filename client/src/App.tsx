@@ -4,7 +4,10 @@ import { AnimatePresence } from "framer-motion";
 import React, { useEffect } from "react";
 import UserSettings from "./pages/settings/user/usersettings.page";
 import { NotFound_E } from "./pages/errors";
+import { Detector, Offline, Online } from "react-detect-offline";
 import AuthAPI from "./handlers/api/components/Auth";
+import Offline_E from "./pages/errors/offline/offline.errorpage";
+import { BiWifi, BiWifiOff } from "react-icons/bi";
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -48,7 +51,10 @@ const App: React.FC = () => {
 
   return (
     <AnimatePresence mode="wait">
-      {React.cloneElement(page, { key: location.pathname })}
+      <Online>{React.cloneElement(page, { key: location.pathname })}</Online>
+      <Offline>
+        <Offline_E />
+      </Offline>
     </AnimatePresence>
   );
 };

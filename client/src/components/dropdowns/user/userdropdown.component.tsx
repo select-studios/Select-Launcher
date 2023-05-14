@@ -1,14 +1,19 @@
 import ButtonLoader from "@/components/loader/button/buttonloader.component";
 import { logout, sendVerificationLink } from "@/handlers/api";
-import { Avatar, Button, Dropdown } from "@nextui-org/react";
-import { HiCheck, HiCog, HiLogout, HiUser } from "react-icons/hi";
+import { Avatar, Badge, Button, Dropdown } from "@nextui-org/react";
+import { HiCheck, HiCog, HiDatabase, HiLogout, HiUser } from "react-icons/hi";
 import { HiBellAlert } from "react-icons/hi2";
 import { useNavigate } from "react-router";
 import { observer } from "mobx-react";
 import { UserStore } from "@/stores/UserStore";
 
 interface UserDropdownProps {
-  user: { username: string; verified: boolean; accessToken: string };
+  user: {
+    username: string;
+    verified: boolean;
+    accessToken: string;
+    moderator: boolean;
+  };
 }
 
 const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
@@ -60,22 +65,31 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
             icon={
               user?.verified ? <HiCheck size="20" /> : <HiBellAlert size="20" />
             }
+            className={user?.verified ? "animate-none" : ""}
             key="verified"
             color={user?.verified ? "success" : "warning"}
             description={user?.verified ? "" : "Resend verification link."}
           >
             {user?.verified ? "Verified" : "Not verified"}
           </Dropdown.Item>
-
-          <Dropdown.Item
-            className="px-0"
-            key="logout"
-            withDivider
-            color="error"
-            icon={<HiLogout size="20" />}
-          >
-            Logout
-          </Dropdown.Item>
+          {user?.moderator ? (
+            <Dropdown.Section title="Admin Zone">
+              <Dropdown.Item key="appdashboard" icon={<HiDatabase size="20" />}>
+                App Dashboard
+              </Dropdown.Item>
+            </Dropdown.Section>
+          ) : (
+            <></>
+          )}
+          <Dropdown.Section title="Danger Zone">
+            <Dropdown.Item
+              key="logout"
+              color="error"
+              icon={<HiLogout size="20" />}
+            >
+              Logout
+            </Dropdown.Item>
+          </Dropdown.Section>
         </Dropdown.Menu>
       </Dropdown>
     </div>
