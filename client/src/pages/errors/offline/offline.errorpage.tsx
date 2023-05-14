@@ -26,7 +26,7 @@ const Offline_E: React.FC<Offline_EProps> = () => {
       <div
         className={`fixed p-2 flex justify-center rounded-t-md items-center bottom-0 w-screen bg-secondary`}
       >
-        <BiWifiOff className="mr-2" size="20" /> Back Online
+        <BiWifiOff className="mr-2" size="20" /> Offline
       </div>
     </section>
   );
