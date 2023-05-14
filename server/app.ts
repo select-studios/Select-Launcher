@@ -13,6 +13,8 @@ import updateGamesInfo from "./utils/helpers/updateGamesInfo";
 import crypto = require("crypto");
 import { sendEmail } from "./utils/helpers/sendEmail";
 import path = require("path");
+import { VerifyEmail } from "./data/emails/verify/verify";
+import { ForgotPassword } from "./data/emails/forgotPassword/forgotPassword";
 
 require("dotenv").config();
 mongoose.set("strictQuery", false);
@@ -51,8 +53,15 @@ app.post("/api/accounts/verify/link", jwtAuth, async (req: any, res) => {
       token: crypto.randomBytes(32).toString("hex"),
     }).save();
 
-    const url = `${process.env.API_URI}/accounts/${user._id}/verify/token/${newToken.token}`;
-    await sendEmail(user.email, url);
+    const url = `${process.env.API_URI}/accounts/${user._id}/rg/verify/token/${newToken.token}`;
+    await sendEmail(
+      VerifyEmail({ username: user.username, url }),
+      {
+        to: user.email,
+        subject: "Select Studios - Verify your registration.",
+      },
+      url
+    );
 
     return res
       .status(201)
@@ -62,22 +71,54 @@ app.post("/api/accounts/verify/link", jwtAuth, async (req: any, res) => {
   }
 });
 
-app.get("/api/accounts/:id/verify/token/:token", async (req, res) => {
-  const { id, token } = req.params;
+app.get("/api/accounts/:id/:method/verify", async (req, res) => {
+  // method -> pswd (password) | rg (registration)
+  const { id, method } = req.params;
+  const { token, newPass } = req.query;
 
-  try {
-    const user = await User.findById(id);
-    if (!user) return res.status(404).json({ error: "Invalid link." });
+  if (method == "rg") {
+    try {
+      const user = await User.findById(id);
+      if (!user)
+        return res
+          .status(404)
+          .json({ error: "Invalid link. User does not exist." });
 
-    const userToken = await Token.findOne({ userId: id, token });
-    if (!userToken) return res.status(404).json({ error: "Invalid link." });
+      const userToken = await Token.findOne({ userId: id, token });
+      if (!userToken)
+        return res.status(404).json({
+          error: "Invalid link. User might not be pending verification.",
+        });
 
-    await user.updateOne({ verified: true });
-    await userToken.remove();
+      await user.updateOne({ verified: true });
+      await userToken.remove();
 
-    res.redirect(`select-launcher://home?verified=true&id=${id}`);
-  } catch (err) {
-    res.status(500).json({ error: "There was an error verifying the user." });
+      res.redirect(`select-launcher://home?verified=true&id=${id}`);
+    } catch (err) {
+      res.status(500).json({ error: "There was an error verifying the user." });
+    }
+  } else if (method == "pswd") {
+    try {
+      const user = await User.findOne({ email: id });
+      if (!user) return res.status(404).json({ error: "Invalid link." });
+
+      const url = `${process.env.API_URI}/accounts/account/forgotpassword?id=${user._id}&newPass=${newPass}`;
+
+      await sendEmail(
+        ForgotPassword({ username: user.username, newPass, url }),
+        {
+          to: user.email,
+          subject: "Select Studios - New password request.",
+        },
+        url
+      );
+
+      res.status(201).json({ success: true, msg: "E-mail sent successfully." });
+    } catch (err) {
+      res.status(500).json({
+        error: "Server issue. There was an error sending the email. " + err,
+      });
+    }
   }
 });
 

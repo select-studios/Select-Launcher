@@ -1,8 +1,13 @@
 import * as nodemailer from "nodemailer";
 import { VerifyEmail } from "../../data/emails/verify/verify";
 import { render } from "@react-email/render";
+import React from "react";
 
-export const sendEmail = async (email: string, url: string) => {
+export const sendEmail = async (
+  email: React.FC,
+  content: { to: string; subject: string },
+  url: string
+) => {
   const {
     EMAIL_HOST,
     EMAIL_PORT,
@@ -23,12 +28,12 @@ export const sendEmail = async (email: string, url: string) => {
     },
   });
 
-  const emailHtml = render(VerifyEmail({ username: email, url }));
+  // const emailHtml = render(VerifyEmail({ username: to, url }));
+  const emailHtml = render(email);
 
   const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: email,
-    subject: "Select Studios - Verify your account registration.",
+    ...content,
+    from: EMAIL_USER,
     html: emailHtml,
   };
 

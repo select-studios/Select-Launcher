@@ -4,6 +4,7 @@ import { getAccessToken, getRefreshToken } from "../../../utils/helpers/genJwt";
 import { sendEmail } from "../../../utils/helpers/sendEmail";
 import bcrypt = require("bcrypt");
 import crypto = require("crypto");
+import { VerifyEmail } from "../../../data/emails/verify/verify";
 
 export const register = async (req: Request, res: Response) => {
   const { email, username, password } = req.body;
@@ -56,8 +57,15 @@ export const register = async (req: Request, res: Response) => {
             token: crypto.randomBytes(32).toString("hex"),
           }).save();
 
-          const url = `${process.env.API_URI}/accounts/${user._id}/verify/token/${token.token}`;
-          await sendEmail(email, url);
+          const url = `${process.env.API_URI}/accounts/${user._id}/rg/verify/token/${token.token}`;
+          await sendEmail(
+            VerifyEmail({ username: user.username, url }),
+            {
+              to: user.email,
+              subject: "Select Studios - Verify your registration.",
+            },
+            url
+          );
 
           res.status(201).json({
             success: true,

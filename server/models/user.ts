@@ -7,6 +7,7 @@ const user = new mongoose.Schema({
   pfp: { type: String, required: false },
   verified: { type: Boolean, required: true, default: false },
   refreshTokens: [String],
+  moderator: { type: Boolean, required: false, default: false },
 });
 
 const User = mongoose.model("user", user);

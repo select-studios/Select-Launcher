@@ -5,6 +5,22 @@ import download from "download";
 import settings from "electron-settings";
 import decompress from "decompress";
 import { win } from "../main/index";
+import { createWriteStream } from "original-fs";
+import Axios from "axios";
+import * as stream from "stream";
+import { promisify } from "util";
+import request from "request";
+
+export async function downloadFile(
+  fileUrl: string,
+  outputLocationPath: string
+): Promise<any> {
+  request(fileUrl)
+    .pipe(fs.createWriteStream(outputLocationPath))
+    .on("close", function () {
+      console.log("File written!");
+    });
+}
 
 export const checkIfGamesDirectoryExists = (): boolean => {
   if (fs.existsSync(settings.getSync("locations.libraryLocation").toString())) {
@@ -20,15 +36,25 @@ export const downloadGame = (gameName: string) => {
     );
   }
 
-  download(
+  // download(
+  //   `https://raw.githubusercontent.com/select-studios/LauncherGames/main/${gameName}.zip`,
+  //   settings.getSync("locations.libraryLocation").toString(),
+  //   { decompress: false }
+  // )
+  //   .then(() => {
+  //     installGame(gameName);
+  //     return;
+  //   })
+  //   .catch((e) => );
+
+  downloadFile(
     `https://raw.githubusercontent.com/select-studios/LauncherGames/main/${gameName}.zip`,
-    settings.getSync("locations.libraryLocation").toString(),
-    { decompress: false }
+    path.join(
+      settings.getSync("locations.libraryLocation").toString(),
+      gameName + ".zip"
+    )
   )
-    .then(() => {
-      installGame(gameName);
-      return;
-    })
+    .then(() => installGame(gameName))
     .catch((e) => {
       console.log(`Failed to download ${gameName} because of ${e}`);
       return null;

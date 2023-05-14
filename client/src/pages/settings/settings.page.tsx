@@ -65,6 +65,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
 
   useEffect(() => {
     setLibraryLocation(window.gamesAPI.getStorageLocation());
+    console.log(libraryLocation);
   });
 
   const onSubmit = (data: any) => {

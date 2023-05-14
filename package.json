@@ -21,6 +21,8 @@
     "concurrently": "^7.6.0"
   },
   "dependencies": {
-    "eslint": "^8.40.0"
+    "@types/request": "^2.48.8",
+    "eslint": "^8.40.0",
+    "request": "^2.88.2"
   }
 }

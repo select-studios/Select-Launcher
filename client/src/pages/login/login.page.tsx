@@ -1,4 +1,4 @@
-import { Button, Input, Link, Loading } from "@nextui-org/react";
+import { Button, Input, Link, Loading, Modal } from "@nextui-org/react";
 import { AppBar } from "@/components";
 import { BiUser } from "react-icons/bi";
 import { HiOutlineEye } from "react-icons/hi";
@@ -55,15 +55,43 @@ export const LoginComp: React.FC<LoginProps> = () => {
     });
   };
 
+  const fpUser = (data: any) => {
+    setLoading(true);
+    fetch(
+      `${API_URI}/accounts/${data.fpEmail}/pswd/verify?newPass=${data.fpPassword}`
+    )
+      .then((res) => res.json())
+      .then((body) => {
+        setLoading(false);
+        setFPVisible(false);
+        toast.success(
+          "An e-mail has been sent to your account for further verification."
+        );
+      });
+  };
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
+  const {
+    register: registerFP,
+    handleSubmit: handleSubmitFP,
+    formState: { errors: errorsFP },
+  } = useForm({ mode: "onChange" });
+
   const onSubmit = (data: LoginInterface | any) => {
     loginUser(data);
   };
+
+  const onSubmitFP = (data: any) => {
+    console.log("hello");
+    fpUser(data);
+  };
+
+  const [FPVisible, setFPVisible] = useState(false);
 
   useEffect(() => {
     const cookies = getTokensCookie();
@@ -167,9 +195,21 @@ export const LoginComp: React.FC<LoginProps> = () => {
                     loading={loading}
                   />
                 </form>
-                <p className="text-base text-center font-medium mb-5">
-                  No account? <LinkRoute to="/register">Create one!</LinkRoute>
-                </p>
+                <div className="flex items-center justify-between mb-5">
+                  <p className="text-base text-center font-medium">
+                    No account?{" "}
+                    <LinkRoute to="/register">Create one!</LinkRoute>
+                  </p>
+                  <Button
+                    onPress={() => setFPVisible(true)}
+                    className="normal-case"
+                    light
+                    auto
+                    size="sm"
+                  >
+                    Forgot Password?
+                  </Button>
+                </div>
               </section>
             </div>
             <div className="login__divider inline-flex items-center justify-center w-full">
@@ -194,6 +234,55 @@ export const LoginComp: React.FC<LoginProps> = () => {
           </div>
         </div>
       </motion.div>
+      <Modal
+        closeButton
+        blur
+        aria-labelledby="modal-title"
+        className="pt-0"
+        open={FPVisible}
+        onClose={() => setFPVisible(false)}
+      >
+        <form onSubmit={handleSubmitFP(onSubmitFP)}>
+          <Modal.Header className="bg-secondary mb-5 rounded-b-xl">
+            <p className="text-xl ">Reset Password</p>{" "}
+          </Modal.Header>
+          <Modal.Body>
+            <Input
+              clearable
+              bordered
+              fullWidth
+              color="primary"
+              size="lg"
+              placeholder="Email"
+              {...registerFP("fpEmail")}
+            />
+            <Input.Password
+              bordered
+              fullWidth
+              color="primary"
+              size="lg"
+              placeholder="New Password"
+              visibleIcon={<HiOutlineEyeSlash />}
+              hiddenIcon={<HiOutlineEye />}
+              {...registerFP("fpPassword")}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button auto flat color="error" onPress={() => setFPVisible(false)}>
+              Close
+            </Button>
+            <ButtonLoader
+              button={
+                <Button type="submit" auto>
+                  Submit
+                </Button>
+              }
+              loading={loading}
+              auto
+            />
+          </Modal.Footer>
+        </form>
+      </Modal>
     </div>
   );
 };
