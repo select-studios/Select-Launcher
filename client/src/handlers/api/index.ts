@@ -40,6 +40,23 @@ export const getAllUsers = async () => {
   }
 };
 
+export const banUser = async (id: string, pass: string) => {
+  const res = await fetch(
+    `${API_URI}/accounts/account/ban?id=${id}&pass=${pass}`,
+    {
+      method: "PUT",
+    }
+  );
+
+  const resData = await res.json();
+
+  if (res.ok) {
+    return resData;
+  }
+
+  return null;
+};
+
 export const getGameInfo = async () => {
   const res = await fetch(`${API_URI}/games/info`, {
     method: "GET",

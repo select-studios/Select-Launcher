@@ -1,6 +1,7 @@
 import { Router } from "express";
 import jwtAuth from "../../../middleware/jwt";
 import { User } from "../../../models";
+import { banAccount } from "./account/ban";
 import { editAccount } from "./account/edit";
 import { forgotPass } from "./account/forgotPass";
 import { account } from "./account/index";
@@ -27,6 +28,7 @@ accountsRouter.post("/refresh", refresh);
 accountsRouter.post("/account", jwtAuth, account);
 accountsRouter.put("/account/edit", jwtAuth, editAccount);
 accountsRouter.get("/account/forgotpassword", forgotPass);
+accountsRouter.put("/account/ban", banAccount);
 
 accountsRouter.delete("/logout", logout);
 

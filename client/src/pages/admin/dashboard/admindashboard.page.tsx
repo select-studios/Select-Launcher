@@ -13,7 +13,7 @@ import {
 import { HiChartBarSquare, HiUserPlus } from "react-icons/hi2";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
-import { getAllUsers } from "../../../handlers/api/index";
+import { banUser, getAllUsers } from "../../../handlers/api/index";
 import {
   Avatar,
   Badge,
@@ -114,12 +114,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                         color="error"
                         className="mr-2"
                         icon={<HiBan size="20" />}
+                        onPress={() => banUser(user._id, "ssadmin12345")}
+                        disabled={user?.banned}
                       >
                         Ban
                       </Button>
+
                       <Dropdown>
                         <Dropdown.Trigger>
-                          <Dropdown.Button className="bg-secondary">
+                          <Dropdown.Button disabled className="bg-secondary">
                             More actions
                           </Dropdown.Button>
                         </Dropdown.Trigger>

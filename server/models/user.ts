@@ -8,6 +8,7 @@ const user = new mongoose.Schema({
   verified: { type: Boolean, required: true, default: false },
   refreshTokens: [String],
   moderator: { type: Boolean, required: false, default: false },
+  banned: { type: Boolean, required: true, default: false },
 });
 
 const User = mongoose.model("user", user);
