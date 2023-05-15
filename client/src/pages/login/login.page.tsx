@@ -115,7 +115,7 @@ export const LoginComp: React.FC<LoginProps> = () => {
               <section className="account__strip traking-normal flex items-center justify-center bg-tertiary rounded-t-md">
                 <BiUser size={28} />
                 <h2 className="font-montserrat text-2xl font-bold ml-2 mt-2">
-                  Account
+                  Login
                 </h2>
               </section>
               <section className="login__content flex flex-col ml-5 mr-5">
@@ -246,6 +246,7 @@ export const LoginComp: React.FC<LoginProps> = () => {
           <Modal.Header className="bg-secondary mb-5 rounded-b-xl">
             <p className="text-xl ">Reset Password</p>{" "}
           </Modal.Header>
+            <p>Happens to the best of us</p>
           <Modal.Body>
             <Input
               clearable
@@ -253,7 +254,7 @@ export const LoginComp: React.FC<LoginProps> = () => {
               fullWidth
               color="primary"
               size="lg"
-              placeholder="Email"
+              placeholder="E-mail"
               {...registerFP("fpEmail")}
             />
             <Input.Password

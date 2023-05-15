@@ -1,7 +1,7 @@
 import ButtonLoader from "@/components/loader/button/buttonloader.component";
 import { logout, sendVerificationLink } from "@/handlers/api";
 import { Avatar, Badge, Button, Dropdown } from "@nextui-org/react";
-import { HiCheck, HiCog, HiDatabase, HiLogout, HiUser } from "react-icons/hi";
+import { HiCheck, HiCog, HiDatabase, HiHome, HiLogout, HiUser } from "react-icons/hi";
 import { HiBellAlert, HiUserPlus } from "react-icons/hi2";
 import { useNavigate } from "react-router";
 import { observer } from "mobx-react";
@@ -51,6 +51,8 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
               sendVerificationLink(user.accessToken);
             } else if (key == "profile") {
               navigate("/settings/profile");
+            }else if (key == "home"){
+              navigate("/");
             } else if (key == "settings") {
               navigate("/settings");
             } else if (key == "admindashboard") {
@@ -70,6 +72,9 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
                 Moderator
               </Badge>
             )}
+          </Dropdown.Item>
+          <Dropdown.Item icon={<HiHome size="20" />} key="home">
+            Home
           </Dropdown.Item>
           <Dropdown.Item icon={<HiUser size="20" />} key="profile">
             Profile

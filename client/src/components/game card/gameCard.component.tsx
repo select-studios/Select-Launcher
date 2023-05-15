@@ -93,7 +93,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
             Learn more
           </Button> */}
           <Button
-            color="success"
+            color="secondary"
             auto
             onClick={() => {
               window.gamesAPI.startGame(game.name);
