@@ -79,6 +79,13 @@ const SettingsComp: React.FC<SettingsProps> = () => {
     );
   };
 
+  const handleEscPress = (e: any) => {
+    if (e.key === "Enter") {
+      console.log("hello");
+      navigate("/home");
+    }
+  };
+
   return (
     <div>
       <motion.div exit={{ opacity: 0 }}>
@@ -96,7 +103,8 @@ const SettingsComp: React.FC<SettingsProps> = () => {
             <div className="grid justify-end items-center flex-1">
               <div
                 onClick={() => navigate("/home")}
-                onKeyUp={(e) => e.key == "escape" && navigate("/home")}
+                onKeyUp={(e) => handleEscPress(e)}
+                tabIndex={-1}
                 className="cursor-pointer border-solid border-2 grid items-center rounded-full p-1 border-gray-400"
               >
                 <HiX size="40" />

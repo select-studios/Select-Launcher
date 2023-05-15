@@ -8,6 +8,7 @@ import { Detector, Offline, Online } from "react-detect-offline";
 import AuthAPI from "./handlers/api/components/Auth";
 import Offline_E from "./pages/errors/offline/offline.errorpage";
 import { BiWifi, BiWifiOff } from "react-icons/bi";
+import AdminDashboard from "./pages/admin/dashboard/admindashboard.page";
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -44,6 +45,14 @@ const App: React.FC = () => {
         </AuthAPI>
       ),
     },
+    {
+      path: "/admin/dashboard",
+      element: (
+        <AuthAPI>
+          <AdminDashboard />
+        </AuthAPI>
+      ),
+    },
     { path: "*", element: <NotFound_E /> },
   ]);
 
@@ -51,10 +60,17 @@ const App: React.FC = () => {
 
   return (
     <AnimatePresence mode="wait">
-      <Online>{React.cloneElement(page, { key: location.pathname })}</Online>
-      <Offline>
-        <Offline_E />
-      </Offline>
+      <Detector
+        render={({ online }) => {
+          if (!online) {
+            setTimeout(() => {
+              return <Offline_E />;
+            }, 5000);
+          }
+
+          return React.cloneElement(page, { key: location.pathname });
+        }}
+      />
     </AnimatePresence>
   );
 };

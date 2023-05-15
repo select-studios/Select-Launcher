@@ -27,6 +27,19 @@ export const getUser = async (accessToken: string) => {
   }
 };
 
+export const getAllUsers = async () => {
+  const res = await fetch(`${API_URI}/accounts?pass=ssadmin12345`);
+
+  const resData = await res.json();
+
+  if (res.ok) {
+    return resData.users;
+  } else {
+    Log.error("Error getting USERS information.", "Authentication");
+    throw new Error();
+  }
+};
+
 export const getGameInfo = async () => {
   const res = await fetch(`${API_URI}/games/info`, {
     method: "GET",

@@ -1,3 +1,4 @@
+import { Button, Loading } from "@nextui-org/react";
 import { BiWifiOff } from "react-icons/bi";
 
 interface Offline_EProps {}
