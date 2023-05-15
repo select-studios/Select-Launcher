@@ -120,7 +120,7 @@ export const LoginComp: React.FC<LoginProps> = () => {
               </section>
               <section className="login__content flex flex-col ml-5 mr-5">
                 <h2 className="text-lg font-semibold mt-5">
-                  We are so glad to have you back!
+                  We're glad to have you back!
                 </h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="login__username/password mt-5">
