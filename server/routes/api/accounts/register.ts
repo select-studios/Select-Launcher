@@ -57,7 +57,7 @@ export const register = async (req: Request, res: Response) => {
             token: crypto.randomBytes(32).toString("hex"),
           }).save();
 
-          const url = `${process.env.API_URI}/accounts/${user._id}/rg/verify/token/${token.token}`;
+          const url = `${process.env.API_URI}/accounts/${user._id}/rg/verify?token=${token.token}`;
           await sendEmail(
             VerifyEmail({ username: user.username, url }),
             {

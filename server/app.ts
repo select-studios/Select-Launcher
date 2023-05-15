@@ -53,7 +53,7 @@ app.post("/api/accounts/verify/link", jwtAuth, async (req: any, res) => {
       token: crypto.randomBytes(32).toString("hex"),
     }).save();
 
-    const url = `${process.env.API_URI}/accounts/${user._id}/rg/verify/token/${newToken.token}`;
+    const url = `${process.env.API_URI}/accounts/${user._id}/rg/verify?token=${newToken.token}`;
     await sendEmail(
       VerifyEmail({ username: user.username, url }),
       {
