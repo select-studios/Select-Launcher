@@ -2,10 +2,10 @@
   "name": "select-launcher",
   "productName": "Select Launcher",
   "private": true,
-  "version": "1.2.3-alpha",
-  "description": "Official launcher for all the games made by SelectStudios.",
+  "version": "1.3-beta",
+  "description": "Official launcher for all the games made by Select Studios.",
   "author": "Select Studios",
-  "license": "GNU Public License v3",
+  "license": "Custom License",
   "main": "dist-electron/electron/main/index.js",
   "repository": {
     "url": "https://github.com/select-studios/Select-Launcher.git"
