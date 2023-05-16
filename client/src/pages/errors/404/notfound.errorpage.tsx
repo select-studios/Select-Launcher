@@ -1,4 +1,4 @@
-import { BiBug } from "react-icons/bi";
+import { BiBaguette, BiBug } from "react-icons/bi";
 import { Link } from "@nextui-org/react";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -33,7 +33,7 @@ const NotFound_E: React.FC<NotFound_EProps> = () => {
       <div
         className={`fixed p-2 flex justify-center rounded-t-md items-center bottom-0 w-screen bg-secondary`}
       >
-        {/* <BiBaguette className="mr-2" size="20" /> 404 Page Not Found */}
+        <BiBaguette className="mr-2" size="20"></BiBaguette> 404 Page not found
       </div>
     </section>
   );
