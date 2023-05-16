@@ -119,7 +119,7 @@ export const editAccount = async (
   console.log(resData);
 
   if (res.ok) {
-    return resData.user;
+    return resData.newUser;
   } else {
     Log.error("Error editing account.", "Authentication");
     throw new Error();

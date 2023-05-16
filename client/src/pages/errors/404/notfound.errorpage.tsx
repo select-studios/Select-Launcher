@@ -1,4 +1,4 @@
-import { BiBaguette, BiBug } from "react-icons/bi";
+import { BiBug } from "react-icons/bi";
 import { Link } from "@nextui-org/react";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -21,9 +21,9 @@ const NotFound_E: React.FC<NotFound_EProps> = () => {
                 <li>Try again Later? This could be an issue on our end.</li>
                 <li>Updating your launcher. It'll only take 2 seconds</li>
                 <li>
-                <RouterLink to="/">
-                <Link> Return to the Home Menu</Link>
-                </RouterLink>
+                  <RouterLink to="/">
+                    <Link> Return to the Home Menu</Link>
+                  </RouterLink>
                 </li>
               </ul>
             </p>
@@ -33,7 +33,7 @@ const NotFound_E: React.FC<NotFound_EProps> = () => {
       <div
         className={`fixed p-2 flex justify-center rounded-t-md items-center bottom-0 w-screen bg-secondary`}
       >
-        <BiBaguette className="mr-2" size="20" /> 404 Page Not Found
+        {/* <BiBaguette className="mr-2" size="20" /> 404 Page Not Found */}
       </div>
     </section>
   );

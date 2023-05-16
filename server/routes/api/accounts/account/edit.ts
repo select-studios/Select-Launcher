@@ -11,9 +11,15 @@ export const editAccount = async (req: any, res: any) => {
     return res.status(400).json({ success: false, message: "User not found." });
 
   try {
-    const newUser = await user.updateOne({ username, email, password });
-
-    return res.status(201).json({ success: true, newUser });
+    User.findByIdAndUpdate(
+      req.user._id,
+      {
+        username,
+        email,
+        password,
+      },
+      { new: true }
+    ).then((doc) => res.status(201).json({ success: true, newUser: doc }));
   } catch (error) {
     console.log(error);
 

@@ -1,47 +1,20 @@
 import { AppBar } from "@/components";
-import {
-  Avatar,
-  Button,
-  Card,
-  Grid,
-  Input,
-  Modal,
-  Text,
-} from "@nextui-org/react";
+import { Avatar, Button, Card, Grid, Input, Modal } from "@nextui-org/react";
 import { editAccount } from "@/handlers/api";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { HiCog, HiMail, HiX } from "react-icons/hi";
-import { FiEdit3, FiMonitor, FiSearch, FiUser } from "react-icons/fi";
+import { FiEdit3, FiSearch } from "react-icons/fi";
 import { UserStore } from "@/stores/UserStore";
 import { useForm } from "react-hook-form";
 import { observer } from "mobx-react";
 import { validateInputComponent } from "@/utils/form";
+import SettingsCard from "@/components/settings/card/settingscard.component";
+import settingsList from "@/handlers/api/utils/data/settingsList";
+import { Log } from "@/utils/lib/Log";
 
 interface SettingsProps {}
-
-const settingIconSize = "40";
-
-const settingsList = [
-  {
-    label: "App",
-    id: "app",
-    icon: <FiMonitor size={settingIconSize} />,
-    tags: [
-      "download locations",
-      "app settings",
-      "app preferences",
-      "app configuration",
-    ],
-  },
-  {
-    label: "User",
-    id: "user",
-    icon: <FiUser size={settingIconSize} />,
-    tags: ["user privacy", "user settings", "profile customization"],
-  },
-];
 
 const SettingsComp: React.FC<SettingsProps> = () => {
   const [libraryLocation, setLibraryLocation] = useState<string>();
@@ -49,39 +22,37 @@ const SettingsComp: React.FC<SettingsProps> = () => {
   const navigate = useNavigate();
 
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
+    register: registerEditProfile,
+    handleSubmit: handleSubmitEditProfile,
+    formState: { errors: errorsEditProfile },
   } = useForm({ mode: "onChange" });
 
-  const [visible, setVisible] = useState(false);
-  const handler = () => setVisible(true);
+  const [editProfileVisible, setEditProfileVisible] = useState(false);
 
-  const closeHandler = () => {
-    setVisible(false);
+  const openEditProfile = () => setEditProfileVisible(true);
+  const closeEditProfile = () => {
+    setEditProfileVisible(false);
   };
 
   const { user: storedUser } = UserStore;
 
   useEffect(() => {
     setLibraryLocation(window.gamesAPI.getStorageLocation());
-    console.log(libraryLocation);
+    Log.success("Local library location has been set.");
   });
 
   const onSubmit = (data: any) => {
     editAccount(storedUser?.tokens.accessToken as string, data).then(
-      (newUser) => {
-        UserStore.setUser({ ...newUser });
-
-        closeHandler();
-        window.location.reload();
+      ({ email, password, username }) => {
+        UserStore.setUser({ ...storedUser!, email, password, username });
+        console.log(storedUser);
+        closeEditProfile();
       }
     );
   };
 
   const handleEscPress = (e: any) => {
-    if (e.key === "Enter") {
-      console.log("hello");
+    if (e.key === "Escape") {
       navigate("/home");
     }
   };
@@ -134,37 +105,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                   )
                 : settingsList
               ).map((setting, i) => (
-                <Card
-                  css={{ p: "$6", mw: "400px", backgroundColor: "#282A2D" }}
-                  className="my-2 mr-5"
-                  isHoverable
-                  isPressable
-                  onClick={() => navigate("/settings/" + setting.id)}
-                >
-                  <Card.Header>
-                    <div className="text-primary-base">{setting.icon}</div>
-                    <Grid.Container className="pl-2.5">
-                      <Grid xs={12}>
-                        <p className="font-montserrat text-3xl font-semibold">
-                          {setting.label}
-                        </p>
-                      </Grid>
-                    </Grid.Container>
-                  </Card.Header>
-                  <Card.Body css={{ py: "$2" }}>
-                    <Text>
-                      <p className="font-inter text-lg opacity-80">
-                        {setting.tags
-                          .map(
-                            (tag) =>
-                              tag[0].toUpperCase() + tag.slice(1).toLowerCase()
-                          )
-                          .join(", ")}
-                        , etc.
-                      </p>
-                    </Text>
-                  </Card.Body>
-                </Card>
+                <SettingsCard setting={setting} settingN={i} />
               ))}
             </div>
             <div className="ml-auto">
@@ -193,7 +134,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                         icon={<FiEdit3 size="20" />}
                         className="ml-5"
                         auto
-                        onPress={handler}
+                        onPress={openEditProfile}
                       >
                         Edit
                       </Button>
@@ -204,10 +145,10 @@ const SettingsComp: React.FC<SettingsProps> = () => {
               <Modal
                 closeButton
                 aria-labelledby="modal-title"
-                open={visible}
-                onClose={closeHandler}
+                open={editProfileVisible}
+                onClose={closeEditProfile}
               >
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmitEditProfile(onSubmit)}>
                   <Modal.Header justify="flex-start">
                     <p className="text-2xl font-bold flex items-center">
                       <FiEdit3 size="20" className="mr-2" /> Edit Profile
@@ -223,21 +164,25 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                     <Input
                       bordered
                       fullWidth
-                      color={validateInputComponent(errors, "username", true)}
+                      color={validateInputComponent(
+                        errorsEditProfile,
+                        "username",
+                        true
+                      )}
                       helperColor={validateInputComponent(
-                        errors,
+                        errorsEditProfile,
                         "username",
                         true
                       )}
                       helperText={validateInputComponent(
-                        errors,
+                        errorsEditProfile,
                         "username",
                         false
                       )}
                       size="lg"
                       label="Username"
                       placeholder={storedUser?.username}
-                      {...register("username", {
+                      {...registerEditProfile("username", {
                         required: "You must enter a username.",
                         minLength: 2,
                       })}
@@ -247,21 +192,25 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                       clearable
                       bordered
                       fullWidth
-                      color={validateInputComponent(errors, "email", true)}
+                      color={validateInputComponent(
+                        errorsEditProfile,
+                        "email",
+                        true
+                      )}
                       helperColor={validateInputComponent(
-                        errors,
+                        errorsEditProfile,
                         "email",
                         true
                       )}
                       helperText={validateInputComponent(
-                        errors,
+                        errorsEditProfile,
                         "email",
                         false
                       )}
                       size="lg"
                       label="E-mail"
                       placeholder={storedUser?.email}
-                      {...register("email", {
+                      {...registerEditProfile("email", {
                         required: "You need to provide us with an e-mail.",
                         pattern: {
                           value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -275,7 +224,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                     <Button auto color="primary" type="submit">
                       Edit
                     </Button>
-                    <Button auto flat color="error" onPress={closeHandler}>
+                    <Button auto flat color="error" onPress={closeEditProfile}>
                       Close
                     </Button>
                   </Modal.Footer>

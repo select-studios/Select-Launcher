@@ -11,6 +11,7 @@ export interface User {
     accessToken: string;
     refreshToken: string;
   };
+  banned: boolean;
 }
 
 export class UserStore_Impl {
