@@ -1,9 +1,10 @@
 import { AppBar, Loader, Sidebar } from "@/components";
 import { User, UserStore, UserStore_Impl } from "@/stores/UserStore";
-import { BiChart, BiUser } from "react-icons/bi";
+import { BiAnalyse, BiChart, BiUser } from "react-icons/bi";
 import {
   HiBan,
   HiChartBar,
+  HiChartPie,
   HiCheck,
   HiDatabase,
   HiIdentification,
@@ -23,10 +24,13 @@ import {
   Card,
   Dropdown,
   Grid,
+  Input,
   Link,
   Loading,
+  Switch,
   Text,
 } from "@nextui-org/react";
+import { FiSearch } from "react-icons/fi";
 
 interface AdminDashboardProps {}
 
@@ -61,7 +65,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
 
       <div className="min-h-screen flex">
         <Sidebar active="dashboard" />
-        <div className="main mt-10">
+        <div className="main mt-10 min-w-fit">
           <div className="header mx-10">
             <p className="text-3xl flex items-center font-bold font-montserrat">
               <HiDatabase size="40" className="mr-2" /> Administrator Dashboard
@@ -73,44 +77,62 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
             </p>
             {!usersLoading && (
               <div className="px-5 rounded-b-lg">
-                <div className="mt-4 py-2 px-1 mx-10 w-auto rounded-lg bg-tertiary flex justify-center">
-                  <div className="stat-card-1 max-w-fit p-3 rounded-md bg-secondary">
-                    <p className="text-sm uppercase opacity-70 font-bold">
-                      Total Users
-                    </p>
-                    <p className="text-2xl font-bold font-montserrat">
-                      {users.length}
-                    </p>
+                <div className="mt-4 py-2 px-1 mx-10 w-auto rounded-lg bg-tertiary">
+                  <p className="flex items-center justify-center text-2xl m-2 mb-4 text-center font-bold font-montserrat bg-secondary p-2 rounded-lg">
+                    <HiChartPie size="30" className="mr-2" /> Analysis
+                  </p>
+                  <div className="flex justify-center">
+                    <div className="stat-card-1 max-w-fit p-3 rounded-md bg-secondary">
+                      <p className="text-sm uppercase opacity-70 font-bold">
+                        Total Users
+                      </p>
+                      <p className="text-2xl font-bold font-montserrat">
+                        {users.length}
+                      </p>
+                    </div>
+                    <div className="stat-card-1 max-w-fit p-3 rounded-md bg-red-700 ml-2">
+                      <p className="text-sm uppercase opacity-70 font-bold">
+                        Banned Users
+                      </p>
+                      <p className="text-2xl font-bold font-montserrat">
+                        {users.filter((user: any) => user.banned).length}
+                      </p>
+                    </div>
+                    <div className="stat-card-1 max-w-fit p-3 rounded-md bg-yellow-600 ml-2">
+                      <p className="text-sm uppercase opacity-70 font-bold">
+                        Admins
+                      </p>
+                      <p className="text-2xl font-bold font-montserrat">
+                        {users.filter((user: any) => user.moderator).length}
+                      </p>
+                    </div>
+                    <div className="stat-card-1 max-w-fit p-3 rounded-md bg-green-600 ml-2">
+                      <p className="text-sm uppercase opacity-70 font-bold">
+                        Verified
+                      </p>
+                      <p className="text-2xl font-bold font-montserrat">
+                        {users.filter((user: any) => user.verified).length}
+                      </p>
+                    </div>
                   </div>
-                  <div className="stat-card-1 max-w-fit p-3 rounded-md bg-red-700 ml-2">
-                    <p className="text-sm uppercase opacity-70 font-bold">
-                      Banned Users
-                    </p>
-                    <p className="text-2xl font-bold font-montserrat">
-                      {users.filter((user: any) => user.banned).length}
-                    </p>
-                  </div>
-                  <div className="stat-card-1 max-w-fit p-3 rounded-md bg-yellow-600 ml-2">
-                    <p className="text-sm uppercase opacity-70 font-bold">
-                      Admins
-                    </p>
-                    <p className="text-2xl font-bold font-montserrat">
-                      {users.filter((user: any) => user.moderator).length}
-                    </p>
-                  </div>
-                  <div className="stat-card-1 max-w-fit p-3 rounded-md bg-green-600 ml-2">
-                    <p className="text-sm uppercase opacity-70 font-bold">
-                      Verified
-                    </p>
-                    <p className="text-2xl font-bold font-montserrat">
-                      {users.filter((user: any) => user.verified).length}
-                    </p>
+                </div>
+                <div className="my-5 mx-10 flex justify-between max-w-full items-center">
+                  <Input
+                    bordered
+                    contentRight={<FiSearch size="20" />}
+                    label="Search User"
+                    placeholder="User ID / Username"
+                    color="primary"
+                  />
+                  <div className="ml-5 flex items-center">
+                    <p className="mr-2 font-medium">Verified Only </p>
+                    <Switch />
                   </div>
                 </div>
               </div>
             )}
 
-            <div className="mx-10 mt-5 px-5 overflow-scroll bg-secondary overflow-x-hidden max-h-96">
+            <div className="mx-10 mt-5 px-5 overflow-scroll bg-primary rounded-lg overflow-x-hidden max-h-96">
               {!usersLoading ? (
                 <div className="allUsers">
                   {users
@@ -201,7 +223,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                     ))}
                 </div>
               ) : (
-                <div className="flex items-center justify-center">
+                <div className="flex w-full p-5 items-center justify-center">
                   <Loading />
                 </div>
               )}
