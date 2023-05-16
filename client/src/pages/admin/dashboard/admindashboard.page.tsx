@@ -121,12 +121,27 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                     bordered
                     contentRight={<FiSearch size="20" />}
                     label="Search User"
+                    onChange={(e) => {
+                      let searchVal = e.target.value;
+                      if (!searchVal.length) setUsers(users);
+
+                      const newUsers = users.filter(
+                        (user) =>
+                          (user as any)._id.includes(searchVal) ||
+                          (user as any).username.includes(searchVal)
+                      );
+                      setUsers(newUsers);
+                    }}
                     placeholder="User ID / Username"
                     color="primary"
                   />
                   <div className="ml-5 flex items-center">
                     <p className="mr-2 font-medium">Verified Only </p>
-                    <Switch />
+                    <Switch
+                      onChange={(checked) =>
+                        setUsers(users.filter((user) => (user as any).verified))
+                      }
+                    />
                   </div>
                 </div>
               </div>
@@ -197,12 +212,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                             color="error"
                             className="mr-2"
                             icon={<HiBan size="20" />}
-                            onPress={() =>
-                              banUser(
-                                user._id,
-                                process.env.REACT_APP_ADMIN_SECRET || ""
-                              )
-                            }
+                            onPress={() => banUser(user._id, "ssadmin12345")}
                             disabled={user?.banned}
                           >
                             Ban

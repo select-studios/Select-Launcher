@@ -59,12 +59,6 @@ const App: React.FC = () => {
 
   if (!page) return null;
 
-  useEffect(() => {
-    if (!process.env.REACT_APP_ADMIN_SECRET) {
-      Log.warn("REACT_APP_ADMIN_SECRET does not exist in .env");
-    }
-  }, []);
-
   return (
     <AnimatePresence mode="wait">
       <Detector
