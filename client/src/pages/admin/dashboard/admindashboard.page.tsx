@@ -197,7 +197,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                             color="error"
                             className="mr-2"
                             icon={<HiBan size="20" />}
-                            onPress={() => banUser(user._id, "ssadmin12345")}
+                            onPress={() =>
+                              banUser(
+                                user._id,
+                                process.env.REACT_APP_ADMIN_SECRET || ""
+                              )
+                            }
                             disabled={user?.banned}
                           >
                             Ban

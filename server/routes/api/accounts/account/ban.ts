@@ -9,7 +9,7 @@ export const banAccount = (req, res) => {
   if (!idStr || !idStr.length) return res.status(400);
 
   if (passStr === process.env.ADMIN_SECRET) {
-    User.findByIdAndUpdate(idStr, { banned: true })
+    User.findByIdAndUpdate(idStr, { banned: true }, { new: true })
       .then((user) => {
         return res.status(201).send({ success: true, user });
       })

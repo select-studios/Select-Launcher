@@ -9,6 +9,7 @@ import AuthAPI from "./handlers/api/components/Auth";
 import Offline_E from "./pages/errors/offline/offline.errorpage";
 import { BiWifi, BiWifiOff } from "react-icons/bi";
 import AdminDashboard from "./pages/admin/dashboard/admindashboard.page";
+import { Log } from "./utils/lib/Log";
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -57,6 +58,12 @@ const App: React.FC = () => {
   ]);
 
   if (!page) return null;
+
+  useEffect(() => {
+    if (!process.env.REACT_APP_ADMIN_SECRET) {
+      Log.warn("REACT_APP_ADMIN_SECRET does not exist in .env");
+    }
+  }, []);
 
   return (
     <AnimatePresence mode="wait">

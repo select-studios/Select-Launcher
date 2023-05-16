@@ -24,8 +24,12 @@ export const login = async (
     ? await getUser({ username })
     : await getUser({ email });
   if (!user) {
-    res.status(403).json({ error: "User does not exist." });
+    res.status(403).json({ error: "Username / Password is wrong." });
     return;
+  }
+
+  if (user.banned) {
+    res.status(403).json({ error: "User has been banned from the servers." });
   }
 
   bcrypt.compare(password, user.password, async (err, result) => {
@@ -36,7 +40,7 @@ export const login = async (
       return;
     }
     if (!result) {
-      res.status(403).json({ error: "Incorrect password." });
+      res.status(403).json({ error: "Userrname / Password is wrong." });
       return;
     }
 

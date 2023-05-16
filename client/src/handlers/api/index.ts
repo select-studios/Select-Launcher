@@ -28,7 +28,9 @@ export const getUser = async (accessToken: string) => {
 };
 
 export const getAllUsers = async () => {
-  const res = await fetch(`${API_URI}/accounts?pass=ssadmin12345`);
+  const res = await fetch(
+    `${API_URI}/accounts?pass=${process.env.REACT_APP_ADMIN_SECRET}`
+  );
 
   const resData = await res.json();
 
