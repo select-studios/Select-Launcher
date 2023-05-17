@@ -12,11 +12,12 @@ import {
   HiOutlineUser,
   HiRefresh,
   HiUser,
+  HiX,
 } from "react-icons/hi";
 import { HiChartBarSquare, HiUserPlus } from "react-icons/hi2";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
-import { banUser, getAllUsers } from "../../../handlers/api/index";
+import { banUser, getAllUsers, unbanUser } from "../../../handlers/api/index";
 import {
   Avatar,
   Badge,
@@ -39,6 +40,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
   const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [usersLoading, setUsersLoading] = useState(true);
   if (!user?.moderator) navigate("/home");
 
@@ -50,6 +52,32 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
         setUsersLoading(false);
       })
       .catch((err) => console.log(err));
+  };
+
+  const handleBanUser = (userId: string) => {
+    banUser(userId, "ssadmin12345").then((newUser) => {
+      const filteredNewUsers = users.filter(
+        (user: any) => user._id !== newUser._id
+      );
+      setUsers(
+        [...filteredNewUsers, newUser].sort(
+          (a: any, b: any) => a.username - b.username
+        ) as any
+      );
+    });
+  };
+
+  const handleUnbanUser = (userId: string) => {
+    unbanUser(userId, "ssadmin12345").then((newUser) => {
+      const filteredUsers = users.filter(
+        (user: any) => user._id !== newUser._id
+      );
+      setUsers(
+        [...filteredUsers, newUser].sort(
+          (a: any, b: any) => a.username - b.username
+        ) as any
+      );
+    });
   };
 
   useEffect(() => {
@@ -71,7 +99,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
               <HiDatabase size="40" className="mr-2" /> Administrator Dashboard
             </p>
           </div>
-          <div className="mt-10 bg-secondary pb-5 rounded-xl mx-10">
+          <div className="mt-10 bg-secondary pb-5 rounded-xl mx-10 w-full">
             <p className="text-xl rounded-t-xl text-center p-2 bg-tertiary mx-0 font-bold font-montserrat">
               App Users
             </p>
@@ -81,7 +109,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                   <p className="flex items-center justify-center text-2xl m-2 mb-4 text-center font-bold font-montserrat bg-secondary p-2 rounded-lg">
                     <HiChartPie size="30" className="mr-2" /> Analysis
                   </p>
-                  <div className="flex justify-center">
+                  <div className="flex justify-center min-w-full">
                     <div className="stat-card-1 max-w-fit p-3 rounded-md bg-secondary">
                       <p className="text-sm uppercase opacity-70 font-bold">
                         Total Users
@@ -106,9 +134,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                         {users.filter((user: any) => user.moderator).length}
                       </p>
                     </div>
-                    <div className="stat-card-1 max-w-fit p-3 rounded-md bg-green-600 ml-2">
+                    <div className="stat-card-1 min-w-max p-3 rounded-md bg-green-600 ml-2">
                       <p className="text-sm uppercase opacity-70 font-bold">
-                        Verified
+                        Verified Users
                       </p>
                       <p className="text-2xl font-bold font-montserrat">
                         {users.filter((user: any) => user.verified).length}
@@ -123,14 +151,16 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                     label="Search User"
                     onChange={(e) => {
                       let searchVal = e.target.value;
-                      if (!searchVal.length) setUsers(users);
+                      if (!searchVal.length) {
+                        setFilteredUsers([]);
+                      }
 
                       const newUsers = users.filter(
                         (user) =>
                           (user as any)._id.includes(searchVal) ||
                           (user as any).username.includes(searchVal)
                       );
-                      setUsers(newUsers);
+                      setFilteredUsers(newUsers);
                     }}
                     placeholder="User ID / Username"
                     color="primary"
@@ -139,7 +169,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                     <p className="mr-2 font-medium">Verified Only </p>
                     <Switch
                       onChange={(checked) =>
-                        setUsers(users.filter((user) => (user as any).verified))
+                        checked
+                          ? setFilteredUsers(
+                              users.filter((user) => (user as any).verified)
+                            )
+                          : setFilteredUsers([])
                       }
                     />
                   </div>
@@ -149,14 +183,14 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
 
             <div className="mx-10 mt-5 px-5 overflow-scroll bg-primary rounded-lg overflow-x-hidden max-h-96">
               {!usersLoading ? (
-                <div className="allUsers">
-                  {users
+                <div className="allUsers grid grid-cols-2">
+                  {(filteredUsers.length ? filteredUsers : users)
                     .sort((a: any, b: any) =>
                       a.username.localeCompare(b.username)
                     )
                     .map((user: any) => (
                       <Card
-                        className={`bg-tertiary shadow-none my-3 ${
+                        className={`bg-tertiary shadow-none max-w-lg mr-2 my-3 ${
                           user?.moderator ? "border border-yellow-400" : ""
                         }`}
                         css={{ p: "$6" }}
@@ -180,7 +214,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                               {user?.verified && (
                                 <Badge
                                   size="sm"
-                                  className="ml-2"
+                                  className="ml-2 border-0"
                                   variant="flat"
                                   color="success"
                                 >
@@ -195,6 +229,16 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                                   color="warning"
                                 >
                                   <HiUserPlus className="mr-1" /> Moderator
+                                </Badge>
+                              )}
+                              {user?.banned && (
+                                <Badge
+                                  size="sm"
+                                  className="ml-2"
+                                  variant="flat"
+                                  color="error"
+                                >
+                                  <HiBan className="mr-1" /> Banned
                                 </Badge>
                               )}
                             </p>
@@ -212,12 +256,23 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                             color="error"
                             className="mr-2"
                             icon={<HiBan size="20" />}
-                            onPress={() => banUser(user._id, "ssadmin12345")}
+                            onPress={() => handleBanUser(user._id)}
                             disabled={user?.banned}
                           >
                             Ban
                           </Button>
-
+                          {user?.banned && (
+                            <Button
+                              auto
+                              color="error"
+                              className="mr-2"
+                              icon={<HiX size="20" />}
+                              flat
+                              onPress={() => handleUnbanUser(user._id)}
+                            >
+                              Unban
+                            </Button>
+                          )}
                           <Dropdown>
                             <Dropdown.Trigger>
                               <Dropdown.Button

@@ -51,7 +51,24 @@ export const banUser = async (id: string, pass: string) => {
   const resData = await res.json();
 
   if (res.ok) {
-    return resData;
+    return resData.user;
+  }
+
+  return null;
+};
+
+export const unbanUser = async (id: string, pass: string) => {
+  const res = await fetch(
+    `${API_URI}/accounts/account/unban?id=${id}&pass=${pass}`,
+    {
+      method: "PUT",
+    }
+  );
+
+  const resData = await res.json();
+
+  if (res.ok) {
+    return resData.user;
   }
 
   return null;

@@ -1,7 +1,14 @@
 import ButtonLoader from "@/components/loader/button/buttonloader.component";
 import { logout, sendVerificationLink } from "@/handlers/api";
 import { Avatar, Badge, Button, Dropdown } from "@nextui-org/react";
-import { HiCheck, HiCog, HiDatabase, HiHome, HiLogout, HiUser } from "react-icons/hi";
+import {
+  HiCheck,
+  HiCog,
+  HiDatabase,
+  HiHome,
+  HiLogout,
+  HiUser,
+} from "react-icons/hi";
 import { HiBellAlert, HiUserPlus } from "react-icons/hi2";
 import { useNavigate } from "react-router";
 import { observer } from "mobx-react";
@@ -51,7 +58,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
               sendVerificationLink(user.accessToken);
             } else if (key == "profile") {
               navigate("/settings/profile");
-            }else if (key == "home"){
+            } else if (key == "home") {
               navigate("/");
             } else if (key == "settings") {
               navigate("/settings");
@@ -60,19 +67,22 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
             }
           }}
         >
-          <Dropdown.Item key="badges" className="flex mb-2">
-            {user?.verified && (
-              <Badge color="success" className="mr-2">
-                <HiCheck className="mr-1" /> Verified
-              </Badge>
-            )}
-            {user?.moderator && (
-              <Badge variant="flat" color="warning" className="mr-2">
-                <HiUserPlus className="mr-1" />
-                Moderator
-              </Badge>
-            )}
-          </Dropdown.Item>
+          {(user?.verified || (user?.moderator as any)) && (
+            <Dropdown.Item key="badges" className="flex mb-2">
+              {user?.verified && (
+                <Badge color="success" className="mr-2">
+                  <HiCheck className="mr-1" /> Verified
+                </Badge>
+              )}
+              {user?.moderator && (
+                <Badge variant="flat" color="warning" className="mr-2">
+                  <HiUserPlus className="mr-1" />
+                  Moderator
+                </Badge>
+              )}
+            </Dropdown.Item>
+          )}
+
           <Dropdown.Item icon={<HiHome size="20" />} key="home">
             Home
           </Dropdown.Item>

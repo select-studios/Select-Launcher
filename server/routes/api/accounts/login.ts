@@ -29,7 +29,9 @@ export const login = async (
   }
 
   if (user.banned) {
-    res.status(403).json({ error: "User has been banned from the servers." });
+    return res
+      .status(403)
+      .json({ error: "User has been banned from the servers." });
   }
 
   bcrypt.compare(password, user.password, async (err, result) => {
@@ -39,6 +41,7 @@ export const login = async (
         .json({ error: "There was an error checking for the password." });
       return;
     }
+    console.log(password);
     if (!result) {
       res.status(403).json({ error: "Userrname / Password is wrong." });
       return;

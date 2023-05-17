@@ -37,9 +37,7 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
               password and you need a new one, press the button below to reset
               it!
             </Text>
-            <Text style={text}>
-              <b>New requested password: </b> {newPass}
-            </Text>
+
             <Button style={button} href={url}>
               Confirm New Password
             </Button>

@@ -243,10 +243,13 @@ export const LoginComp: React.FC<LoginProps> = () => {
         onClose={() => setFPVisible(false)}
       >
         <form onSubmit={handleSubmitFP(onSubmitFP)}>
-          <Modal.Header className="bg-secondary mb-5 rounded-b-xl">
+          <Modal.Header className="bg-secondary mb-5">
             <p className="text-xl ">Reset Password</p>{" "}
           </Modal.Header>
-            <p>Happens to the best of us</p>
+          <p>Happens to the best of us</p>
+          <p className="text-sm opacity-70 mb-2">
+            This can take a few moments.
+          </p>
           <Modal.Body>
             <Input
               clearable

@@ -1,5 +1,4 @@
 import { BiWifiOff } from "react-icons/bi";
-import { BiBaguette} from "react-icons/bi";
 
 interface Offline_EProps {}
 
@@ -27,7 +26,7 @@ const Offline_E: React.FC<Offline_EProps> = () => {
       <div
         className={`fixed p-2 flex justify-center rounded-t-md items-center bottom-0 w-screen bg-secondary`}
       >
-        <BiBaguette className="mr-2" size="20"></BiBaguette> Network error
+        {/* <BiBaguette className="mr-2" size="20"></BiBaguette> Network error */}
       </div>
     </section>
   );

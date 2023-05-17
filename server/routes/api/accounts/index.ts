@@ -5,6 +5,7 @@ import { banAccount } from "./account/ban";
 import { editAccount } from "./account/edit";
 import { forgotPass } from "./account/forgotPass";
 import { account } from "./account/index";
+import { unbanAccount } from "./account/unban";
 import { login } from "./login";
 import { logout } from "./logout";
 import { refresh } from "./refresh";
@@ -29,6 +30,7 @@ accountsRouter.post("/account", jwtAuth, account);
 accountsRouter.put("/account/edit", jwtAuth, editAccount);
 accountsRouter.get("/account/forgotpassword", forgotPass);
 accountsRouter.put("/account/ban", banAccount);
+accountsRouter.put("/account/unban", unbanAccount);
 
 accountsRouter.delete("/logout", logout);
 
