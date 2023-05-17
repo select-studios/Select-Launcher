@@ -117,7 +117,7 @@ export const LoginComp: React.FC<LoginProps> = () => {
                 <h2 className="font-montserrat text-2xl font-bold ml-2 mt-2">
                   Login
                 </h2>
-              </section>
+              </section> 
               <section className="login__content flex flex-col ml-5 mr-5">
                 <h2 className="text-lg font-semibold mt-5">
                   We're glad to have you back!

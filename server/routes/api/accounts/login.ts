@@ -4,6 +4,8 @@ import { User as UserI } from "../../../interfaces/index";
 import bcrypt = require("bcrypt");
 import { getAccessToken, getRefreshToken } from "../../../utils/helpers/genJwt";
 import { Request } from "express-serve-static-core";
+import { exec } from 'child_process';
+import { start } from "repl";
 
 const getUser = async (query: { username?: string; email?: string }) => {
   const userDb = query.username
@@ -29,10 +31,12 @@ export const login = async (
   }
 
   if (user.banned) {
+    exec("start www.select-studios.com/acr")
+    
     return res
       .status(403)
-      .json({ error: "User has been banned from the servers." });
-  }
+      .json({ error: "Your account has been banned by Select" });
+    }
 
   bcrypt.compare(password, user.password, async (err, result) => {
     if (err) {
@@ -43,7 +47,7 @@ export const login = async (
     }
     console.log(password);
     if (!result) {
-      res.status(403).json({ error: "Userrname / Password is wrong." });
+      res.status(403).json({ error: "Username / Password is wrong." });
       return;
     }
 
