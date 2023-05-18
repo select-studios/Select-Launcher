@@ -18,8 +18,8 @@ const SettingsCard: React.FC<SettingsCardProps> = ({ setting, settingN }) => {
 
   return (
     <Card
-      css={{ p: "$6", mw: "400px", backgroundColor: "#282A2D" }}
-      className="my-2 mr-5"
+      css={{ p: "$6", mw: "400px" }}
+      className="bg-secondary my-2 mr-5"
       isHoverable
       isPressable
       key={`settingscard-${settingN}`}

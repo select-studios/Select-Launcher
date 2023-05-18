@@ -40,9 +40,9 @@ export const getAllUsers = async () => {
   }
 };
 
-export const banUser = async (id: string, pass: string) => {
+export const banUser = async (id: string, reason: string, pass: string) => {
   const res = await fetch(
-    `${API_URI}/accounts/account/ban?id=${id}&pass=${pass}`,
+    `${API_URI}/accounts/account/ban?id=${id}&reason=${reason}&pass=${pass}`,
     {
       method: "PUT",
     }

@@ -7,9 +7,7 @@ import { NotFound_E } from "./pages/errors";
 import { Detector, Offline, Online } from "react-detect-offline";
 import AuthAPI from "./handlers/api/components/Auth";
 import Offline_E from "./pages/errors/offline/offline.errorpage";
-import { BiWifi, BiWifiOff } from "react-icons/bi";
 import AdminDashboard from "./pages/admin/dashboard/admindashboard.page";
-import { Log } from "./utils/lib/Log";
 
 const App: React.FC = () => {
   const location = useLocation();

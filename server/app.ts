@@ -26,7 +26,7 @@ const PORT = process.env.PORT || 4757;
 const router = express.Router();
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

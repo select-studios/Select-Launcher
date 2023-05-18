@@ -9,7 +9,11 @@ export const unbanAccount = (req, res) => {
   if (!idStr || !idStr.length) return res.status(400);
 
   if (passStr === process.env.ADMIN_SECRET) {
-    User.findByIdAndUpdate(idStr, { banned: false }, { new: true })
+    User.findByIdAndUpdate(
+      idStr,
+      { banned: false, banReason: "" },
+      { new: true }
+    )
       .then((user) => {
         return res.status(201).send({ success: true, user });
       })

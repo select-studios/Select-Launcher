@@ -12,9 +12,10 @@ import {
   HiOutlineUser,
   HiRefresh,
   HiUser,
+  HiUsers,
   HiX,
 } from "react-icons/hi";
-import { HiChartBarSquare, HiUserPlus } from "react-icons/hi2";
+import { HiChartBarSquare, HiCheckBadge, HiUserPlus } from "react-icons/hi2";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { banUser, getAllUsers, unbanUser } from "../../../handlers/api/index";
@@ -28,10 +29,14 @@ import {
   Input,
   Link,
   Loading,
+  Modal,
   Switch,
   Text,
 } from "@nextui-org/react";
 import { FiSearch } from "react-icons/fi";
+import { useForm } from "react-hook-form";
+import { BsHammer } from "react-icons/bs";
+import { validateInputComponent } from "@/utils/form";
 
 interface AdminDashboardProps {}
 
@@ -54,8 +59,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
       .catch((err) => console.log(err));
   };
 
-  const handleBanUser = (userId: string) => {
-    banUser(userId, "ssadmin12345").then((newUser) => {
+  const handleBanUser = async (userId: string, reason: string) => {
+    await banUser(userId, reason, "ssadmin12345").then((newUser) => {
+      console.log(newUser);
       const filteredNewUsers = users.filter(
         (user: any) => user._id !== newUser._id
       );
@@ -87,6 +93,48 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
     handleGetAllUsers();
   };
 
+  const userAnalysis = [
+    {
+      icon: <HiUsers />,
+      title: "Total Users",
+      value: users.length,
+      color: "bg-secondary",
+    },
+    {
+      icon: <HiBan />,
+      title: "Banned Users",
+      value: users.filter((user: any) => user.banned).length,
+      color: "bg-red-600",
+    },
+    {
+      icon: <HiCheckBadge />,
+      title: "Verified Users",
+      value: users.filter((user: any) => user.verified).length,
+      color: "bg-green-600",
+    },
+    {
+      icon: <HiUserPlus />,
+      title: "Moderators",
+      value: users.filter((user: any) => user.moderator).length,
+      color: "bg-yellow-600",
+    },
+  ];
+
+  const [banUserVisible, setBanUserVisible] = useState(false);
+  const [userToBan, setUserToBan] = useState<any>({});
+
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+    reset,
+  } = useForm({ mode: "onBlur" });
+
+  const onUserBanSubmit = (data: any) => {
+    handleBanUser(userToBan._id, data.reason);
+    setBanUserVisible(false);
+  };
+
   return (
     <section className="admin-dashboard">
       <AppBar dashboard={true} user={UserStore.user!} />
@@ -104,74 +152,62 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
               App Users
             </p>
             {!usersLoading && (
-              <div className="px-5 rounded-b-lg">
-                <div className="mt-4 py-2 px-1 mx-10 w-auto rounded-lg bg-tertiary">
+              <div className=" flex rounded-b-lg">
+                <div className="mt-4 py-2 px-1 mx-10 rounded-lg bg-tertiary">
                   <p className="flex items-center justify-center text-2xl m-2 mb-4 text-center font-bold font-montserrat bg-secondary p-2 rounded-lg">
                     <HiChartPie size="30" className="mr-2" /> Analysis
                   </p>
-                  <div className="flex justify-center min-w-full">
-                    <div className="stat-card-1 max-w-fit p-3 rounded-md bg-secondary">
-                      <p className="text-sm uppercase opacity-70 font-bold">
-                        Total Users
-                      </p>
-                      <p className="text-2xl font-bold font-montserrat">
-                        {users.length}
-                      </p>
-                    </div>
-                    <div className="stat-card-1 max-w-fit p-3 rounded-md bg-red-700 ml-2">
-                      <p className="text-sm uppercase opacity-70 font-bold">
-                        Banned Users
-                      </p>
-                      <p className="text-2xl font-bold font-montserrat">
-                        {users.filter((user: any) => user.banned).length}
-                      </p>
-                    </div>
-                    <div className="stat-card-1 max-w-fit p-3 rounded-md bg-yellow-600 ml-2">
-                      <p className="text-sm uppercase opacity-70 font-bold">
-                        Admins
-                      </p>
-                      <p className="text-2xl font-bold font-montserrat">
-                        {users.filter((user: any) => user.moderator).length}
-                      </p>
-                    </div>
-                    <div className="stat-card-1 min-w-max p-3 rounded-md bg-green-600 ml-2">
-                      <p className="text-sm uppercase opacity-70 font-bold">
-                        Verified Users
-                      </p>
-                      <p className="text-2xl font-bold font-montserrat">
-                        {users.filter((user: any) => user.verified).length}
-                      </p>
-                    </div>
+                  <div className="flex justify-center min-w-full px-3">
+                    {!usersLoading &&
+                      userAnalysis.map((analysis, key) => (
+                        <div
+                          key={key}
+                          className={`stat-card-${key} p-3 mr-1 rounded-md ${analysis.color}`}
+                        >
+                          <p className="flex items-center text-sm uppercase opacity-70 font-bold">
+                            <span className="mr-1">{analysis.icon}</span>{" "}
+                            {analysis.title}
+                          </p>
+                          <p className="text-2xl font-bold font-montserrat">
+                            {analysis.value}
+                          </p>
+                        </div>
+                      ))}
                   </div>
                 </div>
-                <div className="my-5 mx-10 flex justify-between max-w-full items-center">
+                <div className="my-5 mx-10 flex justify-between max-w-full items-center h-full">
                   <Input
                     bordered
                     contentRight={<FiSearch size="20" />}
-                    label="Search User"
+                    label="Search Users"
+                    size="lg"
                     onChange={(e) => {
                       let searchVal = e.target.value;
                       if (!searchVal.length) {
                         setFilteredUsers([]);
                       }
 
-                      const newUsers = users.filter(
-                        (user) =>
-                          (user as any)._id.includes(searchVal) ||
-                          (user as any).username.includes(searchVal)
+                      const newUsers = users.filter((user) =>
+                        (user as any).username
+                          .toLowerCase()
+                          .includes(searchVal.toLowerCase())
                       );
                       setFilteredUsers(newUsers);
                     }}
-                    placeholder="User ID / Username"
+                    placeholder="Username"
                     color="primary"
                   />
-                  <div className="ml-5 flex items-center">
+                  <div className="ml-5 flex items-center mt-5">
                     <p className="mr-2 font-medium">Verified Only </p>
                     <Switch
-                      onChange={(checked) =>
-                        checked
+                      color="success"
+                      onChange={(e) =>
+                        e.target.checked
                           ? setFilteredUsers(
-                              users.filter((user) => (user as any).verified)
+                              (filteredUsers.length
+                                ? filteredUsers
+                                : users
+                              ).filter((user) => (user as any).verified)
                             )
                           : setFilteredUsers([])
                       }
@@ -181,18 +217,19 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
               </div>
             )}
 
-            <div className="mx-10 mt-5 px-5 overflow-scroll bg-primary rounded-lg overflow-x-hidden max-h-96">
+            <div className="mx-10 mt-5 px-5 overflow-scroll bg-tertiary rounded-lg overflow-x-hidden max-h-96">
               {!usersLoading ? (
                 <div className="allUsers grid grid-cols-2">
                   {(filteredUsers.length ? filteredUsers : users)
                     .sort((a: any, b: any) =>
                       a.username.localeCompare(b.username)
                     )
-                    .map((user: any) => (
+                    .map((user: any, key) => (
                       <Card
-                        className={`bg-tertiary shadow-none max-w-lg mr-2 my-3 ${
+                        className={`bg-secondary shadow-none max-w-xl mr-2 my-3 ${
                           user?.moderator ? "border border-yellow-400" : ""
                         }`}
+                        key={`User-${key}`}
                         css={{ p: "$6" }}
                         variant={user?.moderator ? "bordered" : "flat"}
                       >
@@ -249,6 +286,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                             <HiIdentification className="mr-1" />{" "}
                             <b className="mr-1">User ID:</b> {user._id}
                           </p>
+                          <br />
+                          {user?.banned && (
+                            <p>
+                              <b>Ban Reason: </b> {user.banReason}
+                            </p>
+                          )}
                         </Card.Body>
                         <Card.Footer>
                           <Button
@@ -256,7 +299,13 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                             color="error"
                             className="mr-2"
                             icon={<HiBan size="20" />}
-                            onPress={() => handleBanUser(user._id)}
+                            // onPress={() =>
+                            //   handleBanUser(user._id, "Not disclosed")
+                            // }
+                            onPress={() => {
+                              setBanUserVisible(true);
+                              setUserToBan(user);
+                            }}
                             disabled={user?.banned}
                           >
                             Ban
@@ -311,6 +360,62 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
           </div>
         </div>
       </div>
+      <Modal
+        closeButton
+        aria-labelledby="modal-title"
+        open={banUserVisible}
+        onClose={() => setBanUserVisible(false)}
+      >
+        <form onSubmit={handleSubmit(onUserBanSubmit)}>
+          <Modal.Header justify="flex-start">
+            <p className="text-2xl font-bold flex items-center">
+              <HiBan size="20" className="mr-2" /> Ban User
+            </p>
+          </Modal.Header>
+          <Modal.Header className="grid justify-center">
+            <Avatar
+              src="https://i.imgur.com/c30fFsi.png"
+              css={{ size: "$20" }}
+              className="mx-auto mb-2"
+            />
+            <p className="text-xl opacity-80 font-bold">
+              @{userToBan.username}
+            </p>
+          </Modal.Header>
+          <Modal.Body>
+            <Input
+              bordered
+              fullWidth
+              color={validateInputComponent(errors, "reason", true)}
+              helperColor={validateInputComponent(errors, "reason", true)}
+              helperText={validateInputComponent(errors, "reason", false)}
+              size="lg"
+              label="Ban Reason"
+              placeholder="bro's black"
+              {...register("reason", {
+                required: "You must enter a reason for banning that user.",
+                minLength: 2,
+              })}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button auto color="error" type="submit">
+              Ban
+            </Button>
+            <Button
+              auto
+              flat
+              color="error"
+              onPress={() => {
+                setBanUserVisible(false);
+                reset();
+              }}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </form>
+      </Modal>
     </section>
   );
 };
