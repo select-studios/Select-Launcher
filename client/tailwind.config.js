@@ -16,6 +16,12 @@ module.exports = {
       montserrat: ["Montserrat", "sans-serif"],
     },
   },
+  safelist: [
+    "border-yellow-600",
+    "border-green-600",
+    "border-red-600",
+    "border-primary-base",
+  ],
 
   plugins: [],
 };

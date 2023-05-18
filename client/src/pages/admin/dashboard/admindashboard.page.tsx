@@ -95,28 +95,28 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
 
   const userAnalysis = [
     {
-      icon: <HiUsers />,
+      icon: <HiUsers className="text-primary-base" />,
       title: "Total Users",
       value: users.length,
-      color: "bg-secondary",
+      color: "primary-base",
     },
     {
-      icon: <HiBan />,
+      icon: <HiBan className="text-red-600" />,
       title: "Banned Users",
       value: users.filter((user: any) => user.banned).length,
-      color: "bg-red-600",
+      color: "red-600",
     },
     {
-      icon: <HiCheckBadge />,
+      icon: <HiCheckBadge className="text-green-600" />,
       title: "Verified Users",
       value: users.filter((user: any) => user.verified).length,
-      color: "bg-green-600",
+      color: "green-600",
     },
     {
-      icon: <HiUserPlus />,
+      icon: <HiUserPlus className="text-yellow-600" />,
       title: "Moderators",
       value: users.filter((user: any) => user.moderator).length,
-      color: "bg-yellow-600",
+      color: "yellow-600",
     },
   ];
 
@@ -162,7 +162,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                       userAnalysis.map((analysis, key) => (
                         <div
                           key={key}
-                          className={`stat-card-${key} p-3 mr-1 rounded-md ${analysis.color}`}
+                          className={`stat-card-${key} p-3 mr-1 rounded-md bg-secondary border-2 border-solid border-${analysis.color}`}
                         >
                           <p className="flex items-center text-sm uppercase opacity-70 font-bold">
                             <span className="mr-1">{analysis.icon}</span>{" "}
@@ -217,16 +217,16 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
               </div>
             )}
 
-            <div className="mx-10 mt-5 px-5 overflow-scroll bg-tertiary rounded-lg overflow-x-hidden max-h-96">
+            <div className="mx-10 mt-5 px-5 py-5 overflow-scroll bg-tertiary rounded-lg overflow-x-hidden max-h-96">
               {!usersLoading ? (
-                <div className="allUsers grid grid-cols-2">
+                <div className="allUsers m-2 grid grid-cols-2">
                   {(filteredUsers.length ? filteredUsers : users)
                     .sort((a: any, b: any) =>
                       a.username.localeCompare(b.username)
                     )
                     .map((user: any, key) => (
                       <Card
-                        className={`bg-secondary shadow-none max-w-xl mr-2 my-3 ${
+                        className={`bg-secondary shadow-none max-h-fit max-w-xl mr-2 mb-2 my-3 ${
                           user?.moderator ? "border border-yellow-400" : ""
                         }`}
                         key={`User-${key}`}
@@ -375,14 +375,13 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
           <Modal.Header className="grid justify-center">
             <Avatar
               src="https://i.imgur.com/c30fFsi.png"
-              css={{ size: "$20" }}
               className="mx-auto mb-2"
             />
             <p className="text-xl opacity-80 font-bold">
               @{userToBan.username}
             </p>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className="mt-2">
             <Input
               bordered
               fullWidth
@@ -391,7 +390,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
               helperText={validateInputComponent(errors, "reason", false)}
               size="lg"
               label="Ban Reason"
-              placeholder="bro's black"
+              placeholder="Type here"
               {...register("reason", {
                 required: "You must enter a reason for banning that user.",
                 minLength: 2,

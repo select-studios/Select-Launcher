@@ -9,7 +9,7 @@
 
 html,
 body {
-  @apply bg-primary;
+  @apply bg-primary !important;
 }
 
 body {
@@ -58,7 +58,7 @@ p,
 h1,
 h2,
 h3 {
-  letter-spacing: 0;
+  @apply tracking-wide !important;
 }
 
 .nextui-input-helper-text {

@@ -3,12 +3,15 @@ import ReactDOM from "react-dom/client";
 import { HashRouter as Router } from "react-router-dom";
 import App from "./App";
 import "./samples/node-api";
+import * as pkgJson from "../package.json";
 import "./assets/styles/index.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import * as dotenv from "dotenv";
 
 import { createTheme, NextUIProvider, Text } from "@nextui-org/react";
+import { HiUser } from "react-icons/hi";
+import { UserStore } from "./stores/UserStore";
 
 dotenv.config({ path: "../.env" });
 
