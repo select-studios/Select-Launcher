@@ -12,14 +12,15 @@ export const banAccount = (req, res) => {
       { new: true, upsert: true }
     )
       .then((user) => {
-        fetch("http://localhost:6969/postBan", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ssadmin12345`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(user),
-        });
+        // TODO: Host the following
+        // fetch("http://localhost:6969/postBan", {
+        //   method: "POST",
+        //   headers: {
+        //     Authorization: `Bearer ssadmin12345`,
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(user),
+        // });
 
         return res.status(201).send({ success: true, user });
       })
