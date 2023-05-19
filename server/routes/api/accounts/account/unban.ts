@@ -1,22 +1,16 @@
 import { User } from "../../../../models";
 
 export const unbanAccount = (req, res) => {
-  const { pass, id } = req.query;
-  const idStr = id?.toString();
-  const passStr = pass?.toString();
+  const reqUser = req.user;
+  const { id } = req.body;
 
-  if (!passStr || !passStr.length) return res.status(403);
-  if (!idStr || !idStr.length) return res.status(400);
-
-  if (passStr === process.env.ADMIN_SECRET) {
-    User.findByIdAndUpdate(
-      idStr,
-      { banned: false, banReason: "" },
-      { new: true }
-    )
+  if (reqUser.moderator) {
+    User.findByIdAndUpdate(id, { banned: false, banReason: "" }, { new: true })
       .then((user) => {
         return res.status(201).send({ success: true, user });
       })
       .catch((err) => res.status(500).send({ error: err }));
+  } else {
+    return res.status(403).send({ error: "Unauthorized. Invalid request." });
   }
 };

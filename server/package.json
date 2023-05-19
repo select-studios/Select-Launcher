@@ -33,7 +33,7 @@
     "express-session": "^1.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.3",
-    "node-fetch": "^3.3.0",
+    "node-fetch": "^2.6.6",
     "nodemailer": "^6.9.1",
     "passport": "^0.6.0",
     "passport-google-oauth": "^2.0.0",

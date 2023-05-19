@@ -60,21 +60,23 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
   };
 
   const handleBanUser = async (userId: string, reason: string) => {
-    await banUser(userId, reason, "ssadmin12345").then((newUser) => {
-      console.log(newUser);
-      const filteredNewUsers = users.filter(
-        (user: any) => user._id !== newUser._id
-      );
-      setUsers(
-        [...filteredNewUsers, newUser].sort(
-          (a: any, b: any) => a.username - b.username
-        ) as any
-      );
-    });
+    await banUser(userId, reason, user?.tokens.accessToken || "").then(
+      (newUser) => {
+        console.log(newUser);
+        const filteredNewUsers = users.filter(
+          (user: any) => user._id !== newUser._id
+        );
+        setUsers(
+          [...filteredNewUsers, newUser].sort(
+            (a: any, b: any) => a.username - b.username
+          ) as any
+        );
+      }
+    );
   };
 
   const handleUnbanUser = (userId: string) => {
-    unbanUser(userId, "ssadmin12345").then((newUser) => {
+    unbanUser(userId, user?.tokens.accessToken || "").then((newUser) => {
       const filteredUsers = users.filter(
         (user: any) => user._id !== newUser._id
       );

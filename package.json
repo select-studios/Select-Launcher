@@ -4,7 +4,7 @@
   "description": "One stop to all select games.",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"cd client && npm run dev\" \"cd server && npm run dev\""
+    "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\""
   },
   "repository": {
     "type": "git",

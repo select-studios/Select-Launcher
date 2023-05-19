@@ -40,13 +40,24 @@ export const getAllUsers = async () => {
   }
 };
 
-export const banUser = async (id: string, reason: string, pass: string) => {
-  const res = await fetch(
-    `${API_URI}/accounts/account/ban?id=${id}&reason=${reason}&pass=${pass}`,
-    {
-      method: "PUT",
-    }
-  );
+export const banUser = async (
+  id: string,
+  reason: string,
+  accessToken: string
+) => {
+  const body = {
+    id,
+    reason,
+  };
+
+  const res = await fetch(`${API_URI}/accounts/account/ban`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
 
   const resData = await res.json();
 
@@ -57,13 +68,19 @@ export const banUser = async (id: string, reason: string, pass: string) => {
   return null;
 };
 
-export const unbanUser = async (id: string, pass: string) => {
-  const res = await fetch(
-    `${API_URI}/accounts/account/unban?id=${id}&pass=${pass}`,
-    {
-      method: "PUT",
-    }
-  );
+export const unbanUser = async (id: string, accessToken: string) => {
+  const body = {
+    id,
+  };
+
+  const res = await fetch(`${API_URI}/accounts/account/unban`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
 
   const resData = await res.json();
 

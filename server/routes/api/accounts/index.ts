@@ -29,8 +29,8 @@ accountsRouter.post("/refresh", refresh);
 accountsRouter.post("/account", jwtAuth, account);
 accountsRouter.put("/account/edit", jwtAuth, editAccount);
 accountsRouter.get("/account/forgotpassword", forgotPass);
-accountsRouter.put("/account/ban", banAccount);
-accountsRouter.put("/account/unban", unbanAccount);
+accountsRouter.put("/account/ban", jwtAuth, banAccount);
+accountsRouter.put("/account/unban", jwtAuth, unbanAccount);
 
 accountsRouter.delete("/logout", logout);
 

@@ -1,23 +1,30 @@
+import * as fetch from "node-fetch";
 import { User } from "../../../../models";
 
 export const banAccount = (req, res) => {
-  const { pass, id, reason } = req.query;
-  const idStr = id?.toString();
-  const passStr = pass?.toString();
-  const reasonStr = reason?.toString();
+  const reqUser = req.user;
+  const { id, reason } = req.body;
 
-  if (!passStr || !passStr.length) return res.status(403);
-
-  if (passStr === process.env.ADMIN_SECRET) {
+  if (reqUser.moderator) {
     User.findByIdAndUpdate(
-      idStr,
-      { banned: true, banReason: reasonStr },
+      id,
+      { banned: true, banReason: reason },
       { new: true, upsert: true }
     )
       .then((user) => {
-        console.log(user);
+        fetch("http://localhost:6969/postBan", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ssadmin12345`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        });
+
         return res.status(201).send({ success: true, user });
       })
       .catch((err) => res.status(500).send({ error: err }));
+  } else {
+    return res.status(403).send({ error: "Unauthorized. Invalid request." });
   }
 };
