@@ -112,7 +112,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
               <Card css={{ p: "$6" }} className="bg-secondary">
                 <Card.Header className="">
                   <Avatar
-                    src="https://i.imgur.com/c30fFsi.png"
+                    src="https://github.com/select-studios/Select-Launcher/blob/main/Resources/ICON_User.png?raw=true"
                     className="mr-2"
                     size="xl"
                     bordered
@@ -156,7 +156,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                   </Modal.Header>
                   <Modal.Header>
                     <Avatar
-                      src="https://i.imgur.com/c30fFsi.png"
+                      src="https://github.com/select-studios/Select-Launcher/blob/main/Resources/ICON_User.png?raw=true"
                       css={{ size: "$20" }}
                     />
                   </Modal.Header>
