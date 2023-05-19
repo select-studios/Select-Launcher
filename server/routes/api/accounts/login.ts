@@ -35,7 +35,7 @@ export const login = async (
     
     return res
       .status(403)
-      .json({ error: "Your account has been banned by Select" });
+      .json({ error: "Your account has been banned by Select"});
     }
 
   bcrypt.compare(password, user.password, async (err, result) => {
