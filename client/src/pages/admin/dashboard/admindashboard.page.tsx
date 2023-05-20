@@ -330,7 +330,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                                 More actions
                               </Dropdown.Button>
                             </Dropdown.Trigger>
-                            <Dropdown.Menu className="bg-primary">
+                            <Dropdown.Menu className="bg-tertiary">
                               <Dropdown.Item
                                 description="Forces the user to change their password."
                                 className="font-bold"
