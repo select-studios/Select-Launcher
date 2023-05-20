@@ -326,15 +326,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                           )}
                           <Dropdown>
                             <Dropdown.Trigger>
-                              <Dropdown.Button
-                                disabled
-                                className="bg-secondary"
-                              >
+                              <Dropdown.Button className="bg-tertiary">
                                 More actions
                               </Dropdown.Button>
                             </Dropdown.Trigger>
                             <Dropdown.Menu className="bg-primary">
-                              <Dropdown.Item className="font-bold">
+                              <Dropdown.Item
+                                description="Forces the user to change their password."
+                                className="font-bold"
+                              >
                                 Force Password Reset
                               </Dropdown.Item>
                             </Dropdown.Menu>

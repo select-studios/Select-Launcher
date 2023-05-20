@@ -13,6 +13,7 @@ import { validateInputComponent } from "@/utils/form";
 import SettingsCard from "@/components/settings/card/settingscard.component";
 import settingsList from "@/handlers/api/utils/data/settingsList";
 import { Log } from "@/utils/lib/Log";
+import userIcon from "../../assets/images/ICON_User.png";
 
 interface SettingsProps {}
 
@@ -68,7 +69,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                 <HiCog size="40" className="mr-2" /> Settings
               </p>
               <p className="text-xl font-inter opacity-80 font-medium">
-                Please select what you would want to modify.
+                Select a setting card you want to modify.
               </p>
             </div>
             <div className="grid justify-end items-center flex-1">
@@ -112,11 +113,11 @@ const SettingsComp: React.FC<SettingsProps> = () => {
               <Card css={{ p: "$6" }} className="bg-secondary">
                 <Card.Header className="">
                   <Avatar
-                    src="https://github.com/select-studios/Select-Launcher/blob/main/Resources/ICON_User.png?raw=true"
+                    src={userIcon}
                     className="mr-2"
                     size="xl"
                     bordered
-                    color={"success"}
+                    color="primary"
                   />
                   <Grid.Container css={{ pl: "$3" }}>
                     <Grid xs={12}>
@@ -155,10 +156,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                     </p>
                   </Modal.Header>
                   <Modal.Header>
-                    <Avatar
-                      src="https://github.com/select-studios/Select-Launcher/blob/main/Resources/ICON_User.png?raw=true"
-                      css={{ size: "$20" }}
-                    />
+                    <Avatar src={userIcon} css={{ size: "$20" }} />
                   </Modal.Header>
                   <Modal.Body>
                     <Input

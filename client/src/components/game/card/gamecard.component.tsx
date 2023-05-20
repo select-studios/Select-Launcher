@@ -11,12 +11,19 @@ import {
   Avatar,
   Tooltip,
 } from "@nextui-org/react";
-import { HiDownload } from "react-icons/hi";
+import {
+  HiDownload,
+  HiOutlineFolderRemove,
+  HiX,
+  HiXCircle,
+} from "react-icons/hi";
 import { ImBoxRemove } from "react-icons/im";
 import { HiCheckBadge } from "react-icons/hi2";
 import { BsPlayFill } from "react-icons/bs";
 import { toast } from "react-toastify";
 import { ipcRenderer } from "electron";
+import gameIcon from "../../../assets/images/ICON_Game.png";
+import uninstallIcon from "../../../assets/images/ICON_Uninstaller.png";
 
 interface GameCardProps {
   game: GameInfo;
@@ -31,7 +38,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
       className="bg-secondary m-5 py-2 px-1 h-fit w-fit"
     >
       <Card.Header>
-        <Avatar src={game.image.icon} alt={game.name + " Icon"} size="lg" />
+        <Avatar src={gameIcon} alt={game.name + " Icon"} size="lg" />
         <Grid.Container css={{ pl: "$6" }}>
           <Grid xs={12}>
             <Text
@@ -118,10 +125,11 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
             download
           </Button>
           <Button
-            icon={<ImBoxRemove size="20" />}
+            icon={<HiOutlineFolderRemove size="20" />}
             size="md"
             color="error"
             auto
+            flat
             className="ml-2"
             onClick={() => {
               window.gamesAPI.uninstallGame(game.name);

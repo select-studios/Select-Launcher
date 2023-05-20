@@ -8,7 +8,7 @@ module.exports = {
         secondary: "#181818",
         tertiary: "#272828",
 
-        "primary-base": "#9980FA",
+        "primary-base": "#9c88ff",
       },
     },
     fontFamily: {

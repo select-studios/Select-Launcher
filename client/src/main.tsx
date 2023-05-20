@@ -24,7 +24,7 @@ const theme = createTheme({
       primaryLightHover: "#baa9fc",
       primaryLightActive: "#a691fb",
       primaryLightContrast: "#7f60f9",
-      primary: "#9980FA",
+      primary: "#9c88ff",
       primaryBorder: "#9378fa",
       primaryBorderHover: "#7f60f9",
       primarySolidHover: "#6b47f8",
@@ -33,6 +33,8 @@ const theme = createTheme({
 
       link: "#3b82f6",
       selection: "3882F6",
+
+      secondary: "#8e44ad",
 
       background: "#242425",
       tertiary: "#393C40",
