@@ -11,16 +11,7 @@ import * as stream from "stream";
 import { promisify } from "util";
 import request from "request";
 
-export async function downloadFile(
-  fileUrl: string,
-  outputLocationPath: string
-): Promise<any> {
-  request(fileUrl)
-    .pipe(fs.createWriteStream(outputLocationPath))
-    .on("close", function () {
-      console.log("File written!");
-    });
-}
+import Downloader from "nodejs-file-downloader";
 
 export const checkIfGamesDirectoryExists = (): boolean => {
   if (fs.existsSync(settings.getSync("locations.libraryLocation").toString())) {
@@ -29,7 +20,7 @@ export const checkIfGamesDirectoryExists = (): boolean => {
   return false;
 };
 
-export const downloadGame = (gameName: string) => {
+export const downloadGame = async (gameName: string) => {
   if (!checkIfGamesDirectoryExists()) {
     fs.mkdir(settings.getSync("locations.libraryLocation").toString(), () =>
       console.log("created games folder")
@@ -47,18 +38,35 @@ export const downloadGame = (gameName: string) => {
   //   })
   //   .catch((e) => );
 
-  downloadFile(
-    `https://raw.githubusercontent.com/select-studios/LauncherGames/main/${gameName}.zip`,
-    path.join(
-      settings.getSync("locations.libraryLocation").toString(),
-      gameName + ".zip"
-    )
-  )
-    .then(() => installGame(gameName))
-    .catch((e) => {
-      console.log(`Failed to download ${gameName} because of ${e}`);
-      return null;
-    });
+  const downloader = new Downloader({
+    url: `https://gitlab.com/akshit.singla.dps/launcher-games/-/raw/main/${gameName}.zip?inline=false`, //If the file name already exists, a new file with the name 200MB1.zip is created.
+    directory: settings.getSync("locations.libraryLocation").toString(), //This folder will be created, if it doesn't exist.
+    maxAttempts: 3, //Default is 1.
+    onError: function (error) {
+      //You can also hook into each failed attempt.
+      console.log("Error from attempt ", error);
+    },
+    onProgress: function (percentage, chunk, remainingSize) {
+      console.log("% ", percentage);
+      console.log("Current chunk of data: ", chunk);
+      console.log("Remaining bytes: ", remainingSize);
+
+      win.webContents.send(
+        "downloading",
+        `Downloading ${gameName}... ${percentage}% done.`
+      );
+    },
+  });
+
+  try {
+    const { filePath, downloadStatus } = await downloader.download(); //Downloader.download() resolves with some useful properties.
+    installGame(gameName);
+    console.log("All done");
+  } catch (error) {
+    //IMPORTANT: Handle a possible error. An error is thrown in case of network errors, or status codes of 400 and above.
+    //Note that if the maxAttempts is set to higher than 1, the error is thrown only if all attempts fail.
+    console.log("Download failed", error);
+  }
 };
 
 export const installGame = (gameName: string) => {

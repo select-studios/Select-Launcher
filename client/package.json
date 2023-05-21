@@ -31,6 +31,7 @@
     "mobx-react": "^7.6.0",
     "mongoose": "^6.9.2",
     "node-fetch": "^3.3.0",
+    "nodejs-file-downloader": "^4.11.2",
     "prop-types": "^15.8.1",
     "react-detect-offline": "^2.4.5",
     "react-hook-form": "^7.42.0",

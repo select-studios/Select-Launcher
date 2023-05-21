@@ -24,12 +24,15 @@ import { toast } from "react-toastify";
 import { ipcRenderer } from "electron";
 import gameIcon from "../../../assets/images/ICON_Game.png";
 import uninstallIcon from "../../../assets/images/ICON_Uninstaller.png";
+import { useState } from "react";
 
 interface GameCardProps {
   game: GameInfo;
 }
 
 export const GameCard: React.FC<GameCardProps> = ({ game }) => {
+  const [downloadStatus, setDownloadStatus] = useState("");
+
   return (
     <Card
       isPressable
@@ -88,6 +91,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
         </Text>
       </Card.Body>
       <Card.Divider />
+      {/* {downloadStatus.length && <p>{downloadStatus}</p>} */}
       <Card.Footer>
         <Row justify="flex-end">
           {/* <Button

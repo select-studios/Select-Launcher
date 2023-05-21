@@ -54,11 +54,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Router>
         <div className="w-screen h-11 bg-secondary appbar Draggable-Region" />
         <App />
-        <ToastContainer
-          toastClassName="bg-red-500"
-          position="bottom-right"
-          theme="colored"
-        />
+        <ToastContainer position="bottom-right" theme="colored" />
       </Router>
     </React.StrictMode>
   </NextUIProvider>
