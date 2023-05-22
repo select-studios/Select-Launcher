@@ -146,7 +146,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
             className="ml-2 shadow-md"
             onPressEnd={() => {
               window.gamesAPI.downloadGame(game.downloadName);
-              ipcRenderer.on("finish-download", (event, message) => {
+              ipcRenderer.once("finish-download", (event, message) => {
                 toast.success(message);
               });
             }}

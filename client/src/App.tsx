@@ -8,6 +8,7 @@ import { Detector, Offline, Online } from "react-detect-offline";
 import AuthAPI from "./handlers/api/components/Auth";
 import Offline_E from "./pages/errors/offline/offline.errorpage";
 import AdminDashboard from "./pages/admin/dashboard/admindashboard.page";
+import AppSettings from "./pages/settings/app/appsettings.page";
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -41,6 +42,14 @@ const App: React.FC = () => {
       element: (
         <AuthAPI>
           <UserSettings />
+        </AuthAPI>
+      ),
+    },
+    {
+      path: "/settings/app",
+      element: (
+        <AuthAPI>
+          <AppSettings />
         </AuthAPI>
       ),
     },

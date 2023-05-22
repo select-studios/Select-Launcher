@@ -106,7 +106,9 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                   )
                 : settingsList
               ).map((setting, i) => (
-                <SettingsCard setting={setting} settingN={i} />
+                <div>
+                  <SettingsCard setting={setting} settingN={i} />
+                </div>
               ))}
             </div>
             <div className="ml-auto">
