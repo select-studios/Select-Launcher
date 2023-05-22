@@ -48,20 +48,33 @@ export const downloadGame = async (gameName: string) => {
     },
     onProgress: function (percentage, chunk, remainingSize) {
       console.log("% ", percentage);
-      console.log("Current chunk of data: ", chunk);
-      console.log("Remaining bytes: ", remainingSize);
 
-      win.webContents.send(
-        "downloading",
-        `Downloading ${gameName}... ${percentage}% done.`
-      );
+      win.webContents.send("downloading", {
+        gameName,
+        percentage,
+        remainingSize,
+        msg: `Downloading... ${Number(percentage).toFixed(0)}% done.`,
+      });
     },
   });
 
   try {
-    const { filePath, downloadStatus } = await downloader.download(); //Downloader.download() resolves with some useful properties.
-    installGame(gameName);
-    console.log("All done");
+    downloader
+      .download()
+      .then(() => {
+        win.webContents.send("downloading", {
+          gameName,
+          msg: `Installing ${gameName}...`,
+        });
+        installGame(gameName);
+      })
+      .then(() => {
+        win.webContents.send("downloading", {
+          gameName,
+          msg: ``,
+        });
+        console.log("Finished installing the game.");
+      });
   } catch (error) {
     //IMPORTANT: Handle a possible error. An error is thrown in case of network errors, or status codes of 400 and above.
     //Note that if the maxAttempts is set to higher than 1, the error is thrown only if all attempts fail.
@@ -112,7 +125,8 @@ export const cleanupGame = (gameName: string) => {
     ),
     { force: true }
   );
-  win.webContents.send("finish-download", `Finished downloading ${gameName}`);
+  win.webContents.send("downloading", {});
+  win.webContents.send("finish-download", `Finished installing ${gameName}!`);
 };
 
 export const uninstallGame = async (gameName: string) => {

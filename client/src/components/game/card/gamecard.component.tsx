@@ -10,6 +10,7 @@ import {
   Image,
   Avatar,
   Tooltip,
+  Progress,
 } from "@nextui-org/react";
 import {
   HiDownload,
@@ -24,14 +25,27 @@ import { toast } from "react-toastify";
 import { ipcRenderer } from "electron";
 import gameIcon from "../../../assets/images/ICON_Game.png";
 import uninstallIcon from "../../../assets/images/ICON_Uninstaller.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface GameCardProps {
   game: GameInfo;
 }
 
 export const GameCard: React.FC<GameCardProps> = ({ game }) => {
-  const [downloadStatus, setDownloadStatus] = useState("");
+  const [downloadStatus, setDownloadStatus] = useState<{
+    gameName?: string;
+    percentage?: number;
+    remainingSize?: number;
+    msg?: string;
+  }>({});
+
+  useEffect(() => {
+    ipcRenderer.on(
+      "downloading",
+      (e, { gameName, percentage, remainingSize, msg }) =>
+        setDownloadStatus({ gameName, percentage, remainingSize, msg })
+    );
+  }, []);
 
   return (
     <Card
@@ -90,8 +104,19 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
           {game.description}
         </Text>
       </Card.Body>
+
+      {downloadStatus.gameName === game.downloadName && (
+        <Card.Body>
+          <p>{downloadStatus.msg}</p>
+          <Progress
+            size="sm"
+            color="primary"
+            value={Number(Number(downloadStatus.percentage).toFixed(0))}
+          />
+        </Card.Body>
+      )}
       <Card.Divider />
-      {/* {downloadStatus.length && <p>{downloadStatus}</p>} */}
+
       <Card.Footer>
         <Row justify="flex-end">
           {/* <Button
@@ -119,7 +144,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
             color="primary"
             auto
             className="ml-2 shadow-md"
-            onClick={() => {
+            onPressEnd={() => {
               window.gamesAPI.downloadGame(game.downloadName);
               ipcRenderer.on("finish-download", (event, message) => {
                 toast.success(message);
