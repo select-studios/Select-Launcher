@@ -6,6 +6,7 @@ import {
   uninstallGame,
   startGame,
 } from "../../api/gameManager";
+import settings from "electron-settings";
 
 function runIpcGameEvents() {
   ipcMain.on("download-game", async (event, game) => {
@@ -38,6 +39,10 @@ function runIpcGameEvents() {
     startGame(game);
     event.returnValue = `successfully started ${game}`;
   });
+
+  ipcMain.on("get-installed-games", async (e, games) => {});
+
+  ipcMain.on("set-installed-games", async (e, games) => {});
 }
 
 export default runIpcGameEvents;

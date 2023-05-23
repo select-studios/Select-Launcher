@@ -150,6 +150,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
                 toast.success(message);
               });
             }}
+            disabled={downloadStatus && downloadStatus.percentage! > 0}
           >
             download
           </Button>

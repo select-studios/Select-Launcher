@@ -27,17 +27,6 @@ export const downloadGame = async (gameName: string) => {
     );
   }
 
-  // download(
-  //   `https://raw.githubusercontent.com/select-studios/LauncherGames/main/${gameName}.zip`,
-  //   settings.getSync("locations.libraryLocation").toString(),
-  //   { decompress: false }
-  // )
-  //   .then(() => {
-  //     installGame(gameName);
-  //     return;
-  //   })
-  //   .catch((e) => );
-
   const downloader = new Downloader({
     url: `https://gitlab.com/akshit.singla.dps/launcher-games/-/raw/main/${gameName}.zip?inline=false`, //If the file name already exists, a new file with the name 200MB1.zip is created.
     directory: settings.getSync("locations.libraryLocation").toString(), //This folder will be created, if it doesn't exist.
@@ -57,6 +46,17 @@ export const downloadGame = async (gameName: string) => {
       });
     },
   });
+
+  // download(
+  //   `https://raw.githubusercontent.com/select-studios/LauncherGames/main/${gameName}.zip`,
+  //   settings.getSync("locations.libraryLocation").toString(),
+  //   { decompress: false }
+  // )
+  //   .then(() => {
+  //     installGame(gameName);
+  //     return;
+  //   })
+  //   .catch((e) => );
 
   try {
     downloader
