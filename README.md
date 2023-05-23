@@ -1,14 +1,20 @@
-# Select Studios Launcher
 
-[![Build status](https://ci.appveyor.com/api/projects/status/ntax77ja6vlet8fi?svg=true)](https://ci.appveyor.com/project/YT-GameWorks/select-launcher)
+# Select Launcher
+![Logo](https://github.com/select-studios/Select-Launcher/blob/main/Resources/ICON_Hero.png?raw=true)
 
-Launcher for select studio games, currently for staff only and in dev.
 
-plans to release to public
+## What are we still working on?
+- [ ]  Paid account system
+- [ ]  Public updates
+## Developers and Staff
 
-- [ ] Paid account system
-- [ ] Public updates
+- [Full stack -> Aktindo](https://github.com/Aktindo)
+- [Full stack -> GameGlide](https://github.com/YT-GameWorks)
 
-## Suggestion
 
-- Public forums?
+## Support
+- [Support Website](https://www.select-studios/help)
+- [Account Banned?](https://www.select-studios/acr)
+- [help.selectstudios@gmail.com] -> Support email
+## Check out our blog
+COMMING SOON!!!
