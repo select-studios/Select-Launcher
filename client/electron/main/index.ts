@@ -23,8 +23,7 @@ import fs from "fs";
 import runIpcStorageEvents from "./ipc/ipcStorageEvents";
 import runIpcGameEvents from "./ipc/ipcGameEvents";
 import { checkIfGamesDirectoryExists } from "../api/gameManager";
-import { checkForUpdates } from "../api/updates/updateManager";
-
+import { autoUpdater } from "electron-updater";
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 
@@ -188,4 +187,8 @@ ipcMain.handle("open-win", (event, arg) => {
   } else {
     childWindow.loadFile(indexHtml, { hash: arg });
   }
+});
+
+app.on("ready", () => {
+  autoUpdater.checkForUpdatesAndNotify();
 });
