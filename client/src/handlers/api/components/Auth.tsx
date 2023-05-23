@@ -7,6 +7,7 @@ import protectRoute from "../utils/protectRoute";
 import { observer } from "mobx-react";
 import * as pkgJson from "../../../../package.json";
 import { HiUser } from "react-icons/hi";
+import { Button } from "@nextui-org/react";
 
 interface AuthAPIProps {
   children: React.ReactNode;
@@ -22,6 +23,8 @@ const AuthAPI: React.FC<AuthAPIProps> = ({ children }) => {
     msg: "",
   });
 
+  const [visibleUserID, setVisibleUserID] = useState(false);
+
   useEffect(() => {
     protectRoute(UserStore, cookies, setLoading, navigate);
   }, []);
@@ -30,11 +33,21 @@ const AuthAPI: React.FC<AuthAPIProps> = ({ children }) => {
     <div>
       {children}
       <div className="fixed bottom-0 right-0 m-3 mx-5">
-        <div className="font-medium font-montserrat opacity-70">
+        <div className="font-medium text-right opacity-70">
           Select Launcher v{pkgJson.version}
         </div>
-        <div className="font-medium opacity-70">
-          <HiUser /> User ID: {user?._id}
+        <div className="opacity-70 flex justify-right items-center">
+          {/* <HiUser /> User ID: {user?._id} */}
+          <HiUser className="mr-1" />
+          User ID: {visibleUserID && user?._id}
+          <Button
+            onPress={() => setVisibleUserID(!visibleUserID)}
+            size="xs"
+            className="bg-tertiary ml-1"
+            auto
+          >
+            {visibleUserID ? "Hide" : "Show"}
+          </Button>
         </div>
       </div>
     </div>
