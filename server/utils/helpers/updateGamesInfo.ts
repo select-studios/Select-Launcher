@@ -11,7 +11,9 @@ const updateGamesInfo = () => {
   });
 
   gamesData.forEach(async (game) => {
-    Game.findOneAndUpdate({ name: game.name }, game, { upsert: true });
+    await Game.findOneAndUpdate({ name: game.name }, game, {
+      upsert: true,
+    }).then(() => console.log(Game.find({})));
   });
 };
 

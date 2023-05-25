@@ -11,7 +11,11 @@ const gamesData: Games[] = [
     image: {
       icon: "https://i.imgur.com/c30fFsi.png",
     },
-    tags: ["action", "momentum", "fast", "development"],
+    tags: ["action", "adventure"],
+    publisher: "Select Studios.",
+    developer: "Select Studios.",
+    platforms: ["windows"],
+    price: "free",
     verified: true,
   },
   {
@@ -22,7 +26,11 @@ const gamesData: Games[] = [
     image: {
       icon: "https://i.imgur.com/c30fFsi.png",
     },
-    tags: ["development", "horror"],
+    tags: ["horror", "thriller"],
+    price: "free",
+    publisher: "Select Studios.",
+    developer: "Select Studios.",
+    platforms: ["windows"],
     verified: true,
   },
 ];

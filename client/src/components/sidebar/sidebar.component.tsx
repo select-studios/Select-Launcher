@@ -62,12 +62,6 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
       icon: <BiLibrary size={iconSize} />,
       disabled: true,
     },
-    {
-      name: "Settings",
-      href: "/settings",
-      icon: <HiCog size={iconSize} />,
-      disabled: false,
-    },
   ];
 
   const adminSidebarLinks: SidebarLink[] = [

@@ -5,7 +5,11 @@ interface Games {
   image: {
     icon: string;
   };
+  publisher: string;
+  developer: string;
   tags: string[];
+  platforms: string[];
+  price: number | "free";
   verified: boolean;
 }
 

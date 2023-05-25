@@ -9,6 +9,10 @@ const game = new mongoose.Schema({
   },
   tags: { type: [String], required: true },
   verified: { type: Boolean, required: true },
+  publisher: { type: String, required: true },
+  developer: { type: String, required: true },
+  platforms: { type: [String], required: true },
+  price: { type: String, required: true },
 });
 
 const Game = mongoose.model("game", game);

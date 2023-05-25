@@ -9,6 +9,7 @@ import AuthAPI from "./handlers/api/components/Auth";
 import Offline_E from "./pages/errors/offline/offline.errorpage";
 import AdminDashboard from "./pages/admin/dashboard/admindashboard.page";
 import AppSettings from "./pages/settings/app/appsettings.page";
+import Game from "./pages/games/game/[game]";
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -58,6 +59,14 @@ const App: React.FC = () => {
       element: (
         <AuthAPI>
           <AdminDashboard />
+        </AuthAPI>
+      ),
+    },
+    {
+      path: "/games/:game",
+      element: (
+        <AuthAPI>
+          <Game />
         </AuthAPI>
       ),
     },

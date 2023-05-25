@@ -29,21 +29,16 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
   return (
     <div>
       <Dropdown>
-        <Dropdown.Button
-          className="bg-tertiary"
-          size="lg"
-          css={{ background: "#393C40" }}
-        >
-          <div className="flex items-center">
+        <Dropdown.Trigger>
+          <div className="flex items-center hover:bg-secondary">
             <Avatar
-              text={user?.username.substring(0, 2)}
-              className="mr-2"
-              color="primary"
-              size="md"
+              text={user?.username[0].toUpperCase()}
+              size="lg"
+              as="button"
+              className="mr-2 bg-tertiary text-lg font-bold hover:bg-secondary"
             />
-            <span className="normal-case">@{user?.username}</span>
           </div>
-        </Dropdown.Button>
+        </Dropdown.Trigger>
         <Dropdown.Menu
           className="bg-secondary"
           disabledKeys={["badges"]}

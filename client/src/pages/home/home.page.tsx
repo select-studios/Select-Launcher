@@ -12,6 +12,7 @@ import { UserStore } from "@/stores/UserStore";
 import { observer } from "mobx-react";
 import { HiSparkles } from "react-icons/hi";
 import { BiCompass } from "react-icons/bi";
+import { GamesStore } from "@/stores/GamesStore";
 
 interface HomeProps {}
 
@@ -24,7 +25,7 @@ export const logoutClient = (
 };
 
 const HomeComp: React.FC<HomeProps> = () => {
-  const [gamesInfo, setGamesInfo] = useState<GameInfo[] | undefined>();
+  const { games } = GamesStore;
   const [gamesN, setGamesN] = useState<number>(0);
   const navigate = useNavigate();
 
@@ -38,7 +39,7 @@ const HomeComp: React.FC<HomeProps> = () => {
       const fetchedGameInfo = await getGameInfo();
 
       if (fetchedGameInfo) {
-        setGamesInfo(fetchedGameInfo);
+        GamesStore.setGames(fetchedGameInfo);
         localStorage.setItem("gamesN", fetchedGameInfo.length.toString());
       }
     }
@@ -61,8 +62,8 @@ const HomeComp: React.FC<HomeProps> = () => {
               </p>
 
               <div className="game-grid">
-                {gamesInfo ? (
-                  gamesInfo.map((gameInfo, i) => {
+                {games ? (
+                  games.map((gameInfo, i) => {
                     return <GameCard key={i} game={gameInfo} />;
                   })
                 ) : (

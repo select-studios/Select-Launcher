@@ -1,6 +1,13 @@
 import UserDropdown from "../dropdowns/user/userdropdown.component";
 import { getTokensCookie } from "@/utils/storage";
 import { User } from "@/stores/UserStore";
+import { Button } from "@nextui-org/react";
+import { Settings } from "@/pages";
+import { ImCogs } from "react-icons/im";
+import { FiSettings } from "react-icons/fi";
+import { FcSettings } from "react-icons/fc";
+import { HiCog } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 export interface AppBarProps {
   user?: User;
@@ -22,14 +29,21 @@ export const AppBar: React.FC<AppBarProps> = ({ dashboard, user }) => {
           </div>
           <div className="lg:w-2/5 inline-flex lg:justify-end">
             {dashboard && (
-              <UserDropdown
-                user={{
-                  username: user?.username || "",
-                  verified: user?.verified || false,
-                  accessToken: cookies.accessToken || "",
-                  moderator: user?.moderator,
-                }}
-              />
+              <div className="flex">
+                <UserDropdown
+                  user={{
+                    username: user?.username || "",
+                    verified: user?.verified || false,
+                    accessToken: cookies.accessToken || "",
+                    moderator: user?.moderator,
+                  }}
+                />
+                <Link to="/settings">
+                  <Button className="bg-tertiary ml-2" auto size="lg" rounded>
+                    <HiCog size="25" className="text-white" />
+                  </Button>
+                </Link>
+              </div>
             )}
           </div>
         </div>

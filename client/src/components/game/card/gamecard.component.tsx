@@ -26,6 +26,7 @@ import { ipcRenderer } from "electron";
 import gameIcon from "../../../assets/images/ICON_Game.png";
 import uninstallIcon from "../../../assets/images/ICON_Uninstaller.png";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface GameCardProps {
   game: GameInfo;
@@ -54,67 +55,69 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
       css={{ maxWidth: "400px", backgroundColor: "#282A2D" }}
       className="bg-secondary m-5 py-2 px-1 h-fit w-fit"
     >
-      <Card.Header>
-        <Avatar src={gameIcon} alt={game.name + " Icon"} size="lg" />
-        <Grid.Container css={{ pl: "$6" }}>
-          <Grid xs={12}>
-            <Text
-              className="text-2xl font-montserrat font-bold flex items-center"
-              css={{ lineHeight: "$xs" }}
-            >
-              {game.name}
-              {game.verified && (
-                <Tooltip content="Verified" color="success">
-                  <Badge
-                    size="sm"
-                    color="success"
-                    className="ml-1"
-                    disableOutline
-                    variant="flat"
-                  >
-                    <HiCheckBadge size="20" />
-                  </Badge>
-                </Tooltip>
-              )}
-            </Text>
-          </Grid>
-          <Row className="mt-1">
-            {game.tags.map((tag, i) => (
-              <Badge
-                key={i}
-                color="default"
-                className="border-none font-medium mr-1"
-                disableOutline
-                size={"sm"}
+      <Link to={`/games/${game.name}`}>
+        <Card.Header>
+          <Avatar src={gameIcon} alt={game.name + " Icon"} size="lg" />
+          <Grid.Container css={{ pl: "$6" }}>
+            <Grid xs={12}>
+              <Text
+                className="text-2xl font-montserrat font-bold flex items-center"
+                css={{ lineHeight: "$xs" }}
               >
-                {tag}
-              </Badge>
-            ))}
-          </Row>
-        </Grid.Container>
-      </Card.Header>
-      <Card.Body css={{ py: "$4" }}>
-        <Text
-          className="font-medium font-inter max-h-20"
-          css={{
-            textOverflow: "ellipsis",
-            fontFamily: "'Inter', sans-serif;",
-          }}
-        >
-          {game.description}
-        </Text>
-      </Card.Body>
-
-      {downloadStatus.gameName === game.downloadName && (
-        <Card.Body>
-          <p>{downloadStatus.msg}</p>
-          <Progress
-            size="sm"
-            color="primary"
-            value={Number(Number(downloadStatus.percentage).toFixed(0))}
-          />
+                {game.name}
+                {game.verified && (
+                  <Tooltip content="Verified" color="success">
+                    <Badge
+                      size="sm"
+                      color="success"
+                      className="ml-1"
+                      disableOutline
+                      variant="flat"
+                    >
+                      <HiCheckBadge size="20" />
+                    </Badge>
+                  </Tooltip>
+                )}
+              </Text>
+            </Grid>
+            <Row className="mt-1">
+              {game.tags.map((tag, i) => (
+                <Badge
+                  key={i}
+                  color="default"
+                  className="border-none font-medium mr-1"
+                  disableOutline
+                  size={"sm"}
+                >
+                  {tag}
+                </Badge>
+              ))}
+            </Row>
+          </Grid.Container>
+        </Card.Header>
+        <Card.Body css={{ py: "$4" }}>
+          <Text
+            className="font-medium font-inter max-h-20"
+            css={{
+              textOverflow: "ellipsis",
+              fontFamily: "'Inter', sans-serif;",
+            }}
+          >
+            {game.description}
+          </Text>
         </Card.Body>
-      )}
+
+        {downloadStatus.gameName === game.downloadName && (
+          <Card.Body>
+            <p>{downloadStatus.msg}</p>
+            <Progress
+              size="sm"
+              color="primary"
+              value={Number(Number(downloadStatus.percentage).toFixed(0))}
+            />
+          </Card.Body>
+        )}
+      </Link>
       <Card.Divider />
 
       <Card.Footer>
