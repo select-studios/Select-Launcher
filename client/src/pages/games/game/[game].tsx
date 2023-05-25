@@ -51,12 +51,15 @@ const Game: FunctionComponent<GamesInfoProps> = () => {
             {game?.price === "free" ? "Free" : "$" + game?.price}
           </p>
           <div className="buttons grid max-w-fit mt-5">
-            <Button size="md" className="bg-tertiary">
+            <Button disabled size="md" className="bg-tertiary">
               Get
             </Button>
-            <Button className="mt-2" size="md" color="success">
+            <Button disabled className="mt-2" size="md" color="success">
               Install
             </Button>
+            <p className="text-md font-bold mt-2 font-montserrat opacity-80 uppercase">
+              ^ Coming soon!
+            </p>
           </div>
           <div className="game-info mt-5">
             <div className="mb-2">
