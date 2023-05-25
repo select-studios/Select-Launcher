@@ -27,6 +27,7 @@ import gameIcon from "../../../assets/images/ICON_Game.png";
 import uninstallIcon from "../../../assets/images/ICON_Uninstaller.png";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { GamesStore } from "@/stores/GamesStore";
 
 interface GameCardProps {
   game: GameInfo;
@@ -40,11 +41,40 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
     msg?: string;
   }>({});
 
+  const gamesStore = GamesStore;
+
+  const installedGames = gamesStore.installedGames;
+
+  const storedInstalledGames = JSON.parse(
+    localStorage.getItem("installedGames")!
+  );
+
+  const addInstalledGame = (gameName: string) => {
+    const newInstalledGames = [...storedInstalledGames, gameName];
+
+    localStorage.setItem("installedGames", JSON.stringify(newInstalledGames));
+
+    GamesStore.setInstalledGames(newInstalledGames);
+  };
+
+  const removeInstalledGame = (gameName: string) => {
+    const newInstalledGames = storedInstalledGames.filter(
+      (installedGame: string) => installedGame !== gameName
+    );
+
+    localStorage.setItem("installedGames", JSON.stringify(newInstalledGames));
+
+    gamesStore.setInstalledGames(newInstalledGames);
+
+    window.location.reload();
+  };
+
   useEffect(() => {
     ipcRenderer.on(
       "downloading",
-      (e, { gameName, percentage, remainingSize, msg }) =>
-        setDownloadStatus({ gameName, percentage, remainingSize, msg })
+      (e, { gameName, percentage, remainingSize, msg }) => {
+        setDownloadStatus({ gameName, percentage, remainingSize, msg });
+      }
     );
   }, []);
 
@@ -121,58 +151,56 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
       <Card.Divider />
 
       <Card.Footer>
-        <Row justify="flex-end">
-          {/* <Button
-            size="md"
-            className="bg-tertiary"
-            css={{
-              backgroundColor: "#393C40",
-            }}
-          >
-            Learn more
-          </Button> */}
-          <Button
-            color="secondary"
-            auto
-            onClick={() => {
-              window.gamesAPI.startGame(game.name);
-              toast.success(`Starting ${game.name}`);
-            }}
-          >
-            <BsPlayFill size={20} />
-          </Button>
-          <Button
-            icon={<HiDownload size="20" />}
-            size="md"
-            color="primary"
-            auto
-            className="ml-2 shadow-md"
-            onPressEnd={() => {
-              window.gamesAPI.downloadGame(game.downloadName);
-              ipcRenderer.once("finish-download", (event, message) => {
-                toast.success(message);
-              });
-            }}
-            disabled={downloadStatus && downloadStatus.percentage! > 0}
-          >
-            download
-          </Button>
-          <Button
-            icon={<HiOutlineFolderRemove size="20" />}
-            size="md"
-            color="error"
-            auto
-            flat
-            className="ml-2"
-            onClick={() => {
-              window.gamesAPI.uninstallGame(game.name);
-              ipcRenderer.on("finish-uninstall", (event, message) => {
-                toast.error(message);
-              });
-            }}
-          >
-            uninstall
-          </Button>
+        <Row justify="flex-start">
+          {installedGames.includes(game.name) ? (
+            <div className="flex">
+              <Button
+                color="secondary"
+                auto
+                onClick={() => {
+                  window.gamesAPI.startGame(game.name);
+                  toast.success(`Starting ${game.name}`);
+                }}
+              >
+                <BsPlayFill size={20} />
+              </Button>
+              <Button
+                icon={<HiOutlineFolderRemove size="20" />}
+                size="md"
+                color="error"
+                auto
+                flat
+                className="ml-2"
+                onPress={() => {
+                  window.gamesAPI.uninstallGame(game.name);
+                  ipcRenderer.on("finish-uninstall", (event, message) => {
+                    toast.error(message);
+                    removeInstalledGame(game.name);
+                  });
+                }}
+              >
+                uninstall
+              </Button>
+            </div>
+          ) : (
+            <Button
+              icon={<HiDownload size="20" />}
+              size="md"
+              color="primary"
+              auto
+              className="ml-2 shadow-md"
+              onPressEnd={() => {
+                window.gamesAPI.downloadGame(game.downloadName);
+                ipcRenderer.once("finish-download", (event, message) => {
+                  addInstalledGame(game.name);
+                  toast.success(message);
+                });
+              }}
+              disabled={downloadStatus && downloadStatus.percentage! > 0}
+            >
+              download
+            </Button>
+          )}
         </Row>
       </Card.Footer>
     </Card>

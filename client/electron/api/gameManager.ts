@@ -5,11 +5,6 @@ import download from "download";
 import settings from "electron-settings";
 import decompress from "decompress";
 import { win } from "../main/index";
-import { createWriteStream } from "original-fs";
-import Axios from "axios";
-import * as stream from "stream";
-import { promisify } from "util";
-import request from "request";
 
 import Downloader from "nodejs-file-downloader";
 
@@ -142,6 +137,7 @@ export const uninstallGame = async (gameName: string) => {
     ),
     { recursive: true, force: true }
   );
+
   win.webContents.send("finish-uninstall", `Finished uninstalling ${gameName}`);
 };
 

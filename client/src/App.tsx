@@ -10,6 +10,7 @@ import Offline_E from "./pages/errors/offline/offline.errorpage";
 import AdminDashboard from "./pages/admin/dashboard/admindashboard.page";
 import AppSettings from "./pages/settings/app/appsettings.page";
 import Game from "./pages/games/game/[game]";
+import { GamesStore } from "./stores/GamesStore";
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -74,6 +75,16 @@ const App: React.FC = () => {
   ]);
 
   if (!page) return null;
+
+  useEffect(() => {
+    if (!localStorage.getItem("installedGames")) {
+      GamesStore.setInstalledGames([]);
+      localStorage.setItem("installedGames", JSON.stringify([]));
+    } else {
+      const storedGames = JSON.parse(localStorage.getItem("installedGames")!);
+      GamesStore.setInstalledGames(storedGames);
+    }
+  }, []);
 
   return (
     <AnimatePresence mode="wait">
