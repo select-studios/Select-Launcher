@@ -42,7 +42,11 @@ const Game: FunctionComponent<GamesInfoProps> = () => {
             <p className="uppercase font-bold font-montserrat text-md">
               Genres
             </p>
-            <p className="text-lg opacity-80">Action, Thriller</p>
+            <p className="text-lg opacity-80">
+              {game?.tags
+                .map((tag) => tag[0].toUpperCase() + tag.slice(1))
+                .join(", ")}
+            </p>
           </div>
         </div>
         <div className="game-details ml-auto mr-5 h-fit bg-secondary p-4 mt-20">

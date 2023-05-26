@@ -11,8 +11,7 @@ import {
 } from "react-icons/hi";
 import { HiBellAlert, HiUserPlus } from "react-icons/hi2";
 import { useNavigate } from "react-router";
-import { observer } from "mobx-react";
-import { UserStore } from "@/stores/UserStore";
+import userImg from "../../../assets/images/ICON_User.png";
 
 interface UserDropdownProps {
   user: {
@@ -30,14 +29,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
     <div>
       <Dropdown>
         <Dropdown.Trigger>
-          <div className="flex items-center hover:bg-secondary">
-            <Avatar
-              text={user?.username[0].toUpperCase()}
-              size="lg"
-              as="button"
-              className="mr-2 bg-tertiary text-lg font-bold hover:bg-secondary"
-            />
-          </div>
+          <Avatar src={userImg} size="lg" className="mr-2 cursor-pointer" />
         </Dropdown.Trigger>
         <Dropdown.Menu
           className="bg-secondary"

@@ -51,12 +51,6 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
       disabled: false,
     },
     {
-      name: "Store",
-      href: "/store",
-      icon: <BiShoppingBag size={iconSize} />,
-      disabled: true,
-    },
-    {
       name: "Library",
       href: "/library",
       icon: <BiLibrary size={iconSize} />,

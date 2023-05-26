@@ -37,6 +37,7 @@ import { FiSearch } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import { BsHammer } from "react-icons/bs";
 import { validateInputComponent } from "@/utils/form";
+import { toast } from "react-toastify";
 
 interface AdminDashboardProps {}
 
@@ -85,6 +86,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
           (a: any, b: any) => a.username - b.username
         ) as any
       );
+
+      toast.success(`@${newUser.username} successfully unbanned!`);
     });
   };
 
@@ -135,6 +138,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
   const onUserBanSubmit = (data: any) => {
     handleBanUser(userToBan._id, data.reason);
     setBanUserVisible(false);
+    toast.success(
+      `@${userToBan.username} successfully banned from the servers.`
+    );
   };
 
   return (

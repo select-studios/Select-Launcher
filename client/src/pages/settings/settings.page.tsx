@@ -14,6 +14,7 @@ import SettingsCard from "@/components/settings/card/settingscard.component";
 import settingsList from "@/handlers/api/utils/data/settingsList";
 import { Log } from "@/utils/lib/Log";
 import userIcon from "../../assets/images/ICON_User.png";
+import { toast } from "react-toastify";
 
 interface SettingsProps {}
 
@@ -46,8 +47,9 @@ const SettingsComp: React.FC<SettingsProps> = () => {
     editAccount(storedUser?.tokens.accessToken as string, data).then(
       ({ email, password, username }) => {
         UserStore.setUser({ ...storedUser!, email, password, username });
-        console.log(storedUser);
         closeEditProfile();
+
+        toast.success("Edited user information.");
       }
     );
   };
@@ -69,7 +71,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                 <HiCog size="40" className="mr-2" /> Settings
               </p>
               <p className="text-xl font-inter opacity-80 font-medium">
-                Select a setting card you want to modify.
+                Select a setting you want to modify.
               </p>
             </div>
             <div className="grid justify-end items-center flex-1">
@@ -82,7 +84,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                 <HiX size="40" />
               </div>
               <span className="grid justify-center mt-2 font-semibold">
-                ESC
+                CLOSE
               </span>
             </div>
           </div>

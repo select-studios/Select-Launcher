@@ -85,7 +85,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
       css={{ maxWidth: "400px", backgroundColor: "#282A2D" }}
       className="bg-secondary m-5 py-2 px-1 h-fit w-fit"
     >
-      <Link to={`/games/${game.name}`}>
+      <Link to={`/games/${game.name}`} className="text-white">
         <Card.Header>
           <Avatar src={gameIcon} alt={game.name + " Icon"} size="lg" />
           <Grid.Container css={{ pl: "$6" }}>
@@ -138,13 +138,21 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
         </Card.Body>
 
         {downloadStatus.gameName === game.downloadName && (
-          <Card.Body>
-            <p>{downloadStatus.msg}</p>
-            <Progress
-              size="sm"
-              color="primary"
-              value={Number(Number(downloadStatus.percentage).toFixed(0))}
-            />
+          <Card.Body className="grid justify-left">
+            <p className="mb-2">{downloadStatus.msg}</p>
+            {downloadStatus.percentage && downloadStatus.percentage > 0 && (
+              <Progress
+                size="sm"
+                color="primary"
+                value={Number(Number(downloadStatus.percentage).toFixed(0))}
+              />
+            )}
+            <p className="mt-2">
+              {downloadStatus.percentage &&
+                downloadStatus.percentage > 0 &&
+                Number((downloadStatus.remainingSize || 0) / 1e6).toFixed(1) +
+                  " MBs remaining"}
+            </p>
           </Card.Body>
         )}
       </Link>
@@ -178,6 +186,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
                     removeInstalledGame(game.name);
                   });
                 }}
+                disabled={downloadStatus && downloadStatus.percentage! > 0}
               >
                 uninstall
               </Button>
