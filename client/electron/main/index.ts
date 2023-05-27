@@ -192,3 +192,16 @@ ipcMain.handle("open-win", (event, arg) => {
 app.on("ready", () => {
   autoUpdater.checkForUpdatesAndNotify();
 });
+
+autoUpdater.on("update-available", (info) => {
+  win.webContents.send(
+    "update_available",
+    `Updates are available! v${info.version} is ready to be installed.\n\nFeel free to use the app while the update is being downloaded.`
+  );
+});
+autoUpdater.on("update-downloaded", () => {
+  win.webContents.send(
+    "update_downloaded",
+    `Update has been downloaded! We will launch the next version when you restart the app.`
+  );
+});
