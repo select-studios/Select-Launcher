@@ -1,6 +1,6 @@
 {
   "name": "server",
-  "version": "1.3.6",
+  "version": "1.3.1",
   "scripts": {
     "build": "tsc --skipLibCheck",
     "export-email": "email export --dir=\"data/emails/verify/\" --outDir=\"data/emails/verify/out/\"",
