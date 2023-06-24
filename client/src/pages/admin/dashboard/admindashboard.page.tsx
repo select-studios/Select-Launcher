@@ -87,7 +87,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
         ) as any
       );
 
-      toast.success(`@${newUser.username} successfully unbanned!`);
+      toast.success(`@${newUser.username} has been banned`);
     });
   };
 
@@ -341,7 +341,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                                 description="Forces the user to change their password."
                                 className="font-bold"
                               >
-                                Force Password Reset
+                                Issue Password Reset
                               </Dropdown.Item>
                             </Dropdown.Menu>
                           </Dropdown>

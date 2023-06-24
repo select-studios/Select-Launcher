@@ -18,5 +18,15 @@
     },
     "tags": ["development", "horror"],
     "verified": true
+  },
+  {
+    "name": "PolyShot",
+    "downloadName": "Polyshot-1.0",
+    "description": "An action packed release by Teknosoft, amazing FPS Gameplay.",
+    "image": {
+      "icon": "https://github.com/select-studios/Select-Launcher/blob/main/Resources/ICON_Game.png?raw=true"
+    },
+    "tags": ["release", "multiplayer", "FPS"],
+    "verified": false
   }
 ]
