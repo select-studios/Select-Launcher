@@ -3,7 +3,6 @@ import {
   Card,
   Text,
   Grid,
-  Badge,
   Button,
   Row,
   Spacer,
@@ -12,6 +11,7 @@ import {
   Tooltip,
   Progress,
 } from "@nextui-org/react";
+import { Badge } from "@nextui-org/badge";
 import {
   HiDownload,
   HiOutlineFolderRemove,
@@ -46,7 +46,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
   const installedGames = gamesStore.installedGames;
 
   const storedInstalledGames = JSON.parse(
-    localStorage.getItem("installedGames")!
+    localStorage.getItem("installedGames")!,
   );
 
   const addInstalledGame = (gameName: string) => {
@@ -59,7 +59,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
 
   const removeInstalledGame = (gameName: string) => {
     const newInstalledGames = storedInstalledGames.filter(
-      (installedGame: string) => installedGame !== gameName
+      (installedGame: string) => installedGame !== gameName,
     );
 
     localStorage.setItem("installedGames", JSON.stringify(newInstalledGames));
@@ -74,7 +74,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
       "downloading",
       (e, { gameName, percentage, remainingSize, msg }) => {
         setDownloadStatus({ gameName, percentage, remainingSize, msg });
-      }
+      },
     );
   }, []);
 

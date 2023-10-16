@@ -21,7 +21,6 @@ import { useEffect, useState } from "react";
 import { banUser, getAllUsers, unbanUser } from "../../../handlers/api/index";
 import {
   Avatar,
-  Badge,
   Button,
   Card,
   Dropdown,
@@ -33,6 +32,7 @@ import {
   Switch,
   Text,
 } from "@nextui-org/react";
+import { Badge } from "@nextui-org/badge";
 import { FiSearch } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import { BsHammer } from "react-icons/bs";

@@ -1,6 +1,7 @@
 import ButtonLoader from "@/components/loader/button/buttonloader.component";
 import { logout, sendVerificationLink } from "@/handlers/api";
-import { Avatar, Badge, Button, Dropdown } from "@nextui-org/react";
+import { Avatar, Button, Dropdown } from "@nextui-org/react";
+import { Badge } from "@nextui-org/badge";
 import {
   HiCheck,
   HiCog,
