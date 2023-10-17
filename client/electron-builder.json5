@@ -39,9 +39,4 @@
     target: ["AppImage", "deb"],
     artifactName: "${productName}-Linux-${version}.${ext}",
   },
-  publish: {
-    provider: "github",
-    repo: "Select-Launcher",
-    owner: "select-studios",
-  },
 }
