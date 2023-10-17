@@ -84,6 +84,7 @@ async function createWindow() {
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
   });
+  win.webContents.setVisualZoomLevelLimits(1, 1);
 
   // Make all links open with the browser, not with the application
   win.webContents.setWindowOpenHandler(({ url }) => {
@@ -147,7 +148,7 @@ if (!gotTheLock) {
     if (!checkIfGamesDirectoryExists) {
       fs.mkdir(
         path.join(settings.getSync("locations.libraryLocation").toString()),
-        () => console.log("created games folder")
+        () => console.log("created games folder"),
       );
       return;
     }
@@ -196,12 +197,12 @@ app.on("ready", () => {
 autoUpdater.on("update-available", (info) => {
   win.webContents.send(
     "update_available",
-    `Updates are available! v${info.version} is ready to be installed.\n\nFeel free to use the app while the update is being downloaded.`
+    `Updates are available! v${info.version} is ready to be installed.\n\nFeel free to use the app while the update is being downloaded.`,
   );
 });
 autoUpdater.on("update-downloaded", () => {
   win.webContents.send(
     "update_downloaded",
-    `Update has been downloaded! We will launch the next version when you restart the app.`
+    `Update has been downloaded! We will launch the next version when you restart the app.`,
   );
 });
