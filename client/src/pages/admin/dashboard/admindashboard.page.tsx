@@ -281,7 +281,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                                   size="sm"
                                   className="ml-2"
                                   variant="flat"
-                                  color="error"
+                                  color="danger"
                                 >
                                   <HiBan className="mr-1" /> Banned
                                 </Badge>
