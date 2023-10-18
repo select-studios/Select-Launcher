@@ -23,7 +23,7 @@ export const AppBar: React.FC<AppBarProps> = ({ dashboard, user }) => {
         <div className="container mx-auto flex flex-wrap p-2 flex-col md:flex-row items-center">
           <nav className="flex lg:2/5 flex-wrap items-center text-base md:ml-auto"></nav>
           <div className="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-gray-900 lg:items-center lg:justify-center mb-4 md:mb-0">
-            <p className="text-white font-semibold font-montserrat text-2xl pb-2">
+            <p className="text-white font-semibold font-montserrat text-2xl pb-2 text-center">
               Select Studios
             </p>
           </div>
