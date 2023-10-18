@@ -19,7 +19,6 @@
       },
     ],
     artifactName: "${productName}-Windows-${version}-Setup.${ext}",
-    publish: ["github"],
   },
   nsis: {
     oneClick: false,
