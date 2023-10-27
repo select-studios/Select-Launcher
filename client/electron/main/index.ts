@@ -8,12 +8,13 @@ import { checkIfGamesDirectoryExists } from "../api/gameManager";
 import { callHandlers, handleExternAuthentication } from "./eventHandlers";
 import { globalSetup } from "./globalSetup";
 
-// global scoped constants
+//#region Global Setups
 export let win: BrowserWindow | null = null;
 const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 globalSetup();
+//#endregion
 
 async function createWindow() {
   win = new BrowserWindow({
@@ -29,6 +30,7 @@ async function createWindow() {
     minHeight: 500,
   });
 
+  // Handle dev tools
   if (process.env.VITE_DEV_SERVER_URL) {
     win.loadURL(url);
     win.webContents.openDevTools();
@@ -48,6 +50,7 @@ async function createWindow() {
   });
 }
 
+//#region Handlers
 callHandlers(win, preload, indexHtml);
 
 if (!app.requestSingleInstanceLock()) {
@@ -81,3 +84,4 @@ app.on("activate", () => {
     createWindow();
   }
 });
+//#endregion

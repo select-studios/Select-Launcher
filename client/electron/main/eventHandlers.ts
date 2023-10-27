@@ -5,9 +5,9 @@ import { autoUpdater } from "electron-updater";
 /**
  * Provides handlers to critical events in the app's lifecycle such as auto updaters, url handles etc..
  *
- * @param {BrowserWindow} win
- * @param {string} preload
- * @param {string} indexHtml
+ * @param {BrowserWindow} win - The window which the handlers will hook on to
+ * @param {string} preload - The preload file
+ * @param {string} indexHtml - The index html file
  */
 export async function callHandlers(
   win: BrowserWindow,
@@ -25,6 +25,7 @@ export async function callHandlers(
     dialog.showErrorBox("Welcome Back", `You arrived from: ${url}`);
   });
 
+  //#region Folder dialog handler
   // handles the dialog box to open folders.
   ipcMain.handle("dialog:openFolder", handleFolderOpen);
 
@@ -46,6 +47,7 @@ export async function callHandlers(
       return filePaths[0];
     }
   }
+  //#endregion
 
   // handles child windows
   ipcMain.handle("open-win", (event, arg) => {
@@ -64,6 +66,7 @@ export async function callHandlers(
     }
   });
 
+  //#region auto updates
   // This section handles auto updates
   app.on("ready", () => {
     autoUpdater.checkForUpdatesAndNotify();
@@ -80,14 +83,16 @@ export async function callHandlers(
       "Update has been downloaded! We will launch the next version when you restart the app.",
     );
   });
+  //#endregion
 }
 
 /**
  * Handles account verification links.
  *
- * @param {BrowserWindow} win
+ * @param {BrowserWindow} win - The window for which the verification is taking place in.
  */
 export async function handleExternAuthentication(win: BrowserWindow) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   app.on("second-instance", (event, commandLine, workingDirectory) => {
     // Someone tried to run a second instance, we should focus our window.
     if (win) {
