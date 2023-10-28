@@ -24,6 +24,7 @@ export function globalSetup() {
     process.exit(0);
   }
 
+  // Sets the certain external links to be opened with the select launcher.
   if (process.defaultApp) {
     if (process.argv.length >= 2) {
       app.setAsDefaultProtocolClient("select-launcher", process.execPath, [

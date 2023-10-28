@@ -1,10 +1,8 @@
 import { app, BrowserWindow, shell } from "electron";
-import settings from "electron-settings";
-import path, { join } from "path";
-import fs from "fs";
+import { join } from "path";
 import runIpcStorageEvents from "./ipc/ipcStorageEvents";
 import runIpcGameEvents from "./ipc/ipcGameEvents";
-import { checkIfGamesDirectoryExists } from "../api/gameManager";
+import { checkIfGamesDirectoryExistsAndCreate } from "../api/gameManager";
 import { callHandlers, handleExternAuthentication } from "./eventHandlers";
 import { globalSetup } from "./globalSetup";
 
@@ -63,13 +61,7 @@ if (!app.requestSingleInstanceLock()) {
     createWindow();
 
     // create game storage directory
-    if (!checkIfGamesDirectoryExists) {
-      fs.mkdir(
-        path.join(settings.getSync("locations.libraryLocation").toString()),
-        () => console.log("created games folder"),
-      );
-      return;
-    }
+    checkIfGamesDirectoryExistsAndCreate();
 
     runIpcStorageEvents();
     runIpcGameEvents();

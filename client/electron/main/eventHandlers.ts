@@ -92,7 +92,6 @@ export async function callHandlers(
  * @param {BrowserWindow} win - The window for which the verification is taking place in.
  */
 export async function handleExternAuthentication(win: BrowserWindow) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   app.on("second-instance", (event, commandLine, workingDirectory) => {
     // Someone tried to run a second instance, we should focus our window.
     if (win) {
