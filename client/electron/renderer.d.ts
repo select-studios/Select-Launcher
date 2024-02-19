@@ -1,3 +1,5 @@
+// This file makes it so intellisense on the window object of the renderer works fine.
+
 export interface IGamesAPI {
   getStorageLocation: () => void;
   setStorageLocation: (location: string) => void;
