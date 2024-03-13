@@ -9,7 +9,7 @@ import { FiEdit3, FiSearch } from "react-icons/fi";
 import { UserStore } from "@/stores/UserStore";
 import { useForm } from "react-hook-form";
 import { observer } from "mobx-react";
-import { validateInputComponent } from "@/utils/form";
+import { validateInputColor } from "@/utils/form";
 import SettingsCard from "@/components/settings/card/settingscard.component";
 import settingsList from "@/handlers/api/utils/data/settingsList";
 import { Log } from "@/utils/lib/Log";
@@ -166,17 +166,17 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                     <Input
                       bordered
                       fullWidth
-                      color={validateInputComponent(
+                      color={validateInputColor(
                         errorsEditProfile,
                         "username",
                         true
                       )}
-                      helperColor={validateInputComponent(
+                      helperColor={validateInputColor(
                         errorsEditProfile,
                         "username",
                         true
                       )}
-                      helperText={validateInputComponent(
+                      helperText={validateInputColor(
                         errorsEditProfile,
                         "username",
                         false
@@ -194,17 +194,17 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                       clearable
                       bordered
                       fullWidth
-                      color={validateInputComponent(
+                      color={validateInputColor(
                         errorsEditProfile,
                         "email",
                         true
                       )}
-                      helperColor={validateInputComponent(
+                      helperColor={validateInputColor(
                         errorsEditProfile,
                         "email",
                         true
                       )}
-                      helperText={validateInputComponent(
+                      helperText={validateInputColor(
                         errorsEditProfile,
                         "email",
                         false

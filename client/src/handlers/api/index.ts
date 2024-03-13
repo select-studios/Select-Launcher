@@ -121,7 +121,9 @@ export const logout = async (accessToken: string, navigate: any) => {
   });
 };
 
-export const sendVerificationLink = async (accessToken: string) => {
+export const sendVerificationLink = async (
+  accessToken: string | number | null
+) => {
   await fetch(`${API_URI}/accounts/verify/link`, {
     method: "POST",
     headers: { Authorization: `Bearer ${accessToken}` },

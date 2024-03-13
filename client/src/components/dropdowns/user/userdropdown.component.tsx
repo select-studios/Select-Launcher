@@ -18,7 +18,7 @@ interface UserDropdownProps {
   user: {
     username: string;
     verified: boolean;
-    accessToken: string;
+    accessToken: string | null | number;
     moderator?: boolean;
   };
 }

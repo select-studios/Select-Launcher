@@ -2,8 +2,8 @@
  * Model for the stored cookies.
  */
 interface cookies {
-  accessToken: number | null,
-  refreshToken: number | null
+  accessToken: number | null;
+  refreshToken: number | null;
 }
 
 /**
