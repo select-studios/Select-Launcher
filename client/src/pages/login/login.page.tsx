@@ -17,7 +17,7 @@ import ButtonLoader from "@/components/loader/button/buttonloader.component";
 import { getTokensCookie, setTokensCookie } from "@/utils/storage";
 import { UserStore } from "@/stores/UserStore";
 import { observer } from "mobx-react";
-import { validateInputComponent } from "@/utils/form";
+import { validateInputColor } from "@/utils/form";
 
 interface LoginProps {}
 
@@ -130,13 +130,13 @@ export const LoginComp: React.FC<LoginProps> = () => {
                         placeholder="User123"
                         size="md"
                         aria-label="Username"
-                        color={validateInputComponent(errors, "username", true)}
-                        helperText={validateInputComponent(
+                        color={validateInputColor(errors, "username", true)}
+                        helperText={validateInputColor(
                           errors,
                           "username",
                           false
                         )}
-                        helperColor={validateInputComponent(
+                        helperColor={validateInputColor(
                           errors,
                           "username",
                           true
@@ -155,14 +155,14 @@ export const LoginComp: React.FC<LoginProps> = () => {
                         size="md"
                         fullWidth
                         bordered
-                        color={validateInputComponent(errors, "password", true)}
+                        color={validateInputColor(errors, "password", true)}
                         aria-label="Password"
-                        helperText={validateInputComponent(
+                        helperText={validateInputColor(
                           errors,
                           "password",
                           false
                         )}
-                        helperColor={validateInputComponent(
+                        helperColor={validateInputColor(
                           errors,
                           "password",
                           true
