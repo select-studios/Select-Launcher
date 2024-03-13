@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["eframe", "egui", "nextui", "reqwest", "Rosehill"]
+  "cSpell.words": ["eframe", "egui", "nextui", "reqwest", "Rosehill"],
+  "npm-scripts.showStartNotification": false
 }

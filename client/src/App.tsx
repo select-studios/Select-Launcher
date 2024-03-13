@@ -1,10 +1,11 @@
+//#region Imports
 import { useRoutes, useLocation } from "react-router-dom";
-import { Register, Home, Login, Settings } from "@/pages";
+import { Register, Home, Login, Settings } from "./pages";
 import { AnimatePresence } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import UserSettings from "./pages/settings/user/usersettings.page";
 import { NotFound_E } from "./pages/errors";
-import { Detector, Offline, Online } from "react-detect-offline";
+import { Detector } from "react-detect-offline";
 import AuthAPI from "./handlers/api/components/Auth";
 import Offline_E from "./pages/errors/offline/offline.errorpage";
 import AdminDashboard from "./pages/admin/dashboard/admindashboard.page";
@@ -14,6 +15,7 @@ import { GamesStore } from "./stores/GamesStore";
 import { ipcRenderer } from "electron";
 import { Button, Image, Modal } from "@nextui-org/react";
 import launcherIcon from "./assets/images/ICON_GrayScale.png";
+//#endregion
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -24,6 +26,7 @@ const App: React.FC = () => {
     setUpdateModalVisible(false);
   };
 
+  //#region Routes
   const page = useRoutes([
     {
       path: "/",
@@ -85,6 +88,7 @@ const App: React.FC = () => {
   ]);
 
   if (!page) return null;
+  //#endregion
 
   useEffect(() => {
     ipcRenderer.on("update_available", (e, msg) => {

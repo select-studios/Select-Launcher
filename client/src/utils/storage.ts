@@ -1,8 +1,30 @@
+/**
+ * Model for the stored cookies.
+ */
+interface cookies {
+  accessToken: number | null,
+  refreshToken: number | null
+}
+
+/**
+ * Checks if a given timestamp has expired by comparing it with current time
+ * @param {number} expires
+ * @returns {boolean}
+ */
 const checkIfNotExpired = (expires: number) => {
   return new Date().getTime() < expires;
 };
 
-export const setTokensCookie = (accessToken: string, refreshToken: string) => {
+/**
+ * Stores the access and refresh tokens from the server in the electron cookies
+ * @param {string} accessToken
+ * @param {string} refreshToken
+ * @returns {void}
+ */
+export const setTokensCookie = (
+  accessToken: string,
+  refreshToken: string
+): void => {
   localStorage.setItem(
     "accessToken",
     JSON.stringify({
@@ -20,11 +42,15 @@ export const setTokensCookie = (accessToken: string, refreshToken: string) => {
   );
 };
 
+/**
+ * Gets the access and refresh token stored in electron cookies
+ * @returns {cookies}
+ */
 export const getTokensCookie = () => {
   const accessTokenCookie = localStorage.getItem("accessToken");
   const refreshTokenCookie = localStorage.getItem("refreshToken");
 
-  let cookies = { accessToken: null, refreshToken: null };
+  let cookies: cookies = { accessToken: null, refreshToken: null };
 
   if (accessTokenCookie?.length) {
     const { accessToken, expires } = JSON.parse(accessTokenCookie);

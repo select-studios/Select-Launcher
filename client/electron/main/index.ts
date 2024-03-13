@@ -2,11 +2,11 @@ process.env.DIST_ELECTRON = join(__dirname, "../..");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
 process.env.PUBLIC = app.isPackaged
   ? process.env.DIST
-  : join(process.env.DIST_ELECTRON, "../public");
+  : join(process.env.DIST_ELECTRON, "./public");
 
 import { app, BrowserWindow, shell, ipcMain, dialog } from "electron";
 import settings from "electron-settings";
-import { release, homedir } from "os";
+import { release } from "os";
 import path, { join } from "path";
 import fs from "fs";
 import runIpcStorageEvents from "./ipc/ipcStorageEvents";
@@ -131,7 +131,7 @@ if (!gotTheLock) {
     if (!checkIfGamesDirectoryExists) {
       fs.mkdir(
         path.join(settings.getSync("locations.libraryLocation").toString()),
-        () => console.log("created games folder"),
+        () => console.log("created games folder")
       );
       return;
     }
@@ -180,12 +180,12 @@ app.on("ready", () => {
 autoUpdater.on("update-available", (info) => {
   win.webContents.send(
     "update_available",
-    `Updates are available! v${info.version} is ready to be installed.\n\nFeel free to use the app while the update is being downloaded.`,
+    `Updates are available! v${info.version} is ready to be installed.\n\nFeel free to use the app while the update is being downloaded.`
   );
 });
 autoUpdater.on("update-downloaded", () => {
   win.webContents.send(
     "update_downloaded",
-    `Update has been downloaded! We will launch the next version when you restart the app.`,
+    `Update has been downloaded! We will launch the next version when you restart the app.`
   );
 });
