@@ -36,7 +36,7 @@ import { Badge } from "@nextui-org/badge";
 import { FiSearch } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import { BsHammer } from "react-icons/bs";
-import { validateInputComponent } from "@/utils/form";
+import { validateInputColor } from "@/utils/form";
 import { toast } from "react-toastify";
 
 interface AdminDashboardProps {}
@@ -393,9 +393,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
             <Input
               bordered
               fullWidth
-              color={validateInputComponent(errors, "reason", true)}
-              helperColor={validateInputComponent(errors, "reason", true)}
-              helperText={validateInputComponent(errors, "reason", false)}
+              color={validateInputColor(errors, "reason", true)}
+              helperColor={validateInputColor(errors, "reason", true)}
+              helperText={validateInputColor(errors, "reason", false)}
               size="lg"
               label="Ban Reason"
               placeholder="Type here"
