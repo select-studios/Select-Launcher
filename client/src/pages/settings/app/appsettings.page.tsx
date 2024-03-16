@@ -27,15 +27,12 @@ const AppSettings: React.FC<AppSettingsProps> = () => {
             <section className="settings__content flex flex-col p-10">
               <h2 className="text-lg font-semibold">
                 <Input
-                  size="xl"
+                  size="lg"
                   readOnly
                   value={libraryLocation}
-                  contentRightStyling={false}
-                  contentRight={
+                  endContent={
                     <Button
-                      auto
-                      className="rounded-full mr-2 cursor-pointer"
-                      css={{ width: "24px" }}
+                      className="rounded-full mr-2 cursor-pointer w-6"
                       onClick={async () => {
                         const newLibraryPath =
                           await window.filesAPI.openFolder();
@@ -50,10 +47,8 @@ const AppSettings: React.FC<AppSettingsProps> = () => {
                       <BsFileEarmarkPlusFill size={20} />
                     </Button>
                   }
-                  css={{
-                    width: "100%",
-                  }}
-                  helperText="Selects the location where your games are downloaded"
+                  className="w-full"
+                  placeholder="Selects the location where your games are downloaded"
                   label="Library Location"
                 />
               </h2>

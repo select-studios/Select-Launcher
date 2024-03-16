@@ -1,4 +1,4 @@
-import { Loading } from "@nextui-org/react";
+import { Spinner } from "@nextui-org/react";
 
 interface LoaderProps {
   msg?: string;
@@ -12,7 +12,7 @@ export interface LoadingState {
 const Loader: React.FC<LoaderProps> = ({ msg }) => {
   return (
     <div className="h-screen flex items-center justify-center">
-      <Loading size="lg">{msg}</Loading>
+      <Spinner size="lg">{msg}</Spinner>
     </div>
   );
 };

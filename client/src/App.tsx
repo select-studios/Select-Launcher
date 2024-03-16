@@ -13,7 +13,14 @@ import AppSettings from "./pages/settings/app/appsettings.page";
 import Game from "./pages/games/game/[game]";
 import { GamesStore } from "./stores/GamesStore";
 import { ipcRenderer } from "electron";
-import { Button, Image, Modal } from "@nextui-org/react";
+import {
+  Button,
+  Image,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from "@nextui-org/react";
 import launcherIcon from "./assets/images/ICON_GrayScale.png";
 //#endregion
 
@@ -126,10 +133,10 @@ const App: React.FC = () => {
       <Modal
         closeButton
         aria-labelledby="modal-title"
-        open={updateModalVisible}
+        isOpen={updateModalVisible}
         onClose={closeHandler}
       >
-        <Modal.Header className="grid">
+        <ModalHeader className="grid">
           <Image
             width={80}
             height={80}
@@ -143,15 +150,20 @@ const App: React.FC = () => {
           >
             Launcher Updater
           </p>
-        </Modal.Header>
-        <Modal.Body>
+        </ModalHeader>
+        <ModalBody>
           <p className="font-medium text-center">{updateMessage}</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button auto flat color="error" onPress={closeHandler}>
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            className="w-auto"
+            variant="flat"
+            color="danger"
+            onPress={closeHandler}
+          >
             Close
           </Button>
-        </Modal.Footer>
+        </ModalFooter>
       </Modal>
     </AnimatePresence>
   );

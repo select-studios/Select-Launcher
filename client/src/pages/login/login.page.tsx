@@ -1,4 +1,12 @@
-import { Button, Input, Link, Loading, Modal } from "@nextui-org/react";
+import {
+  Button,
+  Input,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+} from "@nextui-org/react";
 import { AppBar } from "@/components";
 import { BiUser } from "react-icons/bi";
 import { HiOutlineEye } from "react-icons/hi";
@@ -92,6 +100,10 @@ export const LoginComp: React.FC<LoginProps> = () => {
   };
 
   const [FPVisible, setFPVisible] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () =>
+    setIsPasswordVisible(!isPasswordVisible);
 
   useEffect(() => {
     const cookies = getTokensCookie();
@@ -131,18 +143,8 @@ export const LoginComp: React.FC<LoginProps> = () => {
                         size="md"
                         aria-label="Username"
                         color={validateInputColor(errors, "username", true)}
-                        helperText={validateInputColor(
-                          errors,
-                          "username",
-                          false
-                        )}
-                        helperColor={validateInputColor(
-                          errors,
-                          "username",
-                          true
-                        )}
                         fullWidth
-                        bordered
+                        variant="bordered"
                         {...register("username", {
                           required: "You must enter a username.",
                         })}
@@ -150,25 +152,27 @@ export const LoginComp: React.FC<LoginProps> = () => {
                     </div>
                     <div className="login__password mt-5">
                       <h3 className="text-base font-semibold ml-1">Password</h3>
-                      <Input.Password
+                      <Input
                         placeholder="12345"
+                        type="password"
                         size="md"
                         fullWidth
-                        bordered
+                        variant="bordered"
                         color={validateInputColor(errors, "password", true)}
                         aria-label="Password"
-                        helperText={validateInputColor(
-                          errors,
-                          "password",
-                          false
-                        )}
-                        helperColor={validateInputColor(
-                          errors,
-                          "password",
-                          true
-                        )}
-                        visibleIcon={<HiOutlineEyeSlash />}
-                        hiddenIcon={<HiOutlineEye />}
+                        endContent={
+                          <button
+                            className="focus:outline-none"
+                            type="button"
+                            onClick={togglePasswordVisibility}
+                          >
+                            {isPasswordVisible ? (
+                              <HiOutlineEye className="text-2xl text-default-400 pointer-events-none" />
+                            ) : (
+                              <HiOutlineEyeSlash className="text-2xl text-default-400 pointer-events-none" />
+                            )}
+                          </button>
+                        }
                         {...register("password", {
                           required: "You must enter a password.",
                           minLength: {
@@ -202,9 +206,8 @@ export const LoginComp: React.FC<LoginProps> = () => {
                   </p>
                   <Button
                     onPress={() => setFPVisible(true)}
-                    className="normal-case"
-                    light
-                    auto
+                    className="normal-case w-auto"
+                    variant="light"
                     size="sm"
                   >
                     Forgot Password?
@@ -223,7 +226,7 @@ export const LoginComp: React.FC<LoginProps> = () => {
             </div>
             <div className="login__google">
               <Button
-                icon={<FcGoogle size={30} />}
+                startContent={<FcGoogle size={30} />}
                 size="lg"
                 className="bg-tertiary"
                 disabled
@@ -236,55 +239,72 @@ export const LoginComp: React.FC<LoginProps> = () => {
       </motion.div>
       <Modal
         closeButton
-        blur
+        backdrop="blur"
         aria-labelledby="modal-title"
         className="pt-0"
-        open={FPVisible}
+        isOpen={FPVisible}
         onClose={() => setFPVisible(false)}
       >
         <form onSubmit={handleSubmitFP(onSubmitFP)}>
-          <Modal.Header className="bg-secondary mb-5">
+          <ModalHeader className="bg-secondary mb-5">
             <p className="text-xl ">Reset Password</p>{" "}
-          </Modal.Header>
+          </ModalHeader>
           <p>Happens to the best of us</p>
           <p className="text-sm opacity-70 mb-2">
             This can take a few moments.
           </p>
-          <Modal.Body>
+          <ModalBody>
             <Input
-              clearable
-              bordered
+              isClearable
+              variant="bordered"
               fullWidth
               color="primary"
               size="lg"
               placeholder="E-mail"
               {...registerFP("fpEmail")}
             />
-            <Input.Password
-              bordered
+            <Input
+              variant="bordered"
               fullWidth
+              type="password"
               color="primary"
               size="lg"
               placeholder="New Password"
-              visibleIcon={<HiOutlineEyeSlash />}
-              hiddenIcon={<HiOutlineEye />}
+              endContent={
+                <button
+                  className="focus:outline-none"
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                >
+                  {isPasswordVisible ? (
+                    <HiOutlineEye className="text-2xl text-default-400 pointer-events-none" />
+                  ) : (
+                    <HiOutlineEyeSlash className="text-2xl text-default-400 pointer-events-none" />
+                  )}
+                </button>
+              }
               {...registerFP("fpPassword")}
             />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button auto flat color="error" onPress={() => setFPVisible(false)}>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="w-auto"
+              variant="flat"
+              color="danger"
+              onPress={() => setFPVisible(false)}
+            >
               Close
             </Button>
             <ButtonLoader
               button={
-                <Button type="submit" auto>
+                <Button type="submit" className="w-auto">
                   Submit
                 </Button>
               }
               loading={loading}
-              auto
+              className="w-auto"
             />
-          </Modal.Footer>
+          </ModalFooter>
         </form>
       </Modal>
     </div>

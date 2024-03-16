@@ -2,10 +2,6 @@ import UserDropdown from "../dropdowns/user/userdropdown.component";
 import { getTokensCookie } from "@/utils/storage";
 import { User } from "@/stores/UserStore";
 import { Button } from "@nextui-org/react";
-import { Settings } from "@/pages";
-import { ImCogs } from "react-icons/im";
-import { FiSettings } from "react-icons/fi";
-import { FcSettings } from "react-icons/fc";
 import { HiCog } from "react-icons/hi";
 import { Link } from "react-router-dom";
 

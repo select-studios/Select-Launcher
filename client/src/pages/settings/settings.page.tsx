@@ -1,5 +1,15 @@
 import { AppBar } from "@/components";
-import { Avatar, Button, Card, Grid, Input, Modal } from "@nextui-org/react";
+import {
+  Avatar,
+  Button,
+  Card,
+  CardHeader,
+  Input,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from "@nextui-org/react";
 import { editAccount } from "@/handlers/api";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -90,9 +100,9 @@ const SettingsComp: React.FC<SettingsProps> = () => {
           </div>
           <div className="mx-20 mt-10 grid justify-start">
             <Input
-              bordered
-              contentRight={<FiSearch size="20" />}
-              labelPlaceholder="Search for a setting"
+              variant="bordered"
+              endContent={<FiSearch size="20" />}
+              placeholder="Search for a setting"
               size="lg"
               color="primary"
               onChange={(e) => setSettingsSF(e.target.value)}
@@ -114,17 +124,17 @@ const SettingsComp: React.FC<SettingsProps> = () => {
               ))}
             </div>
             <div className="ml-auto">
-              <Card css={{ p: "$6" }} className="bg-secondary">
-                <Card.Header className="">
+              <Card className="bg-secondary p-6">
+                <CardHeader className="">
                   <Avatar
                     src={userIcon}
                     className="mr-2"
-                    size="xl"
-                    bordered
+                    size="lg"
+                    isBordered
                     color="primary"
                   />
-                  <Grid.Container css={{ pl: "$3" }}>
-                    <Grid xs={12}>
+                  <div className="grid pl-3">
+                    <div>
                       <p>
                         <span className="text-xl font-montserrat font-bold">
                           @{storedUser?.username}
@@ -136,50 +146,39 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                         </span>
                       </p>
                       <Button
-                        icon={<FiEdit3 size="20" />}
-                        className="ml-5"
-                        auto
+                        startContent={<FiEdit3 size="20" />}
+                        className="ml-5 w-auto"
                         onPress={openEditProfile}
                       >
                         Edit
                       </Button>
-                    </Grid>
-                  </Grid.Container>
-                </Card.Header>{" "}
+                    </div>
+                  </div>
+                </CardHeader>{" "}
               </Card>
               <Modal
                 closeButton
                 aria-labelledby="modal-title"
-                open={editProfileVisible}
+                isOpen={editProfileVisible}
                 onClose={closeEditProfile}
               >
                 <form onSubmit={handleSubmitEditProfile(onSubmit)}>
-                  <Modal.Header justify="flex-start">
+                  <ModalHeader className="justify-start">
                     <p className="text-2xl font-bold flex items-center">
                       <FiEdit3 size="20" className="mr-2" /> Edit Profile
                     </p>
-                  </Modal.Header>
-                  <Modal.Header>
-                    <Avatar src={userIcon} css={{ size: "$20" }} />
-                  </Modal.Header>
-                  <Modal.Body>
+                  </ModalHeader>
+                  <ModalHeader>
+                    <Avatar src={userIcon} className="size-20" />
+                  </ModalHeader>
+                  <ModalBody>
                     <Input
-                      bordered
+                      variant="bordered"
                       fullWidth
                       color={validateInputColor(
                         errorsEditProfile,
                         "username",
                         true
-                      )}
-                      helperColor={validateInputColor(
-                        errorsEditProfile,
-                        "username",
-                        true
-                      )}
-                      helperText={validateInputColor(
-                        errorsEditProfile,
-                        "username",
-                        false
                       )}
                       size="lg"
                       label="Username"
@@ -191,23 +190,13 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                     />
                     <span className="my-1"></span>
                     <Input
-                      clearable
-                      bordered
+                      isClearable
+                      variant="bordered"
                       fullWidth
                       color={validateInputColor(
                         errorsEditProfile,
                         "email",
                         true
-                      )}
-                      helperColor={validateInputColor(
-                        errorsEditProfile,
-                        "email",
-                        true
-                      )}
-                      helperText={validateInputColor(
-                        errorsEditProfile,
-                        "email",
-                        false
                       )}
                       size="lg"
                       label="E-mail"
@@ -221,15 +210,20 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                         },
                       })}
                     />
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button auto color="primary" type="submit">
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button className="w-auto" color="primary" type="submit">
                       Edit
                     </Button>
-                    <Button auto flat color="error" onPress={closeEditProfile}>
+                    <Button
+                      variant="flat"
+                      color="danger"
+                      className="w-auto"
+                      onPress={closeEditProfile}
+                    >
                       Close
                     </Button>
-                  </Modal.Footer>
+                  </ModalFooter>
                 </form>
               </Modal>
             </div>

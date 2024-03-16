@@ -1,4 +1,4 @@
-import { Card, Grid, Text } from "@nextui-org/react";
+import { Card, CardHeader, CardBody } from "@nextui-org/react";
 import { useNavigate } from "react-router";
 
 export interface SettingsCardI {
@@ -18,34 +18,30 @@ const SettingsCard: React.FC<SettingsCardProps> = ({ setting, settingN }) => {
 
   return (
     <Card
-      css={{ p: "$6", mw: "400px" }}
-      className="bg-secondary my-2 mr-5"
+      className="bg-secondary my-2 mr-5 p-6"
       isHoverable
       isPressable
       key={`settingscard-${settingN}`}
-      variant="flat"
       onClick={() => navigate("/settings/" + setting.id)}
     >
-      <Card.Header>
+      <CardHeader>
         <div className="text-primary-base">{setting.icon}</div>
-        <Grid.Container className="pl-2.5">
-          <Grid xs={12}>
+        <div className="pl-2.5 grid">
+          <div className="mw-2">
             <p className="font-montserrat text-3xl font-semibold">
               {setting.label}
             </p>
-          </Grid>
-        </Grid.Container>
-      </Card.Header>
-      <Card.Body css={{ py: "$2" }}>
-        <Text>
-          <p className="font-inter text-lg opacity-80">
-            {setting.tags
-              .map((tag) => tag[0].toUpperCase() + tag.slice(1).toLowerCase())
-              .join(", ")}
-            , etc.
-          </p>
-        </Text>
-      </Card.Body>
+          </div>
+        </div>
+      </CardHeader>
+      <CardBody className="py-2">
+        <p className="font-inter text-lg opacity-80">
+          {setting.tags
+            .map((tag) => tag[0].toUpperCase() + tag.slice(1).toLowerCase())
+            .join(", ")}
+          , etc.
+        </p>
+      </CardBody>
     </Card>
   );
 };

@@ -1,10 +1,10 @@
-import { Button, Loading, NormalSizes } from "@nextui-org/react";
+import { Button, Spinner } from "@nextui-org/react";
 
 interface ButtonLoaderProps {
   button: JSX.Element;
   className?: string;
   loading?: boolean;
-  size?: NormalSizes;
+  size?: "sm" | "md" | "lg";
   auto?: boolean;
 }
 
@@ -25,7 +25,7 @@ const ButtonLoader: React.FC<ButtonLoaderProps> = ({
       disabled
       bordered
     >
-      <Loading type="points-opacity" color="currentColor" size="lg" />
+      <Spinner type="points-opacity" color="currentColor" size="lg" />
     </Button>
   );
 };

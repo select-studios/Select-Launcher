@@ -1,13 +1,12 @@
-import { Button, Divider, Tooltip } from "@nextui-org/react";
-import { HiCog, HiDatabase, HiHome, HiMenuAlt1, HiUser } from "react-icons/hi";
-import { BiShoppingBag, BiLibrary, BiUser } from "react-icons/bi";
-import { useEffect, useState } from "react";
+import { Button } from "@nextui-org/react";
+import { HiDatabase, HiHome, HiMenuAlt1 } from "react-icons/hi";
+import { BiLibrary } from "react-icons/bi";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import { SidebarStore } from "@/stores/SidebarStore";
 import { observer } from "mobx-react";
 import { UserStore } from "@/stores/UserStore";
-import { FiHome, FiMonitor } from "react-icons/fi";
+import { FiMonitor } from "react-icons/fi";
 import { BsArrowBarLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
@@ -88,12 +87,8 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
             <Button
               size="lg"
               color="primary"
-              className={!SidebarStore.isOpen ? "bg-tertiary" : ""}
-              auto
+              className={"w-auto" + !SidebarStore.isOpen ? "bg-tertiary" : ""}
               onClick={() => (SidebarStore.isOpen = !SidebarStore.isOpen)}
-              css={{
-                backgroundColor: !SidebarStore.isOpen ? "#393C40" : "",
-              }}
             >
               <HiMenuAlt1 size="25" className="font-bold" />
             </Button>
@@ -105,36 +100,38 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
                   <Button
                     onClick={() => navigate(link.href)}
                     disabled={link.disabled}
-                    className={`bg-tertiary mt-2 ${
-                      link.name.toLowerCase() == active
-                        ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
+                    className={
+                      `bg-tertiary mt-2 ${
+                        link.name.toLowerCase() == active
+                          ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
+                          : ""
+                      }` + !SidebarStore.isOpen
+                        ? "w-auto"
                         : ""
-                    }`}
-                    css={{
-                      backgroundColor: "#393C40",
-                      borderLeftWidth:
-                        link.name.toLowerCase() == active ? "2px" : "",
-                      borderTopWidth:
-                        link.name.toLowerCase() == active ? "0px" : "",
-                      borderBottomWidth:
-                        link.name.toLowerCase() == active ? "0px" : "",
-                      borderRightWidth:
-                        link.name.toLowerCase() == active ? "0px" : "",
-                      borderTopLeftRadius:
-                        link.name.toLowerCase() == active ? "0.125rem" : "",
-                      borderBottomLeftRadius:
-                        link.name.toLowerCase() == active ? "0.125rem" : "",
-                      border: link.name.toLowerCase() == active ? "solid" : "",
-                      borderColor:
-                        link.name.toLowerCase() == active ? "#9980FA" : "",
-                      borderTopStyle: "none",
-                      borderBottomStyle: "none",
-                      borderRightStyle: "none",
-                    }}
-                    icon={link.icon}
+                    }
+                    // css={{
+                    //   borderLeftWidth:
+                    //     link.name.toLowerCase() == active ? "2px" : "",
+                    //   borderTopWidth:
+                    //     link.name.toLowerCase() == active ? "0px" : "",
+                    //   borderBottomWidth:
+                    //     link.name.toLowerCase() == active ? "0px" : "",
+                    //   borderRightWidth:
+                    //     link.name.toLowerCase() == active ? "0px" : "",
+                    //   borderTopLeftRadius:
+                    //     link.name.toLowerCase() == active ? "0.125rem" : "",
+                    //   borderBottomLeftRadius:
+                    //     link.name.toLowerCase() == active ? "0.125rem" : "",
+                    //   border: link.name.toLowerCase() == active ? "solid" : "",
+                    //   borderColor:
+                    //     link.name.toLowerCase() == active ? "#9980FA" : "",
+                    //   borderTopStyle: "none",
+                    //   borderBottomStyle: "none",
+                    //   borderRightStyle: "none",
+                    // }}
+                    startContent={link.icon}
                     key={i}
                     size="lg"
-                    auto={!SidebarStore.isOpen}
                   >
                     {SidebarStore.isOpen && link.name}
                   </Button>
@@ -148,37 +145,39 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
                       <Button
                         onClick={() => navigate(link.href)}
                         disabled={link.disabled}
-                        className={`bg-tertiary mt-2 ${
-                          link.name.toLowerCase() == active
-                            ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
+                        className={
+                          `bg-tertiary mt-2 ${
+                            link.name.toLowerCase() == active
+                              ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
+                              : ""
+                          }` + !SidebarStore.isOpen
+                            ? "w-auto"
                             : ""
-                        }`}
-                        css={{
-                          backgroundColor: "#393C40",
-                          borderLeftWidth:
-                            link.name.toLowerCase() == active ? "2px" : "",
-                          borderTopWidth:
-                            link.name.toLowerCase() == active ? "0px" : "",
-                          borderBottomWidth:
-                            link.name.toLowerCase() == active ? "0px" : "",
-                          borderRightWidth:
-                            link.name.toLowerCase() == active ? "0px" : "",
-                          borderTopLeftRadius:
-                            link.name.toLowerCase() == active ? "0.125rem" : "",
-                          borderBottomLeftRadius:
-                            link.name.toLowerCase() == active ? "0.125rem" : "",
-                          border:
-                            link.name.toLowerCase() == active ? "solid" : "",
-                          borderColor:
-                            link.name.toLowerCase() == active ? "#9980FA" : "",
-                          borderTopStyle: "none",
-                          borderBottomStyle: "none",
-                          borderRightStyle: "none",
-                        }}
-                        icon={link.icon}
+                        }
+                        // css={{
+                        //   borderLeftWidth:
+                        //     link.name.toLowerCase() == active ? "2px" : "",
+                        //   borderTopWidth:
+                        //     link.name.toLowerCase() == active ? "0px" : "",
+                        //   borderBottomWidth:
+                        //     link.name.toLowerCase() == active ? "0px" : "",
+                        //   borderRightWidth:
+                        //     link.name.toLowerCase() == active ? "0px" : "",
+                        //   borderTopLeftRadius:
+                        //     link.name.toLowerCase() == active ? "0.125rem" : "",
+                        //   borderBottomLeftRadius:
+                        //     link.name.toLowerCase() == active ? "0.125rem" : "",
+                        //   border:
+                        //     link.name.toLowerCase() == active ? "solid" : "",
+                        //   borderColor:
+                        //     link.name.toLowerCase() == active ? "#9980FA" : "",
+                        //   borderTopStyle: "none",
+                        //   borderBottomStyle: "none",
+                        //   borderRightStyle: "none",
+                        // }}
+                        startContent={link.icon}
                         key={i}
                         size="lg"
-                        auto={!SidebarStore.isOpen}
                       >
                         {SidebarStore.isOpen && link.name}
                       </Button>
@@ -192,9 +191,8 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
                   <div>
                     <Link to="/settings">
                       <Button
-                        className="bg-tertiary mb-10"
-                        auto
-                        icon={<BsArrowBarLeft size="25" />}
+                        className="bg-tertiary mb-10 w-auto"
+                        startContent={<BsArrowBarLeft size="25" />}
                       >
                         {SidebarStore.isOpen ? "Back" : " "}
                       </Button>
@@ -203,37 +201,39 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
                     <Button
                       onClick={() => navigate(link.href)}
                       disabled={link.disabled}
-                      className={`bg-tertiary mt-2 ${
-                        link.name.toLowerCase() == active
-                          ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
+                      className={
+                        `bg-tertiary mt-2 ${
+                          link.name.toLowerCase() == active
+                            ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
+                            : ""
+                        }` + !SidebarStore.isOpen
+                          ? "w-auto"
                           : ""
-                      }`}
-                      css={{
-                        backgroundColor: "#393C40",
-                        borderLeftWidth:
-                          link.name.toLowerCase() == active ? "2px" : "",
-                        borderTopWidth:
-                          link.name.toLowerCase() == active ? "0px" : "",
-                        borderBottomWidth:
-                          link.name.toLowerCase() == active ? "0px" : "",
-                        borderRightWidth:
-                          link.name.toLowerCase() == active ? "0px" : "",
-                        borderTopLeftRadius:
-                          link.name.toLowerCase() == active ? "0.125rem" : "",
-                        borderBottomLeftRadius:
-                          link.name.toLowerCase() == active ? "0.125rem" : "",
-                        border:
-                          link.name.toLowerCase() == active ? "solid" : "",
-                        borderColor:
-                          link.name.toLowerCase() == active ? "#9980FA" : "",
-                        borderTopStyle: "none",
-                        borderBottomStyle: "none",
-                        borderRightStyle: "none",
-                      }}
-                      icon={link.icon}
+                      }
+                      // css={{
+                      //   borderLeftWidth:
+                      //     link.name.toLowerCase() == active ? "2px" : "",
+                      //   borderTopWidth:
+                      //     link.name.toLowerCase() == active ? "0px" : "",
+                      //   borderBottomWidth:
+                      //     link.name.toLowerCase() == active ? "0px" : "",
+                      //   borderRightWidth:
+                      //     link.name.toLowerCase() == active ? "0px" : "",
+                      //   borderTopLeftRadius:
+                      //     link.name.toLowerCase() == active ? "0.125rem" : "",
+                      //   borderBottomLeftRadius:
+                      //     link.name.toLowerCase() == active ? "0.125rem" : "",
+                      //   border:
+                      //     link.name.toLowerCase() == active ? "solid" : "",
+                      //   borderColor:
+                      //     link.name.toLowerCase() == active ? "#9980FA" : "",
+                      //   borderTopStyle: "none",
+                      //   borderBottomStyle: "none",
+                      //   borderRightStyle: "none",
+                      // }}
+                      startContent={link.icon}
                       key={i}
                       size="lg"
-                      auto={!SidebarStore.isOpen}
                     >
                       {SidebarStore.isOpen && link.name}
                     </Button>

@@ -1,7 +1,13 @@
-import ButtonLoader from "@/components/loader/button/buttonloader.component";
 import { logout, sendVerificationLink } from "@/handlers/api";
-import { Avatar, Button, Dropdown } from "@nextui-org/react";
-import { Badge } from "@nextui-org/badge";
+import {
+  Avatar,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownSection,
+  DropdownItem,
+} from "@nextui-org/react";
+import { Badge } from "@nextui-org/react";
 import {
   HiCheck,
   HiCog,
@@ -29,13 +35,13 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
   return (
     <div>
       <Dropdown>
-        <Dropdown.Trigger>
+        <DropdownTrigger>
           <Avatar src={userImg} size="lg" className="mr-2 cursor-pointer" />
-        </Dropdown.Trigger>
-        <Dropdown.Menu
+        </DropdownTrigger>
+        <DropdownMenu
           className="bg-secondary"
           disabledKeys={["badges"]}
-          onAction={(key) => {
+          onAction={(key: string) => {
             if (key == "logout") {
               const storedRfToken = localStorage.getItem("refreshToken");
               if (storedRfToken && storedRfToken.length) {
@@ -56,7 +62,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
           }}
         >
           {(user?.verified || (user?.moderator as any)) && (
-            <Dropdown.Item key="badges" className="flex mb-2">
+            <DropdownItem key="badges" className="flex mb-2">
               {user?.verified && (
                 <Badge color="success" className="mr-2">
                   <HiCheck className="mr-1" /> Verified
@@ -68,49 +74,49 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
                   Moderator
                 </Badge>
               )}
-            </Dropdown.Item>
+            </DropdownItem>
           )}
 
-          <Dropdown.Item icon={<HiHome size="20" />} key="home">
+          <DropdownItem icon={<HiHome size="20" />} key="home">
             Home
-          </Dropdown.Item>
-          <Dropdown.Item icon={<HiUser size="20" />} key="profile">
+          </DropdownItem>
+          <DropdownItem icon={<HiUser size="20" />} key="profile">
             Profile
-          </Dropdown.Item>
-          <Dropdown.Item key="settings" icon={<HiCog size="20" />}>
+          </DropdownItem>
+          <DropdownItem key="settings" icon={<HiCog size="20" />}>
             Settings
-          </Dropdown.Item>
+          </DropdownItem>
           {(!user?.verified as Boolean) && (
-            <Dropdown.Item
+            <DropdownItem
               icon={<HiBellAlert size="20" />}
               key="verified"
               color="warning"
               description="Resend verification link."
             >
               Not verified
-            </Dropdown.Item>
+            </DropdownItem>
           )}
 
           {(user?.moderator as Boolean) && (
-            <Dropdown.Section title="Admin Zone">
-              <Dropdown.Item
+            <DropdownSection title="Admin Zone">
+              <DropdownItem
                 key="admindashboard"
                 icon={<HiDatabase size="20" />}
               >
                 Dashboard
-              </Dropdown.Item>
-            </Dropdown.Section>
+              </DropdownItem>
+            </DropdownSection>
           )}
-          <Dropdown.Section title="Danger Zone">
-            <Dropdown.Item
+          <DropdownSection title="Danger Zone">
+            <DropdownItem
               key="logout"
-              color="error"
+              color="danger"
               icon={<HiLogout size="20" />}
             >
               Logout
-            </Dropdown.Item>
-          </Dropdown.Section>
-        </Dropdown.Menu>
+            </DropdownItem>
+          </DropdownSection>
+        </DropdownMenu>
       </Dropdown>
     </div>
   );

@@ -23,14 +23,20 @@ import {
   Avatar,
   Button,
   Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
   Dropdown,
-  Grid,
+  DropdownTrigger,
+  DropdownItem,
+  DropdownMenu,
   Input,
   Link,
-  Loading,
   Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
   Switch,
-  Text,
 } from "@nextui-org/react";
 import { Badge } from "@nextui-org/badge";
 import { FiSearch } from "react-icons/fi";
@@ -185,8 +191,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                 </div>
                 <div className="my-5 mx-10 flex justify-between max-w-full items-center h-full">
                   <Input
-                    bordered
-                    contentRight={<FiSearch size="20" />}
+                    variant="bordered"
+                    endContent={<FiSearch size="20" />}
                     label="Search Users"
                     size="lg"
                     onChange={(e) => {
@@ -234,20 +240,17 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                     )
                     .map((user: any, key) => (
                       <Card
-                        className={`bg-secondary shadow-none max-h-fit max-w-xl mr-2 mb-2 my-3 ${
+                        className={`bg-secondary shadow-none max-h-fit max-w-xl mr-2 mb-2 my-3 p-6 ${
                           user?.moderator ? "border border-yellow-400" : ""
                         }`}
                         key={`User-${key}`}
-                        css={{ p: "$6" }}
-                        variant={user?.moderator ? "bordered" : "flat"}
                       >
-                        <Card.Header>
+                        <CardHeader>
                           <Avatar
                             icon={<BiUser size="25" className="font-bold" />}
                             className="mr-2 font-bold"
                             color="primary"
                             size="lg"
-                            zoomed
                           />
                           <div className="pl-1">
                             <p className="font-bold text-lg font-montserrat">
@@ -288,8 +291,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                               )}
                             </p>
                           </div>
-                        </Card.Header>
-                        <Card.Body css={{ py: "$2" }}>
+                        </CardHeader>
+                        <CardBody className="py-2">
                           <p className="items-center flex">
                             <HiIdentification className="mr-1" />{" "}
                             <b className="mr-1">User ID:</b> {user._id}
@@ -300,13 +303,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                               <b>Ban Reason: </b> {user.banReason}
                             </p>
                           )}
-                        </Card.Body>
-                        <Card.Footer>
+                        </CardBody>
+                        <CardFooter>
                           <Button
-                            auto
-                            color="error"
-                            className="mr-2"
-                            icon={<HiBan size="20" />}
+                            color="danger"
+                            className="mr-2 w-auto"
+                            startContent={<HiBan size="20" />}
                             // onPress={() =>
                             //   handleBanUser(user._id, "Not disclosed")
                             // }
@@ -320,47 +322,45 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                           </Button>
                           {user?.banned && (
                             <Button
-                              auto
-                              color="error"
-                              className="mr-2"
-                              icon={<HiX size="20" />}
-                              flat
+                              color="danger"
+                              className="mr-2 w-auto"
+                              startContent={<HiX size="20" />}
+                              variant="flat"
                               onPress={() => handleUnbanUser(user._id)}
                             >
                               Unban
                             </Button>
                           )}
                           <Dropdown>
-                            <Dropdown.Trigger>
-                              <Dropdown.Button className="bg-tertiary">
+                            <DropdownTrigger>
+                              <Button className="bg-tertiary">
                                 More actions
-                              </Dropdown.Button>
-                            </Dropdown.Trigger>
-                            <Dropdown.Menu className="bg-tertiary">
-                              <Dropdown.Item
+                              </Button>
+                            </DropdownTrigger>
+                            <DropdownMenu className="bg-tertiary">
+                              <DropdownItem
                                 description="Forces the user to change their password."
                                 className="font-bold"
                               >
                                 Issue Password Reset
-                              </Dropdown.Item>
-                            </Dropdown.Menu>
+                              </DropdownItem>
+                            </DropdownMenu>
                           </Dropdown>
-                        </Card.Footer>
+                        </CardFooter>
                       </Card>
                     ))}
                 </div>
               ) : (
                 <div className="flex w-full p-5 items-center justify-center">
-                  <Loading />
+                  <Loader />
                 </div>
               )}
             </div>
             <div className="mx-10 mt-5">
               <Button
-                auto
-                className="bg-tertiary"
+                className="bg-tertiary w-auto"
                 onPress={() => handleUsersRefresh()}
-                icon={<HiRefresh size="25" />}
+                startContent={<HiRefresh size="25" />}
               >
                 Refresh
               </Button>
@@ -371,16 +371,16 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
       <Modal
         closeButton
         aria-labelledby="modal-title"
-        open={banUserVisible}
+        isOpen={banUserVisible}
         onClose={() => setBanUserVisible(false)}
       >
         <form onSubmit={handleSubmit(onUserBanSubmit)}>
-          <Modal.Header justify="flex-start">
+          <ModalHeader className="justify-start">
             <p className="text-2xl font-bold flex items-center">
               <HiBan size="20" className="mr-2" /> Ban User
             </p>
-          </Modal.Header>
-          <Modal.Header className="grid justify-center">
+          </ModalHeader>
+          <ModalHeader className="grid justify-center">
             <Avatar
               src="https://i.imgur.com/c30fFsi.png"
               className="mx-auto mb-2"
@@ -388,14 +388,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
             <p className="text-xl opacity-80 font-bold">
               @{userToBan.username}
             </p>
-          </Modal.Header>
-          <Modal.Body className="mt-2">
+          </ModalHeader>
+          <ModalBody className="mt-2">
             <Input
-              bordered
+              variant="bordered"
               fullWidth
               color={validateInputColor(errors, "reason", true)}
-              helperColor={validateInputColor(errors, "reason", true)}
-              helperText={validateInputColor(errors, "reason", false)}
               size="lg"
               label="Ban Reason"
               placeholder="Type here"
@@ -404,15 +402,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                 minLength: 2,
               })}
             />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button auto color="error" type="submit">
+          </ModalBody>
+          <ModalFooter>
+            <Button className="w-auto" color="danger" type="submit">
               Ban
             </Button>
             <Button
-              auto
-              flat
-              color="error"
+              variant="flat"
+              className="w-auto"
+              color="danger"
               onPress={() => {
                 setBanUserVisible(false);
                 reset();
@@ -420,7 +418,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
             >
               Close
             </Button>
-          </Modal.Footer>
+          </ModalFooter>
         </form>
       </Modal>
     </section>

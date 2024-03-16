@@ -1,5 +1,5 @@
 import { AppBar } from "@/components";
-import { Button, Input, Loading } from "@nextui-org/react";
+import { Button, Input, Spinner } from "@nextui-org/react";
 import { BiUser } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
 import { HiOutlineEye } from "react-icons/hi";
@@ -8,14 +8,14 @@ import { Link as LinkRoute, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { passwordStrength } from "check-password-strength";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import RegisterInterface from "@/interfaces/RegisterInterface";
 import fetch from "node-fetch";
 import { toast } from "react-toastify";
 import { API_URI } from "@/handlers/api";
 import ButtonLoader from "@/components/loader/button/buttonloader.component";
-import { getTokensCookie, setTokensCookie } from "@/utils/storage";
+import { setTokensCookie } from "@/utils/storage";
 import { validateInputColor } from "@/utils/form";
 
 interface RegisterProps {}
@@ -28,6 +28,10 @@ export const Register: React.FC<RegisterProps> = () => {
   } = useForm({ mode: "onChange" });
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () =>
+    setIsPasswordVisible(!isPasswordVisible);
 
   const navigate = useNavigate();
 
@@ -103,11 +107,9 @@ export const Register: React.FC<RegisterProps> = () => {
                         placeholder="johndoe@yourmom.com"
                         size="md"
                         color={validateInputColor(errors, "email", true)}
-                        helperColor={validateInputColor(errors, "email", true)}
-                        helperText={validateInputColor(errors, "email", false)}
                         fullWidth
                         aria-label="email"
-                        bordered
+                        variant="bordered"
                         {...register("email", {
                           required: "You need to provide us with an e-mail.",
                           pattern: {
@@ -124,19 +126,9 @@ export const Register: React.FC<RegisterProps> = () => {
                         placeholder="johndoe256"
                         size="md"
                         color={validateInputColor(errors, "username", true)}
-                        helperColor={validateInputColor(
-                          errors,
-                          "username",
-                          true
-                        )}
-                        helperText={validateInputColor(
-                          errors,
-                          "username",
-                          false
-                        )}
                         aria-label="username"
                         fullWidth
-                        bordered
+                        variant="bordered"
                         {...register("username", {
                           required: "You need to provide us with a username.",
                         })}
@@ -144,25 +136,27 @@ export const Register: React.FC<RegisterProps> = () => {
                     </div>
                     <div className="register__credentials.password mt-7">
                       <h3 className="text-base font-semibold ml-1">Password</h3>
-                      <Input.Password
+                      <Input
                         placeholder="12345"
+                        type="password"
                         size="md"
-                        visibleIcon={<HiOutlineEyeSlash />}
-                        hiddenIcon={<HiOutlineEye />}
+                        endContent={
+                          <button
+                            className="focus:outline-none"
+                            type="button"
+                            onClick={togglePasswordVisibility}
+                          >
+                            {isPasswordVisible ? (
+                              <HiOutlineEye className="text-2xl text-default-400 pointer-events-none" />
+                            ) : (
+                              <HiOutlineEyeSlash className="text-2xl text-default-400 pointer-events-none" />
+                            )}
+                          </button>
+                        }
                         color={validateInputColor(errors, "password", true)}
-                        helperColor={validateInputColor(
-                          errors,
-                          "password",
-                          true
-                        )}
                         aria-label="password"
-                        helperText={validateInputColor(
-                          errors,
-                          "password",
-                          false
-                        )}
                         fullWidth
-                        bordered
+                        variant="bordered"
                         {...register("password", {
                           required: "You need a password for your account.",
                           minLength: {
@@ -211,7 +205,7 @@ export const Register: React.FC<RegisterProps> = () => {
             </div>
             <div className="register__google">
               <Button
-                icon={<FcGoogle size={30} />}
+                startContent={<FcGoogle size={30} />}
                 size="lg"
                 className="bg-tertiary"
                 disabled

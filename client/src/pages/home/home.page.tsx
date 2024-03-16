@@ -1,16 +1,11 @@
-import { AppBar, Loader, Sidebar, GameCard } from "@/components";
+import { AppBar, Sidebar, GameCard } from "@/components";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logout, getGameInfo } from "@/handlers/api";
-import protectRoute from "@/handlers/api/utils/protectRoute";
-import { LoadingState } from "@/components/loader/loader.component";
-import GameInfo from "@/interfaces/GameInfoInterface";
 import { motion } from "framer-motion";
-import { getTokensCookie } from "@/utils/storage";
 import CardLoader from "@/components/loader/card/cardloader.component";
 import { UserStore } from "@/stores/UserStore";
 import { observer } from "mobx-react";
-import { HiSparkles } from "react-icons/hi";
 import { BiCompass } from "react-icons/bi";
 import { GamesStore } from "@/stores/GamesStore";
 

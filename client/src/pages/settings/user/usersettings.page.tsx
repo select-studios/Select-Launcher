@@ -2,7 +2,6 @@ import { Loader, LoadingState } from "@/components/loader/loader.component";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { getTokensCookie } from "@/utils/storage";
-import { logout } from "@/handlers/api";
 import protectRoute from "@/handlers/api/utils/protectRoute";
 import { AppBar } from "@/components";
 import { Input, Link } from "@nextui-org/react";

@@ -3,11 +3,7 @@ import { GamesStore } from "@/stores/GamesStore";
 import { UserStore } from "@/stores/UserStore";
 import { Button } from "@nextui-org/react";
 import { FunctionComponent } from "react";
-import { BiWindows } from "react-icons/bi";
-import { BsWindows } from "react-icons/bs";
-import { ImWindows } from "react-icons/im";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
 
 interface GamesInfoProps {}
 
