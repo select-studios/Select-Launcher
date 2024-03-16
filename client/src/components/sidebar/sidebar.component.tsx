@@ -81,13 +81,13 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
       initial={false}
       animate={SidebarStore.isOpen ? "sidebarOpen" : "sidebarClosed"}
     >
-      <div className="bg-secondary mt-10 h-screen rounded-tr-xl rounded-br-xl">
+      <div className="bg-secondaryBG mt-10 h-screen rounded-tr-xl rounded-br-xl">
         <div className="flex flex-col flex-1 p-5">
           <div>
             <Button
               size="lg"
               color="primary"
-              className={"w-auto" + !SidebarStore.isOpen ? "bg-tertiary" : ""}
+              className={"w-auto" + !SidebarStore.isOpen ? "bg-tertiaryBG" : ""}
               onClick={() => (SidebarStore.isOpen = !SidebarStore.isOpen)}
             >
               <HiMenuAlt1 size="25" className="font-bold" />
@@ -101,7 +101,7 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
                     onClick={() => navigate(link.href)}
                     disabled={link.disabled}
                     className={
-                      `bg-tertiary mt-2 ${
+                      `bg-tertiaryBG mt-2 ${
                         link.name.toLowerCase() == active
                           ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
                           : ""
@@ -146,7 +146,7 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
                         onClick={() => navigate(link.href)}
                         disabled={link.disabled}
                         className={
-                          `bg-tertiary mt-2 ${
+                          `bg-tertiaryBG mt-2 ${
                             link.name.toLowerCase() == active
                               ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
                               : ""
@@ -191,7 +191,7 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
                   <div>
                     <Link to="/settings">
                       <Button
-                        className="bg-tertiary mb-10 w-auto"
+                        className="bg-tertiaryBG mb-10 w-auto"
                         startContent={<BsArrowBarLeft size="25" />}
                       >
                         {SidebarStore.isOpen ? "Back" : " "}
@@ -202,7 +202,7 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
                       onClick={() => navigate(link.href)}
                       disabled={link.disabled}
                       className={
-                        `bg-tertiary mt-2 ${
+                        `bg-tertiaryBG mt-2 ${
                           link.name.toLowerCase() == active
                             ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
                             : ""

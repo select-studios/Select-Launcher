@@ -43,7 +43,7 @@ const AuthAPI: React.FC<AuthAPIProps> = ({ children }) => {
           <Button
             onPress={() => setVisibleUserID(!visibleUserID)}
             size="xs"
-            className="bg-tertiary ml-1"
+            className="bg-tertiaryBG ml-1"
             auto
           >
             {visibleUserID ? "Hide" : "Show"}

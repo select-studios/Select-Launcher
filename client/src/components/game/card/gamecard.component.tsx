@@ -74,7 +74,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
     <Card
       isPressable
       isHoverable
-      className="bg-secondary m-5 py-2 px-1 h-fit w-fit"
+      className="bg-secondaryBG m-5 py-2 px-1 h-fit w-fit"
     >
       <Link to={`/games/${game.name}`} className="text-white">
         <CardHeader>

@@ -86,10 +86,10 @@ export const Register: React.FC<RegisterProps> = () => {
         <div>
           <div className="register flex text-white flex-col h-screen items-center justify-center">
             <div
-              className="register__box bg-secondary rounded-md shadow-xl"
+              className="register__box bg-secondaryBG rounded-md shadow-xl"
               style={{ width: "26rem" }}
             >
-              <section className="account__strip traking-normal flex items-center justify-center bg-tertiary rounded-t-md">
+              <section className="account__strip traking-normal flex items-center justify-center bg-tertiaryBG rounded-t-md">
                 <BiUser size={28} />
                 <h2 className="font-montserrat text-2xl font-bold ml-2 mt-2">
                   Account
@@ -196,10 +196,10 @@ export const Register: React.FC<RegisterProps> = () => {
             </div>
             <div className="register__divider inline-flex items-center justify-center w-full">
               <hr
-                className="h-1 my-8 bg-tertiary rounded"
+                className="h-1 my-8 bg-tertiaryBG rounded"
                 style={{ width: "26rem" }}
               />
-              <span className="absolute px-3 font-medium -translate-x-1/2 bg-primary text-tertiary">
+              <span className="absolute px-3 font-medium -translate-x-1/2 bg-primary text-tertiaryBG">
                 OR
               </span>
             </div>
@@ -207,7 +207,7 @@ export const Register: React.FC<RegisterProps> = () => {
               <Button
                 startContent={<FcGoogle size={30} />}
                 size="lg"
-                className="bg-tertiary"
+                className="bg-tertiaryBG"
                 disabled
               >
                 <b className="ml-9">Continue with Google</b>

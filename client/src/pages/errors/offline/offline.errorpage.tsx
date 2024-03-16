@@ -24,7 +24,7 @@ const Offline_E: React.FC<Offline_EProps> = () => {
         </div>
       </div>
       <div
-        className={`fixed p-2 flex justify-center rounded-t-md items-center bottom-0 w-screen bg-secondary`}
+        className={`fixed p-2 flex justify-center rounded-t-md items-center bottom-0 w-screen bg-secondaryBG`}
       >
         {/* <BiBaguette className="mr-2" size="20"></BiBaguette> Network error */}
       </div>

@@ -24,7 +24,7 @@ const Game: FunctionComponent<GamesInfoProps> = () => {
         <div className="content mt-10 w-auto ml-10">
           <p className="font-montserrat font-bold text-2xl mb-10">Overview</p>
           <div
-            className="bg-secondary mt-2 min-w-full rounded-lg"
+            className="bg-secondaryBG mt-2 min-w-full rounded-lg"
             style={{ height: "250px" }}
           ></div>
           <p className="font-montserrat mt-5 font-bold text-3xl">
@@ -45,13 +45,13 @@ const Game: FunctionComponent<GamesInfoProps> = () => {
             </p>
           </div>
         </div>
-        <div className="game-details ml-auto mr-5 h-fit bg-secondary p-4 mt-20">
-          <div className="bg-tertiary rounded-lg w-48 h-36"></div>
+        <div className="game-details ml-auto mr-5 h-fit bg-secondaryBG p-4 mt-20">
+          <div className="bg-tertiaryBG rounded-lg w-48 h-36"></div>
           <p className="text-md font-bold mt-2 font-montserrat opacity-80 uppercase">
             {game?.price === "free" ? "Free" : "$" + game?.price}
           </p>
           <div className="buttons grid max-w-fit mt-5">
-            <Button disabled size="md" className="bg-tertiary">
+            <Button disabled size="md" className="bg-tertiaryBG">
               Get
             </Button>
             <Button disabled className="mt-2" size="md" color="success">

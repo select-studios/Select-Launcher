@@ -4,7 +4,6 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalContent,
   ModalFooter,
 } from "@nextui-org/react";
 import { AppBar } from "@/components";
@@ -121,44 +120,49 @@ export const LoginComp: React.FC<LoginProps> = () => {
         <div>
           <div className="login flex text-white flex-col h-screen items-center justify-center">
             <div
-              className="login__box bg-secondary rounded-md shadow-xl"
-              style={{ width: "26rem" }}
+              className="login__box bg-secondaryBG rounded-md shadow-xl"
+              style={{ width: "27rem" }}
             >
-              <section className="account__strip traking-normal flex items-center justify-center bg-tertiary rounded-t-md">
+              <section className="account__strip tracking-normal flex items-center justify-center bg-tertiaryBG rounded-t-md py-2">
                 <BiUser size={28} />
                 <h2 className="font-montserrat text-2xl font-bold ml-2 mt-2">
                   Login
                 </h2>
               </section>
-              <section className="login__content flex flex-col ml-5 mr-5">
+              <section className="login__content flex flex-col justify-center ml-5 mr-5">
                 <h2 className="text-lg font-semibold mt-5">
                   We're glad to have you back!
                 </h2>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="flex flex-col justify-center"
+                >
                   <div className="login__username/password mt-5">
                     <div className="login__username">
-                      <h3 className="text-base font-semibold ml-1">Username</h3>
+                      <h3 className="text-base font-semibold ml-1 mb-2">
+                        Username
+                      </h3>
                       <Input
                         placeholder="User123"
-                        size="md"
+                        size="lg"
                         aria-label="Username"
-                        color={validateInputColor(errors, "username", true)}
                         fullWidth
-                        variant="bordered"
+                        variant="faded"
                         {...register("username", {
                           required: "You must enter a username.",
                         })}
                       />
                     </div>
                     <div className="login__password mt-5">
-                      <h3 className="text-base font-semibold ml-1">Password</h3>
+                      <h3 className="text-base font-semibold ml-1 mb-2">
+                        Password
+                      </h3>
                       <Input
                         placeholder="12345"
-                        type="password"
-                        size="md"
+                        type={isPasswordVisible ? "text" : "password"}
+                        size="lg"
                         fullWidth
-                        variant="bordered"
-                        color={validateInputColor(errors, "password", true)}
+                        variant="faded"
                         aria-label="Password"
                         endContent={
                           <button
@@ -183,32 +187,28 @@ export const LoginComp: React.FC<LoginProps> = () => {
                       />
                     </div>
                   </div>
-                  <ButtonLoader
-                    className="my-5 mx-14"
+                  <Button
+                    type="submit"
+                    color="primary"
+                    className="my-5 mx-14 w-auto h-14"
                     size="lg"
-                    button={
-                      <Button
-                        type="submit"
-                        color="primary"
-                        className="my-5 mx-14"
-                        size="lg"
-                      >
-                        Login
-                      </Button>
-                    }
-                    loading={loading}
-                  />
+                    isLoading={loading}
+                  >
+                    <b>Login</b>
+                  </Button>
                 </form>
                 <div className="flex items-center justify-between mb-5">
                   <p className="text-base text-center font-medium">
                     No account?{" "}
-                    <LinkRoute to="/register">Create one!</LinkRoute>
+                    <LinkRoute to="/register" className="text-primary">
+                      Create one!
+                    </LinkRoute>
                   </p>
                   <Button
                     onPress={() => setFPVisible(true)}
-                    className="normal-case w-auto"
+                    className="text-base normal-case w-auto"
                     variant="light"
-                    size="sm"
+                    size="md"
                   >
                     Forgot Password?
                   </Button>
@@ -217,10 +217,10 @@ export const LoginComp: React.FC<LoginProps> = () => {
             </div>
             <div className="login__divider inline-flex items-center justify-center w-full">
               <hr
-                className="h-1 my-8 bg-tertiary rounded"
+                className="h-1 my-8 bg-tertiaryBG rounded border-t-0"
                 style={{ width: "26rem" }}
               />
-              <span className="absolute px-3 font-medium -translate-x-1/2 bg-primary text-tertiary">
+              <span className="absolute px-3 font-medium -translate-x-1/2 bg-primaryBG text-tertiaryBG">
                 OR
               </span>
             </div>
@@ -228,8 +228,8 @@ export const LoginComp: React.FC<LoginProps> = () => {
               <Button
                 startContent={<FcGoogle size={30} />}
                 size="lg"
-                className="bg-tertiary"
-                disabled
+                className="bg-tertiaryBG"
+                isDisabled
               >
                 <b className="ml-9">Continue with Google</b>
               </Button>
@@ -246,7 +246,7 @@ export const LoginComp: React.FC<LoginProps> = () => {
         onClose={() => setFPVisible(false)}
       >
         <form onSubmit={handleSubmitFP(onSubmitFP)}>
-          <ModalHeader className="bg-secondary mb-5">
+          <ModalHeader className="bg-secondaryBG mb-5">
             <p className="text-xl ">Reset Password</p>{" "}
           </ModalHeader>
           <p>Happens to the best of us</p>

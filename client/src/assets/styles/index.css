@@ -10,11 +10,12 @@
 
 :root {
   --toastify-color-dark: #181818 !important;
+  overflow-x: hidden;
 }
 
 html,
 body {
-  @apply bg-primary !important;
+  @apply bg-primaryBG !important;
 }
 
 body {
@@ -28,11 +29,11 @@ body {
 
 ::-moz-selection {
   /* Code for Firefox */
-  background-color: rgb(59 130 246);
+  background-color: rgb(156 136 255);
 }
 
 ::selection {
-  background-color: rgb(59 130 246);
+  background-color: rgb(156 136 255);
 }
 
 ::-webkit-scrollbar {
@@ -41,12 +42,12 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  @apply bg-zinc-800 bg-primary rounded-md;
+  @apply bg-zinc-800 bg-primaryBG rounded-md;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  @apply rounded-md bg-tertiary;
+  @apply rounded-md bg-tertiaryBG;
 }
 
 code {

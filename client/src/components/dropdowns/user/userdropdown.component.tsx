@@ -39,7 +39,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
           <Avatar src={userImg} size="lg" className="mr-2 cursor-pointer" />
         </DropdownTrigger>
         <DropdownMenu
-          className="bg-secondary"
+          className="bg-secondaryBG"
           disabledKeys={["badges"]}
           onAction={(key: string) => {
             if (key == "logout") {

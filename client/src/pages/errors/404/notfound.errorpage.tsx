@@ -43,7 +43,7 @@ const NotFound_E: React.FC<NotFound_EProps> = () => {
         </div>
       </div>
       <div
-        className={`fixed p-2 flex font-bold justify-center rounded-t-md items-center bottom-0 w-screen bg-secondary`}
+        className={`fixed p-2 flex font-bold justify-center rounded-t-md items-center bottom-0 w-screen bg-secondaryBG`}
       >
         <BsExclamationCircle size="20" className="text-red-500 mr-2" /> E_404:
         Cannot get {location.pathname}

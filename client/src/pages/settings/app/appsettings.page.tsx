@@ -18,8 +18,8 @@ const AppSettings: React.FC<AppSettingsProps> = () => {
       <div className="flex">
         <Sidebar active="app" settings />
         <div className="settings w-full m-10 mb-20 text-white flex-col items-center justify-center">
-          <div className="settings__box bg-secondary rounded-md shadow-xl h-fit">
-            <section className="title__strip tracking-normal flex items-center justify-center bg-tertiary rounded-t-md">
+          <div className="settings__box bg-secondaryBG rounded-md shadow-xl h-fit">
+            <section className="title__strip tracking-normal flex items-center justify-center bg-tertiaryBG rounded-t-md">
               <h2 className="font-montserrat text-2xl font-bold ml-2 mt-2">
                 App Settings
               </h2>

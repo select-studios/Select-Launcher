@@ -124,7 +124,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
               ))}
             </div>
             <div className="ml-auto">
-              <Card className="bg-secondary p-6">
+              <Card className="bg-secondaryBG p-6">
                 <CardHeader className="">
                   <Avatar
                     src={userIcon}

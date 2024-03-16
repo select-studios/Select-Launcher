@@ -161,14 +161,14 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
               <HiDatabase size="40" className="mr-2" /> Administrator Dashboard
             </p>
           </div>
-          <div className="mt-10 bg-secondary pb-5 rounded-xl mx-10 w-full">
-            <p className="text-xl rounded-t-xl text-center p-2 bg-tertiary mx-0 font-bold font-montserrat">
+          <div className="mt-10 bg-secondaryBG pb-5 rounded-xl mx-10 w-full">
+            <p className="text-xl rounded-t-xl text-center p-2 bg-tertiaryBG mx-0 font-bold font-montserrat">
               App Users
             </p>
             {!usersLoading && (
               <div className=" flex rounded-b-lg">
-                <div className="mt-4 py-2 px-1 mx-10 rounded-lg bg-tertiary">
-                  <p className="flex items-center justify-center text-2xl m-2 mb-4 text-center font-bold font-montserrat bg-secondary p-2 rounded-lg">
+                <div className="mt-4 py-2 px-1 mx-10 rounded-lg bg-tertiaryBG">
+                  <p className="flex items-center justify-center text-2xl m-2 mb-4 text-center font-bold font-montserrat bg-secondaryBG p-2 rounded-lg">
                     <HiChartPie size="30" className="mr-2" /> Analysis
                   </p>
                   <div className="flex justify-center min-w-full px-3">
@@ -176,7 +176,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                       userAnalysis.map((analysis, key) => (
                         <div
                           key={key}
-                          className={`stat-card-${key} p-3 mr-1 rounded-md bg-secondary border-2 border-solid border-${analysis.color}`}
+                          className={`stat-card-${key} p-3 mr-1 rounded-md bg-secondaryBG border-2 border-solid border-${analysis.color}`}
                         >
                           <p className="flex items-center text-sm uppercase opacity-70 font-bold">
                             <span className="mr-1">{analysis.icon}</span>{" "}
@@ -231,7 +231,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
               </div>
             )}
 
-            <div className="mx-10 mt-5 px-5 py-5 overflow-scroll bg-tertiary rounded-lg overflow-x-hidden max-h-96">
+            <div className="mx-10 mt-5 px-5 py-5 overflow-scroll bg-tertiaryBG rounded-lg overflow-x-hidden max-h-96">
               {!usersLoading ? (
                 <div className="allUsers m-2 grid grid-cols-2">
                   {(filteredUsers.length ? filteredUsers : users)
@@ -240,7 +240,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                     )
                     .map((user: any, key) => (
                       <Card
-                        className={`bg-secondary shadow-none max-h-fit max-w-xl mr-2 mb-2 my-3 p-6 ${
+                        className={`bg-secondaryBG shadow-none max-h-fit max-w-xl mr-2 mb-2 my-3 p-6 ${
                           user?.moderator ? "border border-yellow-400" : ""
                         }`}
                         key={`User-${key}`}
@@ -333,11 +333,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                           )}
                           <Dropdown>
                             <DropdownTrigger>
-                              <Button className="bg-tertiary">
+                              <Button className="bg-tertiaryBG">
                                 More actions
                               </Button>
                             </DropdownTrigger>
-                            <DropdownMenu className="bg-tertiary">
+                            <DropdownMenu className="bg-tertiaryBG">
                               <DropdownItem
                                 description="Forces the user to change their password."
                                 className="font-bold"
@@ -358,7 +358,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
             </div>
             <div className="mx-10 mt-5">
               <Button
-                className="bg-tertiary w-auto"
+                className="bg-tertiaryBG w-auto"
                 onPress={() => handleUsersRefresh()}
                 startContent={<HiRefresh size="25" />}
               >
