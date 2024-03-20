@@ -19,6 +19,7 @@ import {
 import { HiBellAlert, HiUserPlus } from "react-icons/hi2";
 import { useNavigate } from "react-router";
 import userImg from "../../../assets/images/ICON_User.png";
+import { Key } from "react";
 
 interface UserDropdownProps {
   user: {
@@ -34,29 +35,29 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
 
   return (
     <div>
-      <Dropdown>
+      <Dropdown size="lg">
         <DropdownTrigger>
           <Avatar src={userImg} size="lg" className="mr-2 cursor-pointer" />
         </DropdownTrigger>
         <DropdownMenu
           className="bg-secondaryBG"
           disabledKeys={["badges"]}
-          onAction={(key: string) => {
+          onAction={(key: Key) => {
             if (key == "logout") {
               const storedRfToken = localStorage.getItem("refreshToken");
               if (storedRfToken && storedRfToken.length) {
                 const refreshToken = JSON.parse(storedRfToken).refreshToken;
                 logout(refreshToken, navigate);
               }
-            } else if (key == "verified" && !user?.verified) {
+            } else if (key.toString() == "verified" && !user?.verified) {
               sendVerificationLink(user.accessToken);
-            } else if (key == "profile") {
+            } else if (key.toString() == "profile") {
               navigate("/settings/profile");
-            } else if (key == "home") {
+            } else if (key.toString() == "home") {
               navigate("/");
-            } else if (key == "settings") {
+            } else if (key.toString() == "settings") {
               navigate("/settings");
-            } else if (key == "admindashboard") {
+            } else if (key.toString() == "admindashboard") {
               navigate("/admin/dashboard");
             }
           }}
@@ -77,31 +78,33 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
             </DropdownItem>
           )}
 
-          <DropdownItem icon={<HiHome size="20" />} key="home">
-            Home
-          </DropdownItem>
-          <DropdownItem icon={<HiUser size="20" />} key="profile">
-            Profile
-          </DropdownItem>
-          <DropdownItem key="settings" icon={<HiCog size="20" />}>
-            Settings
-          </DropdownItem>
-          {(!user?.verified as Boolean) && (
-            <DropdownItem
-              icon={<HiBellAlert size="20" />}
-              key="verified"
-              color="warning"
-              description="Resend verification link."
-            >
-              Not verified
+          <DropdownSection showDivider>
+            <DropdownItem startContent={<HiHome size="20" />} key="home">
+              Home
             </DropdownItem>
-          )}
+            <DropdownItem startContent={<HiUser size="20" />} key="profile">
+              Profile
+            </DropdownItem>
+            <DropdownItem key="settings" startContent={<HiCog size="20" />}>
+              Settings
+            </DropdownItem>
+            {(!user?.verified as Boolean) && (
+              <DropdownItem
+                startContent={<HiBellAlert size="20" />}
+                key="verified"
+                color="warning"
+                description="Resend verification link."
+              >
+                Not verified
+              </DropdownItem>
+            )}
+          </DropdownSection>
 
           {(user?.moderator as Boolean) && (
             <DropdownSection title="Admin Zone">
               <DropdownItem
                 key="admindashboard"
-                icon={<HiDatabase size="20" />}
+                startContent={<HiDatabase size="20" />}
               >
                 Dashboard
               </DropdownItem>
@@ -111,7 +114,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
             <DropdownItem
               key="logout"
               color="danger"
-              icon={<HiLogout size="20" />}
+              startContent={<HiLogout size="20" />}
             >
               Logout
             </DropdownItem>

@@ -81,7 +81,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
           <Avatar src={gameIcon} alt={game.name + " Icon"} size="lg" />
           <div className="grid">
             <div>
-              <p className="text-2xl font-montserrat font-bold flex items-center leading-2">
+              <p className="text-2xl font-montserrat font-bold flex items-center leading-2 normal-case">
                 {game.name}
                 {game.verified && (
                   <Tooltip content="Verified" color="success">
@@ -98,7 +98,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
                 )}
               </p>
             </div>
-            <div className="flex-row mt-1">
+            <div className="flex-row mt-1 normal-case">
               {game.tags.map((tag, i) => (
                 <Badge
                   key={i}
@@ -114,13 +114,13 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
           </div>
         </CardHeader>
         <CardBody className="py-4">
-          <p className="font-medium font-inter max-h-20 overflow-ellipsis">
+          <p className="font-medium font-inter max-h-20 overflow-ellipsis normal-case">
             {game.description}
           </p>
         </CardBody>
 
         {downloadStatus.gameName === game.downloadName && (
-          <CardBody className="grid justify-left">
+          <CardBody className="grid justify-left normal-case">
             <p className="mb-2">{downloadStatus.msg}</p>
             {downloadStatus.percentage && downloadStatus.percentage > 0 && (
               <Progress
@@ -129,7 +129,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
                 value={Number(Number(downloadStatus.percentage).toFixed(0))}
               />
             )}
-            <p className="mt-2">
+            <p className="mt-2 ">
               {downloadStatus.percentage &&
                 downloadStatus.percentage > 0 &&
                 Number((downloadStatus.remainingSize || 0) / 1e6).toFixed(1) +
@@ -177,7 +177,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
               startContent={<HiDownload size="20" />}
               size="md"
               color="primary"
-              className="ml-2 shadow-md w-auto"
+              className="ml-2 shadow-md w-auto font-bold"
               onPressEnd={() => {
                 window.gamesAPI.downloadGame(game.downloadName);
                 ipcRenderer.once("finish-download", (event, message) => {

@@ -2,7 +2,7 @@ process.env.DIST_ELECTRON = join(__dirname, "../..");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
 process.env.PUBLIC = app.isPackaged
   ? process.env.DIST
-  : join(process.env.DIST_ELECTRON, "./public");
+  : join(process.env.DIST_ELECTRON, "../public");
 
 import { app, BrowserWindow, shell, ipcMain, dialog } from "electron";
 import settings from "electron-settings";

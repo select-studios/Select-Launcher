@@ -86,8 +86,8 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
           <div>
             <Button
               size="lg"
-              color="primary"
-              className={"w-auto" + !SidebarStore.isOpen ? "bg-tertiaryBG" : ""}
+              color={SidebarStore.isOpen ? "primary" : "default"}
+              className="w-auto"
               onClick={() => (SidebarStore.isOpen = !SidebarStore.isOpen)}
             >
               <HiMenuAlt1 size="25" className="font-bold" />
