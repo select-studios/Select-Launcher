@@ -1,7 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
 .sign-in-card {
-  @apply bg-secondaryBG flex flex-col min-w-32 min-h-60 rounded-md;
+  @apply bg-secondaryBG flex flex-col min-w-96 min-h-60 rounded-lg p-2;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.sign-in-top {
+  @apply text-center mt-2;
+}
+
+.sign-in-heading {
+  @apply font-bold text-3xl mb-1;
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.sign-in-subHeading {
+  @apply font-light text-gray-400 text-sm;
+}
+
+.form-input {
+  @apply px-3 mt-6;
+}
+
+.submit-btn-row {
+  @apply flex flex-row justify-center items-center mt-5 gap-3;
 }
