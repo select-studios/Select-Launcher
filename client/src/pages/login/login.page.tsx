@@ -72,7 +72,7 @@ export const LoginComp: React.FC<LoginProps> = () => {
         setLoading(false);
         setFPVisible(false);
         toast.success(
-          "An e-mail has been sent to your account for further verification."
+          "We sent you an link to your email to verify your account!"
         );
       });
   };
@@ -143,7 +143,7 @@ export const LoginComp: React.FC<LoginProps> = () => {
                         Username
                       </h3>
                       <Input
-                        placeholder="User123"
+                        placeholder="username"
                         size="lg"
                         aria-label="Username"
                         fullWidth
@@ -158,7 +158,7 @@ export const LoginComp: React.FC<LoginProps> = () => {
                         Password
                       </h3>
                       <Input
-                        placeholder="12345"
+                        placeholder="password"
                         type={isPasswordVisible ? "text" : "password"}
                         size="lg"
                         fullWidth
