@@ -11,11 +11,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primaryBG: "#141414",
-        secondaryBG: "#181818",
-        tertiaryBG: "#272828",
+        primaryBG: "#000",
+        secondaryBG: "#090909",
+        tertiaryBG: "#121212",
 
-        primary: "#9c88ff",
+        primary: "#A558F2",
       },
     },
     fontFamily: {
@@ -36,7 +36,13 @@ module.exports = {
     nextui({
       defaultTheme: "dark",
       themes: {
-        dark: { colors: { primary: "#9c88ff" } },
+        dark: {
+          colors: {
+            background: "#000000",
+            primary: "#A558F2",
+            default: "#121212",
+          },
+        },
       },
     }),
   ],

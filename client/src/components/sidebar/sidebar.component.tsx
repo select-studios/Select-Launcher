@@ -81,7 +81,7 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
       initial={false}
       animate={SidebarStore.isOpen ? "sidebarOpen" : "sidebarClosed"}
     >
-      <div className="bg-secondaryBG mt-10 h-screen rounded-tr-xl rounded-br-xl">
+      <div className="bg-secondaryBG h-screen rounded-tr-xl rounded-br-xl">
         <div className="flex flex-col flex-1 p-5">
           <div>
             <Button
@@ -93,48 +93,22 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
               <HiMenuAlt1 size="25" className="font-bold" />
             </Button>
           </div>
-          <div className="grid justify-center mt-5">
+          <div className="grid space-y-10 justify-center mt-5">
             {!settings ? (
               <div>
                 {sidebarLinks.map((link, i) => (
-                  <Button
-                    onClick={() => navigate(link.href)}
-                    disabled={link.disabled}
-                    className={
-                      `bg-tertiaryBG mt-2 ${
-                        link.name.toLowerCase() == active
-                          ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
-                          : ""
-                      }` + !SidebarStore.isOpen
-                        ? "w-auto"
-                        : ""
-                    }
-                    // css={{
-                    //   borderLeftWidth:
-                    //     link.name.toLowerCase() == active ? "2px" : "",
-                    //   borderTopWidth:
-                    //     link.name.toLowerCase() == active ? "0px" : "",
-                    //   borderBottomWidth:
-                    //     link.name.toLowerCase() == active ? "0px" : "",
-                    //   borderRightWidth:
-                    //     link.name.toLowerCase() == active ? "0px" : "",
-                    //   borderTopLeftRadius:
-                    //     link.name.toLowerCase() == active ? "0.125rem" : "",
-                    //   borderBottomLeftRadius:
-                    //     link.name.toLowerCase() == active ? "0.125rem" : "",
-                    //   border: link.name.toLowerCase() == active ? "solid" : "",
-                    //   borderColor:
-                    //     link.name.toLowerCase() == active ? "#9980FA" : "",
-                    //   borderTopStyle: "none",
-                    //   borderBottomStyle: "none",
-                    //   borderRightStyle: "none",
-                    // }}
-                    startContent={link.icon}
-                    key={i}
-                    size="lg"
-                  >
-                    {SidebarStore.isOpen && link.name}
-                  </Button>
+                  <>
+                    <Button
+                      onPress={() => navigate(link.href)}
+                      isDisabled={link.disabled}
+                      className={"mb-2 "}
+                      startContent={link.icon}
+                      key={i}
+                      size="lg"
+                    >
+                      {SidebarStore.isOpen && link.name}
+                    </Button>
+                  </>
                 ))}
                 {user?.moderator && (
                   <div className="admin-zone">
