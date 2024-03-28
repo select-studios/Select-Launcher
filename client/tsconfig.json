@@ -5,7 +5,6 @@
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "paths": {
-      "@lib/*": ["./lib/*"],
       "@/*": ["./src/*"],
       "styles/*": ["./src/assets/styles/*"]
     },
@@ -22,6 +21,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "lib/util/Log.ts", "lib/util/cookies/storage.ts", "lib/api/admin.ts", "lib/api/utils"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

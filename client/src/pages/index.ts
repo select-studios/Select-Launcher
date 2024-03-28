@@ -1,2 +1,4 @@
-export { SignUp } from "./sign-up/SignUp.page";
-export { SignIn } from "./sign-in/SignIn.page";
+export { Home } from "./home/home.page";
+export { Login } from "./login/login.page";
+export { Register } from "./register/register.page";
+export { Settings } from "./settings/settings.page";

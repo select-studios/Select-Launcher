@@ -28,7 +28,6 @@
     "electron-settings": "^4.0.2",
     "electron-store": "^8.1.0",
     "electron-updater": "^5.3.0",
-    "formik": "^2.4.5",
     "framer-motion": "^11.0.22",
     "mobx": "^6.8.0",
     "mobx-react": "^7.6.0",
@@ -43,8 +42,7 @@
     "react-router-dom": "^6.6.2",
     "react-toastify": "^9.1.1",
     "request": "^2.88.2",
-    "semver": "^7.3.8",
-    "yup": "^1.4.0"
+    "semver": "^7.3.8"
   },
   "devDependencies": {
     "@types/download": "^8.0.2",

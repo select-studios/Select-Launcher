@@ -1,7 +1,7 @@
 import { UserStore_Impl } from "@/stores/UserStore";
-import { Log } from "@lib/util/Log";
-import { getTokensCookie, setTokensCookie } from "@lib/util/cookies/storage";
-import { API_URI, getUser } from "../admin";
+import { Log } from "@/utils/lib/Log";
+import { getTokensCookie, setTokensCookie } from "@/utils/storage";
+import { API_URI, getUser } from "..";
 
 const protectRoute = (
   userStore: UserStore_Impl,

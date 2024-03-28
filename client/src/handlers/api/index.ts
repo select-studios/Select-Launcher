@@ -1,6 +1,6 @@
 import GameInfo from "@/interfaces/GameInfoInterface";
 import { UserStore, UserStore_Impl } from "@/stores/UserStore";
-import { Log } from "@lib/util/Log";
+import { Log } from "@/utils/lib/Log";
 
 export const API_URI =
   process.env.NODE_ENV === "development"

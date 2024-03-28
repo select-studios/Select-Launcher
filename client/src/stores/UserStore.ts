@@ -1,5 +1,18 @@
 import { makeAutoObservable } from "mobx";
-import User from "@/interfaces/User";
+
+export interface User {
+  _id: string;
+  email: string;
+  username: string;
+  password: string;
+  moderator: boolean;
+  verified: boolean;
+  tokens: {
+    accessToken: string;
+    refreshToken: string;
+  };
+  banned: boolean;
+}
 
 export class UserStore_Impl {
   user: User | null = null;
