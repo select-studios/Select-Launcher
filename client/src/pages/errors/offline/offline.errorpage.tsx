@@ -9,7 +9,7 @@ const Offline_E: React.FC<Offline_EProps> = () => {
         <div className="grid items-center max-w-lg">
           <BiWifiOff size="60" className="mx-auto mb-3 text-primary-base" />
           <div className="text-center">
-            <p className="text-2xl font-bold font-montserrat">
+            <p className="text-2xl font-bold font-heading">
               Aw snap! Your internet died.
             </p>
             <p className="mt-5 text-left">

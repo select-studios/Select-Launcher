@@ -157,18 +157,18 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
         <Sidebar active="dashboard" />
         <div className="main mt-10 min-w-fit">
           <div className="header mx-10">
-            <p className="text-3xl flex items-center font-bold font-montserrat">
+            <p className="text-3xl flex items-center font-bold font-heading">
               <HiDatabase size="40" className="mr-2" /> Administrator Dashboard
             </p>
           </div>
           <div className="mt-10 bg-secondaryBG pb-5 rounded-xl mx-10 w-full">
-            <p className="text-xl rounded-t-xl text-center p-2 bg-tertiaryBG mx-0 font-bold font-montserrat">
+            <p className="text-xl rounded-t-xl text-center p-2 bg-tertiaryBG mx-0 font-bold font-heading">
               App Users
             </p>
             {!usersLoading && (
               <div className=" flex rounded-b-lg">
                 <div className="mt-4 py-2 px-1 mx-10 rounded-lg bg-tertiaryBG">
-                  <p className="flex items-center justify-center text-2xl m-2 mb-4 text-center font-bold font-montserrat bg-secondaryBG p-2 rounded-lg">
+                  <p className="flex items-center justify-center text-2xl m-2 mb-4 text-center font-bold font-heading bg-secondaryBG p-2 rounded-lg">
                     <HiChartPie size="30" className="mr-2" /> Analysis
                   </p>
                   <div className="flex justify-center min-w-full px-3">
@@ -182,7 +182,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                             <span className="mr-1">{analysis.icon}</span>{" "}
                             {analysis.title}
                           </p>
-                          <p className="text-2xl font-bold font-montserrat">
+                          <p className="text-2xl font-bold font-heading">
                             {analysis.value}
                           </p>
                         </div>
@@ -253,7 +253,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
                             size="lg"
                           />
                           <div className="pl-1">
-                            <p className="font-bold text-lg font-montserrat">
+                            <p className="font-bold text-lg font-heading">
                               <span className="opacity-70">@</span>
                               {user.username}
                             </p>

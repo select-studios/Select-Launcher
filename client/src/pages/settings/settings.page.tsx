@@ -77,7 +77,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
           <AppBar dashboard={true} user={storedUser as any} />
           <div className="settings__content mx-20 mt-20 flex text-white">
             <div className="settings__content+header">
-              <p className="text-4xl text-white font-extrabold font-montserrat opacity-100 flex items-center">
+              <p className="text-4xl text-white font-extrabold font-heading opacity-100 flex items-center">
                 <HiCog size="40" className="mr-2" /> Settings
               </p>
               <p className="text-xl font-inter opacity-80 font-medium">
@@ -136,7 +136,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
                   <div className="grid pl-3">
                     <div>
                       <p>
-                        <span className="text-xl font-montserrat font-bold">
+                        <span className="text-xl font-heading font-bold">
                           @{storedUser?.username}
                         </span>
                         <br />

@@ -1,4 +1,4 @@
-export default interface LoginInterface {
+export default interface SigninInterface {
   email?: string;
   username?: string;
   password: string;

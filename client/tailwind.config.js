@@ -20,7 +20,7 @@ module.exports = {
     },
     fontFamily: {
       sans: ["Inter", "sans-serif"],
-      montserrat: ["Montserrat", "sans-serif"],
+      heading: ["Titan One", "sans-serif"],
     },
   },
   important: true,
@@ -41,6 +41,7 @@ module.exports = {
             background: "#000000",
             primary: "#A558F2",
             default: "#121212",
+            "default-100": "#121212",
           },
         },
       },

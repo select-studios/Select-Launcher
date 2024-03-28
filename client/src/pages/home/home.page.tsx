@@ -51,7 +51,7 @@ const HomeComp: React.FC<HomeProps> = () => {
             <Sidebar active="home" />
 
             <div className="mt-5 ">
-              <p className="text-3xl flex items-center mt-7 ml-20 mb-5 font-bold font-montserrat">
+              <p className="text-3xl flex items-center mt-7 ml-20 mb-5 font-bold font-heading">
                 <BiCompass size="30" className="mr-1" />
                 Discover
               </p>

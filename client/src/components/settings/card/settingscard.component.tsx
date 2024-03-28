@@ -28,7 +28,7 @@ const SettingsCard: React.FC<SettingsCardProps> = ({ setting, settingN }) => {
         <div className="text-primary-base">{setting.icon}</div>
         <div className="pl-2.5 grid">
           <div className="mw-2">
-            <p className="font-montserrat text-3xl font-semibold">
+            <p className="font-heading text-3xl font-semibold">
               {setting.label}
             </p>
           </div>

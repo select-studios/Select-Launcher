@@ -144,10 +144,7 @@ const App: React.FC = () => {
             alt="Launcher Logo"
             className="rounded-full"
           />
-          <p
-            id="modal-title"
-            className="text-2xl mt-2 font-bold font-montserrat"
-          >
+          <p id="modal-title" className="text-2xl mt-2 font-bold font-heading">
             Launcher Updater
           </p>
         </ModalHeader>

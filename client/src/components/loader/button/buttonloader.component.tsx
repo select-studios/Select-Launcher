@@ -18,14 +18,8 @@ const ButtonLoader: React.FC<ButtonLoaderProps> = ({
   return !loading ? (
     button
   ) : (
-    <Button
-      auto={auto || false}
-      size={size}
-      className={className}
-      disabled
-      bordered
-    >
-      <Spinner type="points-opacity" color="currentColor" size="lg" />
+    <Button size={size} className={className} disabled>
+      <Spinner size="lg" />
     </Button>
   );
 };

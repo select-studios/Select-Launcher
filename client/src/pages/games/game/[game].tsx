@@ -22,22 +22,18 @@ const Game: FunctionComponent<GamesInfoProps> = () => {
       <div className="main flex">
         <Sidebar active="home" />
         <div className="content mt-10 w-auto ml-10">
-          <p className="font-montserrat font-bold text-2xl mb-10">Overview</p>
+          <p className="font-heading font-bold text-2xl mb-10">Overview</p>
           <div
             className="bg-secondaryBG mt-2 min-w-full rounded-lg"
             style={{ height: "250px" }}
           ></div>
-          <p className="font-montserrat mt-5 font-bold text-3xl">
-            {game?.name}
-          </p>
+          <p className="font-heading mt-5 font-bold text-3xl">{game?.name}</p>
           <p className="font-inter mt-2 font-medium text-lg max-w-2xl opacity-80">
             {game?.description}
           </p>
 
           <div className="genres mt-5">
-            <p className="uppercase font-bold font-montserrat text-md">
-              Genres
-            </p>
+            <p className="uppercase font-bold font-heading text-md">Genres</p>
             <p className="text-lg opacity-80">
               {game?.tags
                 .map((tag) => tag[0].toUpperCase() + tag.slice(1))
@@ -47,7 +43,7 @@ const Game: FunctionComponent<GamesInfoProps> = () => {
         </div>
         <div className="game-details ml-auto mr-5 h-fit bg-secondaryBG p-4 mt-20">
           <div className="bg-tertiaryBG rounded-lg w-48 h-36"></div>
-          <p className="text-md font-bold mt-2 font-montserrat opacity-80 uppercase">
+          <p className="text-md font-bold mt-2 font-heading opacity-80 uppercase">
             {game?.price === "free" ? "Free" : "$" + game?.price}
           </p>
           <div className="buttons grid max-w-fit mt-5">
@@ -57,21 +53,21 @@ const Game: FunctionComponent<GamesInfoProps> = () => {
             <Button disabled className="mt-2" size="md" color="success">
               Install
             </Button>
-            <p className="text-md font-bold mt-2 font-montserrat opacity-80 uppercase">
+            <p className="text-md font-bold mt-2 font-heading opacity-80 uppercase">
               ^ Coming soon!
             </p>
           </div>
           <div className="game-info mt-5">
             <div className="mb-2">
-              <p className="font-montserrat font-bold uppercase">Developer</p>
+              <p className="font-heading font-bold uppercase">Developer</p>
               <p className="font-medium">{game?.developer}</p>
             </div>
             <div className="mb-2">
-              <p className="font-montserrat font-bold uppercase">Publisher</p>
+              <p className="font-heading font-bold uppercase">Publisher</p>
               <p className="font-medium">{game?.developer}</p>
             </div>
             <div className="mb-2">
-              <p className="font-montserrat font-bold uppercase">Platforms</p>
+              <p className="font-heading font-bold uppercase">Platforms</p>
               <p className="font-medium">
                 {game?.platforms?.map((platform) => (
                   <span>

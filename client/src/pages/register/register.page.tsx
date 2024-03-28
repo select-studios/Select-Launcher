@@ -91,7 +91,7 @@ export const Register: React.FC<RegisterProps> = () => {
             >
               <section className="account__strip traking-normal flex items-center justify-center bg-tertiaryBG rounded-t-md">
                 <BiUser size={28} />
-                <h2 className="font-montserrat text-2xl font-bold ml-2 mt-2">
+                <h2 className="font-heading text-2xl font-bold ml-2 mt-2">
                   Account
                 </h2>
               </section>
@@ -173,21 +173,15 @@ export const Register: React.FC<RegisterProps> = () => {
                       />
                     </div>
                   </div>
-                  <ButtonLoader
+
+                  <Button
+                    type="submit"
+                    color="primary"
                     className="my-5 mx-14"
                     size="lg"
-                    button={
-                      <Button
-                        type="submit"
-                        color="primary"
-                        className="my-5 mx-14"
-                        size="lg"
-                      >
-                        Register
-                      </Button>
-                    }
-                    loading={loading}
-                  />
+                  >
+                    Register
+                  </Button>
                 </form>
                 <p className="text-base text-center font-medium mb-5">
                   Have an account? <LinkRoute to="/">Login!</LinkRoute>

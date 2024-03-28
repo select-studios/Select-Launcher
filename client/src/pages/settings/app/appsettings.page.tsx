@@ -20,7 +20,7 @@ const AppSettings: React.FC<AppSettingsProps> = () => {
         <div className="settings w-full m-10 mb-20 text-white flex-col items-center justify-center">
           <div className="settings__box bg-secondaryBG rounded-md shadow-xl h-fit">
             <section className="title__strip tracking-normal flex items-center justify-center bg-tertiaryBG rounded-t-md">
-              <h2 className="font-montserrat text-2xl font-bold ml-2 mt-2">
+              <h2 className="font-heading text-2xl font-bold ml-2 mt-2">
                 App Settings
               </h2>
             </section>

@@ -21,7 +21,7 @@ const NotFound_E: React.FC<NotFound_EProps> = () => {
             width="200px"
           />
           <div className="text-center">
-            <p className="text-2xl font-bold font-montserrat">
+            <p className="text-2xl font-bold font-heading">
               Where did that page go again?
             </p>
             <p>Bad news. That page seems to be missing.</p>

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Titan+One&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -20,15 +20,6 @@ body {
     sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-::-moz-selection {
-  /* Code for Firefox */
-  background-color: rgb(156 136 255);
-}
-
-::selection {
-  background-color: rgb(156 136 255);
 }
 
 ::-webkit-scrollbar {
@@ -55,11 +46,6 @@ h1,
 h2,
 h3 {
   @apply tracking-wide !important;
-}
-
-.nextui-input-helper-text {
-  font-size: 0.75rem !important;
-  line-height: 1rem !important;
 }
 
 .Toastify__toast {

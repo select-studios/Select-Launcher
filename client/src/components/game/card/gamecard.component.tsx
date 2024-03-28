@@ -81,7 +81,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
           <Avatar src={gameIcon} alt={game.name + " Icon"} size="lg" />
           <div className="grid">
             <div>
-              <p className="text-2xl font-montserrat font-bold flex items-center leading-2 normal-case">
+              <p className="text-2xl font-heading font-bold flex items-center leading-2 normal-case">
                 {game.name}
                 {game.verified && (
                   <Tooltip content="Verified" color="success">
