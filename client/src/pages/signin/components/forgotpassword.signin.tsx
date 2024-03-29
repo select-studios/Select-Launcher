@@ -94,8 +94,8 @@ export const SigninForgotPassword: FC<IProps> = ({ visible, setVisible }) => {
                 <Input
                   className="mt-5"
                   type={isPasswordVisible ? "text" : "password"}
-                  label="Password"
-                  placeholder="Enter your password"
+                  label="New Password"
+                  placeholder="Enter a new password"
                   isInvalid={errors.password ? true : false}
                   errorMessage={(errors.password?.message as string) || ""}
                   endContent={
