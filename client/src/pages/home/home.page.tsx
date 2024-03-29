@@ -46,7 +46,7 @@ const HomeComp: React.FC<HomeProps> = () => {
     <div>
       <motion.div exit={{ opacity: 0 }}>
         <div className="home">
-          <AppBar dashboard={true} user={UserStore.user!} />
+          {/* <AppBar dashboard={true} user={UserStore.user!} /> */}
           <div className="flex">
             <Sidebar active="home" />
 

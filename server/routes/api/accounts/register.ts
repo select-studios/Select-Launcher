@@ -19,7 +19,7 @@ export const register = async (req: Request, res: Response) => {
   let userDb;
 
   try {
-    userDb = await User.findOne({ username, email });
+    userDb = await User.findOne({ email });
   } catch (error) {
     res.status(500).json({ error: "There was an error finding the user." });
     return;

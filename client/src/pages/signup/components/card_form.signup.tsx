@@ -50,7 +50,7 @@ export const SignupCardForm: FC<IProps> = (props) => {
           isClearable
           type="text"
           label="Username"
-          className="mt-5"
+          className="mt-[14px]"
           {...register("username", {
             required: { value: true, message: "Required field." },
           })}
@@ -58,7 +58,7 @@ export const SignupCardForm: FC<IProps> = (props) => {
           errorMessage={(errors.username?.message as string) || ""}
         />
         <Input
-          className="mt-5 mb-[27px]"
+          className="mt-[14px] mb-[27px]"
           type={isPasswordVisible ? "text" : "password"}
           label="Password"
           placeholder="Enter your password"
