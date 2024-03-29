@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 import * as dotenv from "dotenv";
 import "./assets/styles/index.css";
 
-import { NextUIProvider } from "@nextui-org/react";
+import { Chip, NextUIProvider } from "@nextui-org/react";
 
 dotenv.config({ path: "../.env" });
 
@@ -17,7 +17,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <NextUIProvider>
       <Router>
         <div className="font-sans">
-          <div className="w-screen h-11 bg-secondaryBG appbar Draggable-Region" />
+          <div className="w-screen text-sm h-full tracking-wider font-heading bg-primaryBG p-1 pl-5 appbar Draggable-Region">
+            Select Launcher{" "}
+            <Chip size="sm" color="primary" className="ml-2">
+              v3
+            </Chip>
+          </div>
           <App />
           <ToastContainer position="bottom-right" theme="dark" />
         </div>

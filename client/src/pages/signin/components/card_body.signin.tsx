@@ -16,10 +16,10 @@ export const SigninCardBody: FC<IProps> = (props) => {
       <SigninCardForm />
       <Divider className="mt-[23px] mb-[17px]" />
       <div className="buttons">
-        <Button fullWidth>
+        <Button isDisabled fullWidth>
           <BsSteam size={24} /> Steam
         </Button>
-        <Button className="mt-[14px]" fullWidth>
+        <Button isDisabled className="mt-[14px]" fullWidth>
           <BsGoogle size={24} /> Google
         </Button>
       </div>

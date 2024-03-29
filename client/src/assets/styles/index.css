@@ -28,7 +28,7 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  @apply bg-zinc-800 bg-primaryBG rounded-md;
+  @apply bg-primaryBG rounded-md;
 }
 
 /* Handle */

@@ -5,6 +5,8 @@ import { User } from "../../../../models";
 export const forgotPass = (req: Request, res: Response) => {
   const { id, newPass } = req.query;
 
+  console.log(id, newPass);
+
   bcrypt.hash(newPass.toString(), 10, async (err, hash) => {
     if (err) return res.status(500).send({ error: "Server issue. " + err });
 

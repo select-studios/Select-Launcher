@@ -2,10 +2,14 @@ import { API_URI } from "@/handlers/api";
 import SigninInterface from "@/interfaces/SigninInterface";
 import { UserStore } from "@/stores/UserStore";
 import { setTokensCookie } from "@/utils/storage";
-import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
-export const signinUser = async (data: SigninInterface, navigate: any) => {
+export const signinUser = async (
+  data: SigninInterface,
+  navigate: any,
+  setLoading: any
+) => {
+  setLoading(true);
   await fetch(`${API_URI}/accounts/login`, {
     method: "POST",
     headers: {
@@ -25,9 +29,13 @@ export const signinUser = async (data: SigninInterface, navigate: any) => {
         tokens: { accessToken, refreshToken },
       });
 
+      setLoading(false);
+
       navigate("/home");
     } else {
       toast.error(resData.error);
+
+      setLoading(false);
     }
   });
 };

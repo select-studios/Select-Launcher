@@ -3,6 +3,7 @@ import {
   Input,
   Modal,
   ModalBody,
+  ModalContent,
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
@@ -10,43 +11,52 @@ import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { API_URI } from "@/handlers/api";
 import { toast } from "react-toastify";
-import { HiOutlineEye } from "react-icons/hi";
-import { HiOutlineEyeSlash } from "react-icons/hi2";
+import { HiEye, HiOutlineEye } from "react-icons/hi";
+import { HiEyeSlash, HiOutlineEyeSlash } from "react-icons/hi2";
 import ButtonLoader from "@/components/loader/button/buttonloader.component";
 
-interface IProps {}
+interface IProps {
+  visible: boolean;
+  setVisible: any;
+}
 
 /**
  * @author
  * @function @SigninForgotPassword
  **/
 
-export const SigninForgotPassword: FC<IProps> = (props) => {
+export const SigninForgotPassword: FC<IProps> = ({ visible, setVisible }) => {
+  const [loading, setLoading] = useState(false);
   const {
-    register: registerFP,
-    handleSubmit: handleSubmitFP,
-    formState: { errors: errorsFP },
+    register,
+    handleSubmit,
+    formState: { errors },
   } = useForm({ mode: "onChange" });
 
   const fpUser = (data: any) => {
+    setLoading(true);
     fetch(
       `${API_URI}/accounts/${data.fpEmail}/pswd/verify?newPass=${data.fpPassword}`
     )
       .then((res) => res.json())
       .then((body) => {
-        setFPVisible(false);
+        setVisible(false);
         toast.success(
-          "An e-mail has been sent to your account for further verification."
+          "An e-mail has been sent to your account with further actions."
         );
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setVisible(false);
+        toast.error("There was an error.");
       });
   };
 
-  const onSubmitFP = (data: any) => {
-    console.log("hello");
+  const onSubmit = (data: any) => {
+    console.log(data);
     fpUser(data);
   };
-
-  const [FPVisible, setFPVisible] = useState(false);
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -55,72 +65,79 @@ export const SigninForgotPassword: FC<IProps> = (props) => {
 
   return (
     <Modal
-      closeButton
+      className="bg-secondaryBG"
+      isOpen={visible}
       backdrop="blur"
-      aria-labelledby="modal-title"
-      className="pt-0"
-      isOpen={FPVisible}
-      onClose={() => setFPVisible(false)}
+      onOpenChange={() => setVisible(!visible)}
     >
-      <form onSubmit={handleSubmitFP(onSubmitFP)}>
-        <ModalHeader className="bg-secondaryBG mb-5">
-          <p className="text-xl ">Reset Password</p>{" "}
-        </ModalHeader>
-        <p>Happens to the best of us</p>
-        <p className="text-sm opacity-70 mb-2">This can take a few moments.</p>
-        <ModalBody>
-          <Input
-            isClearable
-            variant="bordered"
-            fullWidth
-            color="primary"
-            size="lg"
-            placeholder="E-mail"
-            {...registerFP("fpEmail")}
-          />
-          <Input
-            variant="bordered"
-            fullWidth
-            type="password"
-            color="primary"
-            size="lg"
-            placeholder="New Password"
-            endContent={
-              <button
-                className="focus:outline-none"
-                type="button"
-                onClick={togglePasswordVisibility}
-              >
-                {isPasswordVisible ? (
-                  <HiOutlineEye className="text-2xl text-default-400 pointer-events-none" />
-                ) : (
-                  <HiOutlineEyeSlash className="text-2xl text-default-400 pointer-events-none" />
-                )}
-              </button>
-            }
-            {...registerFP("fpPassword")}
-          />
-        </ModalBody>
-        <ModalFooter>
-          <Button
-            className="w-auto"
-            variant="flat"
-            color="danger"
-            onPress={() => setFPVisible(false)}
-          >
-            Close
-          </Button>
-          <ButtonLoader
-            button={
-              <Button type="submit" className="w-auto">
-                Submit
-              </Button>
-            }
-            // loading={loading}
-            className="w-auto"
-          />
-        </ModalFooter>
-      </form>
+      <ModalContent>
+        {(onClose) => (
+          <>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <ModalHeader className="font-heading text-xl tracking-wide font-normal grid">
+                Reset Password
+                <p className="text-sm opacity-60 font-medium font-sans">
+                  Happens to the best of us.
+                </p>
+              </ModalHeader>
+              <ModalBody>
+                <Input
+                  isClearable
+                  type="email"
+                  label="Email"
+                  {...register("fpEmail", {
+                    required: { value: true, message: "Required field." },
+                  })}
+                  isInvalid={errors.email ? true : false}
+                  errorMessage={(errors.email?.message as string) || ""}
+                />
+                <Input
+                  className="mt-5"
+                  type={isPasswordVisible ? "text" : "password"}
+                  label="Password"
+                  placeholder="Enter your password"
+                  isInvalid={errors.password ? true : false}
+                  errorMessage={(errors.password?.message as string) || ""}
+                  endContent={
+                    <button
+                      className="focus:outline-none"
+                      type="button"
+                      onClick={togglePasswordVisibility}
+                    >
+                      {isPasswordVisible ? (
+                        <HiEyeSlash
+                          size={24}
+                          className="text-2xl text-default-400 pointer-events-none"
+                        />
+                      ) : (
+                        <HiEye
+                          size={24}
+                          className="text-2xl text-default-400 pointer-events-none"
+                        />
+                      )}
+                    </button>
+                  }
+                  {...register("fpPassword", {
+                    required: { value: true, message: "Required field." },
+                    minLength: {
+                      value: 8,
+                      message: "Password must be at least 8 characters.",
+                    },
+                  })}
+                />
+              </ModalBody>
+              <ModalFooter>
+                <Button onPress={onClose} color="danger" variant="flat">
+                  Close
+                </Button>
+                <Button isLoading={loading} type="submit" color="primary">
+                  Continue
+                </Button>
+              </ModalFooter>
+            </form>
+          </>
+        )}
+      </ModalContent>
     </Modal>
   );
 };

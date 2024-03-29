@@ -52,9 +52,8 @@ async function createWindow() {
     autoHideMenuBar: true,
     titleBarStyle: "hidden",
     titleBarOverlay: {
-      color: "#282A2D",
+      color: "#000",
       symbolColor: "#fff",
-      height: 20,
     },
     minWidth: 900,
     minHeight: 500,

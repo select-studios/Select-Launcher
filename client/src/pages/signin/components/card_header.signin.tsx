@@ -1,5 +1,5 @@
 import { CardHeader } from "@nextui-org/react";
-import React, { FC } from "react";
+import { FC } from "react";
 
 interface IProps {}
 
@@ -10,7 +10,7 @@ interface IProps {}
 
 export const SigninCardHeader: FC<IProps> = (props) => {
   return (
-    <CardHeader className="grid justify-center mb-9">
+    <CardHeader className="grid justify-center mb-2">
       <h1 className="text-4xl font-heading mt-5 text-center">Sign in</h1>
       <p className="mt-4 font-semibold opacity-70 text-base">
         We are so happy to see you again!
