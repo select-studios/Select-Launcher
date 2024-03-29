@@ -1,6 +1,6 @@
 //#region Imports
 import { useRoutes, useLocation } from "react-router-dom";
-import { Register, Home, Settings, Signin } from "./pages";
+import { Signup, Home, Settings, Signin } from "./pages";
 import { AnimatePresence } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import UserSettings from "./pages/settings/user/usersettings.page";
@@ -48,8 +48,8 @@ const App: React.FC = () => {
       ),
     },
     {
-      path: "/register",
-      element: <Register />,
+      path: "/signup",
+      element: <Signup />,
     },
     {
       path: "/settings",

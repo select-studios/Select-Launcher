@@ -1,27 +1,25 @@
-import { Button, Input, toggle } from "@nextui-org/react";
+import SignupInterface from "@/interfaces/RegisterInterface";
+import { Button, Input } from "@nextui-org/react";
 import React, { FC, useState } from "react";
-import { useForm } from "react-hook-form";
-import { BsEyeFill } from "react-icons/bs";
-import { HiEyeSlash } from "react-icons/hi2";
-import { signinUser } from "../functions/signinUser";
-import SigninInterface from "@/interfaces/SigninInterface";
 import { Link, useNavigate } from "react-router-dom";
+import { signupUser } from "../functions/signupUser";
+import { useForm } from "react-hook-form";
+import { HiEyeSlash } from "react-icons/hi2";
 import { HiEye } from "react-icons/hi";
-import { SigninForgotPassword } from "./forgotpassword.signin";
 
 interface IProps {}
 
 /**
  * @author
- * @function @SigninCardForm
+ * @function @SignupCardForm
  **/
 
-export const SigninCardForm: FC<IProps> = (props) => {
+export const SignupCardForm: FC<IProps> = (props) => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState<boolean>(false);
 
-  const onSubmitSignIn = (data: SigninInterface | any) => {
-    signinUser(data, navigate, setLoading);
+  const onSubmitSignUp = (data: SignupInterface | any) => {
+    signupUser(data, navigate, setLoading);
   };
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -35,12 +33,9 @@ export const SigninCardForm: FC<IProps> = (props) => {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
-  // fp = Forgot Password
-  const [fpVisible, setFpVisible] = useState(false);
-
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmitSignIn)}>
+      <form onSubmit={handleSubmit(onSubmitSignUp)}>
         <Input
           isClearable
           type="email"
@@ -52,7 +47,18 @@ export const SigninCardForm: FC<IProps> = (props) => {
           errorMessage={(errors.email?.message as string) || ""}
         />
         <Input
+          isClearable
+          type="text"
+          label="Username"
           className="mt-5"
+          {...register("username", {
+            required: { value: true, message: "Required field." },
+          })}
+          isInvalid={errors.username ? true : false}
+          errorMessage={(errors.username?.message as string) || ""}
+        />
+        <Input
+          className="mt-5 mb-[27px]"
           type={isPasswordVisible ? "text" : "password"}
           label="Password"
           placeholder="Enter your password"
@@ -85,32 +91,23 @@ export const SigninCardForm: FC<IProps> = (props) => {
             },
           })}
         />
-        <Button
-          onPress={() => setFpVisible(true)}
-          variant="ghost"
-          className="mt-2 mb-[27px]"
-          size="sm"
-        >
-          Forgot password?
-        </Button>
         <div className="buttons flex justify-center">
           <Button
             isLoading={loading}
             type="submit"
             className="mr-2"
             color="primary"
-            variant="flat"
+            variant="shadow"
           >
-            Continue
+            Sign up
           </Button>
-          <Link to="/signup">
-            <Button color="primary" variant="shadow">
-              Sign up
+          <Link to="/">
+            <Button color="primary" variant="flat">
+              Sign in instead
             </Button>
           </Link>
         </div>
       </form>
-      <SigninForgotPassword visible={fpVisible} setVisible={setFpVisible} />
     </div>
   );
 };

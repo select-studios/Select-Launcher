@@ -10,10 +10,16 @@ export const forgotPass = (req: Request, res: Response) => {
   bcrypt.hash(newPass.toString(), 10, async (err, hash) => {
     if (err) return res.status(500).send({ error: "Server issue. " + err });
 
-    await User.findByIdAndUpdate(id, { password: hash }).then((user) => {
-      return res
-        .status(201)
-        .send({ success: true, msg: "Password changed successfully.", user });
-    });
+    const user = await User.findByIdAndUpdate(id, { password: hash })
+      .then((user) => {
+        return res
+          .status(201)
+          .send({ success: true, msg: "Password changed successfully.", user });
+      })
+      .catch((err) => {
+        return res
+          .status(500)
+          .send({ success: true, msg: `There was an error. ${err}`, user });
+      });
   });
 };

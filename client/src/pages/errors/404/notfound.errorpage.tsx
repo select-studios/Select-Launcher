@@ -13,15 +13,14 @@ const NotFound_E: React.FC<NotFound_EProps> = () => {
   return (
     <section className="offline_e">
       <div className="flex items-center justify-center h-screen">
-        <div className="grid items-center max-w-lg">
-          <Image
+        <div className="grid justify-center items-center">
+          <img
             src={missingItemIcon}
+            className="w-28 h-28 mb-5 mx-auto rounded-md"
             alt="404_E"
-            height="200px"
-            width="200px"
           />
           <div className="text-center">
-            <p className="text-2xl font-bold font-heading">
+            <p className="text-2xl font-heading">
               Where did that page go again?
             </p>
             <p>Bad news. That page seems to be missing.</p>
@@ -45,8 +44,8 @@ const NotFound_E: React.FC<NotFound_EProps> = () => {
       <div
         className={`fixed p-2 flex font-bold justify-center rounded-t-md items-center bottom-0 w-screen bg-secondaryBG`}
       >
-        <BsExclamationCircle size="20" className="text-red-500 mr-2" /> E_404:
-        Cannot get {location.pathname}
+        <BsExclamationCircle size="20" className="text-danger mr-2" /> Error
+        404: Cannot get {location.pathname}
       </div>
     </section>
   );
