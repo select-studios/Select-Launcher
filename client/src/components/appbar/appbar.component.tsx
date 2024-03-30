@@ -1,24 +1,32 @@
 import UserDropdown from "../dropdowns/user/userdropdown.component";
 import { getTokensCookie } from "@/utils/storage";
 import { User } from "@/stores/UserStore";
-import { Button } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import { HiCog } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
 export interface AppBarProps {
   user?: User;
   dashboard?: boolean;
+  pageName: string;
 }
 
-export const AppBar: React.FC<AppBarProps> = ({ dashboard, user }) => {
+export const AppBar: React.FC<AppBarProps> = ({
+  dashboard,
+  user,
+  pageName,
+}) => {
   const cookies = getTokensCookie();
 
   return (
     <>
       <header className="w-full py-2 rounded-b-3xl shadow-xl pt-0">
-        <div className="container mx-auto flex flex-wrap p-2 flex-col md:flex-row items-center">
-          <nav className="flex lg:2/5 flex-wrap items-center text-base md:ml-auto"></nav>
-          <div className="lg:w-2/5 inline-flex lg:justify-end">
+        <div className="container mx-auto flex p-2 items-center">
+          <nav className="flex items-center text-base mr-auto">
+            <p className="font-heading text-2xl uppercase mr-10">{pageName}</p>
+            <Input placeholder="Search..." />
+          </nav>
+          <div className="inline-flex lg:justify-end">
             {dashboard && (
               <div className="flex">
                 <UserDropdown
@@ -30,11 +38,7 @@ export const AppBar: React.FC<AppBarProps> = ({ dashboard, user }) => {
                   }}
                 />
                 <Link to="/settings">
-                  <Button
-                    className="bg-tertiaryBG ml-2"
-                    size="lg"
-                    radius="full"
-                  >
+                  <Button className="bg-tertiaryBG ml-2" size="lg" isIconOnly>
                     <HiCog size="25" className="text-white w-auto" />
                   </Button>
                 </Link>

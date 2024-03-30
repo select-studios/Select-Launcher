@@ -34,7 +34,7 @@ export const signupUser = async (
     setTokensCookie(accessToken, refreshToken);
 
     setLoading(false);
-    navigate("/home");
+    navigate("/store");
   } else {
     setLoading(false);
     toast.error(resData.error);

@@ -6,10 +6,11 @@ import { useNavigate } from "react-router";
 import { SidebarStore } from "@/stores/SidebarStore";
 import { observer } from "mobx-react";
 import { UserStore } from "@/stores/UserStore";
-import { FiCompass, FiMonitor } from "react-icons/fi";
+import { FiCompass, FiLogOut, FiMonitor } from "react-icons/fi";
 import { BsArrowBarLeft, BsHammer } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { SelectLauncherImage } from "../images/selectlauncher.component";
+import { logout } from "@/handlers/api";
 
 interface SidebarProps {
   active: string;
@@ -47,7 +48,7 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
   const sidebarLinks: SidebarLink[] = [
     {
       name: "Store",
-      href: "/home",
+      href: "/store",
       icon: <FiCompass size={iconSize} />,
       disabled: false,
     },
@@ -59,7 +60,7 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
     },
     {
       name: "Moderation",
-      href: "/admin/dashboard",
+      href: "/moderator/dashboard",
       icon: <HiDatabase size={iconSize} />,
       disabled: false,
       moderatorOnly: true,
@@ -75,40 +76,27 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
     },
   ];
 
+  const logoutClient = () => {
+    const storedRfToken = localStorage.getItem("refreshToken");
+    if (storedRfToken && storedRfToken.length) {
+      const refreshToken = JSON.parse(storedRfToken).refreshToken;
+      logout(refreshToken, navigate);
+    }
+  };
+
   return (
-    <motion.div
-      variants={sidebarVariants}
-      initial={false}
-      animate={SidebarStore.isOpen ? "sidebarOpen" : "sidebarClosed"}
-    >
-      <div className="bg-secondaryBG mt-5 h-screen rounded-tr-xl w-[250px] rounded-br-xl">
+    <div className="sticky flex left-0 mt-0 top-0 h-screen">
+      <div className="bg-secondaryBG mr-10 rounded-tr-xl w-[250px] rounded-br-xl">
         <div className="p-5">
-          <div className="grid space-y-10 justify-center mt-5">
-            <div className="mx-auto">
+          <div className="mt-5">
+            <div className="grid justify-center mb-12">
               <SelectLauncherImage />
             </div>
-            {!settings ? (
-              <div>
-                {sidebarLinks
-                  .filter((link) => !link.moderatorOnly)
-                  .map((link, i) => (
-                    <>
-                      <Button
-                        onPress={() => navigate(link.href)}
-                        isDisabled={link.disabled}
-                        className={"mb-6 "}
-                        startContent={link.icon}
-                        key={i}
-                        size="lg"
-                        fullWidth
-                      >
-                        {link.name}
-                      </Button>
-                    </>
-                  ))}
-                {user?.moderator &&
-                  sidebarLinks
-                    .filter((link) => link.moderatorOnly)
+            <div>
+              {!settings ? (
+                <div>
+                  {sidebarLinks
+                    .filter((link) => !link.moderatorOnly)
                     .map((link, i) => (
                       <>
                         <Button
@@ -124,67 +112,99 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
                         </Button>
                       </>
                     ))}
-              </div>
-            ) : (
-              <div>
-                {settingsSidebarLinks.map((link, i) => (
-                  <div>
-                    <Link to="/settings">
-                      <Button
-                        className="bg-tertiaryBG mb-10 w-auto"
-                        startContent={<BsArrowBarLeft size="25" />}
-                      >
-                        {SidebarStore.isOpen ? "Back" : " "}
-                      </Button>
-                    </Link>
+                  {user?.moderator &&
+                    sidebarLinks
+                      .filter((link) => link.moderatorOnly)
+                      .map((link, i) => (
+                        <>
+                          <Button
+                            onPress={() => navigate(link.href)}
+                            isDisabled={link.disabled}
+                            className={"mb-6 "}
+                            startContent={link.icon}
+                            key={i}
+                            size="lg"
+                            fullWidth
+                          >
+                            {link.name}
+                          </Button>
+                        </>
+                      ))}
+                </div>
+              ) : (
+                <div>
+                  {settingsSidebarLinks.map((link, i) => (
+                    <div>
+                      <Link to="/settings">
+                        <Button
+                          className="bg-tertiaryBG mb-10 w-auto"
+                          startContent={<BsArrowBarLeft size="25" />}
+                        >
+                          {SidebarStore.isOpen ? "Back" : " "}
+                        </Button>
+                      </Link>
 
-                    <Button
-                      onClick={() => navigate(link.href)}
-                      disabled={link.disabled}
-                      className={
-                        `bg-tertiaryBG mt-2 ${
-                          link.name.toLowerCase() == active
-                            ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
+                      <Button
+                        onClick={() => navigate(link.href)}
+                        disabled={link.disabled}
+                        className={
+                          `bg-tertiaryBG mt-2 ${
+                            link.name.toLowerCase() == active
+                              ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
+                              : ""
+                          }` + !SidebarStore.isOpen
+                            ? "w-auto"
                             : ""
-                        }` + !SidebarStore.isOpen
-                          ? "w-auto"
-                          : ""
-                      }
-                      // css={{
-                      //   borderLeftWidth:
-                      //     link.name.toLowerCase() == active ? "2px" : "",
-                      //   borderTopWidth:
-                      //     link.name.toLowerCase() == active ? "0px" : "",
-                      //   borderBottomWidth:
-                      //     link.name.toLowerCase() == active ? "0px" : "",
-                      //   borderRightWidth:
-                      //     link.name.toLowerCase() == active ? "0px" : "",
-                      //   borderTopLeftRadius:
-                      //     link.name.toLowerCase() == active ? "0.125rem" : "",
-                      //   borderBottomLeftRadius:
-                      //     link.name.toLowerCase() == active ? "0.125rem" : "",
-                      //   border:
-                      //     link.name.toLowerCase() == active ? "solid" : "",
-                      //   borderColor:
-                      //     link.name.toLowerCase() == active ? "#9980FA" : "",
-                      //   borderTopStyle: "none",
-                      //   borderBottomStyle: "none",
-                      //   borderRightStyle: "none",
-                      // }}
-                      startContent={link.icon}
-                      key={i}
-                      size="lg"
-                    >
-                      {SidebarStore.isOpen && link.name}
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            )}
+                        }
+                        // css={{
+                        //   borderLeftWidth:
+                        //     link.name.toLowerCase() == active ? "2px" : "",
+                        //   borderTopWidth:
+                        //     link.name.toLowerCase() == active ? "0px" : "",
+                        //   borderBottomWidth:
+                        //     link.name.toLowerCase() == active ? "0px" : "",
+                        //   borderRightWidth:
+                        //     link.name.toLowerCase() == active ? "0px" : "",
+                        //   borderTopLeftRadius:
+                        //     link.name.toLowerCase() == active ? "0.125rem" : "",
+                        //   borderBottomLeftRadius:
+                        //     link.name.toLowerCase() == active ? "0.125rem" : "",
+                        //   border:
+                        //     link.name.toLowerCase() == active ? "solid" : "",
+                        //   borderColor:
+                        //     link.name.toLowerCase() == active ? "#9980FA" : "",
+                        //   borderTopStyle: "none",
+                        //   borderBottomStyle: "none",
+                        //   borderRightStyle: "none",
+                        // }}
+                        startContent={link.icon}
+                        key={i}
+                        size="lg"
+                      >
+                        {SidebarStore.isOpen && link.name}
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="mt-auto">
+              <Button
+                onPress={logoutClient}
+                startContent={<FiLogOut size={25} />}
+                color="danger"
+                variant="flat"
+                size="lg"
+                fullWidth
+              >
+                Sign out
+              </Button>
+            </div>
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

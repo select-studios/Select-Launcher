@@ -19,7 +19,7 @@ export const logoutClient = (
   logout(refreshToken, navigate);
 };
 
-const HomeComp: React.FC<HomeProps> = () => {
+const StoreComp: React.FC<HomeProps> = () => {
   const { games } = GamesStore;
   const [gamesN, setGamesN] = useState<number>(0);
   const navigate = useNavigate();
@@ -45,18 +45,19 @@ const HomeComp: React.FC<HomeProps> = () => {
   return (
     <div>
       <motion.div exit={{ opacity: 0 }}>
-        <div className="home">
-          {/* <AppBar dashboard={true} user={UserStore.user!} /> */}
+        <div className="store mr-5">
           <div className="flex">
-            <Sidebar active="home" />
+            <Sidebar active="store" />
 
-            <div className="mt-5 ">
-              <p className="text-3xl flex items-center mt-7 ml-20 mb-5 font-bold font-heading">
-                <BiCompass size="30" className="mr-1" />
-                Discover
-              </p>
-
-              <div className="game-grid">
+            <div className="mt-5 w-full">
+              <AppBar
+                pageName="Store"
+                dashboard={true}
+                user={UserStore.user!}
+              />
+              <div className="bg-secondaryBG rounded-lg h-[193px]"></div>
+              <p className="my-12 text-xl font-heading">Popular Now</p>
+              <div className="grid grid-cols-6">
                 {games ? (
                   games.map((gameInfo, i) => {
                     return <GameCard key={i} game={gameInfo} />;
@@ -77,4 +78,4 @@ const HomeComp: React.FC<HomeProps> = () => {
   );
 };
 
-export const Home = observer(HomeComp);
+export const Store = observer(StoreComp);

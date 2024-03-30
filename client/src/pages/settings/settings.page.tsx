@@ -66,7 +66,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
 
   const handleEscPress = (e: any) => {
     if (e.key === "Escape") {
-      navigate("/home");
+      navigate("/store");
     }
   };
 
@@ -86,7 +86,7 @@ const SettingsComp: React.FC<SettingsProps> = () => {
             </div>
             <div className="grid justify-end items-center flex-1">
               <div
-                onClick={() => navigate("/home")}
+                onClick={() => navigate("/store")}
                 onKeyUp={(e) => handleEscPress(e)}
                 tabIndex={-1}
                 className="cursor-pointer border-solid border-2 grid items-center rounded-full p-1 border-gray-400"

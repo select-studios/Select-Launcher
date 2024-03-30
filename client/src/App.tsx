@@ -1,6 +1,6 @@
 //#region Imports
 import { useRoutes, useLocation } from "react-router-dom";
-import { Signup, Home, Settings, Signin } from "./pages";
+import { Signup, Store, Settings, Signin } from "./pages";
 import { AnimatePresence } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import UserSettings from "./pages/settings/user/usersettings.page";
@@ -8,7 +8,7 @@ import { NotFound_E } from "./pages/errors";
 import { Detector } from "react-detect-offline";
 import AuthAPI from "./handlers/api/components/Auth";
 import Offline_E from "./pages/errors/offline/offline.errorpage";
-import AdminDashboard from "./pages/admin/dashboard/admindashboard.page";
+import ModeratorDashboard from "./pages/moderator/dashboard/moderator-dashboard.page";
 import AppSettings from "./pages/settings/app/appsettings.page";
 import Game from "./pages/games/game/[game]";
 import { GamesStore } from "./stores/GamesStore";
@@ -40,10 +40,10 @@ const App: React.FC = () => {
       element: <Signin />,
     },
     {
-      path: "/home",
+      path: "/store",
       element: (
         <AuthAPI>
-          <Home />
+          <Store />
         </AuthAPI>
       ),
     },
@@ -76,10 +76,10 @@ const App: React.FC = () => {
       ),
     },
     {
-      path: "/admin/dashboard",
+      path: "/moderator/dashboard",
       element: (
         <AuthAPI>
-          <AdminDashboard />
+          <ModeratorDashboard />
         </AuthAPI>
       ),
     },

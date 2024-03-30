@@ -42,6 +42,8 @@ module.exports = {
             primary: "#A558F2",
             default: "#121212",
             "default-100": "#121212",
+            content1: "#090909",
+            content2: "#121212",
           },
         },
       },

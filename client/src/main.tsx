@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <NextUIProvider>
       <Router>
         <div className="font-sans">
-          <div className="w-screen text-sm h-full tracking-wider font-heading bg-primaryBG p-1 pl-5 appbar Draggable-Region">
+          <div className="w-screen mb-2 text-sm h-full tracking-wider font-heading bg-primaryBG p-1 pl-5 appbar Draggable-Region">
             Select Launcher{" "}
             <Chip size="sm" color="primary" className="ml-2">
               v3

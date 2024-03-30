@@ -31,7 +31,7 @@ export const signinUser = async (
 
       setLoading(false);
 
-      navigate("/home");
+      navigate("/store");
     } else {
       toast.error(resData.error);
 

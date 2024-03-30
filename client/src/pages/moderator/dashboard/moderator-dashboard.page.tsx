@@ -47,14 +47,14 @@ import { toast } from "react-toastify";
 
 interface AdminDashboardProps {}
 
-const AdminDashboard: React.FC<AdminDashboardProps> = () => {
+const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
   const user = UserStore.user;
   const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [usersLoading, setUsersLoading] = useState(true);
-  if (!user?.moderator) navigate("/home");
+  if (!user?.moderator) navigate("/store");
 
   const handleGetAllUsers = () => {
     setUsersLoading(true);
@@ -151,7 +151,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
 
   return (
     <section className="admin-dashboard">
-      <AppBar dashboard={true} user={UserStore.user!} />
+      <AppBar
+        pageName="Moderator Dashboard"
+        dashboard={true}
+        user={UserStore.user!}
+      />
 
       <div className="min-h-screen flex">
         <Sidebar active="dashboard" />
@@ -425,4 +429,4 @@ const AdminDashboard: React.FC<AdminDashboardProps> = () => {
   );
 };
 
-export default AdminDashboard;
+export default ModeratorDashboard;

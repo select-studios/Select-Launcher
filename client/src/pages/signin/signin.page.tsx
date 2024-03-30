@@ -18,13 +18,12 @@ export const SigninComp: React.FC<SigninProps> = () => {
 
     if (cookies)
       if (cookies.accessToken || cookies.refreshToken) {
-        navigate("/home");
+        navigate("/store");
       }
   }, []);
 
   return (
     <main>
-      <AppBar />
       <section className="signin grid justify-center">
         <div className="signin__sl-image justify-center flex my-5">
           <SelectLauncherImage />
