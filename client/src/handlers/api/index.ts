@@ -107,7 +107,11 @@ export const getGameInfo = async () => {
   }
 };
 
-export const logout = async (accessToken: string, navigate: any) => {
+export const logout = async (
+  accessToken: string,
+  navigate: any,
+  setLoading: any
+) => {
   await fetch(`${API_URI}/accounts/logout`, {
     method: "DELETE",
     headers: {
@@ -116,6 +120,8 @@ export const logout = async (accessToken: string, navigate: any) => {
   }).then(() => {
     localStorage.clear();
     UserStore.user = null;
+
+    setLoading(false);
 
     navigate("/");
   });

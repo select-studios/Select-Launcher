@@ -52,7 +52,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
               const storedRfToken = localStorage.getItem("refreshToken");
               if (storedRfToken && storedRfToken.length) {
                 const refreshToken = JSON.parse(storedRfToken).refreshToken;
-                logout(refreshToken, navigate);
+                // logout(refreshToken, navigate);
               }
             } else if (key.toString() == "verified" && !user?.verified) {
               sendVerificationLink(user.accessToken);

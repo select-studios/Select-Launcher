@@ -11,14 +11,6 @@ import { GamesStore } from "@/stores/GamesStore";
 
 interface HomeProps {}
 
-export const logoutClient = (
-  refreshToken: string,
-  setLoading: any,
-  navigate: any
-) => {
-  logout(refreshToken, navigate);
-};
-
 const StoreComp: React.FC<HomeProps> = () => {
   const { games } = GamesStore;
   const [gamesN, setGamesN] = useState<number>(0);

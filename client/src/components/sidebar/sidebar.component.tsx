@@ -11,6 +11,7 @@ import { BsArrowBarLeft, BsHammer } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { SelectLauncherImage } from "../images/selectlauncher.component";
 import { logout } from "@/handlers/api";
+import { useState } from "react";
 
 interface SidebarProps {
   active: string;
@@ -76,11 +77,14 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
     },
   ];
 
+  const [loading, setLoading] = useState(false);
+
   const logoutClient = () => {
+    setLoading(true);
     const storedRfToken = localStorage.getItem("refreshToken");
     if (storedRfToken && storedRfToken.length) {
       const refreshToken = JSON.parse(storedRfToken).refreshToken;
-      logout(refreshToken, navigate);
+      logout(refreshToken, navigate, setLoading);
     }
   };
 
@@ -192,11 +196,12 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
             <div className="mt-auto">
               <Button
                 onPress={logoutClient}
-                startContent={<FiLogOut size={20} />}
+                startContent={!loading && <FiLogOut size={20} />}
                 color="danger"
                 variant="flat"
                 size="lg"
                 fullWidth
+                isLoading={loading}
               >
                 Sign out
               </Button>
