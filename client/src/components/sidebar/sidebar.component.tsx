@@ -192,7 +192,7 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
             <div className="mt-auto">
               <Button
                 onPress={logoutClient}
-                startContent={<FiLogOut size={25} />}
+                startContent={<FiLogOut size={20} />}
                 color="danger"
                 variant="flat"
                 size="lg"

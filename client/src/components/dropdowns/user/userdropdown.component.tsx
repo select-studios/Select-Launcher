@@ -39,7 +39,10 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
     <div>
       <Dropdown size="lg">
         <DropdownTrigger>
-          <Image src={userImg} className="mr-2 w-12 cursor-pointer" />
+          <Image
+            src={userImg}
+            className="mr-2 min-w-12 max-w-12 cursor-pointer"
+          />
         </DropdownTrigger>
         <DropdownMenu
           className=""

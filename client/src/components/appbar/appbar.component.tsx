@@ -1,7 +1,7 @@
 import UserDropdown from "../dropdowns/user/userdropdown.component";
 import { getTokensCookie } from "@/utils/storage";
 import { User } from "@/stores/UserStore";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Tooltip } from "@nextui-org/react";
 import { HiCog } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
@@ -24,7 +24,7 @@ export const AppBar: React.FC<AppBarProps> = ({
         <div className="container mx-auto flex p-2 items-center">
           <nav className="flex items-center text-base mr-auto">
             <p className="font-heading text-2xl uppercase mr-10">{pageName}</p>
-            <Input placeholder="Search..." />
+            <Input className="mr-5" placeholder="Search..." />
           </nav>
           <div className="inline-flex lg:justify-end">
             {dashboard && (
@@ -37,11 +37,13 @@ export const AppBar: React.FC<AppBarProps> = ({
                     moderator: user?.moderator,
                   }}
                 />
-                <Link to="/settings">
-                  <Button className="bg-tertiaryBG ml-2" size="lg" isIconOnly>
-                    <HiCog size="25" className="text-white w-auto" />
-                  </Button>
-                </Link>
+                <Tooltip content="Settings" placement="bottom">
+                  <Link to="/settings">
+                    <Button className="bg-tertiaryBG ml-2" size="lg" isIconOnly>
+                      <HiCog size="25" className="text-white w-auto" />
+                    </Button>
+                  </Link>
+                </Tooltip>
               </div>
             )}
           </div>

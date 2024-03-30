@@ -11,7 +11,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primaryBG: "#000",
+        primaryBG: "#050505",
         secondaryBG: "#090909",
         tertiaryBG: "#121212",
 
@@ -38,7 +38,7 @@ module.exports = {
       themes: {
         dark: {
           colors: {
-            background: "#000000",
+            background: "#050505",
             primary: "#A558F2",
             default: "#121212",
             "default-100": "#121212",
