@@ -10,7 +10,7 @@ import AuthAPI from "./handlers/api/components/Auth";
 import Offline_E from "./pages/errors/offline/offline.errorpage";
 import ModeratorDashboard from "./pages/moderator/dashboard/moderator-dashboard.page";
 import AppSettings from "./pages/settings/app/appsettings.page";
-import Game from "./pages/games/game/[game]";
+import Game from "./pages/games/[game]";
 import { GamesStore } from "./stores/GamesStore";
 import { ipcRenderer } from "electron";
 import {
