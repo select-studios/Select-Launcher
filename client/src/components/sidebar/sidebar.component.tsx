@@ -1,81 +1,23 @@
 import { Button } from "@nextui-org/react";
-import { HiDatabase, HiHome, HiMenuAlt1, HiShoppingCart } from "react-icons/hi";
-import { BiLibrary, BiStore } from "react-icons/bi";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
-import { SidebarStore } from "@/stores/SidebarStore";
-import { observer } from "mobx-react";
 import { UserStore } from "@/stores/UserStore";
-import { FiCompass, FiLogOut, FiMonitor } from "react-icons/fi";
-import { BsArrowBarLeft, BsHammer } from "react-icons/bs";
+import { FiLogOut } from "react-icons/fi";
+import { BsArrowBarLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { SelectLauncherImage } from "../images/selectlauncher.component";
 import { logout } from "@/handlers/api";
 import { useState } from "react";
+import { settingsSidebarLinks, sidebarLinks } from "./sidebarLinks";
 
 interface SidebarProps {
   active: string;
   settings?: boolean;
 }
 
-interface SidebarLink {
-  name: string;
-  href: string;
-  icon: JSX.Element;
-  disabled: boolean;
-  moderatorOnly?: boolean;
-}
-
-const sidebarVariants = {
-  sidebarOpen: {
-    width: "300px",
-    transition: {
-      when: "beforeChildren",
-    },
-  },
-
-  sidebarClosed: {
-    width: "",
-  },
-};
-
-const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
   const navigate = useNavigate();
 
-  const iconSize = SidebarStore.isOpen ? "20" : "25";
-
   const { user } = UserStore;
-
-  const sidebarLinks: SidebarLink[] = [
-    {
-      name: "Store",
-      href: "/store",
-      icon: <FiCompass size={iconSize} />,
-      disabled: false,
-    },
-    {
-      name: "Library",
-      href: "/library",
-      icon: <BiLibrary size={iconSize} />,
-      disabled: true,
-    },
-    {
-      name: "Moderation",
-      href: "/moderator/dashboard",
-      icon: <HiDatabase size={iconSize} />,
-      disabled: false,
-      moderatorOnly: true,
-    },
-  ];
-
-  const settingsSidebarLinks: SidebarLink[] = [
-    {
-      name: "App",
-      icon: <FiMonitor size="25" />,
-      disabled: false,
-      href: "/settings/app",
-    },
-  ];
 
   const [loading, setLoading] = useState(false);
 
@@ -108,6 +50,11 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
                           isDisabled={link.disabled}
                           className={"mb-6 "}
                           startContent={link.icon}
+                          variant={
+                            active.toLowerCase() === link.name.toLowerCase()
+                              ? "solid"
+                              : "ghost"
+                          }
                           key={i}
                           size="lg"
                           fullWidth
@@ -127,6 +74,11 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
                             className={"mb-6 "}
                             startContent={link.icon}
                             key={i}
+                            variant={
+                              active.toLowerCase() === link.name.toLowerCase()
+                                ? "solid"
+                                : "ghost"
+                            }
                             size="lg"
                             fullWidth
                           >
@@ -142,50 +94,20 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
                       <Link to="/settings">
                         <Button
                           className="bg-tertiaryBG mb-10 w-auto"
-                          startContent={<BsArrowBarLeft size="25" />}
+                          startContent={<BsArrowBarLeft size="20" />}
                         >
-                          {SidebarStore.isOpen ? "Back" : " "}
+                          Back
                         </Button>
                       </Link>
 
                       <Button
                         onClick={() => navigate(link.href)}
                         disabled={link.disabled}
-                        className={
-                          `bg-tertiaryBG mt-2 ${
-                            link.name.toLowerCase() == active
-                              ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
-                              : ""
-                          }` + !SidebarStore.isOpen
-                            ? "w-auto"
-                            : ""
-                        }
-                        // css={{
-                        //   borderLeftWidth:
-                        //     link.name.toLowerCase() == active ? "2px" : "",
-                        //   borderTopWidth:
-                        //     link.name.toLowerCase() == active ? "0px" : "",
-                        //   borderBottomWidth:
-                        //     link.name.toLowerCase() == active ? "0px" : "",
-                        //   borderRightWidth:
-                        //     link.name.toLowerCase() == active ? "0px" : "",
-                        //   borderTopLeftRadius:
-                        //     link.name.toLowerCase() == active ? "0.125rem" : "",
-                        //   borderBottomLeftRadius:
-                        //     link.name.toLowerCase() == active ? "0.125rem" : "",
-                        //   border:
-                        //     link.name.toLowerCase() == active ? "solid" : "",
-                        //   borderColor:
-                        //     link.name.toLowerCase() == active ? "#9980FA" : "",
-                        //   borderTopStyle: "none",
-                        //   borderBottomStyle: "none",
-                        //   borderRightStyle: "none",
-                        // }}
                         startContent={link.icon}
                         key={i}
                         size="lg"
                       >
-                        {SidebarStore.isOpen && link.name}
+                        {link.name}
                       </Button>
                     </div>
                   ))}
@@ -212,5 +134,3 @@ const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
     </div>
   );
 };
-
-export const Sidebar = observer(SidebarComp);

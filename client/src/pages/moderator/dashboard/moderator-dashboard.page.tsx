@@ -158,7 +158,7 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
       />
 
       <div className="min-h-screen flex">
-        <Sidebar active="dashboard" />
+        <Sidebar active="moderation" />
         <div className="main mt-10 min-w-fit">
           <div className="header mx-10">
             <p className="text-3xl flex items-center font-bold font-heading">

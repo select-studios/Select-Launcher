@@ -1,13 +1,13 @@
-import { AppBar, Sidebar, GameCard } from "@/components";
+import { AppBar, Sidebar } from "@/components";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { logout, getGameInfo } from "@/handlers/api";
-import { motion } from "framer-motion";
-import CardLoader from "@/components/loader/card/cardloader.component";
+import { getGameInfo } from "@/handlers/api";
 import { UserStore } from "@/stores/UserStore";
 import { observer } from "mobx-react";
-import { BiCompass } from "react-icons/bi";
 import { GamesStore } from "@/stores/GamesStore";
+import { StoreGames } from "./components/games.store";
+
+import "./store.style.css";
 
 interface HomeProps {}
 
@@ -35,38 +35,21 @@ const StoreComp: React.FC<HomeProps> = () => {
   }, []);
 
   return (
-    <div>
-      <motion.div exit={{ opacity: 0 }}>
-        <div className="store mr-5">
-          <div className="flex">
-            <Sidebar active="store" />
+    <main>
+      <div className="store">
+        <div className="store__content">
+          <Sidebar active="store" />
 
-            <div className="mt-5 w-full">
-              <AppBar
-                pageName="Store"
-                dashboard={true}
-                user={UserStore.user!}
-              />
-              <div className="bg-secondaryBG rounded-lg h-[193px]"></div>
-              <p className="my-12 text-xl font-heading">Popular Now</p>
-              <div className="grid grid-cols-6">
-                {games ? (
-                  games.map((gameInfo, i) => {
-                    return <GameCard key={i} game={gameInfo} />;
-                  })
-                ) : (
-                  <div className="mt-5 flex w-full min-w-fit">
-                    {Array.from(Array(gamesN).keys()).map((i) => {
-                      return <CardLoader key={i} />;
-                    })}
-                  </div>
-                )}
-              </div>
-            </div>
+          <div className="store__main">
+            <AppBar pageName="Store" dashboard={true} user={UserStore.user!} />
+            <div className="store__main-banner"></div>
+            <p className="store__main-heading">Popular Now</p>
+
+            <StoreGames games={games} />
           </div>
         </div>
-      </motion.div>
-    </div>
+      </div>
+    </main>
   );
 };
 
