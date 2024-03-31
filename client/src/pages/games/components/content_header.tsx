@@ -7,7 +7,7 @@ interface IContentHeaderProps {
 
 export const ContentHeader = ({ game }: IContentHeaderProps) => {
   return (
-    <div className="">
+    <div>
       <div className="heading flex items-center mb-10">
         <p className="font-heading text-3xl">{game?.name}</p>
         <div className="genres flex items-center ml-5">

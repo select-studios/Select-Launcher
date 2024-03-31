@@ -4,13 +4,18 @@
 @tailwind components;
 @tailwind utilities;
 
-.appbar {
+.titlebar {
   -webkit-app-region: drag;
+}
+
+.titlebar-nodrag {
+  -webkit-app-region: no-drag;
 }
 
 :root {
   --toastify-color-dark: #181818 !important;
-  overflow-x: hidden;
+  overflow-y: hidden;
+  overflow-x: hidden !important;
 }
 
 body {

@@ -42,6 +42,12 @@ window.gamesAPI = {
   startGame: (game: string) => ipcRenderer.sendSync("start-game", game),
 };
 
+window.windowControls = {
+  closeWindow: () => ipcRenderer.send("close-window"),
+  minimizeWindow: () => ipcRenderer.send("minimize-window"),
+  maximizeWindow: () => ipcRenderer.send("maximize-window"),
+};
+
 window.filesAPI = {
   openFolder: () => ipcRenderer.invoke("dialog:openFolder"),
 };

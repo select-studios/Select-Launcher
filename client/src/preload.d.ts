@@ -12,6 +12,11 @@ declare global {
     filesAPI: {
       openFolder: () => string | undefined;
     };
+    windowControls: {
+      minimizeWindow(): void;
+      maximizeWindow(): void;
+      closeWindow(): void;
+    };
   }
 }
 

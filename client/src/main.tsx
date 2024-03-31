@@ -6,6 +6,7 @@ import "./assets/styles/index.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import * as dotenv from "dotenv";
+import Titlebar from "./components/titlebar/titlebar";
 import "./assets/styles/index.css";
 
 import { Chip, NextUIProvider } from "@nextui-org/react";
@@ -17,12 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <NextUIProvider>
       <Router>
         <div className="font-sans">
-          <div className="w-screen mb-2 text-sm h-full tracking-wider font-heading bg-primaryBG p-1 pl-5 appbar Draggable-Region">
-            Select Launcher{" "}
-            <Chip size="sm" color="primary" className="ml-2">
-              v3
-            </Chip>
-          </div>
+          <Titlebar />
           <App />
           <ToastContainer position="bottom-right" theme="dark" />
         </div>
