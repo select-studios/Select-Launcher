@@ -1,7 +1,7 @@
 import { Route, RouteObject, RouteProps } from "react-router";
 import Auth from "./handlers/api/components/Auth";
 import { Settings, Signin, Signup, Store } from "./pages";
-import Game from "./pages/games/[game]";
+import { GameObserver } from "./pages/games/[game]";
 import ModeratorDashboard from "./pages/moderator/dashboard/moderator-dashboard.page";
 import { NotFound_E } from "./pages/errors";
 
@@ -31,7 +31,7 @@ const routes = [
   },
   {
     path: "/games/:game",
-    element: <Game />,
+    element: <GameObserver />,
     auth: true,
   },
   { path: "*", element: <NotFound_E /> },

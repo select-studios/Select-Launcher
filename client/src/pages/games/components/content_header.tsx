@@ -7,7 +7,7 @@ interface IContentHeaderProps {
 
 export const ContentHeader = ({ game }: IContentHeaderProps) => {
   return (
-    <div>
+    <div className="">
       <div className="heading flex items-center mb-10">
         <p className="font-heading text-3xl">{game?.name}</p>
         <div className="genres flex items-center ml-5">
@@ -22,10 +22,9 @@ export const ContentHeader = ({ game }: IContentHeaderProps) => {
         className="bg-secondaryBG mt-2 min-w-full rounded-lg"
         style={{ height: "250px" }}
       ></div>
-      <p className="font-inter mt-[30px] font-medium text-xl opacity-70">
+      <p className="font-inter min-h-10 max-h-20 overflow-y-auto mt-[30px] font-medium text-xl opacity-70">
         {game?.description}
       </p>
     </div>
   );
 };
-

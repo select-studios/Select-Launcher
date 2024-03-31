@@ -4,6 +4,8 @@ import { UserStore } from "@/stores/UserStore";
 import { FunctionComponent } from "react";
 import { useParams } from "react-router";
 import { InfoBar, ContentHeader, ContentFooter } from "./components";
+import { observer } from "mobx-react";
+import { InfoBarObservable } from "./components/info_bar";
 
 interface GamesInfoProps {}
 
@@ -28,10 +30,10 @@ const Game: FunctionComponent<GamesInfoProps> = () => {
             <ContentFooter game={game} />
           </div>
         </div>
-        <InfoBar game={game} />
+        <InfoBarObservable game={game} />
       </div>
     </section>
   );
 };
 
-export default Game;
+export const GameObserver = observer(Game);

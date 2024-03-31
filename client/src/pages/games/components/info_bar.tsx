@@ -13,13 +13,15 @@ import { useState } from "react";
 import { User, UserStore } from "@/stores/UserStore";
 import { Link } from "react-router-dom";
 import { BsRobot } from "react-icons/bs";
+import { observer } from "mobx-react";
 
 interface IInfoBarProps {
   game: GameInfo | undefined;
 }
 
 export const InfoBar = ({ game }: IInfoBarProps) => {
-  let user = UserStore.user;
+  const { user } = UserStore;
+  const [loading, setLoading] = useState(false);
 
   const platformNames = [
     {
@@ -41,6 +43,7 @@ export const InfoBar = ({ game }: IInfoBarProps) => {
   ];
 
   const addGame = async () => {
+    setLoading(true);
     const res = await fetch(`${API_URI}/accounts/account/edit/addgame`, {
       method: "PUT",
 
@@ -52,26 +55,29 @@ export const InfoBar = ({ game }: IInfoBarProps) => {
     });
 
     if (res.ok) {
-      res.json().then((data) => {
+      res.json().then((data: any) => {
         UserStore.setPurchasedGames(data.newUser.purchasedGames);
-        user = UserStore.user;
+        setLoading(false);
       });
     }
   };
-
+  7;
   return (
     <div className="h-screen p-5 sticky top-0 right-0 rounded-tl-lg bg-secondaryBG w-96">
       <div className="bg-tertiaryBG mb-4 min-h-40 rounded-lg p-5"></div>
       <div className="flex items-center mb-8">
         <p className="font-heading opacity-80 text-base">FREE</p>
         <div className="flex items-center ml-2">
-          <Chip
-            startContent={<BiCheckCircle size={20} />}
-            variant="flat"
-            color="success"
-          >
-            Verified
-          </Chip>
+          {game?.verified && (
+            <Chip
+              startContent={<BiCheckCircle size={20} />}
+              variant="flat"
+              color="success"
+            >
+              Verified
+            </Chip>
+          )}
+
           {user?.purchasedGames.includes(game?.name || "") && (
             <Chip
               startContent={<BiCheckCircle size={20} />}
@@ -87,9 +93,10 @@ export const InfoBar = ({ game }: IInfoBarProps) => {
       <div className="buttons">
         {!user?.purchasedGames.includes(game?.name || "") ? (
           <Button
-            startContent={<FiShoppingBag size={20} />}
+            startContent={!loading && <FiShoppingBag size={20} />}
             size="lg"
             color="success"
+            isLoading={loading}
             fullWidth
             onPress={async () => await addGame()}
           >
@@ -146,3 +153,5 @@ export const InfoBar = ({ game }: IInfoBarProps) => {
     </div>
   );
 };
+
+export const InfoBarObservable = observer(InfoBar);
