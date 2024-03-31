@@ -1,16 +1,9 @@
 //#region Imports
+import Offline_E from "./pages/errors/offline/offline.errorpage";
 import { useRoutes, useLocation } from "react-router-dom";
-import { Signup, Store, Settings, Signin } from "./pages";
 import { AnimatePresence } from "framer-motion";
 import React, { useEffect, useState } from "react";
-import UserSettings from "./pages/settings/user/usersettings.page";
-import { NotFound_E } from "./pages/errors";
 import { Detector } from "react-detect-offline";
-import AuthAPI from "./handlers/api/components/Auth";
-import Offline_E from "./pages/errors/offline/offline.errorpage";
-import ModeratorDashboard from "./pages/moderator/dashboard/moderator-dashboard.page";
-import AppSettings from "./pages/settings/app/appsettings.page";
-import Game from "./pages/games/[game]";
 import { GamesStore } from "./stores/GamesStore";
 import { ipcRenderer } from "electron";
 import {
@@ -22,6 +15,7 @@ import {
   ModalFooter,
 } from "@nextui-org/react";
 import launcherIcon from "./assets/images/ICON_GrayScale.png";
+import exportedRoutes from "./routes";
 //#endregion
 
 const App: React.FC = () => {
@@ -34,65 +28,7 @@ const App: React.FC = () => {
   };
 
   //#region Routes
-  const page = useRoutes([
-    {
-      path: "/",
-      element: <Signin />,
-    },
-    {
-      path: "/store",
-      element: (
-        <AuthAPI>
-          <Store />
-        </AuthAPI>
-      ),
-    },
-    {
-      path: "/signup",
-      element: <Signup />,
-    },
-    {
-      path: "/settings",
-      element: (
-        <AuthAPI>
-          <Settings />
-        </AuthAPI>
-      ),
-    },
-    {
-      path: "/settings/user",
-      element: (
-        <AuthAPI>
-          <UserSettings />
-        </AuthAPI>
-      ),
-    },
-    {
-      path: "/settings/app",
-      element: (
-        <AuthAPI>
-          <AppSettings />
-        </AuthAPI>
-      ),
-    },
-    {
-      path: "/moderator/dashboard",
-      element: (
-        <AuthAPI>
-          <ModeratorDashboard />
-        </AuthAPI>
-      ),
-    },
-    {
-      path: "/games/:game",
-      element: (
-        <AuthAPI>
-          <Game />
-        </AuthAPI>
-      ),
-    },
-    { path: "*", element: <NotFound_E /> },
-  ]);
+  const page = useRoutes(exportedRoutes);
 
   if (!page) return null;
   //#endregion

@@ -4,17 +4,20 @@ import { User } from "@/stores/UserStore";
 import { Button, Input, Tooltip } from "@nextui-org/react";
 import { HiCog } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import { FiArrowLeft } from "react-icons/fi";
 
 export interface AppBarProps {
   user?: User;
   dashboard?: boolean;
   pageName: string;
+  settings?: boolean;
 }
 
 export const AppBar: React.FC<AppBarProps> = ({
   dashboard,
   user,
   pageName,
+  settings,
 }) => {
   const cookies = getTokensCookie();
 
@@ -23,6 +26,13 @@ export const AppBar: React.FC<AppBarProps> = ({
       <header className="w-full py-2 rounded-b-3xl shadow-xl pt-0">
         <div className="container mx-auto flex p-2 items-center">
           <nav className="flex items-center text-base mr-auto">
+            {settings && (
+              <Link to="/store">
+                <Button className="mr-5" isIconOnly>
+                  <FiArrowLeft size={25} />
+                </Button>
+              </Link>
+            )}
             <p className="font-heading text-2xl uppercase mr-10">{pageName}</p>
             <Input className="mr-5" placeholder="Search..." />
           </nav>

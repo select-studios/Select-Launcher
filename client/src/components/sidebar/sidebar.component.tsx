@@ -1,13 +1,15 @@
-import { Button } from "@nextui-org/react";
+import { Button, Card, CardBody, Image } from "@nextui-org/react";
 import { useNavigate } from "react-router";
 import { UserStore } from "@/stores/UserStore";
-import { FiLogOut } from "react-icons/fi";
+import { FiHome, FiLogOut, FiSettings } from "react-icons/fi";
 import { BsArrowBarLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { SelectLauncherImage } from "../images/selectlauncher.component";
 import { logout } from "@/handlers/api";
 import { useState } from "react";
 import { settingsSidebarLinks, sidebarLinks } from "./sidebarLinks";
+
+import AccountLogo from "../../../../Resources/ICON_User.png";
 
 interface SidebarProps {
   active: string;
@@ -88,21 +90,32 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                       ))}
                 </div>
               ) : (
-                <div>
+                <div className="mx-auto">
+                  <Card className="mb-10 shadow-none bg-tertiaryBG">
+                    <CardBody>
+                      <div className="flex items-center overflow-hidden">
+                        <Image
+                          className="w-12 h-12"
+                          src={AccountLogo}
+                          alt="Account Logo"
+                        />
+
+                        <div className="ml-2">
+                          <p className="text-[14px] font-heading">
+                            {user?.username}
+                          </p>
+                          <p className="text-[8px]">{user?.email}</p>
+                        </div>
+                      </div>
+                    </CardBody>
+                  </Card>
                   {settingsSidebarLinks.map((link, i) => (
                     <div>
-                      <Link to="/settings">
-                        <Button
-                          className="bg-tertiaryBG mb-10 w-auto"
-                          startContent={<BsArrowBarLeft size="20" />}
-                        >
-                          Back
-                        </Button>
-                      </Link>
-
                       <Button
+                        fullWidth
                         onClick={() => navigate(link.href)}
                         disabled={link.disabled}
+                        className="mb-6"
                         startContent={link.icon}
                         key={i}
                         size="lg"

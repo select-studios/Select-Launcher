@@ -1,5 +1,5 @@
-import { BiLibrary } from "react-icons/bi";
-import { FiCompass, FiMonitor } from "react-icons/fi";
+import { BiLibrary, BiMoney, BiMoneyWithdraw } from "react-icons/bi";
+import { FiCompass, FiHome, FiMonitor, FiUser } from "react-icons/fi";
 import { HiDatabase } from "react-icons/hi";
 
 const iconSize = "20";
@@ -36,9 +36,27 @@ export const sidebarLinks: SidebarLink[] = [
 
 export const settingsSidebarLinks: SidebarLink[] = [
   {
+    name: "Home",
+    icon: <FiHome size="20" />,
+    disabled: false,
+    href: "/settings",
+  },
+  {
     name: "App",
-    icon: <FiMonitor size="25" />,
+    icon: <FiMonitor size="20" />,
     disabled: false,
     href: "/settings/app",
+  },
+  {
+    name: "Account",
+    icon: <FiUser size="20" />,
+    disabled: false,
+    href: "/settings/account",
+  },
+  {
+    name: "Payment",
+    icon: <BiMoneyWithdraw size={20} />,
+    disabled: false,
+    href: "/settings/payment",
   },
 ];
