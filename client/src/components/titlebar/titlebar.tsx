@@ -2,6 +2,7 @@ import { Button, Chip } from "@nextui-org/react";
 import { FaRegWindowMinimize } from "react-icons/fa";
 import { CiMaximize2 } from "react-icons/ci";
 import { IoCloseOutline } from "react-icons/io5";
+import { FiMaximize, FiMinus, FiX } from "react-icons/fi";
 
 const Titlebar = () => {
   return (
@@ -19,18 +20,16 @@ const Titlebar = () => {
             onClick={() => window.windowControls.minimizeWindow()}
             radius="none"
             variant="light"
-            color="primary"
           >
-            <FaRegWindowMinimize />
+            <FiMinus size={24} />
           </Button>
           <Button
             isIconOnly
             onClick={() => window.windowControls.maximizeWindow()}
             radius="none"
             variant="light"
-            color="warning"
           >
-            <CiMaximize2 />
+            <FiMaximize size={24} />
           </Button>
           <Button
             isIconOnly
@@ -39,7 +38,7 @@ const Titlebar = () => {
             variant="light"
             color="danger"
           >
-            <IoCloseOutline />
+            <FiX size={24} />
           </Button>
         </div>
       </div>
