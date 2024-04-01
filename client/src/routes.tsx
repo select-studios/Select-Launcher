@@ -1,6 +1,6 @@
 import { Route, RouteObject, RouteProps } from "react-router";
 import Auth from "./handlers/api/components/Auth";
-import { Settings, Signin, Signup, Store } from "./pages";
+import { Settings, Signin, Signup, Store, Library } from "./pages";
 import { GameObserver } from "./pages/games/[game]";
 import ModeratorDashboard from "./pages/moderator/dashboard/moderator-dashboard.page";
 import { NotFound_E } from "./pages/errors";
@@ -13,6 +13,11 @@ const routes = [
   {
     path: "/store",
     element: <Store />,
+    auth: true,
+  },
+  {
+    path: "/library",
+    element: <Library />,
     auth: true,
   },
   {

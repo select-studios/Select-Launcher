@@ -82,7 +82,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
             </DropdownItem>
           )}
 
-          <DropdownSection showDivider>
+          <DropdownSection showDivider={false}>
             <DropdownItem startContent={<HiHome size="20" />} key="home">
               Home
             </DropdownItem>

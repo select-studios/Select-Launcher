@@ -1,0 +1,11 @@
+.library {
+  @apply mr-5;
+}
+
+.library__content {
+  @apply flex;
+}
+
+.library__main {
+  @apply mt-5 w-full;
+}

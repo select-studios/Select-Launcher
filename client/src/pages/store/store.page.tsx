@@ -6,6 +6,7 @@ import { UserStore } from "@/stores/UserStore";
 import { observer } from "mobx-react";
 import { GamesStore } from "@/stores/GamesStore";
 import { StoreGames } from "./components/games.store";
+import { ScrollShadow } from "@nextui-org/react";
 
 import "./store.style.css";
 
@@ -40,13 +41,14 @@ const StoreComp: React.FC<HomeProps> = () => {
         <div className="store__content">
           <Sidebar active="store" />
 
-          <div className="store__main">
+          <ScrollShadow isEnabled className="store__main">
+            {" "}
+            {/* TODO figure out why scroll no work */}
             <AppBar pageName="Store" dashboard={true} user={UserStore.user!} />
             <div className="store__main-banner"></div>
             <p className="store__main-heading">Popular Now</p>
-
             <StoreGames games={games} />
-          </div>
+          </ScrollShadow>
         </div>
       </div>
     </main>
