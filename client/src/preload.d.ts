@@ -8,6 +8,8 @@ declare global {
       cleanupGame(game: string): string;
       uninstallGame(game: string): string;
       startGame(game: string): string;
+      addInstalledGames(gameName: string): string;
+      getInstalledGames(): string;
     };
     filesAPI: {
       openFolder: () => string | undefined;

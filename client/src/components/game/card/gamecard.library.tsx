@@ -13,13 +13,13 @@ import {
   DropdownItem,
 } from "@nextui-org/react";
 import { observer } from "mobx-react";
+import { useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegCirclePlay, FaTrashCan } from "react-icons/fa6";
 import { GrInstallOption } from "react-icons/gr";
 
 interface LibraryGameCard {
   game: GameInfo;
-  isInstalled: boolean;
 }
 
 const installedDropdownItems = [
@@ -53,10 +53,13 @@ const notInstalledDropdownItems = [
   },
 ];
 
-const LibraryGameCardComp: React.FC<LibraryGameCard> = ({
-  game,
-  isInstalled,
-}) => {
+const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
+  const installedGames = window.gamesAPI.getInstalledGames();
+
+  const [installedGamesState, setInstalledGamesState] =
+    useState(installedGames);
+  const isInstalled = installedGamesState.includes(game.name);
+
   return (
     <Card className="bg-secondaryBG mb-5 p-2 w-full h-[250px]">
       <CardBody className="flex flex-row">
@@ -122,6 +125,10 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({
                   className="mr-2"
                   size="lg"
                   startContent={<GrInstallOption size={20} />}
+                  onPress={() => {
+                    window.gamesAPI.addInstalledGames(game.name);
+                    setInstalledGamesState(window.gamesAPI.getInstalledGames());
+                  }}
                 >
                   Install Now
                 </Button>

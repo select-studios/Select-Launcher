@@ -14,12 +14,14 @@ interface IProps {
  **/
 
 export const LibraryGames: FC<IProps> = ({ games, purchasedGames }) => {
+  console.log(games);
+
   return games ? (
     <div className="flex flex-col">
       {games
         .filter((game) => purchasedGames?.includes(game.name))
         .map((game: GameInfo) => (
-          <LibraryGameCard game={game} isInstalled={false} />
+          <LibraryGameCard game={game} />
         ))}
     </div>
   ) : (

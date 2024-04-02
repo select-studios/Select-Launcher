@@ -16,10 +16,10 @@ export const StoreGames: FC<IProps> = ({ games }) => {
   return games ? (
     <div className="grid grid-cols-6">
       {games.map((gameInfo, i) => {
-        return <GameCard key={i} game={gameInfo} />;
+        return <GameCard loading={false} key={i} game={gameInfo} />;
       })}
     </div>
   ) : (
-    <Spinner size="lg" className="m-5" />
+    <GameCard loading={true} />
   );
 };

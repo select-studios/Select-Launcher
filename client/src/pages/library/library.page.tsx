@@ -20,7 +20,7 @@ const libraryComp = () => {
             />
             <h1 className="opacity-60 font-bold my-6">Your games</h1>
             <LibraryGames
-              purchasedGames={UserStore.user?.purchasedGames}
+              purchasedGames={UserStore.user?.purchasedGames || []}
               games={GamesStore.games}
             />
           </ScrollShadow>
