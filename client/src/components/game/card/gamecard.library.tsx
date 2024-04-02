@@ -11,12 +11,16 @@ import {
   Dropdown,
   DropdownMenu,
   DropdownItem,
+  Progress,
+  Spinner,
 } from "@nextui-org/react";
+import { ipcRenderer } from "electron";
 import { observer } from "mobx-react";
 import { useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegCirclePlay, FaTrashCan } from "react-icons/fa6";
 import { GrInstallOption } from "react-icons/gr";
+import { toast } from "react-toastify";
 
 interface LibraryGameCard {
   game: GameInfo;
@@ -36,6 +40,11 @@ const installedDropdownItems = [
   {
     key: "check-updates",
     label: "Check for updates",
+    onClick: () => {},
+  },
+  {
+    key: "remove-owned",
+    label: "Remove from owned",
     onClick: () => {},
   },
 ];
@@ -60,10 +69,26 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
     useState(installedGames);
   const isInstalled = installedGamesState.includes(game.name);
 
+  const [downloadStatus, setDownloadStatus] = useState<{
+    gameName?: string;
+    percentage?: number;
+    remainingSize?: number;
+    msg?: string;
+  }>({});
+
+  useEffect(() => {
+    ipcRenderer.on(
+      "downloading",
+      (e, { gameName, percentage, remainingSize, msg }) => {
+        setDownloadStatus({ gameName, percentage, remainingSize, msg });
+      }
+    );
+  }, []);
+
   return (
     <Card className="bg-secondaryBG mb-5 p-2 w-full h-[250px]">
       <CardBody className="flex flex-row">
-        <div className="bg-tertiaryBG rounded-lg flex-start w-56 h-full"></div>
+        <div className="bg-tertiaryBG rounded-lg flex-start w-64 h-full"></div>
         <div className="ml-4 flex flex-col">
           <div>
             <h1 className="text-white text-3xl uppercase font-heading">
@@ -81,10 +106,35 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
               ))}
             </div>
           </div>
-          <p className="overflow-ellipsis mt-4 font-semibold opacity-70">
+          <p className="overflow-ellipsis max-h-24 mt-4 font-semibold opacity-70">
             {game.description}
           </p>
-          <div className="Buttons mt-auto mb-2">
+          {downloadStatus && downloadStatus.gameName === game.downloadName && (
+            <div className="download-progress mt-auto">
+              <p className="font-semibold opacity-70">
+                {downloadStatus.msg?.length ? (
+                  downloadStatus.msg
+                ) : (
+                  // <Spinner className="mt-auto" color="success" size="sm" />
+                  <Spinner className="mt-2" color="success" size="lg" />
+                )}
+              </p>
+
+              <Progress
+                className={"mt-5"}
+                size="sm"
+                color="success"
+                value={Number(Number(downloadStatus.percentage).toFixed(0))}
+              />
+            </div>
+          )}
+          <div
+            className={
+              downloadStatus && downloadStatus.gameName === game.downloadName
+                ? "hidden"
+                : "Buttons mt-auto mb-2"
+            }
+          >
             {isInstalled ? (
               <div className="flex flex-row">
                 <Button
@@ -92,6 +142,10 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
                   variant="shadow"
                   className="mr-2"
                   size="lg"
+                  onPress={() => {
+                    window.gamesAPI.startGame(game.name);
+                    toast.success(`Starting ${game.name}`);
+                  }}
                   startContent={<FaRegCirclePlay size={20} />}
                 >
                   Launch
@@ -104,7 +158,19 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
                   </DropdownTrigger>
                   <DropdownMenu>
                     {installedDropdownItems.map((item) => (
-                      <DropdownItem key={item.key}>{item.label}</DropdownItem>
+                      <DropdownItem
+                        onPress={() => {
+                          if (item.key === "remove-owned") {
+                            window.gamesAPI.removeInstalledGames(game.name);
+                            setInstalledGamesState(
+                              window.gamesAPI.getInstalledGames()
+                            );
+                          }
+                        }}
+                        key={item.key}
+                      >
+                        {item.label}
+                      </DropdownItem>
                     ))}
                   </DropdownMenu>
                 </Dropdown>
@@ -113,6 +179,17 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
                   color="danger"
                   size="lg"
                   className="ml-auto"
+                  onPress={() => {
+                    window.gamesAPI.uninstallGame(game.downloadName);
+                    ipcRenderer.once("finish-uninstall", (event, message) => {
+                      window.gamesAPI.removeInstalledGames(game.name);
+                      setInstalledGamesState(
+                        window.gamesAPI.getInstalledGames()
+                      );
+
+                      toast.success(message);
+                    });
+                  }}
                 >
                   Uninstall
                 </Button>
@@ -124,10 +201,18 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
                   variant="shadow"
                   className="mr-2"
                   size="lg"
+                  isDisabled={downloadStatus && downloadStatus.percentage! > 0}
                   startContent={<GrInstallOption size={20} />}
                   onPress={() => {
-                    window.gamesAPI.addInstalledGames(game.name);
-                    setInstalledGamesState(window.gamesAPI.getInstalledGames());
+                    window.gamesAPI.downloadGame(game.downloadName);
+                    ipcRenderer.once("finish-download", (event, message) => {
+                      window.gamesAPI.addInstalledGames(game.name);
+                      setInstalledGamesState(
+                        window.gamesAPI.getInstalledGames()
+                      );
+
+                      toast.success(message);
+                    });
                   }}
                 >
                   Install Now

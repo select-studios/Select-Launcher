@@ -70,6 +70,20 @@ function runIpcGameEvents() {
 
     event.returnValue = settings.getSync("library.installedGames");
   });
+
+  ipcMain.on("remove-installed-games", async (event, gameName) => {
+    const installedGames = settings.getSync("library.installedGames");
+    const newInstalledGames = (installedGames as string[]).filter(
+      (game) => game != gameName
+    );
+
+    await settings.set("library", {
+      installedGames: [newInstalledGames],
+    });
+
+    event.returnValue =
+      "Successfully removed " + gameName + " from installed games.";
+  });
 }
 
 export default runIpcGameEvents;

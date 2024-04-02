@@ -43,6 +43,8 @@ window.gamesAPI = {
   addInstalledGames: (gameName: string) =>
     ipcRenderer.sendSync("add-installed-games", gameName),
   getInstalledGames: () => ipcRenderer.sendSync("get-installed-games"),
+  removeInstalledGames: (gameName: string) =>
+    ipcRenderer.sendSync("remove-installed-games", gameName),
 };
 
 window.windowControls = {

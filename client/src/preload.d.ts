@@ -10,6 +10,7 @@ declare global {
       startGame(game: string): string;
       addInstalledGames(gameName: string): string;
       getInstalledGames(): string;
+      removeInstalledGames(gameName: string): string;
     };
     filesAPI: {
       openFolder: () => string | undefined;

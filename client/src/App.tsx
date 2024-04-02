@@ -44,6 +44,8 @@ const App: React.FC = () => {
       setUpdateModalVisible(true);
     });
 
+    window.gamesAPI.getStorageLocation();
+
     if (!localStorage.getItem("installedGames")) {
       GamesStore.setInstalledGames([]);
       localStorage.setItem("installedGames", JSON.stringify([]));

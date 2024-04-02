@@ -9,6 +9,7 @@ export interface IGamesAPI {
   cancelDownloadGame: (game: string) => void;
   addInstalledGames: (gameName: string) => void;
   getInstalledGames: () => void;
+  removeInstalledGames: (gameName: string) => void;
 }
 
 export interface IWindowControls {
