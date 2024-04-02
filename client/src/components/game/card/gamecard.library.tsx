@@ -116,7 +116,7 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
                   downloadStatus.msg
                 ) : (
                   // <Spinner className="mt-auto" color="success" size="sm" />
-                  <Spinner className="mt-2" color="success" size="lg" />
+                  <Progress isIndeterminate className="mt-5" color="success" size="sm" />
                 )}
               </p>
 

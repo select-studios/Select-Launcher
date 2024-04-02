@@ -1,7 +1,15 @@
 import { AppBar, Sidebar } from "@/components";
 import { UserStore } from "@/stores/UserStore";
-import { Card, CardBody, CardHeader, Checkbox, Input } from "@nextui-org/react";
-import React, { FC } from "react";
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Checkbox,
+  Input,
+  Button,
+} from "@nextui-org/react";
+import { FaFolderOpen } from "react-icons/fa";
+import { FC, useState, useEffect } from "react";
 
 interface IProps {}
 
@@ -12,6 +20,11 @@ interface IProps {}
 
 export const Settings: FC<IProps> = (props) => {
   const { user } = UserStore;
+  const [libraryLocation, setLibraryLocation] = useState<string>();
+
+  useEffect(() => {
+    setLibraryLocation(window.gamesAPI.getStorageLocation());
+  });
 
   return (
     <section className="settings">
@@ -28,7 +41,28 @@ export const Settings: FC<IProps> = (props) => {
               </CardHeader>
               <CardBody>
                 <Checkbox>Update app automatically</Checkbox>
-                <Input label="Download Location" className="mt-10"></Input>
+                <Input
+                  label="Download Location"
+                  className="mt-10"
+                  isReadOnly
+                  value={libraryLocation}
+                  endContent={
+                    <Button
+                      className="rounded-full mr-2 cursor-pointer w-6"
+                      onClick={async () => {
+                        let newLibraryPath = await window.filesAPI.openFolder();
+                        if (newLibraryPath) {
+                          window.gamesAPI.setStorageLocation(newLibraryPath);
+                          setLibraryLocation(
+                            window.gamesAPI.getStorageLocation()
+                          );
+                        }
+                      }}
+                    >
+                      <FaFolderOpen size={20} />
+                    </Button>
+                  }
+                />
               </CardBody>
             </Card>
             <Card className="mt-12 p-2">
@@ -45,7 +79,7 @@ export const Settings: FC<IProps> = (props) => {
                   </div>
                   <div className="bg-tertiaryBG rounded-lg px-4 py-2 ml-2">
                     <p className="text-base font-heading uppercase">Build</p>
-                    <p className="text-base">6900</p>
+                    <p className="text-base">1100</p>
                   </div>
                   <div className="bg-tertiaryBG rounded-lg px-4 py-2 ml-2">
                     <p className="text-base font-heading uppercase">
@@ -57,7 +91,7 @@ export const Settings: FC<IProps> = (props) => {
                     <p className="text-base font-heading uppercase">
                       Released on
                     </p>
-                    <p className="text-base">01/05/2024</p>
+                    <p className="text-base">03/04/2024</p>
                   </div>
                 </div>
               </CardBody>
