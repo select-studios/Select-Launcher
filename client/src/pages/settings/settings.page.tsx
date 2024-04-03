@@ -80,7 +80,7 @@ export const Settings: FC<IProps> = (props) => {
                   </div>
                   <div className="bg-tertiaryBG rounded-lg px-4 py-2 ml-2">
                     <p className="text-base font-heading uppercase">Build</p>
-                    <p className="text-base">{appInfo.build}</p>
+                    <p className="text-base">3000</p>
                   </div>
                   <div className="bg-tertiaryBG rounded-lg px-4 py-2 ml-2">
                     <p className="text-base font-heading uppercase">
