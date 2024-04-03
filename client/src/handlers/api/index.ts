@@ -6,7 +6,7 @@ import { Log } from "@/utils/lib/Log";
 export const API_URI =
   process.env.NODE_ENV === "development"
     ? "http://localhost:4757/api"
-    : "https://selectlauncherapi.up.railway.app/api";
+    : "https://select-launcher.onrender.com/api";
 
 Log.ready("API URI is ready on " + API_URI, "API Handler");
 
