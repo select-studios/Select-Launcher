@@ -1,0 +1,19 @@
+.store {
+  @apply mr-5;
+}
+
+.store__content {
+  @apply flex;
+}
+
+.store__main {
+  @apply mt-5 w-full;
+}
+
+.store__main-banner {
+  @apply bg-secondaryBG rounded-lg h-[193px];
+}
+
+.store__main-heading {
+  @apply my-12 text-xl font-heading;
+}

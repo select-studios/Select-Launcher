@@ -2,7 +2,7 @@
   "name": "select-launcher",
   "productName": "Select Launcher",
   "private": true,
-  "version": "1.3.7",
+  "version": "3.0.0-alpha.1",
   "description": "Official launcher for all the games made by Select Studios.",
   "author": "Select Studios",
   "license": "Custom License",

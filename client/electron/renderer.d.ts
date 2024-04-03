@@ -7,6 +7,15 @@ export interface IGamesAPI {
   uninstallGame: (game: string) => void;
   startGame: (game: string) => void;
   cancelDownloadGame: (game: string) => void;
+  addInstalledGames: (gameName: string) => void;
+  getInstalledGames: () => void;
+  removeInstalledGames: (gameName: string) => void;
+}
+
+export interface IWindowControls {
+  minimizeWindow: () => void;
+  maximizeWindow: () => void;
+  closeWindow: () => void;
 }
 
 export interface IFilesAPI {
@@ -17,5 +26,6 @@ declare global {
   interface Window {
     gamesAPI: IGamesAPI;
     filesAPI: IFilesAPI;
+    windowControls: IWindowControls;
   }
 }

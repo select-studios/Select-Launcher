@@ -40,6 +40,17 @@ window.gamesAPI = {
   cleanupGame: (game: string) => ipcRenderer.sendSync("cleanup-game", game),
   uninstallGame: (game: string) => ipcRenderer.sendSync("uninstall-game", game),
   startGame: (game: string) => ipcRenderer.sendSync("start-game", game),
+  addInstalledGames: (gameName: string) =>
+    ipcRenderer.sendSync("add-installed-games", gameName),
+  getInstalledGames: () => ipcRenderer.sendSync("get-installed-games"),
+  removeInstalledGames: (gameName: string) =>
+    ipcRenderer.sendSync("remove-installed-games", gameName),
+};
+
+window.windowControls = {
+  closeWindow: () => ipcRenderer.send("close-window"),
+  minimizeWindow: () => ipcRenderer.send("minimize-window"),
+  maximizeWindow: () => ipcRenderer.send("maximize-window"),
 };
 
 window.filesAPI = {

@@ -6,6 +6,7 @@ import {
   uninstallGame,
   startGame,
 } from "../../api/gameManager";
+import settings from "electron-settings";
 
 function runIpcGameEvents() {
   ipcMain.on("download-game", async (event, game) => {
@@ -38,9 +39,51 @@ function runIpcGameEvents() {
     event.returnValue = `successfully started ${game}`;
   });
 
-  ipcMain.on("get-installed-games", async (e, games) => {});
+  ipcMain.on("add-installed-games", async (event, gameName: string) => {
+    const installedGames = settings.getSync("library.installedGames");
 
-  ipcMain.on("set-installed-games", async (e, games) => {});
+    if (installedGames === undefined) {
+      await settings.set("library", {
+        installedGames: [],
+      });
+    }
+
+    await settings.set("library", {
+      installedGames: [
+        gameName,
+        ...(settings.getSync("library.installedGames") as any),
+      ],
+    });
+
+    event.returnValue =
+      "Successfully added " + gameName + " to installed games.";
+  });
+
+  ipcMain.on("get-installed-games", async (event) => {
+    const installedGames = settings.getSync("library.installedGames");
+
+    if (installedGames === undefined) {
+      settings.setSync("library", {
+        installedGames: [],
+      });
+    }
+
+    event.returnValue = settings.getSync("library.installedGames");
+  });
+
+  ipcMain.on("remove-installed-games", async (event, gameName) => {
+    const installedGames = settings.getSync("library.installedGames");
+    const newInstalledGames = (installedGames as string[]).filter(
+      (game) => game != gameName
+    );
+
+    await settings.set("library", {
+      installedGames: [newInstalledGames],
+    });
+
+    event.returnValue =
+      "Successfully removed " + gameName + " from installed games.";
+  });
 }
 
 export default runIpcGameEvents;

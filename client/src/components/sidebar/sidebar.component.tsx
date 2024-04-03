@@ -1,225 +1,146 @@
-import { Button } from "@nextui-org/react";
-import { HiDatabase, HiHome, HiMenuAlt1 } from "react-icons/hi";
-import { BiLibrary } from "react-icons/bi";
-import { motion } from "framer-motion";
+import { Button, Card, CardBody, Image } from "@nextui-org/react";
 import { useNavigate } from "react-router";
-import { SidebarStore } from "@/stores/SidebarStore";
-import { observer } from "mobx-react";
 import { UserStore } from "@/stores/UserStore";
-import { FiMonitor } from "react-icons/fi";
+import { FiHome, FiLogOut, FiSettings } from "react-icons/fi";
 import { BsArrowBarLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { SelectLauncherImage } from "../images/selectlauncher.component";
+import { logout } from "@/handlers/api";
+import { useState } from "react";
+import { settingsSidebarLinks, sidebarLinks } from "./sidebarLinks";
+
+import AccountLogo from "../../../../Resources/ICON_User.png";
+import { SidebarStore } from "@/stores/SidebarStore";
+import { observable } from "mobx";
+import { observer } from "mobx-react";
 
 interface SidebarProps {
   active: string;
   settings?: boolean;
 }
 
-interface SidebarLink {
-  name: string;
-  href: string;
-  icon: JSX.Element;
-  disabled: boolean;
-}
-
-const sidebarVariants = {
-  sidebarOpen: {
-    width: "300px",
-    transition: {
-      when: "beforeChildren",
-    },
-  },
-
-  sidebarClosed: {
-    width: "",
-  },
-};
-
-const SidebarComp: React.FC<SidebarProps> = ({ active, settings }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
   const navigate = useNavigate();
-
-  const iconSize = SidebarStore.isOpen ? "20" : "25";
 
   const { user } = UserStore;
 
-  const sidebarLinks: SidebarLink[] = [
-    {
-      name: "Home",
-      href: "/home",
-      icon: <HiHome size={iconSize} />,
-      disabled: false,
-    },
-    {
-      name: "Library",
-      href: "/library",
-      icon: <BiLibrary size={iconSize} />,
-      disabled: true,
-    },
-  ];
+  const [loading, setLoading] = useState(false);
 
-  const adminSidebarLinks: SidebarLink[] = [
-    {
-      name: "Dashboard",
-      icon: <HiDatabase size={iconSize} />,
-      disabled: false,
-      href: "/admin/dashboard",
-    },
-  ];
-
-  const settingsSidebarLinks: SidebarLink[] = [
-    {
-      name: "App",
-      icon: <FiMonitor size="25" />,
-      disabled: false,
-      href: "/settings/app",
-    },
-  ];
+  const logoutClient = () => {
+    setLoading(true);
+    const storedRfToken = localStorage.getItem("refreshToken");
+    if (storedRfToken && storedRfToken.length) {
+      const refreshToken = JSON.parse(storedRfToken).refreshToken;
+      logout(refreshToken, navigate, setLoading);
+    }
+  };
 
   return (
-    <motion.div
-      variants={sidebarVariants}
-      initial={false}
-      animate={SidebarStore.isOpen ? "sidebarOpen" : "sidebarClosed"}
-    >
-      <div className="bg-secondaryBG h-screen rounded-tr-xl rounded-br-xl">
-        <div className="flex flex-col flex-1 p-5">
-          <div>
-            <Button
-              size="lg"
-              color={SidebarStore.isOpen ? "primary" : "default"}
-              className="w-auto"
-              onClick={() => (SidebarStore.isOpen = !SidebarStore.isOpen)}
+    <div className="sticky flex left-0 mt-0 top-0 h-screen">
+      <div
+        className={
+          SidebarStore.open
+            ? "bg-secondaryBG mr-10 rounded-tr-xl h-full rounded-br-xl w-[250px]"
+            : "bg-secondaryBG mr-10 rounded-tr-xl h-full rounded-br-xl w-[100px]"
+        }
+      >
+        <div className="p-5">
+          <div className="mt-5">
+            <div
+              className={`grid justify-center mb-12 ${
+                !SidebarStore.open && "w-12 mx-auto"
+              }`}
             >
-              <HiMenuAlt1 size="25" className="font-bold" />
-            </Button>
-          </div>
-          <div className="grid space-y-10 justify-center mt-5">
-            {!settings ? (
-              <div>
-                {sidebarLinks.map((link, i) => (
-                  <>
-                    <Button
-                      onPress={() => navigate(link.href)}
-                      isDisabled={link.disabled}
-                      className={"mb-2 "}
-                      startContent={link.icon}
-                      key={i}
-                      size="lg"
-                    >
-                      {SidebarStore.isOpen && link.name}
-                    </Button>
-                  </>
-                ))}
-                {user?.moderator && (
-                  <div className="admin-zone">
-                    <div className="mt-5 opacity-50 uppercase font-bold text-sm">
-                      Administrator
-                    </div>
-                    {adminSidebarLinks.map((link, i) => (
+              <SelectLauncherImage />
+            </div>
+            <div>
+              {!settings ? (
+                <div className={SidebarStore.open ? "" : "grid"}>
+                  {sidebarLinks
+                    .filter((link) => !link.moderatorOnly)
+                    .map((link, i) => (
+                      <>
+                        <Button
+                          onPress={() => navigate(link.href)}
+                          isDisabled={link.disabled}
+                          className={"mb-6 mx-auto"}
+                          startContent={link.icon}
+                          isIconOnly={!SidebarStore.open}
+                          key={i}
+                          variant={
+                            active.toLowerCase() === link.name.toLowerCase()
+                              ? "solid"
+                              : "ghost"
+                          }
+                          size="lg"
+                          fullWidth
+                        >
+                          {SidebarStore.open && link.name}
+                        </Button>
+                      </>
+                    ))}
+                </div>
+              ) : (
+                <div className="mx-auto">
+                  <Card className="mb-10 shadow-none bg-tertiaryBG">
+                    <CardBody>
+                      <div className="flex items-center overflow-hidden">
+                        <Image
+                          src={AccountLogo}
+                          alt="Account Logo"
+                          className="mx-auto"
+                        />
+
+                        {SidebarStore.open && (
+                          <div className="ml-2">
+                            <p className="text-[14px] font-heading">
+                              {user?.username}
+                            </p>
+                            <p className="text-[8px]">{user?.email}</p>
+                          </div>
+                        )}
+                      </div>
+                    </CardBody>
+                  </Card>
+                  {settingsSidebarLinks.map((link, i) => (
+                    <div>
                       <Button
+                        fullWidth
                         onClick={() => navigate(link.href)}
-                        disabled={link.disabled}
-                        className={
-                          `bg-tertiaryBG mt-2 ${
-                            link.name.toLowerCase() == active
-                              ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
-                              : ""
-                          }` + !SidebarStore.isOpen
-                            ? "w-auto"
-                            : ""
-                        }
-                        // css={{
-                        //   borderLeftWidth:
-                        //     link.name.toLowerCase() == active ? "2px" : "",
-                        //   borderTopWidth:
-                        //     link.name.toLowerCase() == active ? "0px" : "",
-                        //   borderBottomWidth:
-                        //     link.name.toLowerCase() == active ? "0px" : "",
-                        //   borderRightWidth:
-                        //     link.name.toLowerCase() == active ? "0px" : "",
-                        //   borderTopLeftRadius:
-                        //     link.name.toLowerCase() == active ? "0.125rem" : "",
-                        //   borderBottomLeftRadius:
-                        //     link.name.toLowerCase() == active ? "0.125rem" : "",
-                        //   border:
-                        //     link.name.toLowerCase() == active ? "solid" : "",
-                        //   borderColor:
-                        //     link.name.toLowerCase() == active ? "#9980FA" : "",
-                        //   borderTopStyle: "none",
-                        //   borderBottomStyle: "none",
-                        //   borderRightStyle: "none",
-                        // }}
+                        isDisabled={link.disabled}
+                        className="mb-6"
                         startContent={link.icon}
                         key={i}
                         size="lg"
                       >
-                        {SidebarStore.isOpen && link.name}
+                        {link.name}
                       </Button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div>
-                {settingsSidebarLinks.map((link, i) => (
-                  <div>
-                    <Link to="/settings">
-                      <Button
-                        className="bg-tertiaryBG mb-10 w-auto"
-                        startContent={<BsArrowBarLeft size="25" />}
-                      >
-                        {SidebarStore.isOpen ? "Back" : " "}
-                      </Button>
-                    </Link>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
 
-                    <Button
-                      onClick={() => navigate(link.href)}
-                      disabled={link.disabled}
-                      className={
-                        `bg-tertiaryBG mt-2 ${
-                          link.name.toLowerCase() == active
-                            ? "border-l-4 border-y-0 border-r-0 rounded-l-sm border-solid border-primary-base"
-                            : ""
-                        }` + !SidebarStore.isOpen
-                          ? "w-auto"
-                          : ""
-                      }
-                      // css={{
-                      //   borderLeftWidth:
-                      //     link.name.toLowerCase() == active ? "2px" : "",
-                      //   borderTopWidth:
-                      //     link.name.toLowerCase() == active ? "0px" : "",
-                      //   borderBottomWidth:
-                      //     link.name.toLowerCase() == active ? "0px" : "",
-                      //   borderRightWidth:
-                      //     link.name.toLowerCase() == active ? "0px" : "",
-                      //   borderTopLeftRadius:
-                      //     link.name.toLowerCase() == active ? "0.125rem" : "",
-                      //   borderBottomLeftRadius:
-                      //     link.name.toLowerCase() == active ? "0.125rem" : "",
-                      //   border:
-                      //     link.name.toLowerCase() == active ? "solid" : "",
-                      //   borderColor:
-                      //     link.name.toLowerCase() == active ? "#9980FA" : "",
-                      //   borderTopStyle: "none",
-                      //   borderBottomStyle: "none",
-                      //   borderRightStyle: "none",
-                      // }}
-                      startContent={link.icon}
-                      key={i}
-                      size="lg"
-                    >
-                      {SidebarStore.isOpen && link.name}
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            )}
+            <div className="mt-auto w-full flex justify-center">
+              <Button
+                onPress={logoutClient}
+                startContent={!loading && <FiLogOut size={20} />}
+                color="danger"
+                className=""
+                variant="flat"
+                size="lg"
+                fullWidth
+                isIconOnly={!SidebarStore.open}
+                isLoading={loading}
+              >
+                {SidebarStore.open && "Sign out"}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
-export const Sidebar = observer(SidebarComp);
+export const SidebarObserver = observer(Sidebar);

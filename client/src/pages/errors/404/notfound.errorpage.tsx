@@ -13,15 +13,14 @@ const NotFound_E: React.FC<NotFound_EProps> = () => {
   return (
     <section className="offline_e">
       <div className="flex items-center justify-center h-screen">
-        <div className="grid items-center max-w-lg">
-          <Image
+        <div className="grid justify-center items-center">
+          <img
             src={missingItemIcon}
+            className="w-28 h-28 mb-5 mx-auto rounded-md"
             alt="404_E"
-            height="200px"
-            width="200px"
           />
           <div className="text-center">
-            <p className="text-2xl font-bold font-montserrat">
+            <p className="text-2xl font-heading">
               Where did that page go again?
             </p>
             <p>Bad news. That page seems to be missing.</p>
@@ -31,11 +30,9 @@ const NotFound_E: React.FC<NotFound_EProps> = () => {
                 <li>Again later? This could be an issue on our end.</li>
                 <li>Updating your launcher. It'll only take a few moments.</li>
                 <li className="flex justify-center mt-5 list-none">
-                  <Button variant="flat">
-                    <RouterLink to="/" className="text-primary-base">
-                      Return Home
-                    </RouterLink>
-                  </Button>
+                  <RouterLink to="/" className="text-primary-base">
+                    <Button variant="flat">Return Home</Button>
+                  </RouterLink>
                 </li>
               </ul>
             </p>
@@ -45,8 +42,8 @@ const NotFound_E: React.FC<NotFound_EProps> = () => {
       <div
         className={`fixed p-2 flex font-bold justify-center rounded-t-md items-center bottom-0 w-screen bg-secondaryBG`}
       >
-        <BsExclamationCircle size="20" className="text-red-500 mr-2" /> E_404:
-        Cannot get {location.pathname}
+        <BsExclamationCircle size="20" className="text-danger mr-2" /> Error
+        404: Cannot get {location.pathname}
       </div>
     </section>
   );

@@ -1,11 +1,12 @@
 import GameInfo from "@/interfaces/GameInfoInterface";
+import { GamesStore_Impl } from "@/stores/GamesStore";
 import { UserStore, UserStore_Impl } from "@/stores/UserStore";
 import { Log } from "@/utils/lib/Log";
 
 export const API_URI =
   process.env.NODE_ENV === "development"
     ? "http://localhost:4757/api"
-    : "https://selectlauncherapi.up.railway.app/api";
+    : "https://select-launcher.onrender.com/api";
 
 Log.ready("API URI is ready on " + API_URI, "API Handler");
 
@@ -107,7 +108,11 @@ export const getGameInfo = async () => {
   }
 };
 
-export const logout = async (accessToken: string, navigate: any) => {
+export const logout = async (
+  accessToken: string,
+  navigate: any,
+  setLoading: any
+) => {
   await fetch(`${API_URI}/accounts/logout`, {
     method: "DELETE",
     headers: {
@@ -116,6 +121,8 @@ export const logout = async (accessToken: string, navigate: any) => {
   }).then(() => {
     localStorage.clear();
     UserStore.user = null;
+
+    setLoading(false);
 
     navigate("/");
   });
@@ -161,3 +168,11 @@ export const editAccount = async (
     throw new Error();
   }
 };
+
+export default async function retrieveGameInfo(GamesStore: GamesStore_Impl) {
+  const fetchedGameInfo = await getGameInfo();
+
+  if (fetchedGameInfo) {
+    GamesStore.setGames(fetchedGameInfo);
+  }
+}

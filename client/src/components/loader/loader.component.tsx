@@ -12,7 +12,10 @@ export interface LoadingState {
 const Loader: React.FC<LoaderProps> = ({ msg }) => {
   return (
     <div className="h-screen flex items-center justify-center">
-      <Spinner size="lg">{msg}</Spinner>
+      <div className="grid justify-center">
+        <Spinner size="lg" />
+        <p className="font-bold mt-5">Working on it</p>
+      </div>
     </div>
   );
 };

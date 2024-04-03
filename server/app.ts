@@ -93,7 +93,7 @@ app.get("/api/accounts/:id/:method/verify", async (req, res) => {
       await user.updateOne({ verified: true });
       await userToken.remove();
 
-      res.redirect(`select-launcher://home?verified=true&id=${id}`);
+      res.redirect(`select-launcher://store?verified=true&id=${id}`);
     } catch (err) {
       res.status(500).json({ error: "There was an error verifying the user." });
     }

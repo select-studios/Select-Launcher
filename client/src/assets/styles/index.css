@@ -1,16 +1,21 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Titan+One&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.appbar {
+.titlebar {
   -webkit-app-region: drag;
+}
+
+.titlebar-nodrag {
+  -webkit-app-region: no-drag;
 }
 
 :root {
   --toastify-color-dark: #181818 !important;
-  overflow-x: hidden;
+  overflow-y: hidden;
+  overflow-x: hidden !important;
 }
 
 body {
@@ -22,22 +27,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-::-moz-selection {
-  /* Code for Firefox */
-  background-color: rgb(156 136 255);
-}
-
-::selection {
-  background-color: rgb(156 136 255);
-}
-
 ::-webkit-scrollbar {
   width: 10px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  @apply bg-zinc-800 bg-primaryBG rounded-md;
+  @apply bg-primaryBG rounded-md;
 }
 
 /* Handle */
@@ -57,11 +53,6 @@ h3 {
   @apply tracking-wide !important;
 }
 
-.nextui-input-helper-text {
-  font-size: 0.75rem !important;
-  line-height: 1rem !important;
-}
-
 .Toastify__toast {
   font-weight: 500;
   font-family: "Inter" sans-serif;
@@ -70,14 +61,12 @@ h3 {
 .game-grid {
   display: grid;
   width: 100%;
-  margin-left: 0.5rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   transition: all 0.8s ease-in-out;
 }
 
 @media screen and (min-width: 1482px) {
   .game-grid {
-    margin-left: 4rem;
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

@@ -7,6 +7,7 @@ export interface User {
   password: string;
   moderator: boolean;
   verified: boolean;
+  purchasedGames: string[];
   tokens: {
     accessToken: string;
     refreshToken: string;
@@ -23,6 +24,10 @@ export class UserStore_Impl {
 
   setUser(user: User) {
     this.user = user;
+  }
+
+  setPurchasedGames(games: string[]) {
+    this.user!.purchasedGames = games;
   }
 }
 

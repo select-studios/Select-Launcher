@@ -13,6 +13,7 @@ import runIpcStorageEvents from "./ipc/ipcStorageEvents";
 import runIpcGameEvents from "./ipc/ipcGameEvents";
 import { checkIfGamesDirectoryExists } from "../api/gameManager";
 import { autoUpdater } from "electron-updater";
+import runWindowControlEvents from "./ipc/ipcWindowControlEvents";
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 
@@ -49,16 +50,11 @@ async function createWindow() {
       nodeIntegration: true,
       contextIsolation: false,
     },
-    autoHideMenuBar: true,
-    titleBarStyle: "hidden",
-    titleBarOverlay: {
-      color: "#282A2D",
-      symbolColor: "#fff",
-      height: 20,
-    },
+    frame: false,
     minWidth: 900,
     minHeight: 500,
   });
+  win.setMenuBarVisibility(false);
 
   if (process.env.VITE_DEV_SERVER_URL) {
     // electron-vite-vue#298
@@ -74,6 +70,9 @@ async function createWindow() {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
   });
   win.webContents.setVisualZoomLevelLimits(1, 1);
+  win.on("close", () => {
+    win = null;
+  });
 
   // Make all links open with the browser, not with the application
   win.webContents.setWindowOpenHandler(({ url }) => {
@@ -115,7 +114,7 @@ if (!gotTheLock) {
       win.focus();
       win.reload();
       console.log(commandLine);
-      if (commandLine[3].includes("select-launcher://home")) {
+      if (commandLine[3].includes("select-launcher://store")) {
         dialog.showMessageBox({
           type: "info",
           title: "Select Launcher",
@@ -145,6 +144,7 @@ if (!gotTheLock) {
     ipcMain.handle("dialog:openFolder", handleFolderOpen);
     runIpcStorageEvents();
     runIpcGameEvents();
+    runWindowControlEvents(win);
   });
 
   // Handle the protocol. In this case, we choose to show an Error Box.

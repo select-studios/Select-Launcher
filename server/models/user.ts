@@ -10,6 +10,7 @@ const user = new mongoose.Schema({
   moderator: { type: Boolean, required: false, default: false },
   banned: { type: Boolean, required: true, default: false },
   banReason: { type: String, required: false, default: null },
+  purchasedGames: [String],
 });
 
 const User = mongoose.model("user", user);

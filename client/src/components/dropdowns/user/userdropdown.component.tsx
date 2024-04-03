@@ -6,6 +6,8 @@ import {
   DropdownMenu,
   DropdownSection,
   DropdownItem,
+  Image,
+  Chip,
 } from "@nextui-org/react";
 import { Badge } from "@nextui-org/react";
 import {
@@ -37,17 +39,20 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
     <div>
       <Dropdown size="lg">
         <DropdownTrigger>
-          <Avatar src={userImg} size="lg" className="mr-2 cursor-pointer" />
+          <Image
+            src={userImg}
+            className="mr-2 min-w-12 max-w-12 cursor-pointer"
+          />
         </DropdownTrigger>
         <DropdownMenu
-          className="bg-secondaryBG"
+          className=""
           disabledKeys={["badges"]}
           onAction={(key: Key) => {
             if (key == "logout") {
               const storedRfToken = localStorage.getItem("refreshToken");
               if (storedRfToken && storedRfToken.length) {
                 const refreshToken = JSON.parse(storedRfToken).refreshToken;
-                logout(refreshToken, navigate);
+                // logout(refreshToken, navigate);
               }
             } else if (key.toString() == "verified" && !user?.verified) {
               sendVerificationLink(user.accessToken);
@@ -58,27 +63,31 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
             } else if (key.toString() == "settings") {
               navigate("/settings");
             } else if (key.toString() == "admindashboard") {
-              navigate("/admin/dashboard");
+              navigate("/moderator/dashboard");
             }
           }}
         >
           {(user?.verified || (user?.moderator as any)) && (
             <DropdownItem key="badges" className="flex mb-2">
               {user?.verified && (
-                <Badge color="success" className="mr-2">
-                  <HiCheck className="mr-1" /> Verified
-                </Badge>
+                <Chip
+                  startContent={<HiCheck size={16} />}
+                  color="success"
+                  className="mr-2"
+                  variant="flat"
+                >
+                  Verified
+                </Chip>
               )}
               {user?.moderator && (
-                <Badge variant="flat" color="warning" className="mr-2">
-                  <HiUserPlus className="mr-1" />
+                <Chip startContent={<HiUserPlus size={16} />} variant="flat">
                   Moderator
-                </Badge>
+                </Chip>
               )}
             </DropdownItem>
           )}
 
-          <DropdownSection showDivider>
+          <DropdownSection showDivider={false}>
             <DropdownItem startContent={<HiHome size="20" />} key="home">
               Home
             </DropdownItem>
@@ -92,7 +101,6 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
               <DropdownItem
                 startContent={<HiBellAlert size="20" />}
                 key="verified"
-                color="warning"
                 description="Resend verification link."
               >
                 Not verified
@@ -101,7 +109,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
           </DropdownSection>
 
           {(user?.moderator as Boolean) && (
-            <DropdownSection title="Admin Zone">
+            <DropdownSection title="Moderator">
               <DropdownItem
                 key="admindashboard"
                 startContent={<HiDatabase size="20" />}
@@ -110,7 +118,8 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
               </DropdownItem>
             </DropdownSection>
           )}
-          <DropdownSection title="Danger Zone">
+
+          {/* <DropdownSection title="Danger">
             <DropdownItem
               key="logout"
               color="danger"
@@ -118,7 +127,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
             >
               Logout
             </DropdownItem>
-          </DropdownSection>
+          </DropdownSection> */}
         </DropdownMenu>
       </Dropdown>
     </div>

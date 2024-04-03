@@ -1,11 +1,14 @@
 import { makeAutoObservable } from "mobx";
-
-export class SidebarStoreImpl {
-  isOpen: boolean = true;
+export class SidebarStore_Impl {
+  open: boolean = true;
 
   constructor() {
     makeAutoObservable(this);
   }
+
+  setOpen(open: boolean) {
+    this.open = open;
+  }
 }
 
-export const SidebarStore = new SidebarStoreImpl();
+export const SidebarStore = new SidebarStore_Impl();

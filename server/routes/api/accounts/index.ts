@@ -10,6 +10,7 @@ import { login } from "./login";
 import { logout } from "./logout";
 import { refresh } from "./refresh";
 import { register } from "./register";
+import { addGameEdit } from "./account/edit/addgame";
 
 const accountsRouter = Router();
 
@@ -28,6 +29,7 @@ accountsRouter.post("/register", register);
 accountsRouter.post("/refresh", refresh);
 accountsRouter.post("/account", jwtAuth, account);
 accountsRouter.put("/account/edit", jwtAuth, editAccount);
+accountsRouter.put("/account/edit/addgame", jwtAuth, addGameEdit);
 accountsRouter.get("/account/forgotpassword", forgotPass);
 accountsRouter.put("/account/ban", jwtAuth, banAccount);
 accountsRouter.put("/account/unban", jwtAuth, unbanAccount);
