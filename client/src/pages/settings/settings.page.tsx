@@ -10,6 +10,7 @@ import {
 } from "@nextui-org/react";
 import { FaFolderOpen } from "react-icons/fa";
 import { FC, useState, useEffect } from "react";
+import appInfo from "../../../package.json";
 
 interface IProps {}
 
@@ -75,11 +76,11 @@ export const Settings: FC<IProps> = (props) => {
                 <div className="grid grid-cols-4">
                   <div className="bg-tertiaryBG rounded-lg px-4 py-2">
                     <p className="text-base font-heading uppercase">Version</p>
-                    <p className="text-base">3</p>
+                    <p className="text-base">{appInfo.version}</p>
                   </div>
                   <div className="bg-tertiaryBG rounded-lg px-4 py-2 ml-2">
                     <p className="text-base font-heading uppercase">Build</p>
-                    <p className="text-base">1100</p>
+                    <p className="text-base">{appInfo.build}</p>
                   </div>
                   <div className="bg-tertiaryBG rounded-lg px-4 py-2 ml-2">
                     <p className="text-base font-heading uppercase">

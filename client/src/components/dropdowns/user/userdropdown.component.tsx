@@ -63,14 +63,19 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
             } else if (key.toString() == "settings") {
               navigate("/settings");
             } else if (key.toString() == "admindashboard") {
-              navigate("/admin/dashboard");
+              navigate("/moderator/dashboard");
             }
           }}
         >
           {(user?.verified || (user?.moderator as any)) && (
             <DropdownItem key="badges" className="flex mb-2">
               {user?.verified && (
-                <Chip startContent={<HiCheck />} color="success">
+                <Chip
+                  startContent={<HiCheck size={16} />}
+                  color="success"
+                  className="mr-2"
+                  variant="flat"
+                >
                   Verified
                 </Chip>
               )}

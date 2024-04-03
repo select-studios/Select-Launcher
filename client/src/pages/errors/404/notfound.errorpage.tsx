@@ -30,11 +30,9 @@ const NotFound_E: React.FC<NotFound_EProps> = () => {
                 <li>Again later? This could be an issue on our end.</li>
                 <li>Updating your launcher. It'll only take a few moments.</li>
                 <li className="flex justify-center mt-5 list-none">
-                  <Button variant="flat">
-                    <RouterLink to="/" className="text-primary-base">
-                      Return Home
-                    </RouterLink>
-                  </Button>
+                  <RouterLink to="/" className="text-primary-base">
+                    <Button variant="flat">Return Home</Button>
+                  </RouterLink>
                 </li>
               </ul>
             </p>

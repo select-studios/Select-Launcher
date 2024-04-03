@@ -114,7 +114,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                       <Button
                         fullWidth
                         onClick={() => navigate(link.href)}
-                        disabled={link.disabled}
+                        isDisabled={link.disabled}
                         className="mb-6"
                         startContent={link.icon}
                         key={i}

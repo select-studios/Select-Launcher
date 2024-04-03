@@ -1,4 +1,5 @@
 import GameInfo from "@/interfaces/GameInfoInterface";
+import { GamesStore_Impl } from "@/stores/GamesStore";
 import { UserStore, UserStore_Impl } from "@/stores/UserStore";
 import { Log } from "@/utils/lib/Log";
 
@@ -167,3 +168,11 @@ export const editAccount = async (
     throw new Error();
   }
 };
+
+export default async function retrieveGameInfo(GamesStore: GamesStore_Impl) {
+  const fetchedGameInfo = await getGameInfo();
+
+  if (fetchedGameInfo) {
+    GamesStore.setGames(fetchedGameInfo);
+  }
+}

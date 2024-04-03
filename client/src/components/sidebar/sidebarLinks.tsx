@@ -44,19 +44,19 @@ export const settingsSidebarLinks: SidebarLink[] = [
   {
     name: "App",
     icon: <FiMonitor size="20" />,
-    disabled: false,
+    disabled: true,
     href: "/settings/app",
   },
   {
     name: "Account",
     icon: <FiUser size="20" />,
-    disabled: false,
+    disabled: true,
     href: "/settings/account",
   },
   {
     name: "Payment",
     icon: <BiMoneyWithdraw size={20} />,
-    disabled: false,
+    disabled: true,
     href: "/settings/payment",
   },
 ];

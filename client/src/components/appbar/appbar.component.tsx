@@ -34,7 +34,7 @@ export const AppBar: React.FC<AppBarProps> = ({
               </Link>
             )}
             <p className="font-heading text-2xl uppercase mr-10">{pageName}</p>
-            <Input className="mr-5" placeholder="Search..." />
+            <Input isDisabled className="mr-5" placeholder="Search..." />
           </nav>
           <div className="inline-flex lg:justify-end">
             {dashboard && (

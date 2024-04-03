@@ -18,14 +18,23 @@ export const ContentFooter = ({ game }: IContentFooterProps) => {
         </p>
       </div>
       <div className="mt-5 flex items-center">
-        <Button size="lg" className="mr-5" startContent={<FiShare size="24" />}>
+        <Button
+          isDisabled
+          size="lg"
+          className="mr-5"
+          startContent={<FiShare size="24" />}
+        >
           Share
         </Button>
-        <Button size="lg" className="mr-5" startContent={<FiFlag size={24} />}>
+        <Button
+          isDisabled
+          size="lg"
+          className="mr-5"
+          startContent={<FiFlag size={24} />}
+        >
           Report
         </Button>
       </div>
     </div>
   );
 };
-

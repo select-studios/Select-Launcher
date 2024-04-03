@@ -20,7 +20,9 @@ import { useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegCirclePlay, FaTrashCan } from "react-icons/fa6";
 import { GrInstallOption } from "react-icons/gr";
+import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import path from "path";
 
 interface LibraryGameCard {
   game: GameInfo;
@@ -30,22 +32,10 @@ const installedDropdownItems = [
   {
     key: "visit-store-page",
     label: "Visit store page",
-    onClick: () => {},
   },
   {
     key: "open-location",
     label: "Locate game files",
-    onClick: () => {},
-  },
-  {
-    key: "check-updates",
-    label: "Check for updates",
-    onClick: () => {},
-  },
-  {
-    key: "remove-owned",
-    label: "Remove from owned",
-    onClick: () => {},
   },
 ];
 
@@ -53,16 +43,12 @@ const notInstalledDropdownItems = [
   {
     key: "visit-store-page",
     label: "Visit store page",
-    onClick: () => {},
-  },
-  {
-    key: "remove-owned",
-    label: "Remove from owned",
-    onClick: () => {},
   },
 ];
 
 const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
+  const navigate = useNavigate();
+
   const installedGames = window.gamesAPI.getInstalledGames();
 
   const [installedGamesState, setInstalledGamesState] =
@@ -75,6 +61,16 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
     remainingSize?: number;
     msg?: string;
   }>({});
+
+  const visitStorePage = () => {
+    navigate(`/games/${game.name}`);
+  };
+
+  const locateGameFiles = () => {
+    require("child_process").exec(
+      `start "" "${path.join(window.gamesAPI.getStorageLocation(), game.name)}"`
+    );
+  };
 
   useEffect(() => {
     ipcRenderer.on(
@@ -106,24 +102,24 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
               ))}
             </div>
           </div>
-          <p className="overflow-ellipsis max-h-24 mt-4 font-semibold opacity-70">
+          <p className="overflow-hidden mt-2 font-semibold opacity-70">
             {game.description}
           </p>
           {downloadStatus && downloadStatus.gameName === game.downloadName && (
             <div className="download-progress mt-auto">
               <p className="font-semibold opacity-70">
-                {downloadStatus.msg?.length ? (
-                  downloadStatus.msg
-                ) : (
-                  // <Spinner className="mt-auto" color="success" size="sm" />
-                  <Progress isIndeterminate className="mt-5" color="success" size="sm" />
-                )}
+                {downloadStatus.msg?.length
+                  ? downloadStatus.msg
+                  : "Installing..."}
               </p>
 
               <Progress
                 className={"mt-5"}
                 size="sm"
                 color="success"
+                isIndeterminate={
+                  (downloadStatus.msg?.length || 0) <= 0 || false
+                }
                 value={Number(Number(downloadStatus.percentage).toFixed(0))}
               />
             </div>
@@ -132,7 +128,7 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
             className={
               downloadStatus && downloadStatus.gameName === game.downloadName
                 ? "hidden"
-                : "Buttons mt-auto mb-2"
+                : "Buttons mt-auto"
             }
           >
             {isInstalled ? (
@@ -160,11 +156,10 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
                     {installedDropdownItems.map((item) => (
                       <DropdownItem
                         onPress={() => {
-                          if (item.key === "remove-owned") {
-                            window.gamesAPI.removeInstalledGames(game.name);
-                            setInstalledGamesState(
-                              window.gamesAPI.getInstalledGames()
-                            );
+                          if (item.key === "visit-store-page") {
+                            visitStorePage();
+                          } else if (item.key === "open-location") {
+                            locateGameFiles();
                           }
                         }}
                         key={item.key}
@@ -186,8 +181,6 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
                       setInstalledGamesState(
                         window.gamesAPI.getInstalledGames()
                       );
-
-                      toast.success(message);
                     });
                   }}
                 >
@@ -210,8 +203,6 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
                       setInstalledGamesState(
                         window.gamesAPI.getInstalledGames()
                       );
-
-                      toast.success(message);
                     });
                   }}
                 >
@@ -225,7 +216,16 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
                   </DropdownTrigger>
                   <DropdownMenu>
                     {notInstalledDropdownItems.map((item) => (
-                      <DropdownItem key={item.key}>{item.label}</DropdownItem>
+                      <DropdownItem
+                        onPress={() => {
+                          if (item.key === "visit-store-page") {
+                            visitStorePage();
+                          }
+                        }}
+                        key={item.key}
+                      >
+                        {item.label}
+                      </DropdownItem>
                     ))}
                   </DropdownMenu>
                 </Dropdown>

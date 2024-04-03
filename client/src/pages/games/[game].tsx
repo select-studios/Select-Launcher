@@ -1,11 +1,12 @@
 import { AppBar, Sidebar } from "@/components";
 import { GamesStore } from "@/stores/GamesStore";
 import { UserStore } from "@/stores/UserStore";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { useParams } from "react-router";
 import { InfoBar, ContentHeader, ContentFooter } from "./components";
 import { observer } from "mobx-react";
 import { InfoBarObservable } from "./components/info_bar";
+import retrieveGameInfo from "@/handlers/api";
 
 interface GamesInfoProps {}
 
@@ -17,6 +18,10 @@ const Game: FunctionComponent<GamesInfoProps> = () => {
   const game = games?.find((game) => game.name === gameName);
 
   const { user } = UserStore;
+
+  useEffect(() => {
+    retrieveGameInfo(GamesStore);
+  }, []);
 
   return (
     <section className="game-page">

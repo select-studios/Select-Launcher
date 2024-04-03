@@ -5,8 +5,14 @@ import { observer } from "mobx-react";
 import { LibraryGames } from "./components/games.library";
 import "./library.styles.css";
 import { GamesStore } from "@/stores/GamesStore";
+import { useEffect } from "react";
+import retrieveGameInfo from "@/handlers/api";
 
 const libraryComp = () => {
+  useEffect(() => {
+    retrieveGameInfo(GamesStore);
+  }, []);
+
   return (
     <main>
       <div className="library">

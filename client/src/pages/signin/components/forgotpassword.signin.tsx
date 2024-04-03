@@ -11,9 +11,8 @@ import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { API_URI } from "@/handlers/api";
 import { toast } from "react-toastify";
-import { HiEye, HiOutlineEye } from "react-icons/hi";
-import { HiEyeSlash, HiOutlineEyeSlash } from "react-icons/hi2";
-import ButtonLoader from "@/components/loader/button/buttonloader.component";
+import { HiEye } from "react-icons/hi";
+import { HiEyeSlash } from "react-icons/hi2";
 
 interface IProps {
   visible: boolean;
