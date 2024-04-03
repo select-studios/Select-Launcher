@@ -22,7 +22,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, loading }) => {
       isPressable={!loading}
       onPress={() => (!loading ? navigate(`/games/${game?.name}`) : null)}
       isHoverable={!loading}
-      className="bg-secondaryBG mb-5 flex justify-center p-2 w-40 h-[250px]"
+      className="bg-secondaryBG mb-5 flex justify-center p-2 h-[300px] mr-5"
     >
       <CardHeader className="flex justify-end">
         {!loading ? (

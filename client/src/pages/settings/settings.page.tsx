@@ -11,6 +11,7 @@ import {
 import { FaFolderOpen } from "react-icons/fa";
 import { FC, useState, useEffect } from "react";
 import appInfo from "../../../package.json";
+import { SidebarStore } from "@/stores/SidebarStore";
 
 interface IProps {}
 
@@ -24,6 +25,7 @@ export const Settings: FC<IProps> = (props) => {
   const [libraryLocation, setLibraryLocation] = useState<string>();
 
   useEffect(() => {
+    SidebarStore.setOpen(true);
     setLibraryLocation(window.gamesAPI.getStorageLocation());
   });
 

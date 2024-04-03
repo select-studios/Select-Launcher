@@ -1,8 +1,9 @@
+import { SidebarStore } from "@/stores/SidebarStore";
 import { BiLibrary, BiMoney, BiMoneyWithdraw } from "react-icons/bi";
 import { FiCompass, FiHome, FiMonitor, FiUser } from "react-icons/fi";
 import { HiDatabase } from "react-icons/hi";
 
-const iconSize = "20";
+const iconSize = SidebarStore.open ? "20" : "25";
 
 interface SidebarLink {
   name: string;

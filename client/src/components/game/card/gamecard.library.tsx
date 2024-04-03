@@ -13,6 +13,7 @@ import {
   DropdownItem,
   Progress,
   Spinner,
+  Tooltip,
 } from "@nextui-org/react";
 import { ipcRenderer } from "electron";
 import { observer } from "mobx-react";
@@ -87,7 +88,7 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
         <div className="bg-tertiaryBG rounded-lg flex-start w-64 h-full"></div>
         <div className="ml-4 flex flex-col">
           <div>
-            <h1 className="text-white text-3xl uppercase font-heading">
+            <h1 className="tracking-wider text-3xl uppercase font-heading">
               {game.name}
             </h1>
             <div className="flex flex-row gap-2">
@@ -169,23 +170,24 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
                     ))}
                   </DropdownMenu>
                 </Dropdown>
-                <Button
-                  startContent={<FaTrashCan />}
-                  color="danger"
-                  size="lg"
-                  className="ml-auto"
-                  onPress={() => {
-                    window.gamesAPI.uninstallGame(game.downloadName);
-                    ipcRenderer.once("finish-uninstall", (event, message) => {
-                      window.gamesAPI.removeInstalledGames(game.name);
-                      setInstalledGamesState(
-                        window.gamesAPI.getInstalledGames()
-                      );
-                    });
-                  }}
-                >
-                  Uninstall
-                </Button>
+                <Tooltip content="Uninstall Game">
+                  <Button
+                    startContent={<FaTrashCan />}
+                    color="danger"
+                    size="lg"
+                    className="ml-auto"
+                    isIconOnly
+                    onPress={() => {
+                      window.gamesAPI.uninstallGame(game.downloadName);
+                      ipcRenderer.once("finish-uninstall", (event, message) => {
+                        window.gamesAPI.removeInstalledGames(game.name);
+                        setInstalledGamesState(
+                          window.gamesAPI.getInstalledGames()
+                        );
+                      });
+                    }}
+                  ></Button>
+                </Tooltip>
               </div>
             ) : (
               <div className="flex flex-row">
