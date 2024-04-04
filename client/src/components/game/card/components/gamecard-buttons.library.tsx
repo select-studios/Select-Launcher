@@ -114,7 +114,7 @@ export const LibraryGamecardButtons: FC<IProps> = ({
   const isInstalled = installedGamesState.includes(game.name);
 
   const onUninstallGame = () => {
-    window.gamesAPI.uninstallGame(game.downloadName);
+    window.gamesAPI.uninstallGame(game.name);
     ipcRenderer.once("finish-uninstall", (event, message) => {
       window.gamesAPI.removeInstalledGames(game.name);
       setInstalledGamesState(window.gamesAPI.getInstalledGames());
