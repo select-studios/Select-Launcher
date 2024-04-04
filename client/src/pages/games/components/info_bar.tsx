@@ -72,7 +72,7 @@ export const InfoBar = ({ game }: IInfoBarProps) => {
             <Chip
               startContent={<BiCheckCircle size={20} />}
               variant="flat"
-              color="success"
+              color="primary"
             >
               Verified
             </Chip>
@@ -82,10 +82,10 @@ export const InfoBar = ({ game }: IInfoBarProps) => {
             <Chip
               startContent={<BiCheckCircle size={20} />}
               variant="flat"
-              color="warning"
+              color="success"
               className="ml-2"
             >
-              Purchased
+              In Library
             </Chip>
           )}
         </div>
@@ -110,7 +110,7 @@ export const InfoBar = ({ game }: IInfoBarProps) => {
                 size="lg"
                 fullWidth
               >
-                Go to Library
+                See in Library
               </Button>
             </Link>
           </div>

@@ -173,7 +173,8 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
                 <Tooltip content="Uninstall Game">
                   <Button
                     startContent={<FaTrashCan />}
-                    color="danger"
+                    color="default"
+                    variant="ghost"
                     size="lg"
                     className="ml-auto"
                     isIconOnly

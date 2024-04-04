@@ -41,14 +41,14 @@ export const SigninForgotPassword: FC<IProps> = ({ visible, setVisible }) => {
       .then((body) => {
         setVisible(false);
         toast.success(
-          "An e-mail has been sent to your account with further actions."
+          "An email has been sent to you with instructions to recover your account!"
         );
         setLoading(false);
       })
       .catch((err) => {
         setLoading(false);
         setVisible(false);
-        toast.error("There was an error.");
+        toast.error("There was an error in your password reset, please contact support");
       });
   };
 
