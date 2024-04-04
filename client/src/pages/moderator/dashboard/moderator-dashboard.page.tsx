@@ -38,6 +38,7 @@ import {
   ModalFooter,
   Switch,
   Checkbox,
+  Chip,
 } from "@nextui-org/react";
 import { Badge } from "@nextui-org/badge";
 import { FiSearch } from "react-icons/fi";
@@ -234,7 +235,7 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
                       )
                       .map((user: any, key) => (
                         <Card
-                          className={`bg-secondaryBG shadow-none max-h-fit max-w-xl mr-2 mb-2 my-3 p-6 ${
+                          className={`bg-secondaryBG shadow-none max-h-fit mr-2 mb-2 my-3 p-6 ${
                             user?.moderator ? "border border-yellow-400" : ""
                           }`}
                           key={`User-${key}`}
@@ -254,34 +255,35 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
                               <p className="text-sm flex items-center opacity-70">
                                 <HiMail className="mr-1" /> {user.email}{" "}
                                 {user?.verified && (
-                                  <Badge
+                                  <Chip
                                     size="sm"
                                     className="ml-2 border-0"
                                     variant="flat"
                                     color="success"
                                   >
-                                    <HiCheck className="mr-1" /> Verified
-                                  </Badge>
+                                    Verified
+                                  </Chip>
                                 )}
                                 {user?.moderator && (
-                                  <Badge
+                                  <Chip
                                     size="sm"
                                     className="ml-2"
                                     variant="flat"
                                     color="warning"
                                   >
-                                    <HiUserPlus className="mr-1" /> Moderator
-                                  </Badge>
+                                    Moderator
+                                  </Chip>
                                 )}
                                 {user?.banned && (
-                                  <Badge
+                                  <Chip
                                     size="sm"
                                     className="ml-2"
                                     variant="flat"
+                                    startContent={<HiBan className="mr-1" />}
                                     color="danger"
                                   >
-                                    <HiBan className="mr-1" /> Banned
-                                  </Badge>
+                                    Banned
+                                  </Chip>
                                 )}
                               </p>
                             </div>

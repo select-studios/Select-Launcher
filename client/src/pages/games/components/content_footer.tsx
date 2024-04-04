@@ -8,8 +8,8 @@ interface IContentFooterProps {
 
 export const ContentFooter = ({ game }: IContentFooterProps) => {
   return (
-    <div>
-      <div className="genres mt-20">
+    <div className="fixed bottom-0 mb-5">
+      <div className="genres">
         <p className="uppercase font-heading text-xl">Genres</p>
         <p className="text-base opacity-80">
           {game?.tags

@@ -64,59 +64,57 @@ export const InfoBar = ({ game }: IInfoBarProps) => {
   7;
   return (
     <div className="h-screen p-5 sticky top-0 right-0 rounded-tl-lg bg-secondaryBG w-96">
-      <div className="bg-tertiaryBG mb-4 min-h-40 rounded-lg p-5"></div>
-      <div className="flex items-center mb-8">
-        <p className="font-heading opacity-80 text-base">FREE</p>
-        <div className="flex items-center ml-2">
-          {game?.verified && (
-            <Chip
-              startContent={<BiCheckCircle size={20} />}
-              variant="flat"
-              color="primary"
-            >
-              Verified
-            </Chip>
-          )}
+      <div>
+        <div className="bg-tertiaryBG mb-4 min-h-40 rounded-lg p-5"></div>
+        <div className="flex items-center mb-8">
+          <p className="font-heading opacity-80 text-base">FREE</p>
+          <div className="flex items-center ml-2">
+            {game?.verified && (
+              <Chip
+                startContent={<BiCheckCircle size={20} />}
+                variant="flat"
+                color="primary"
+              >
+                Verified
+              </Chip>
+            )}
 
-          {user?.purchasedGames.includes(game?.name || "") && (
-            <Chip
-              startContent={<BiCheckCircle size={20} />}
-              variant="flat"
+            {user?.purchasedGames.includes(game?.name || "") && (
+              <Chip variant="flat" color="success" className="ml-2">
+                In Library
+              </Chip>
+            )}
+          </div>
+        </div>
+        <div className="buttons">
+          {!user?.purchasedGames.includes(game?.name || "") ? (
+            <Button
+              startContent={!loading && <FiShoppingBag size={20} />}
+              size="lg"
               color="success"
-              className="ml-2"
+              isLoading={loading}
+              fullWidth
+              onPress={async () => await addGame()}
             >
-              In Library
-            </Chip>
+              Get now
+            </Button>
+          ) : (
+            <div>
+              <Link to="/library">
+                <Button
+                  startContent={<FiShoppingBag size={20} />}
+                  size="lg"
+                  fullWidth
+                >
+                  See in Library
+                </Button>
+              </Link>
+            </div>
           )}
         </div>
       </div>
-      <div className="buttons">
-        {!user?.purchasedGames.includes(game?.name || "") ? (
-          <Button
-            startContent={!loading && <FiShoppingBag size={20} />}
-            size="lg"
-            color="success"
-            isLoading={loading}
-            fullWidth
-            onPress={async () => await addGame()}
-          >
-            Get now
-          </Button>
-        ) : (
-          <div>
-            <Link to="/library">
-              <Button
-                startContent={<FiShoppingBag size={20} />}
-                size="lg"
-                fullWidth
-              >
-                See in Library
-              </Button>
-            </Link>
-          </div>
-        )}
-      </div>
-      <div className="mt-20">
+
+      <div className="fixed mb-5 bottom-0">
         <div>
           <p className="font-heading text-base uppercase">Developer</p>
           <p className="text-base">{game?.developer}</p>

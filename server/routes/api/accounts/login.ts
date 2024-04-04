@@ -43,7 +43,6 @@ export const login = async (
         .json({ error: "There was an error checking for the password." });
       return;
     }
-    console.log(password);
     if (!result) {
       res.status(403).json({ error: "Username / Password is wrong." });
       return;
