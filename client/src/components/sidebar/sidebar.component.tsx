@@ -11,8 +11,10 @@ import { settingsSidebarLinks, sidebarLinks } from "./sidebarLinks";
 
 import AccountLogo from "../../../../Resources/ICON_User.png";
 import { SidebarStore } from "@/stores/SidebarStore";
-import { observable } from "mobx";
 import { observer } from "mobx-react";
+import { FaHammer } from "react-icons/fa6";
+import { GrAnalytics } from "react-icons/gr";
+import { BiSolidDashboard } from "react-icons/bi";
 
 interface SidebarProps {
   active: string;
@@ -79,6 +81,21 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                         </Button>
                       </>
                     ))}
+                  {user?.moderator && (
+                    <Button
+                      onPress={() => navigate("/moderator/dashboard")}
+                      className={"mb-6 mx-auto"}
+                      startContent={<BiSolidDashboard size={20} />}
+                      isIconOnly={!SidebarStore.open}
+                      variant={
+                        active.toLowerCase() === "moderator" ? "solid" : "ghost"
+                      }
+                      size="lg"
+                      fullWidth
+                    >
+                      {SidebarStore.open && "Moderator"}
+                    </Button>
+                  )}
                 </div>
               ) : (
                 <div className="mx-auto">
