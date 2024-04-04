@@ -4,13 +4,12 @@ import { User as UserI } from "../../../interfaces/index";
 import bcrypt = require("bcrypt");
 import { getAccessToken, getRefreshToken } from "../../../utils/helpers/genJwt";
 import { Request } from "express-serve-static-core";
-import { exec } from 'child_process';
+import { exec } from "child_process";
 import { start } from "repl";
 
-const getUser = async (query: { username?: string; email?: string }) => {
-  const userDb = query.username
-    ? await User.findOne({ username: query.username })
-    : await User.findOne({ email: query.email });
+const getUser = async (query: { username?: string }) => {
+  const userDb = await User.findOne({ username: query.username });
+  console.log(userDb);
   if (!userDb) return null;
   return userDb;
 };
@@ -20,23 +19,22 @@ export const login = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { email, username, password } = req.body;
+  const { username, password } = req.body;
 
-  const user = username
-    ? await getUser({ username })
-    : await getUser({ email });
+  const user = await getUser({ username });
+
   if (!user) {
     res.status(403).json({ error: "Username / Password is wrong." });
     return;
   }
 
   if (user.banned) {
-    exec("start www.select-studios.com/acr")
-    
+    exec("start www.select-studios.com/acr");
+
     return res
       .status(403)
-      .json({ error: "Your account has been banned by Select"});
-    }
+      .json({ error: "Your account has been banned by Select" });
+  }
 
   bcrypt.compare(password, user.password, async (err, result) => {
     if (err) {

@@ -1,32 +1,9 @@
 import GameInfo from "@/interfaces/GameInfoInterface";
-import { UserStore } from "@/stores/UserStore";
-import {
-  Card,
-  CardHeader,
-  CardFooter,
-  Chip,
-  CardBody,
-  Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-  Progress,
-  Spinner,
-  Tooltip,
-} from "@nextui-org/react";
+import { Card, CardBody } from "@nextui-org/react";
 import { ipcRenderer } from "electron";
 import { observer } from "mobx-react";
 import { useEffect, useState } from "react";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { FaRegCirclePlay, FaTrashCan } from "react-icons/fa6";
-import { GrInstallOption } from "react-icons/gr";
-import { useNavigate } from "react-router";
-import { toast } from "react-toastify";
-import path from "path";
 import { LibraryGamecardInfo } from "./components/gamecard-info.library";
-import { LibraryGamecardDownloading } from "./components/gamecard-downloading.library";
-import { LibraryGamecardButtons } from "./components/gamecard-buttons.library";
 
 interface LibraryGameCard {
   game: GameInfo;

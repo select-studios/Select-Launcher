@@ -13,7 +13,7 @@ interface IProps {}
 
 export const SignInCard: FC<IProps> = (props) => {
   return (
-    <Card className="signin__card bg-secondaryBG w-[428px]">
+    <Card className="signin__card m-auto bg-secondaryBG w-[428px]">
       <SigninCardHeader />
       <SigninCardBody />
       <SigninCardFooter />

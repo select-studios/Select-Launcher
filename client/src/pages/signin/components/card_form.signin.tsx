@@ -43,13 +43,13 @@ export const SigninCardForm: FC<IProps> = (props) => {
       <form onSubmit={handleSubmit(onSubmitSignIn)}>
         <Input
           isClearable
-          type="email"
-          label="Email"
-          {...register("email", {
+          type="text"
+          label="Username"
+          {...register("username", {
             required: { value: true, message: "Required field." },
           })}
-          isInvalid={errors.email ? true : false}
-          errorMessage={(errors.email?.message as string) || ""}
+          isInvalid={errors.username ? true : false}
+          errorMessage={(errors.username?.message as string) || ""}
         />
         <Input
           className="mt-5"
