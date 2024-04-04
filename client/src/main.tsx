@@ -9,7 +9,17 @@ import * as dotenv from "dotenv";
 import Titlebar from "./components/titlebar/titlebar";
 import "./assets/styles/index.css";
 
-import { Chip, NextUIProvider } from "@nextui-org/react";
+import {
+  Button,
+  Chip,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  NextUIProvider,
+} from "@nextui-org/react";
+import { SelectLauncherImage } from "./components/images/selectlauncher.component";
 
 dotenv.config({ path: "../.env" });
 
@@ -20,6 +30,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <div className="font-sans">
           <Titlebar />
           <App />
+
           <ToastContainer position="bottom-right" theme="dark" />
         </div>
       </Router>

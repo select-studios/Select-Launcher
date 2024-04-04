@@ -13,9 +13,11 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  ModalContent,
 } from "@nextui-org/react";
 import launcherIcon from "./assets/images/ICON_GrayScale.png";
 import exportedRoutes from "./routes";
+import { SelectLauncherImage } from "./components/images/selectlauncher.component";
 //#endregion
 
 const App: React.FC = () => {
@@ -69,36 +71,35 @@ const App: React.FC = () => {
         }}
       />
       <Modal
-        closeButton
-        aria-labelledby="modal-title"
         isOpen={updateModalVisible}
-        onClose={closeHandler}
+        onClose={() => setUpdateModalVisible(false)}
       >
-        <ModalHeader className="grid">
-          <Image
-            width={80}
-            height={80}
-            src={launcherIcon}
-            alt="Launcher Logo"
-            className="rounded-full"
-          />
-          <p id="modal-title" className="text-2xl mt-2 font-bold font-heading">
-            Launcher Updater
-          </p>
-        </ModalHeader>
-        <ModalBody>
-          <p className="font-medium text-center">{updateMessage}</p>
-        </ModalBody>
-        <ModalFooter>
-          <Button
-            className="w-auto"
-            variant="flat"
-            color="danger"
-            onPress={closeHandler}
-          >
-            Close
-          </Button>
-        </ModalFooter>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="grid justify-center w-full gap-1">
+                <div className="mx-auto">
+                  <SelectLauncherImage />
+                </div>
+                <p className="font-heading tracking-wider mt-5 text-2xl font-extralight">
+                  LAUNCHER UPDATER
+                </p>
+              </ModalHeader>
+              <ModalBody className="mt-2">
+                <p>A new version of the Select Launcher is now available!</p>
+                <p>
+                  You can keep playing while we install the update in the
+                  background.
+                </p>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="primary" onPress={onClose}>
+                  Alright!
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
       </Modal>
     </AnimatePresence>
   );

@@ -1,4 +1,5 @@
 import { Spinner } from "@nextui-org/react";
+import { useEffect, useState } from "react";
 
 const loadingMessages = [
   "Cookin'",
@@ -29,13 +30,20 @@ export interface LoadingState {
 }
 
 const Loader: React.FC<LoaderProps> = ({ msg }) => {
-  const randomMessage = msg || getRandomMessage();
+  const [message, setMessage] = useState(msg);
+
+  useEffect(() => {
+    if (!message?.length) {
+      const randomMessage = getRandomMessage();
+      setMessage(randomMessage);
+    }
+  }, []);
 
   return (
     <div className="h-screen flex items-center justify-center">
       <div className="grid justify-center">
         <Spinner size="lg" />
-        <p className="font-bold mt-5">{randomMessage}</p>
+        <p className="font-bold mt-5">{message}</p>
       </div>
     </div>
   );
