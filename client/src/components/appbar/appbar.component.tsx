@@ -7,12 +7,15 @@ import { Link } from "react-router-dom";
 import { FiArrowLeft, FiArrowRight, FiMenu } from "react-icons/fi";
 import { SidebarStore } from "@/stores/SidebarStore";
 import { observer } from "mobx-react";
+import { SearchStore } from "@/stores/SearchStore";
 
 export interface AppBarProps {
   user?: User;
   dashboard?: boolean;
   pageName: string;
   settings?: boolean;
+  searchType?: "game" | "library" | "settings";
+  searchBarVisible?: boolean;
 }
 
 export const AppBar: React.FC<AppBarProps> = ({
@@ -20,6 +23,8 @@ export const AppBar: React.FC<AppBarProps> = ({
   user,
   pageName,
   settings,
+  searchBarVisible = true,
+  searchType,
 }) => {
   const cookies = getTokensCookie();
 
@@ -50,7 +55,23 @@ export const AppBar: React.FC<AppBarProps> = ({
               </Tooltip>
             )}
             <p className="font-heading text-2xl uppercase mr-10">{pageName}</p>
-            <Input isDisabled className="mr-5" placeholder="Search..." />
+            {searchBarVisible && (
+              <Input
+                onChange={(e) => {
+                  console.log(SearchStore.search);
+                  SearchStore.setSearch({
+                    type: searchType || "game",
+                    query: e.target.value,
+                  });
+                }}
+                className="mr-5"
+                placeholder="Search..."
+                value={
+                  (SearchStore.search.type == searchType || "game") &&
+                  SearchStore.search.query
+                }
+              />
+            )}
           </nav>
           <div className="inline-flex lg:justify-end">
             {dashboard && (

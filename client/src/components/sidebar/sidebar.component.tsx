@@ -138,15 +138,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
               )}
             </div>
 
-            <div className="mt-auto w-full flex justify-center">
+            <div className="flex justify-center">
               <Button
                 onPress={logoutClient}
                 startContent={!loading && <FiLogOut size={20} />}
                 color="danger"
-                className=""
+                className={
+                  SidebarStore.open
+                    ? "fixed bottom-0 mb-10 w-52"
+                    : "fixed bottom-0 mb-10"
+                }
                 variant="flat"
                 size="lg"
-                fullWidth
                 isIconOnly={!SidebarStore.open}
                 isLoading={loading}
               >

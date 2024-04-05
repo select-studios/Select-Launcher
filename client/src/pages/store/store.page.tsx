@@ -6,9 +6,11 @@ import { UserStore } from "@/stores/UserStore";
 import { observer } from "mobx-react";
 import { GamesStore, GamesStore_Impl } from "@/stores/GamesStore";
 import { StoreGames } from "./components/games.store";
-import { Image, ScrollShadow } from "@nextui-org/react";
+import { Chip, Image, ScrollShadow } from "@nextui-org/react";
 
 import "./store.style.css";
+import { FaSearch } from "react-icons/fa";
+import { SearchStore } from "@/stores/SearchStore";
 
 interface HomeProps {}
 
@@ -30,7 +32,20 @@ const StoreComp: React.FC<HomeProps> = () => {
             {/* TODO figure out why scroll no work */}
             <AppBar pageName="Store" dashboard={true} user={UserStore.user!} />
             <div className="store__main-banner"></div>
-            <p className="store__main-heading">Popular Now</p>
+            <p className="store__main-heading flex">
+              Popular Now{" "}
+              {SearchStore.search.query.length &&
+              SearchStore.search.type == "game" ? (
+                <Chip
+                  className="font-sans font-normal ml-5"
+                  startContent={<FaSearch />}
+                >
+                  {SearchStore.search.query}
+                </Chip>
+              ) : (
+                ""
+              )}
+            </p>
             <StoreGames games={games} />
           </ScrollShadow>
         </div>

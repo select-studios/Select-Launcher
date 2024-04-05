@@ -1,5 +1,3 @@
-import * as fs from "fs";
-import path = require("path");
 import { Games } from "../interfaces";
 
 const gamesData: Games[] = [
