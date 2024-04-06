@@ -15,7 +15,7 @@
     "build": "tsc && vite build && electron-builder"
   },
   "engines": {
-    "node": "^14.18.0 || >=16.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "@nextui-org/react": "^2.2.10",
