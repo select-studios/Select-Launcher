@@ -52,12 +52,12 @@ export const Settings: FC<IProps> = (props) => {
           },
         }
       )
-      .then((data) => {
+      .then((data: any) => {
         const { body, published_at } = data.data;
         setReleaseDate(published_at);
         setReleaseNotes(body);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         setReleaseNotes("There was an error fetching the release notes.");
         setReleaseDate("There was an error.");
       });
