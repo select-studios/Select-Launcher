@@ -1,6 +1,11 @@
 import { AppBar, Loader, Sidebar } from "@/components";
 import { User, UserStore, UserStore_Impl } from "@/stores/UserStore";
-import { BiAnalyse, BiChart, BiUser } from "react-icons/bi";
+import {
+  BiAnalyse,
+  BiChart,
+  BiDotsVerticalRounded,
+  BiUser,
+} from "react-icons/bi";
 import {
   HiBan,
   HiChartBar,
@@ -39,6 +44,7 @@ import {
   Switch,
   Checkbox,
   Chip,
+  ModalContent,
 } from "@nextui-org/react";
 import { Badge } from "@nextui-org/badge";
 import { FiSearch } from "react-icons/fi";
@@ -46,6 +52,7 @@ import { useForm } from "react-hook-form";
 import { BsHammer } from "react-icons/bs";
 import { validateInputColor } from "@/utils/form";
 import { toast } from "react-toastify";
+import userIcon from "../../../../../Resources/ICON_User.png";
 
 interface AdminDashboardProps {}
 
@@ -152,21 +159,26 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
   };
 
   return (
-    <section className="admin-dashboard">
-      <div className="flex mr-5">
+    <section className="admin-dashboard w-full">
+      <div className="flex w-full">
         <Sidebar active="moderation" />
         <div>
           {" "}
-          <AppBar pageName="Mod" dashboard={true} user={UserStore.user!} />
-          <div className="min-w-fit">
-            <div className="mt-2 overflow-scroll bg-secondaryBG pb-5 rounded-xl w-full">
+          <AppBar
+            searchBarVisible={false}
+            pageName="Moderation"
+            dashboard={true}
+            user={UserStore.user!}
+          />
+          <div className="w-full">
+            <div className="mt-2 bg-secondaryBG pb-5 rounded-xl w-full">
               <p className="text-xl p-2 rounded-t-xl text-center bg-tertiaryBG mx-0 font-heading">
-                App Users
+                APP USERS
               </p>
               {!usersLoading && (
                 <div className="flex items-center rounded-b-lg">
-                  <div className="mt-4 py-2 px-1 mx-10 rounded-lg bg-tertiaryBG">
-                    <div className="flex justify-center min-w-full px-3">
+                  <div className="mt-4 py-2 pr-1 mx-10 rounded-lg">
+                    <div className="flex justify-center min-w-full">
                       {!usersLoading &&
                         userAnalysis.map((analysis, key) => (
                           <div
@@ -177,16 +189,15 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
                               <span className="mr-1">{analysis.icon}</span>{" "}
                               {analysis.title}
                             </p>
-                            <p className="text-2xl font-bold font-heading">
+                            <p className="text-2xl font-heading">
                               {analysis.value}
                             </p>
                           </div>
                         ))}
                     </div>
                   </div>
-                  <div className="my-auto mx-10 flex justify-between max-w-full items-center">
+                  <div className="my-auto ml-auto mr-10 flex justify-between max-w-full items-center">
                     <Input
-                      variant="bordered"
                       endContent={<FiSearch size="20" />}
                       label="Search Users"
                       onChange={(e) => {
@@ -203,7 +214,6 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
                         setFilteredUsers(newUsers);
                       }}
                       placeholder="Username"
-                      color="primary"
                     />
                     <div className="ml-5 flex items-center mt-5">
                       <Checkbox
@@ -226,7 +236,7 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
                 </div>
               )}
 
-              <div className="mx-10 mt-10 px-5 py-5 bg-tertiaryBG rounded-lg overflow-x-hidden max-h-96">
+              <div className="mx-10 mt-10 px-5 py-5 bg-primaryBG rounded-xl overflow-x-hidden max-h-96">
                 {!usersLoading ? (
                   <div className="allUsers m-2 grid grid-cols-2">
                     {(filteredUsers.length ? filteredUsers : users)
@@ -235,88 +245,81 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
                       )
                       .map((user: any, key) => (
                         <Card
-                          className={`bg-secondaryBG shadow-none max-h-fit mr-2 mb-2 my-3 p-6 ${
-                            user?.moderator ? "border border-yellow-400" : ""
+                          className={`bg-secondaryBG shadow-none max-h-fit mr-5 mb-2 my-5 p-6 ${
+                            user?.moderator ? "border-2 border-warning" : ""
                           }`}
                           key={`User-${key}`}
                         >
                           <CardHeader>
                             <Avatar
-                              icon={<BiUser size="25" className="font-bold" />}
-                              className="mr-2 font-bold"
+                              src={userIcon}
+                              className="mr-2 font-bold  rounded-xl"
                               color="primary"
                               size="lg"
                             />
                             <div className="pl-1">
-                              <p className="text-lg font-heading">
+                              <p className="text-lg tracking-wider font-heading">
                                 <span className="opacity-70">@</span>
                                 {user.username}
                               </p>
                               <p className="text-sm flex items-center opacity-70">
                                 <HiMail className="mr-1" /> {user.email}{" "}
-                                {user?.verified && (
-                                  <Chip
-                                    size="sm"
-                                    className="ml-2 border-0"
-                                    variant="flat"
-                                    color="success"
-                                  >
-                                    Verified
-                                  </Chip>
-                                )}
-                                {user?.moderator && (
-                                  <Chip
-                                    size="sm"
-                                    className="ml-2"
-                                    variant="flat"
-                                    color="warning"
-                                  >
-                                    Moderator
-                                  </Chip>
-                                )}
-                                {user?.banned && (
-                                  <Chip
-                                    size="sm"
-                                    className="ml-2"
-                                    variant="flat"
-                                    startContent={<HiBan className="mr-1" />}
-                                    color="danger"
-                                  >
-                                    Banned
-                                  </Chip>
-                                )}
                               </p>
                             </div>
                           </CardHeader>
                           <CardBody className="py-2">
-                            <p className="items-center flex">
-                              <HiIdentification className="mr-1" />{" "}
-                              <b className="mr-1">User ID:</b> {user._id}
+                            <p className="flex">
+                              <p className="font-heading">USER ID</p>
+                              <p className="items-center flex ml-2">
+                                {user._id}
+                              </p>
                             </p>
+                            <div className="flex items-center mt-2">
+                              <p className="font-heading mr-2">USER TAGS</p>
+                              {user?.verified && (
+                                <Chip
+                                  size="sm"
+                                  className="border-0"
+                                  variant="flat"
+                                  color="success"
+                                >
+                                  Verified
+                                </Chip>
+                              )}
+                              {user?.moderator && (
+                                <Chip
+                                  size="sm"
+                                  className="ml-2"
+                                  variant="flat"
+                                  color="warning"
+                                >
+                                  Moderator
+                                </Chip>
+                              )}
+                              {user?.banned && (
+                                <Chip
+                                  size="sm"
+                                  className="ml-2"
+                                  variant="flat"
+                                  startContent={<HiBan className="mr-1" />}
+                                  color="danger"
+                                >
+                                  Banned
+                                </Chip>
+                              )}
+                            </div>
                             <br />
                             {user?.banned && (
-                              <p>
-                                <b>Ban Reason: </b> {user.banReason}
+                              <p className="flex items-center">
+                                <span className="font-heading mr-2">
+                                  BAN REASON
+                                </span>
+                                {user.banReason}
                               </p>
                             )}
                           </CardBody>
                           <CardFooter>
-                            <Button
-                              color="danger"
-                              className="mr-2 w-auto"
-                              startContent={<HiBan size="20" />}
-                              // onPress={() =>
-                              //   handleBanUser(user._id, "Not disclosed")
-                              // }
-                              onPress={() => {
-                                setBanUserVisible(true);
-                                setUserToBan(user);
-                              }}
-                              disabled={user?.banned}
-                            >
-                              Ban
-                            </Button>
-                            {user?.banned && (
+                            {user?.banned ? (
                               <Button
                                 color="danger"
                                 className="mr-2 w-auto"
@@ -326,11 +329,24 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
                               >
                                 Unban
                               </Button>
+                            ) : (
+                              <Button
+                                color="danger"
+                                className="mr-2 w-auto"
+                                startContent={<HiBan size="20" />}
+                                onPress={() => {
+                                  setBanUserVisible(true);
+                                  setUserToBan(user);
+                                }}
+                                disabled={user?.banned}
+                              >
+                                Ban
+                              </Button>
                             )}
                             <Dropdown>
                               <DropdownTrigger>
-                                <Button className="bg-tertiaryBG">
-                                  More actions
+                                <Button isIconOnly className="bg-tertiaryBG">
+                                  <BiDotsVerticalRounded size={20} />
                                 </Button>
                               </DropdownTrigger>
                               <DropdownMenu className="bg-tertiaryBG">
@@ -371,52 +387,57 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
         isOpen={banUserVisible}
         onClose={() => setBanUserVisible(false)}
       >
-        <form onSubmit={handleSubmit(onUserBanSubmit)}>
-          <ModalHeader className="justify-start">
-            <p className="text-2xl font-bold flex items-center">
-              <HiBan size="20" className="mr-2" /> Ban User
-            </p>
-          </ModalHeader>
-          <ModalHeader className="grid justify-center">
-            <Avatar
-              src="https://i.imgur.com/c30fFsi.png"
-              className="mx-auto mb-2"
-            />
-            <p className="text-xl opacity-80 font-bold">
-              @{userToBan.username}
-            </p>
-          </ModalHeader>
-          <ModalBody className="mt-2">
-            <Input
-              variant="bordered"
-              fullWidth
-              color={validateInputColor(errors, "reason", true)}
-              size="lg"
-              label="Ban Reason"
-              placeholder="Type here"
-              {...register("reason", {
-                required: "You must enter a reason for banning that user.",
-                minLength: 2,
-              })}
-            />
-          </ModalBody>
-          <ModalFooter>
-            <Button className="w-auto" color="danger" type="submit">
-              Ban
-            </Button>
-            <Button
-              variant="flat"
-              className="w-auto"
-              color="danger"
-              onPress={() => {
-                setBanUserVisible(false);
-                reset();
-              }}
-            >
-              Close
-            </Button>
-          </ModalFooter>
-        </form>
+        <ModalContent>
+          <form onSubmit={handleSubmit(onUserBanSubmit)}>
+            <ModalHeader className="justify-start">
+              <p className="text-2xl font-heading font-thin flex items-center">
+                <HiBan size="25" className="mr-2" /> Ban User
+              </p>
+            </ModalHeader>
+            <ModalHeader className="grid justify-center">
+              <Avatar
+                src="https://i.imgur.com/c30fFsi.png"
+                className="mx-auto mb-2 w-16 h-16 rounded-xl"
+              />
+              <p className="text-xl text-center font-heading font-thin tracking-wider">
+                @{userToBan.username}
+              </p>
+              <p className="text-sm font-sans text-center opacity-80 font-semibold">
+                Please make sure you are complying with our user banning policy.
+              </p>
+            </ModalHeader>
+            <ModalBody className="mt-2">
+              <Input
+                variant="bordered"
+                fullWidth
+                color={validateInputColor(errors, "reason", true)}
+                size="lg"
+                label="Ban Reason"
+                placeholder="Type here"
+                {...register("reason", {
+                  required: "You must enter a reason for banning that user.",
+                  minLength: 2,
+                })}
+              />
+            </ModalBody>
+            <ModalFooter>
+              <Button className="w-auto" color="danger" type="submit">
+                Ban
+              </Button>
+              <Button
+                variant="flat"
+                className="w-auto"
+                color="danger"
+                onPress={() => {
+                  setBanUserVisible(false);
+                  reset();
+                }}
+              >
+                Close
+              </Button>
+            </ModalFooter>
+          </form>
+        </ModalContent>
       </Modal>
     </section>
   );

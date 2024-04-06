@@ -29,11 +29,10 @@ export const login = async (
   }
 
   if (user.banned) {
-    exec("start www.select-studios.com/acr");
-
-    return res
-      .status(403)
-      .json({ error: "Your account has been banned by Select" });
+    return res.status(403).json({
+      error: `Your account has been banned by Select.`,
+      banReason: user.banReason,
+    });
   }
 
   bcrypt.compare(password, user.password, async (err, result) => {

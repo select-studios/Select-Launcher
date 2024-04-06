@@ -1,10 +1,9 @@
 import * as nodemailer from "nodemailer";
 import { VerifyEmail } from "../../data/emails/verify/verify";
 import { render } from "@react-email/render";
-import React from "react";
 
 export const sendEmail = async (
-  email: React.FC,
+  email: any,
   content: { to: string; subject: string },
   url: string
 ) => {

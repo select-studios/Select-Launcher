@@ -105,7 +105,11 @@ app.get("/api/accounts/:id/:method/verify", async (req, res) => {
       const url = `${process.env.API_URI}/accounts/account/forgotpassword?id=${user._id}&newPass=${newPass}`;
 
       await sendEmail(
-        ForgotPassword({ username: user.username, newPass, url }),
+        ForgotPassword({
+          username: user.username,
+          newPass: newPass as string,
+          url,
+        }),
         {
           to: user.email,
           subject: "Select Studios - New password request.",

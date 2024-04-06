@@ -38,7 +38,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
   };
 
   return (
-    <div className="sticky flex left-0 mt-0 top-0 h-screen">
+    <div className="sticky flex left-0 mt-0 top-0 bottom-0 h-screen">
       <div
         className={
           SidebarStore.open
@@ -88,12 +88,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                       startContent={<BiSolidDashboard size={20} />}
                       isIconOnly={!SidebarStore.open}
                       variant={
-                        active.toLowerCase() === "moderator" ? "solid" : "ghost"
+                        active.toLowerCase() === "moderation"
+                          ? "solid"
+                          : "ghost"
                       }
                       size="lg"
                       fullWidth
                     >
-                      {SidebarStore.open && "Moderator"}
+                      {SidebarStore.open && "Moderation"}
                     </Button>
                   )}
                 </div>
@@ -143,11 +145,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                 onPress={logoutClient}
                 startContent={!loading && <FiLogOut size={20} />}
                 color="danger"
-                className={
-                  SidebarStore.open
-                    ? "fixed bottom-0 mb-10 w-52"
-                    : "fixed bottom-0 mb-10"
-                }
+                className={SidebarStore.open ? "mt-auto w-52" : "mt-auto mb-10"}
                 variant="flat"
                 size="lg"
                 isIconOnly={!SidebarStore.open}

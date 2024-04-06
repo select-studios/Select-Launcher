@@ -33,9 +33,9 @@ export const VerifyEmail: React.FC<EmailProps> = (props) => {
             <Text style={text}>Hey {username},</Text>
             <Text style={text}>
               It is our pleasure that you recently registered for a Select
-              Studios account. <bold>Epic gamer move, innit?</bold> <br />{" "}
-              However, we need to verify your email before you actually start
-              playing due to obvious reasons. <br />
+              Studios account. <b>Epic gamer move, innit?</b> <br /> However, we
+              need to verify your email before you actually start playing due to
+              obvious reasons. <br />
               TLDR; just click the button below to verify your account.
             </Text>
             <Button style={button} href={url}>

@@ -8,5 +8,14 @@
     "jsx": "react"
   },
   "exclude": ["node_modules"],
-  "include": ["data", "interfaces", "middleware", "models", "public", "routes", "utils", "app.ts"]
+  "include": [
+    "data",
+    "interfaces",
+    "middleware",
+    "models",
+    "public",
+    "routes",
+    "utils",
+    "app.ts"
+  ]
 }

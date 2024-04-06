@@ -16,7 +16,7 @@ export const signinUser = async (
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  }).then(async (res) => {
+  }).then(async (res: any) => {
     const resData = await res.json();
 
     if (res.ok) {
@@ -33,7 +33,12 @@ export const signinUser = async (
 
       navigate("/store");
     } else {
-      toast.error(resData.error);
+      if (resData.banReason) {
+        toast.error(resData.error);
+        toast.error("Reason: " + resData.banReason);
+      } else {
+        toast.error(resData.error);
+      }
 
       setLoading(false);
     }
