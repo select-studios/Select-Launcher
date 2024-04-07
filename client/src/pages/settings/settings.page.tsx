@@ -19,6 +19,7 @@ import { Octokit } from "octokit";
 import Markdown from "react-markdown";
 import config from "../../handlers/api/utils/data/config.json";
 import { HiSparkles } from "react-icons/hi";
+import { API_URI } from "@/handlers/api";
 
 interface IProps {}
 
@@ -38,23 +39,16 @@ export const Settings: FC<IProps> = (props) => {
     SidebarStore.setOpen(true);
     setLibraryLocation(window.gamesAPI.getStorageLocation());
 
-    const octokit = new Octokit({
-      auth: config.token,
-    });
-
-    octokit
-      .request(
-        `GET /repos/select-studios/select-launcher/releases/tags/v${appInfo.version}`,
-        {
-          owner: "Select-Studios",
-          repo: "select-launcher",
-          tag: `v${appInfo.version}`,
-          headers: {
-            "X-GitHub-Api-Version": "2022-11-28",
-          },
-        }
-      )
-      .then((data: any) => {
+    fetch(`${API_URI}/github/release`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ version: appInfo.version }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
         const { body, published_at } = data.data;
         setReleaseDate(published_at);
         setReleaseNotes(body);

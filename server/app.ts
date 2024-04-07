@@ -15,6 +15,7 @@ import { sendEmail } from "./utils/helpers/sendEmail";
 import path = require("path");
 import { VerifyEmail } from "./data/emails/verify/verify";
 import { ForgotPassword } from "./data/emails/forgotPassword/forgotPassword";
+import { Octokit } from "octokit";
 
 require("dotenv").config();
 mongoose.set("strictQuery", false);
@@ -24,6 +25,9 @@ const app = express();
 const PORT = process.env.PORT || 4757;
 
 const router = express.Router();
+const octokit = new Octokit({
+  auth: process.env.GITHUB_TOKEN,
+});
 
 // Middleware
 app.use(cors({ origin: "*" }));
@@ -69,6 +73,32 @@ app.post("/api/accounts/verify/link", jwtAuth, async (req: any, res) => {
   } else {
     return res.status(401).json({ msg: "User is already verified." });
   }
+});
+
+app.post("/api/github/release", async (req: any, res) => {
+  const { version } = req.body;
+
+  octokit
+    .request(
+      `GET /repos/select-studios/select-launcher/releases/tags/v${version}`,
+      {
+        owner: "Select-Studios",
+        repo: "select-launcher",
+        tag: `v${version}`,
+        headers: {
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+      }
+    )
+    .then((data: any) => {
+      const { body, published_at } = data.data;
+      return res
+        .status(201)
+        .json({ success: true, data: { body, published_at } });
+    })
+    .catch((err: any) => {
+      return res.status(500).json({ success: false, msg: err });
+    });
 });
 
 app.get("/api/accounts/:id/:method/verify", async (req, res) => {

@@ -196,5 +196,5 @@ autoUpdater.on("update-downloaded", () => {
   );
 
   app.relaunch();
-  app.exit();
+  app.quit();
 });
