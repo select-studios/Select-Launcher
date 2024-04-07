@@ -43,8 +43,7 @@ const App: React.FC = () => {
     });
 
     ipcRenderer.on("update_downloaded", (e, msg) => {
-      setUpdateMessage(msg);
-      setUpdateModalVisible(true);
+      setUpdateModalVisible(false);
     });
 
     window.gamesAPI.getStorageLocation();

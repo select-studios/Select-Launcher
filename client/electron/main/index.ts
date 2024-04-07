@@ -195,5 +195,6 @@ autoUpdater.on("update-downloaded", () => {
     `Update has been downloaded!\n\nRestarting now...`
   );
 
-  win.reload();
+  app.relaunch();
+  app.exit();
 });
