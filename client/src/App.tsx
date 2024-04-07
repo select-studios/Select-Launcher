@@ -71,7 +71,7 @@ const App: React.FC = () => {
           return React.cloneElement(page, { key: location.pathname });
         }}
       />
-      <Modal backdrop="blur" isOpen={true} hideCloseButton>
+      <Modal backdrop="blur" isOpen={updateModalVisible} hideCloseButton>
         <ModalContent>
           {(onClose) => (
             <>
