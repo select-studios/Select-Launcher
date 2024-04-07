@@ -9,6 +9,7 @@ import {
   Button,
   Spinner,
   Link,
+  Chip,
 } from "@nextui-org/react";
 import { FaFolderOpen } from "react-icons/fa";
 import { FC, useState, useEffect } from "react";
@@ -17,6 +18,7 @@ import { SidebarStore } from "@/stores/SidebarStore";
 import { Octokit } from "octokit";
 import Markdown from "react-markdown";
 import config from "../../handlers/api/utils/data/config.json";
+import { HiSparkles } from "react-icons/hi";
 
 interface IProps {}
 
@@ -84,7 +86,7 @@ export const Settings: FC<IProps> = (props) => {
                 </p>
               </CardHeader>
               <CardBody>
-                <Checkbox>Update app automatically</Checkbox>
+                <Checkbox checked>Update app automatically</Checkbox>
                 <Input
                   label="Download Location"
                   className="mt-10"
@@ -139,24 +141,18 @@ export const Settings: FC<IProps> = (props) => {
                   </div>
                 </div>
                 <div className="bg-tertiaryBG rounded-lg px-4 py-2 mt-5">
-                  <p className="text-base font-heading uppercase">
-                    What's Changed
+                  <p className="text-base flex items-center font-heading uppercase">
+                    What's Changed{" "}
+                    <Chip color="primary" className="ml-2" size="sm">
+                      <HiSparkles size={16} />
+                    </Chip>
                   </p>
                   <div className="mt-5">
                     {releaseNotes.length ? (
                       <div>
-                        <Markdown className="prose whitespace-pre-wrap text-white">
+                        <Markdown className="prose whitespace-normal prose-invert prose-neutral text-white">
                           {releaseNotes}
                         </Markdown>{" "}
-                        <p className="mt-2 text-sm">
-                          View this version's{" "}
-                          <Link
-                            className="text-sm"
-                            href={`https://github.com/select-studios/select-launcher/releases/tag/v${appInfo.version}`}
-                          >
-                            GitHub Release
-                          </Link>
-                        </p>
                       </div>
                     ) : (
                       <Spinner />
@@ -165,7 +161,7 @@ export const Settings: FC<IProps> = (props) => {
                 </div>
               </CardBody>
             </Card>
-            <Card className="mt-12 p-2">
+            <Card className="mt-12 mb-5 p-2">
               <CardHeader>
                 <p className="font-heading tracking-wider text-xl uppercase">
                   Developer tools

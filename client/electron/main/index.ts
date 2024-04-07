@@ -186,12 +186,14 @@ app.on("ready", () => {
 autoUpdater.on("update-available", (info) => {
   win.webContents.send(
     "update_available",
-    `Updates are available! v${info.version} is ready to be installed.\n\nFeel free to use the app while the update is being downloaded.`
+    `Updates are available! v${info.version} is ready to be installed.\n\nPlease wait while we update your Launcher.`
   );
 });
 autoUpdater.on("update-downloaded", () => {
   win.webContents.send(
     "update_downloaded",
-    `Update has been downloaded! We will launch the next version when you restart the app.`
+    `Update has been downloaded!\n\nRestarting now...`
   );
+
+  win.reload();
 });

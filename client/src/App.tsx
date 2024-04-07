@@ -14,6 +14,7 @@ import {
   ModalBody,
   ModalFooter,
   ModalContent,
+  Progress,
 } from "@nextui-org/react";
 import launcherIcon from "./assets/images/ICON_GrayScale.png";
 import exportedRoutes from "./routes";
@@ -70,10 +71,7 @@ const App: React.FC = () => {
           return React.cloneElement(page, { key: location.pathname });
         }}
       />
-      <Modal
-        isOpen={updateModalVisible}
-        onClose={() => setUpdateModalVisible(false)}
-      >
+      <Modal backdrop="blur" isOpen={true} hideCloseButton>
         <ModalContent>
           {(onClose) => (
             <>
@@ -85,18 +83,12 @@ const App: React.FC = () => {
                   LAUNCHER UPDATER
                 </p>
               </ModalHeader>
-              <ModalBody className="mt-2">
-                <p>A new version of the Select Launcher is now available!</p>
-                <p>
-                  You can keep playing while we install the update in the
-                  background.
-                </p>
+              <ModalBody className="mt-2 whitespace-pre-wrap">
+                <p>{updateMessage}</p>
+                <div>
+                  <Progress isIndeterminate size="sm" />
+                </div>
               </ModalBody>
-              <ModalFooter>
-                <Button color="primary" onPress={onClose}>
-                  Alright!
-                </Button>
-              </ModalFooter>
             </>
           )}
         </ModalContent>

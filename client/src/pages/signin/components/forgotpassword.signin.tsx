@@ -7,7 +7,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { API_URI } from "@/handlers/api";
 import { toast } from "react-toastify";
@@ -48,7 +48,9 @@ export const SigninForgotPassword: FC<IProps> = ({ visible, setVisible }) => {
       .catch((err) => {
         setLoading(false);
         setVisible(false);
-        toast.error("There was an error in your password reset, please contact support");
+        toast.error(
+          "There was an error in your password reset, please contact support"
+        );
       });
   };
 
@@ -59,8 +61,14 @@ export const SigninForgotPassword: FC<IProps> = ({ visible, setVisible }) => {
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
+  const [passwordInput, setPasswordInput] = useState<string>("");
+
   const togglePasswordVisibility = () =>
     setIsPasswordVisible(!isPasswordVisible);
+
+  useEffect(() => {
+    console.log(errors.fpPassword);
+  }, [passwordInput]);
 
   return (
     <Modal
@@ -94,9 +102,39 @@ export const SigninForgotPassword: FC<IProps> = ({ visible, setVisible }) => {
                   className="mt-5"
                   type={isPasswordVisible ? "text" : "password"}
                   label="New Password"
-                  placeholder="Enter a new password"
-                  isInvalid={errors.password ? true : false}
-                  errorMessage={(errors.password?.message as string) || ""}
+                  onChange={(e) => setPasswordInput(e.target.value)}
+                  endContent={
+                    <button
+                      className="focus:outline-none"
+                      type="button"
+                      onClick={togglePasswordVisibility}
+                    >
+                      {isPasswordVisible ? (
+                        <HiEyeSlash
+                          size={24}
+                          className="text-2xl text-default-400 pointer-events-none"
+                        />
+                      ) : (
+                        <HiEye
+                          size={24}
+                          className="text-2xl text-default-400 pointer-events-none"
+                        />
+                      )}
+                    </button>
+                  }
+                />
+                <Input
+                  className="mt-5"
+                  type={isPasswordVisible ? "text" : "password"}
+                  label="Confirm New Password"
+                  color={errors.fpPassword ? "danger" : "default"}
+                  minLength={8}
+                  errorMessage={
+                    (errors.fpPassword?.message as string) ||
+                    (errors.fpPassword?.type === "matchesPassword"
+                      ? "Passwords don't match."
+                      : "")
+                  }
                   endContent={
                     <button
                       className="focus:outline-none"
@@ -120,7 +158,11 @@ export const SigninForgotPassword: FC<IProps> = ({ visible, setVisible }) => {
                     required: { value: true, message: "Required field." },
                     minLength: {
                       value: 8,
-                      message: "Password must be at least 8 characters.",
+                      message: "Password must be atleast 8 characters.",
+                    },
+                    validate: {
+                      matchesPassword: (e) =>
+                        e.toLowerCase() === passwordInput.toLowerCase(),
                     },
                   })}
                 />
