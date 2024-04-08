@@ -4,7 +4,14 @@ process.env.PUBLIC = app.isPackaged
   ? process.env.DIST
   : join(process.env.DIST_ELECTRON, "../public");
 
-import { app, BrowserWindow, shell, ipcMain, dialog } from "electron";
+import {
+  app,
+  BrowserWindow,
+  shell,
+  ipcMain,
+  dialog,
+  ipcRenderer,
+} from "electron";
 import settings from "electron-settings";
 import { release } from "os";
 import path, { join } from "path";
@@ -107,19 +114,15 @@ async function handleFolderOpen() {
 if (!gotTheLock) {
   app.quit();
 } else {
-  app.on("second-instance", (event, commandLine, workingDirectory) => {
+  app.on("second-instance", async (event, commandLine, workingDirectory) => {
     // Someone tried to run a second instance, we should focus our window.
     if (win) {
       if (win.isMinimized()) win.restore();
       win.focus();
-      win.reload();
-      console.log(commandLine);
       if (commandLine[3].includes("select-launcher://store")) {
-        dialog.showMessageBox({
-          type: "info",
-          title: "Select Launcher",
-          message: "Account verification successful!",
-        });
+        setTimeout(() => {
+          win.webContents.send("verification-success");
+        }, 2000);
       }
     }
   });

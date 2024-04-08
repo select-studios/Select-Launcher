@@ -21,7 +21,7 @@ import {
 import { HiBellAlert, HiUserPlus } from "react-icons/hi2";
 import { useNavigate } from "react-router";
 import userImg from "../../../assets/images/ICON_User.png";
-import { Key } from "react";
+import { Key, useState } from "react";
 
 interface UserDropdownProps {
   user: {
@@ -34,6 +34,7 @@ interface UserDropdownProps {
 
 const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   return (
     <div>
@@ -52,10 +53,8 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
               const storedRfToken = localStorage.getItem("refreshToken");
               if (storedRfToken && storedRfToken.length) {
                 const refreshToken = JSON.parse(storedRfToken).refreshToken;
-                // logout(refreshToken, navigate);
+                logout(refreshToken, navigate, setLoading);
               }
-            } else if (key.toString() == "verified" && !user?.verified) {
-              sendVerificationLink(user.accessToken);
             } else if (key.toString() == "profile") {
               navigate("/settings/profile");
             } else if (key.toString() == "home") {
@@ -73,14 +72,18 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
                 <Chip
                   startContent={<HiCheck size={16} />}
                   color="success"
-                  className="mr-2"
+                  className="mr-2 bg-opacity-100"
                   variant="flat"
                 >
                   Verified
                 </Chip>
               )}
               {user?.moderator && (
-                <Chip startContent={<HiUserPlus size={16} />} variant="flat">
+                <Chip
+                  color="warning"
+                  startContent={<HiUserPlus size={16} />}
+                  variant="flat"
+                >
                   Moderator
                 </Chip>
               )}
@@ -97,15 +100,6 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
             <DropdownItem key="settings" startContent={<HiCog size="20" />}>
               Settings
             </DropdownItem>
-            {(!user?.verified as Boolean) && (
-              <DropdownItem
-                startContent={<HiBellAlert size="20" />}
-                key="verified"
-                description="Resend verification link."
-              >
-                Not verified
-              </DropdownItem>
-            )}
           </DropdownSection>
 
           {(user?.moderator as Boolean) && (
@@ -119,15 +113,16 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
             </DropdownSection>
           )}
 
-          {/* <DropdownSection title="Danger">
+          <DropdownSection title="Danger">
             <DropdownItem
               key="logout"
               color="danger"
+              className="text-danger"
               startContent={<HiLogout size="20" />}
             >
-              Logout
+              Sign out
             </DropdownItem>
-          </DropdownSection> */}
+          </DropdownSection>
         </DropdownMenu>
       </Dropdown>
     </div>

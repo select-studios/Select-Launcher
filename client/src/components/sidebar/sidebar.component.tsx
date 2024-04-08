@@ -8,7 +8,7 @@ import { SelectLauncherImage } from "../images/selectlauncher.component";
 import { logout } from "@/handlers/api";
 import { useState } from "react";
 import { settingsSidebarLinks, sidebarLinks } from "./sidebarLinks";
-
+import { motion } from "framer-motion";
 import AccountLogo from "../../../../Resources/ICON_User.png";
 import { SidebarStore } from "@/stores/SidebarStore";
 import { observer } from "mobx-react";
@@ -20,6 +20,19 @@ interface SidebarProps {
   active: string;
   settings?: boolean;
 }
+
+const sidebarVariants = {
+  sidebarOpen: {
+    width: "250px",
+    transition: {
+      when: "beforeChildren",
+    },
+  },
+
+  sidebarClosed: {
+    width: "100px",
+  },
+};
 
 export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
   const navigate = useNavigate();
@@ -39,11 +52,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
 
   return (
     <div className="sticky flex left-0 mt-0 top-0 bottom-0 h-screen">
-      <div
+      <motion.div
+        variants={sidebarVariants}
+        initial={false}
+        animate={SidebarStore.open ? "sidebarOpen" : "sidebarClosed"}
         className={
           SidebarStore.open
-            ? "bg-secondaryBG mr-10 rounded-tr-xl h-full rounded-br-xl w-[250px]"
-            : "bg-secondaryBG mr-10 rounded-tr-xl h-full rounded-br-xl w-[100px]"
+            ? "bg-secondaryBG mr-10 rounded-tr-xl h-full rounded-br-xl"
+            : "bg-secondaryBG mr-10 rounded-tr-xl h-full rounded-br-xl"
         }
       >
         <div className="p-5">
@@ -156,7 +172,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

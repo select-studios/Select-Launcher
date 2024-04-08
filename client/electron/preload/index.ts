@@ -56,3 +56,7 @@ window.windowControls = {
 window.filesAPI = {
   openFolder: () => ipcRenderer.invoke("dialog:openFolder"),
 };
+
+window.authAPI = {
+  onVerificationSuccessful: () => ipcRenderer.sendSync("verification-success"),
+};

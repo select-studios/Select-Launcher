@@ -19,12 +19,19 @@ import {
 import launcherIcon from "./assets/images/ICON_GrayScale.png";
 import exportedRoutes from "./routes";
 import { SelectLauncherImage } from "./components/images/selectlauncher.component";
+import { toast } from "react-toastify";
+import { FiCheckCircle, FiUserCheck } from "react-icons/fi";
+import { UserStore } from "./stores/UserStore";
+import { observer } from "mobx-react";
 //#endregion
 
-const App: React.FC = () => {
+const AppComp: React.FC = () => {
   const location = useLocation();
   const [updateModalVisible, setUpdateModalVisible] = React.useState(false);
   const [updateMessage, setUpdateMessage] = useState("");
+
+  const [verificationModalVisible, setVerificationModalVisible] =
+    React.useState(false);
 
   const closeHandler = () => {
     setUpdateModalVisible(false);
@@ -46,7 +53,9 @@ const App: React.FC = () => {
       setUpdateModalVisible(false);
     });
 
-    window.gamesAPI.getStorageLocation();
+    ipcRenderer.on("verification-success", (e, msg) => {
+      setVerificationModalVisible(true);
+    });
 
     if (!localStorage.getItem("installedGames")) {
       GamesStore.setInstalledGames([]);
@@ -97,8 +106,47 @@ const App: React.FC = () => {
           )}
         </ModalContent>
       </Modal>
+      <Modal
+        onClose={() => setVerificationModalVisible(false)}
+        isOpen={verificationModalVisible}
+        hideCloseButton
+        isDismissable={false}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex text-2xl font-light flex-col font-heading gap-1"></ModalHeader>
+              <ModalBody>
+                <div className="grid text-center justify-center">
+                  <FiUserCheck className="mx-auto text-success" size={100} />
+                  <p className="text-2xl mt-5 font-heading">
+                    VERIFICATION SUCCESSUL!
+                  </p>
+                  <p className="mt-2 font-semibold">
+                    Your account is now verified
+                    <div className="br">
+                      Please click on the "Restart" button to confirm these
+                      changes.
+                    </div>
+                  </p>
+                </div>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  color="success"
+                  onPress={() => window.location.reload()}
+                >
+                  Restart
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </AnimatePresence>
   );
 };
+
+const App = observer(AppComp);
 
 export default App;

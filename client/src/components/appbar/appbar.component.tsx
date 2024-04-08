@@ -1,13 +1,16 @@
 import UserDropdown from "../dropdowns/user/userdropdown.component";
 import { getTokensCookie } from "@/utils/storage";
 import { User } from "@/stores/UserStore";
-import { Button, Input, Tooltip } from "@nextui-org/react";
+import { Badge, Button, Input, Tooltip } from "@nextui-org/react";
 import { HiCog } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { FiArrowLeft, FiArrowRight, FiMenu } from "react-icons/fi";
 import { SidebarStore } from "@/stores/SidebarStore";
 import { observer } from "mobx-react";
 import { SearchStore } from "@/stores/SearchStore";
+import { HiBellAlert } from "react-icons/hi2";
+import { sendVerificationLink } from "@/handlers/api";
+import { useState } from "react";
 
 export interface AppBarProps {
   user?: User;
@@ -27,6 +30,7 @@ export const AppBar: React.FC<AppBarProps> = ({
   searchType,
 }) => {
   const cookies = getTokensCookie();
+  const [loading, setLoading] = useState(false);
 
   return (
     <>
@@ -56,21 +60,23 @@ export const AppBar: React.FC<AppBarProps> = ({
             )}
             <p className="font-heading text-2xl uppercase mr-10">{pageName}</p>
             {searchBarVisible && (
-              <Input
-                onChange={(e) => {
-                  console.log(SearchStore.search);
-                  SearchStore.setSearch({
-                    type: searchType || "game",
-                    query: e.target.value,
-                  });
-                }}
-                className="mr-5"
-                placeholder="Search..."
-                value={
-                  (SearchStore.search.type == searchType || "game") &&
-                  SearchStore.search.query
-                }
-              />
+              <Badge content="New" placement="top-right" color="primary">
+                <Input
+                  onChange={(e) => {
+                    console.log(SearchStore.search);
+                    SearchStore.setSearch({
+                      type: searchType || "game",
+                      query: e.target.value,
+                    });
+                  }}
+                  className="mr-5"
+                  placeholder="Search..."
+                  value={
+                    (SearchStore.search.type == searchType || "game") &&
+                    SearchStore.search.query
+                  }
+                />
+              </Badge>
             )}
           </nav>
           <div className="inline-flex lg:justify-end">
@@ -95,6 +101,24 @@ export const AppBar: React.FC<AppBarProps> = ({
             )}
           </div>
         </div>
+        {user && !user?.verified && (
+          <div className="bg-warning items-center flex p-2 bg-opacity-10 mt-1 rounded-lg text-warning">
+            <HiBellAlert size={20} />{" "}
+            <span className="ml-2">
+              Your account has not been verified yet.
+            </span>
+            <Button
+              onPress={() =>
+                sendVerificationLink(user?.tokens.accessToken || "", setLoading)
+              }
+              className="ml-auto"
+              color="warning"
+              isLoading={loading}
+            >
+              Resend Verification Link
+            </Button>
+          </div>
+        )}
       </header>
     </>
   );

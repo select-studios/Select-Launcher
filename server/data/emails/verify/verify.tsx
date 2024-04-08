@@ -22,9 +22,7 @@ export const VerifyEmail: React.FC<EmailProps> = (props) => {
       <Section style={main}>
         <Container style={container}>
           <Img
-            src={
-              "https://cdn.discordapp.com/attachments/690160218159710413/1069193293994414171/Select_Launcher_Logo.png"
-            }
+            src="https://cdn.discordapp.com/attachments/690160218159710413/1226813263673819136/ICON_SelectLauncher.png?ex=662621e3&is=6613ace3&hm=21c57788d675b487828d5b59146048ed89d030d39dfcf1a2bc2ba511c9b634fc&"
             width="40"
             height="33"
             alt="Select Studios"
@@ -33,9 +31,10 @@ export const VerifyEmail: React.FC<EmailProps> = (props) => {
             <Text style={text}>Hey {username},</Text>
             <Text style={text}>
               It is our pleasure that you recently registered for a Select
-              Studios account. <b>Epic gamer move, innit?</b> <br /> However, we
-              need to verify your email before you actually start playing due to
-              obvious reasons. <br />
+              Studios account. <b>Epic gamer move, innit?</b> <br />
+              <br /> However, we need to verify your email before you can start
+              gaming. <br />
+              <br />
               TLDR; just click the button below to verify your account.
             </Text>
             <Button style={button} href={url}>

@@ -22,10 +22,15 @@ export interface IFilesAPI {
   openFolder: () => void;
 }
 
+export interface IAuthAPI {
+  onVerificationSuccessful: () => void;
+}
+
 declare global {
   interface Window {
     gamesAPI: IGamesAPI;
     filesAPI: IFilesAPI;
     windowControls: IWindowControls;
+    authAPI: IAuthAPI;
   }
 }

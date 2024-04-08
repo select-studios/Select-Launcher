@@ -2,6 +2,7 @@ import GameInfo from "@/interfaces/GameInfoInterface";
 import { GamesStore_Impl } from "@/stores/GamesStore";
 import { UserStore, UserStore_Impl } from "@/stores/UserStore";
 import { Log } from "@/utils/lib/Log";
+import { toast } from "react-toastify";
 
 export const API_URI =
   process.env.NODE_ENV === "development"
@@ -129,14 +130,17 @@ export const logout = async (
 };
 
 export const sendVerificationLink = async (
-  accessToken: string | number | null
+  accessToken: string | number | null,
+  setLoading: any
 ) => {
+  setLoading(true);
   await fetch(`${API_URI}/accounts/verify/link`, {
     method: "POST",
     headers: { Authorization: `Bearer ${accessToken}` },
   }).then(async (res) => {
     const data = await res.json();
-
+    toast.success("Please check your email for further verification steps.");
+    setLoading(false);
     return data.msg;
   });
 };

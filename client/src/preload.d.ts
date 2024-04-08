@@ -20,6 +20,9 @@ declare global {
       maximizeWindow(): void;
       closeWindow(): void;
     };
+    authAPI: {
+      onVerificationSuccessful: () => void;
+    };
   }
 }
 

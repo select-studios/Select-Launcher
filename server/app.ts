@@ -25,9 +25,7 @@ const app = express();
 const PORT = process.env.PORT || 4757;
 
 const router = express.Router();
-const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN,
-});
+const octokit = new Octokit();
 
 // Middleware
 app.use(cors({ origin: "*" }));
