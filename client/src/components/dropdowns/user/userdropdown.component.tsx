@@ -29,6 +29,7 @@ interface UserDropdownProps {
     verified: boolean;
     accessToken: string | null | number;
     moderator?: boolean;
+    pfp?: string;
   };
 }
 
@@ -40,9 +41,9 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
     <div>
       <Dropdown size="lg">
         <DropdownTrigger>
-          <Image
-            src={userImg}
-            className="mr-2 min-w-12 max-w-12 cursor-pointer"
+          <Avatar
+            src={user?.pfp}
+            className="mr-2 w-10 rounded-2xl h-10 cursor-pointer"
           />
         </DropdownTrigger>
         <DropdownMenu
@@ -56,7 +57,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
                 logout(refreshToken, navigate, setLoading);
               }
             } else if (key.toString() == "profile") {
-              navigate("/settings/profile");
+              navigate("/settings/account");
             } else if (key.toString() == "home") {
               navigate("/");
             } else if (key.toString() == "settings") {

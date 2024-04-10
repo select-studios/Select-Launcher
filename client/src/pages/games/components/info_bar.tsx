@@ -1,4 +1,4 @@
-import { Button, Chip } from "@nextui-org/react";
+import { Button, Chip, Tooltip } from "@nextui-org/react";
 import { FiShoppingBag } from "react-icons/fi";
 import GameInfo from "@/interfaces/GameInfoInterface";
 import {
@@ -61,9 +61,9 @@ export const InfoBar = ({ game }: IInfoBarProps) => {
       });
     }
   };
-  7;
+
   return (
-    <div className="h-screen p-5 sticky top-0 right-0 rounded-tl-lg bg-secondaryBG w-96">
+    <div className="max-h-screen p-5 sticky top-0 right-0 rounded-tl-lg bg-secondaryBG w-96">
       <div>
         <div className="bg-tertiaryBG mb-4 min-h-40 rounded-lg p-5"></div>
         <div className="flex items-center mb-8">
@@ -94,6 +94,7 @@ export const InfoBar = ({ game }: IInfoBarProps) => {
               color="success"
               isLoading={loading}
               fullWidth
+              isDisabled={!user?.verified}
               onPress={async () => await addGame()}
             >
               Get now
@@ -114,7 +115,7 @@ export const InfoBar = ({ game }: IInfoBarProps) => {
         </div>
       </div>
 
-      <div className="fixed mb-5 bottom-0">
+      <div className="absolute mb-10 bottom-0">
         <div>
           <p className="font-heading text-base uppercase">Developer</p>
           <p className="text-base">{game?.developer}</p>

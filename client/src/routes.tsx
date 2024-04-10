@@ -4,6 +4,8 @@ import { Settings, Signin, Signup, Store, Library } from "./pages";
 import { GameObserver } from "./pages/games/[game]";
 import ModeratorDashboard from "./pages/moderator/dashboard/moderator-dashboard.page";
 import { NotFound_E } from "./pages/errors";
+import { AccountSettings } from "./pages/settings/account/account-settings.page";
+import { SignupPfpCard } from "./pages/signup/steps/pfp-card.signup";
 
 const routes = [
   {
@@ -25,10 +27,16 @@ const routes = [
     element: <Signup />,
   },
   {
+    path: "/signup/pfp",
+    element: <SignupPfpCard />,
+    auth: true,
+  },
+  {
     path: "/settings",
     element: <Settings />,
     auth: true,
   },
+  { path: "/settings/account", element: <AccountSettings />, auth: true },
   {
     path: "/moderator/dashboard",
     element: <ModeratorDashboard />,

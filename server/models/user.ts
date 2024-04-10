@@ -4,7 +4,7 @@ const user = new mongoose.Schema({
   email: { type: String, required: true },
   username: { type: String, required: true },
   password: { type: String, required: true },
-  pfp: { type: String, required: false },
+  pfp: { type: String, required: false, default: "" },
   verified: { type: Boolean, required: true, default: false },
   refreshTokens: [String],
   moderator: { type: Boolean, required: false, default: false },

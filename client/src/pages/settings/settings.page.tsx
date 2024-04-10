@@ -80,7 +80,9 @@ export const Settings: FC<IProps> = (props) => {
                 </p>
               </CardHeader>
               <CardBody>
-                <Checkbox checked>Update app automatically</Checkbox>
+                <Checkbox isSelected isDisabled>
+                  Update app automatically
+                </Checkbox>
                 <Input
                   label="Download Location"
                   className="mt-10"

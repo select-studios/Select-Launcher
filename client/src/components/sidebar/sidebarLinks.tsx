@@ -51,7 +51,7 @@ export const settingsSidebarLinks: SidebarLink[] = [
   {
     name: "Account",
     icon: <FiUser size="20" />,
-    disabled: true,
+    disabled: false,
     href: "/settings/account",
   },
   {

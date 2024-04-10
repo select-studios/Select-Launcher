@@ -30,6 +30,21 @@ export const SigninComp: React.FC<SigninProps> = () => {
         </div>
         <SignInCard />
       </section>
+      <div className="area">
+        {" "}
+        <ul className="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
     </main>
   );
 };

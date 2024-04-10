@@ -81,18 +81,19 @@ export const AppBar: React.FC<AppBarProps> = ({
           </nav>
           <div className="inline-flex lg:justify-end">
             {dashboard && (
-              <div className="flex">
+              <div className="flex items-center">
                 <UserDropdown
                   user={{
                     username: user?.username || "",
                     verified: user?.verified || false,
                     accessToken: cookies.accessToken || "",
                     moderator: user?.moderator,
+                    pfp: user?.pfp,
                   }}
                 />
                 <Tooltip content="Settings" placement="bottom">
                   <Link to="/settings">
-                    <Button className="bg-tertiaryBG ml-2" size="lg" isIconOnly>
+                    <Button className="bg-tertiaryBG ml-2" size="md" isIconOnly>
                       <HiCog size="25" className="text-white w-auto" />
                     </Button>
                   </Link>

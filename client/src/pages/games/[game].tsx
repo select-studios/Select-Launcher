@@ -27,7 +27,7 @@ const Game: FunctionComponent<GamesInfoProps> = () => {
     <section className="game-page">
       <div className="main flex">
         <Sidebar active="home" />
-        <div className="content mt-5 mr-5 w-full">
+        <div className="content mr-5 w-full">
           {user && (
             <AppBar
               searchBarVisible={false}

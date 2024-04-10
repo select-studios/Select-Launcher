@@ -11,7 +11,7 @@
 }
 
 .store__main-banner {
-  @apply bg-secondaryBG rounded-lg h-[193px];
+  @apply bg-secondaryBG rounded-lg h-[300px];
 }
 
 .store__main-heading {

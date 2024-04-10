@@ -12,6 +12,21 @@ export const Signup: React.FC<SignupProps> = () => {
         </div>
         <SignupCard />
       </section>
+      <div className="area">
+        {" "}
+        <ul className="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
     </main>
   );
 };

@@ -34,7 +34,7 @@ export const signupUser = async (
     setTokensCookie(accessToken, refreshToken);
 
     setLoading(false);
-    navigate("/store");
+    navigate("/signup/pfp");
   } else {
     setLoading(false);
     toast.error(resData.error);

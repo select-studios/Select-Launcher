@@ -13,6 +13,7 @@ export interface User {
     refreshToken: string;
   };
   banned: boolean;
+  pfp: string;
 }
 
 export class UserStore_Impl {

@@ -30,8 +30,14 @@ const octokit = new Octokit();
 // Middleware
 app.use(cors({ origin: "*" }));
 app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 50000,
+  })
+);
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
