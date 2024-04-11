@@ -157,7 +157,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                 {SidebarStore.open && "Sign out"}
               </Button>
             </div>
-            <div className="mt-auto flex-1 items-end absolute mb-5 bottom-0 w-fit mx-auto justify-center">
+            <div className="mt-auto flex-1 absolute mb-5 bottom-0 w-fit mx-auto justify-center">
               <div className=" transition-all ease-in-out duration-300">
                 <Card className="shadow-none mb-10 border-2 border-tertiaryBG">
                   <CardBody>
@@ -167,15 +167,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                         alt="Account Logo"
                         className={
                           SidebarStore.open
-                            ? "mx-auto w-16 h-16 rounded-xl"
+                            ? "mx-auto w-12 h-12 rounded-xl"
                             : "mx-auto w-8 h-8 rounded-xl"
                         }
                       />
 
                       {SidebarStore.open && (
                         <div className="ml-5">
-                          <p className="text-lg font-heading">
-                            @{user?.username}
+                          <p className="text-base font-heading">
+                            @{user?.username.slice(0, 8) + "..."}
                           </p>
                           <p className="text-xs mt-auto font-medium text-success flex items-center">
                             <FaCircle className="mr-1" size={8} /> Online
