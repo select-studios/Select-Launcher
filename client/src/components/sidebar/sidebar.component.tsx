@@ -109,10 +109,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                       onPress={() => navigate("/moderator/dashboard")}
                       className={"mb-6 mx-auto"}
                       startContent={<BiSolidDashboard size={20} />}
+                      color="warning"
                       isIconOnly={!SidebarStore.open}
                       variant={
                         active.toLowerCase() === "moderation"
-                          ? "solid"
+                          ? "flat"
                           : "ghost"
                       }
                       size="lg"
@@ -175,7 +176,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                       {SidebarStore.open && (
                         <div className="ml-5">
                           <p className="text-lg font-heading">
-                            @{user?.username}
+                            {user?.username}
                           </p>
                           <p className="text-xs mt-auto font-medium text-success flex items-center">
                             <FaCircle className="mr-1" size={8} /> Online

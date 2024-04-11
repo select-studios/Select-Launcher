@@ -154,7 +154,7 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
     handleBanUser(userToBan._id, data.reason);
     setBanUserVisible(false);
     toast.success(
-      `@${userToBan.username} successfully banned from the servers.`
+      `@${userToBan.username} successfully banned from the Launcher.`
     );
   };
 
@@ -173,7 +173,7 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
           <div className="w-full">
             <div className="mt-2 bg-secondaryBG pb-5 rounded-xl w-full">
               <p className="text-xl p-2 rounded-t-xl text-center bg-tertiaryBG mx-0 font-heading">
-                APP USERS
+                User Accounts
               </p>
               {!usersLoading && (
                 <div className="flex items-center rounded-b-lg">
@@ -400,7 +400,7 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
                 className="mx-auto mb-2 w-16 h-16 rounded-xl"
               />
               <p className="text-xl text-center font-heading font-thin tracking-wider">
-                @{userToBan.username}
+                {userToBan.username}
               </p>
               <p className="text-sm font-sans text-center opacity-80 font-semibold">
                 Please make sure you are complying with our user banning policy.
