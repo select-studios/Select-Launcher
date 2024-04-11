@@ -80,6 +80,21 @@ const AccountSettingsComp: FC<IProps> = (props) => {
             </div>
           </CardBody>
         </Card>
+      <Card className="mt-12 mb-5 p-2">
+            <CardHeader>
+              <p className="font-heading tracking-wider text-xl uppercase">
+                Developer tools
+              </p>
+            </CardHeader>
+            <CardBody>
+              <div className="grid grid-cols-4">
+                <div className="bg-tertiaryBG rounded-lg px-4 py-2">
+                  <p className="text-base font-heading uppercase">User id</p>
+                  <p className="text-base">{user?._id}</p>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
       </div>
     </div>
   );

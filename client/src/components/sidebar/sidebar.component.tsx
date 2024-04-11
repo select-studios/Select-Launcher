@@ -117,26 +117,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                 </div>
               ) : (
                 <div className="mx-auto">
-                  <Card className="mb-10 shadow-none bg-tertiaryBG">
-                    <CardBody>
-                      <div className="flex items-center overflow-hidden">
-                        <Image
-                          src={AccountLogo}
-                          alt="Account Logo"
-                          className="mx-auto"
-                        />
-
-                        {SidebarStore.open && (
-                          <div className="ml-2">
-                            <p className="text-[14px] font-heading">
-                              {user?.username}
-                            </p>
-                            <p className="text-[8px]">{user?.email}</p>
-                          </div>
-                        )}
-                      </div>
-                    </CardBody>
-                  </Card>
                   {settingsSidebarLinks.map((link, i) => (
                     <div>
                       <Button
