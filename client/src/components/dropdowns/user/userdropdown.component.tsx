@@ -8,6 +8,7 @@ import {
   DropdownItem,
   Image,
   Chip,
+  Button,
 } from "@nextui-org/react";
 import { Badge } from "@nextui-org/react";
 import {
@@ -22,6 +23,7 @@ import { HiBellAlert, HiUserPlus } from "react-icons/hi2";
 import { useNavigate } from "react-router";
 import userImg from "../../../assets/images/ICON_User.png";
 import { Key, useState } from "react";
+import { BiDotsVerticalRounded } from "react-icons/bi";
 
 interface UserDropdownProps {
   user: {
@@ -39,12 +41,11 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
 
   return (
     <div>
-      <Dropdown size="lg">
+      <Dropdown placement="bottom-end" size="lg">
         <DropdownTrigger>
-          <Avatar
-            src={user?.pfp}
-            className="mr-2 w-10 rounded-2xl h-10 cursor-pointer"
-          />
+          <Button isIconOnly>
+            <BiDotsVerticalRounded size={24} />
+          </Button>
         </DropdownTrigger>
         <DropdownMenu
           className=""

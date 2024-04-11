@@ -18,8 +18,8 @@ const libraryComp = () => {
   return (
     <main>
       <div className="library">
-        <div className="library__content">
-          <Sidebar active="library"></Sidebar>
+        <div className="library__content h-screen overflow-scroll">
+          <Sidebar active="library" />
           <ScrollShadow isEnabled className="library__main">
             <AppBar
               searchType="library"

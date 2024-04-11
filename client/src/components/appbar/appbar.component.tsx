@@ -34,6 +34,25 @@ export const AppBar: React.FC<AppBarProps> = ({
 
   return (
     <>
+      {user && !user?.verified && (
+        <div className="bg-warning items-center flex p-2 bg-opacity-10 mb-5 rounded-lg text-warning">
+          <HiBellAlert size={20} />{" "}
+          <span className="ml-2 font-medium">
+            Your account is at risk! Please verify your e-mail to secure your
+            account.
+          </span>
+          <Button
+            onPress={() =>
+              sendVerificationLink(user?.tokens.accessToken || "", setLoading)
+            }
+            className="ml-auto"
+            color="warning"
+            isLoading={loading}
+          >
+            Resend Verification Link
+          </Button>
+        </div>
+      )}
       <header className="w-full py-2 rounded-b-3xl shadow-xl pt-0">
         <div className="container mx-auto flex py-2 items-center">
           <nav className="flex items-center text-base mr-auto">
@@ -60,28 +79,33 @@ export const AppBar: React.FC<AppBarProps> = ({
             )}
             <p className="font-heading text-2xl uppercase mr-10">{pageName}</p>
             {searchBarVisible && (
-              <Badge content="New" placement="top-right" color="primary">
-                <Input
-                  onChange={(e) => {
-                    console.log(SearchStore.search);
-                    SearchStore.setSearch({
-                      type: searchType || "game",
-                      query: e.target.value,
-                    });
-                  }}
-                  className="mr-5"
-                  placeholder="Search..."
-                  value={
-                    (SearchStore.search.type == searchType || "game") &&
-                    SearchStore.search.query
-                  }
-                />
-              </Badge>
+              <Input
+                onChange={(e) => {
+                  console.log(SearchStore.search);
+                  SearchStore.setSearch({
+                    type: searchType || "game",
+                    query: e.target.value,
+                  });
+                }}
+                className="mr-5"
+                placeholder="Search..."
+                value={
+                  (SearchStore.search.type == searchType || "game") &&
+                  SearchStore.search.query
+                }
+              />
             )}
           </nav>
           <div className="inline-flex lg:justify-end">
             {dashboard && (
               <div className="flex items-center">
+                <Tooltip content="Settings" placement="bottom">
+                  <Link to="/settings">
+                    <Button className="bg-tertiaryBG mr-2" size="md" isIconOnly>
+                      <HiCog size="25" className="text-white w-auto" />
+                    </Button>
+                  </Link>
+                </Tooltip>
                 <UserDropdown
                   user={{
                     username: user?.username || "",
@@ -91,35 +115,10 @@ export const AppBar: React.FC<AppBarProps> = ({
                     pfp: user?.pfp,
                   }}
                 />
-                <Tooltip content="Settings" placement="bottom">
-                  <Link to="/settings">
-                    <Button className="bg-tertiaryBG ml-2" size="md" isIconOnly>
-                      <HiCog size="25" className="text-white w-auto" />
-                    </Button>
-                  </Link>
-                </Tooltip>
               </div>
             )}
           </div>
         </div>
-        {user && !user?.verified && (
-          <div className="bg-warning items-center flex p-2 bg-opacity-10 mt-1 rounded-lg text-warning">
-            <HiBellAlert size={20} />{" "}
-            <span className="ml-2">
-              Your account has not been verified yet.
-            </span>
-            <Button
-              onPress={() =>
-                sendVerificationLink(user?.tokens.accessToken || "", setLoading)
-              }
-              className="ml-auto"
-              color="warning"
-              isLoading={loading}
-            >
-              Resend Verification Link
-            </Button>
-          </div>
-        )}
       </header>
     </>
   );

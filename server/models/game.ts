@@ -6,6 +6,8 @@ const game = new mongoose.Schema({
   description: { type: String, required: true },
   image: {
     icon: { type: String, required: true },
+    banner: { type: String, required: true },
+    title: { type: String, required: true },
   },
   tags: { type: [String], required: true },
   verified: { type: Boolean, required: true },

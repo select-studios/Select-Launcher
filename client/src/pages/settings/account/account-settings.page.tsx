@@ -25,11 +25,11 @@ interface IProps {}
 const AccountSettingsComp: FC<IProps> = (props) => {
   const { user } = UserStore;
   return (
-    <div className="flex">
+    <div className="flex h-screen overflow-y-auto">
       <SidebarObserver settings active="account" />
       <div className="content mt-5 mr-5 w-full">
         <AppBar pageName="Account" settings searchBarVisible={false} />
-        <Card className="mt-10 p-2">
+        <Card className="mt-10 p-2 max-h-fit">
           <CardHeader className="font-heading flex items-center text-xl">
             <span className="uppercase">profile</span>
             <Button
@@ -42,7 +42,7 @@ const AccountSettingsComp: FC<IProps> = (props) => {
           </CardHeader>
           <CardBody>
             <div className="flex">
-              <Image src={UserImage} className="w-28 rounded-lg" />
+              <Image src={user?.pfp || UserImage} className="w-28 rounded-lg" />
               <div className="grid w-full ml-5 grid-cols-2">
                 <div className="bg-tertiaryBG mr-5 rounded-lg p-2 px-3">
                   <p className="font-heading text-base uppercase">username</p>

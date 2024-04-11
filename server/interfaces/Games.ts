@@ -4,6 +4,8 @@ interface Games {
   downloadName: string;
   image: {
     icon: string;
+    banner: string;
+    title?: string;
   };
   publisher: string;
   developer: string;

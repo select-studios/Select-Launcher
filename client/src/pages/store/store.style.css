@@ -1,7 +1,3 @@
-.store {
-  @apply mr-5;
-}
-
 .store__content {
   @apply flex;
 }
@@ -11,9 +7,9 @@
 }
 
 .store__main-banner {
-  @apply bg-secondaryBG rounded-lg h-[300px];
+  @apply bg-secondaryBG rounded-lg;
 }
 
 .store__main-heading {
-  @apply my-12 text-xl font-heading;
+  @apply mt-12 uppercase mb-6 text-xl font-heading;
 }

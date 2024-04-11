@@ -6,6 +6,8 @@ export default interface GameInfo {
   downloadName: string;
   image: {
     icon: string;
+    banner: string;
+    title: string;
   };
   publisher: string;
   developer: string;

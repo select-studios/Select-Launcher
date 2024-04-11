@@ -1,4 +1,11 @@
-import { Button, Card, CardBody, Image } from "@nextui-org/react";
+import {
+  Avatar,
+  Button,
+  Card,
+  CardBody,
+  Dropdown,
+  Image,
+} from "@nextui-org/react";
 import { useNavigate } from "react-router";
 import { UserStore } from "@/stores/UserStore";
 import { FiHome, FiLogOut, FiSettings } from "react-icons/fi";
@@ -12,9 +19,9 @@ import { motion } from "framer-motion";
 import AccountLogo from "../../../../Resources/ICON_User.png";
 import { SidebarStore } from "@/stores/SidebarStore";
 import { observer } from "mobx-react";
-import { FaHammer } from "react-icons/fa6";
+import { FaCircle, FaHammer } from "react-icons/fa6";
 import { GrAnalytics } from "react-icons/gr";
-import { BiSolidDashboard } from "react-icons/bi";
+import { BiCircle, BiSolidDashboard } from "react-icons/bi";
 
 interface SidebarProps {
   active: string;
@@ -51,7 +58,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
   };
 
   return (
-    <div className="sticky flex left-0 mt-0 top-0 bottom-0 h-screen">
+    <div className="bottom-0 sticky top-0 left-0 max-h-screen">
       <motion.div
         variants={sidebarVariants}
         initial={false}
@@ -63,7 +70,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
         }
       >
         <div className="p-5">
-          <div className="mt-5">
+          <div className="mt-10">
             <div
               className={`grid justify-center mb-12 ${
                 !SidebarStore.open && "w-12 mx-auto"
@@ -71,7 +78,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
             >
               <SelectLauncherImage />
             </div>
-            <div>
+            <div className="">
               {!settings ? (
                 <div className={SidebarStore.open ? "" : "grid"}>
                   {sidebarLinks
@@ -117,26 +124,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                 </div>
               ) : (
                 <div className="mx-auto">
-                  <Card className="mb-10 shadow-none bg-tertiaryBG">
-                    <CardBody>
-                      <div className="flex items-center overflow-hidden">
-                        <Image
-                          src={AccountLogo}
-                          alt="Account Logo"
-                          className="mx-auto"
-                        />
-
-                        {SidebarStore.open && (
-                          <div className="ml-2">
-                            <p className="text-[14px] font-heading">
-                              {user?.username}
-                            </p>
-                            <p className="text-[8px]">{user?.email}</p>
-                          </div>
-                        )}
-                      </div>
-                    </CardBody>
-                  </Card>
                   {settingsSidebarLinks.map((link, i) => (
                     <div>
                       <Button
@@ -156,7 +143,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
               )}
             </div>
 
-            <div className="flex justify-center">
+            <div className="grid justify-center">
               <Button
                 onPress={logoutClient}
                 startContent={!loading && <FiLogOut size={20} />}
@@ -169,6 +156,36 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
               >
                 {SidebarStore.open && "Sign out"}
               </Button>
+            </div>
+            <div className="mt-auto flex-1 items-end absolute mb-5 bottom-0 w-fit mx-auto justify-center">
+              <div className=" transition-all ease-in-out duration-300">
+                <Card className="shadow-none mb-10 border-2 border-tertiaryBG">
+                  <CardBody>
+                    <div className="flex items-center overflow-hidden">
+                      <Avatar
+                        src={user?.pfp}
+                        alt="Account Logo"
+                        className={
+                          SidebarStore.open
+                            ? "mx-auto w-16 h-16 rounded-xl"
+                            : "mx-auto w-8 h-8 rounded-xl"
+                        }
+                      />
+
+                      {SidebarStore.open && (
+                        <div className="ml-5">
+                          <p className="text-lg font-heading">
+                            @{user?.username}
+                          </p>
+                          <p className="text-xs mt-auto font-medium text-success flex items-center">
+                            <FaCircle className="mr-1" size={8} /> Online
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </CardBody>
+                </Card>
+              </div>
             </div>
           </div>
         </div>

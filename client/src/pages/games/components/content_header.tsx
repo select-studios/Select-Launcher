@@ -1,5 +1,5 @@
 import GameInfo from "@/interfaces/GameInfoInterface";
-import { Chip } from "@nextui-org/react";
+import { Chip, Image } from "@nextui-org/react";
 
 interface IContentHeaderProps {
   game: GameInfo | undefined;
@@ -18,10 +18,11 @@ export const ContentHeader = ({ game }: IContentHeaderProps) => {
           ))}
         </div>
       </div>
-      <div
-        className="bg-secondaryBG mt-2 min-w-full rounded-lg"
-        style={{ height: "250px" }}
-      ></div>
+
+      <Image
+        className="bg-secondaryBG h-[500px] mt-2 min-w-full w-screen rounded-lg"
+        src={game?.image.banner}
+      />
       <p className="font-inter min-h-10 max-h-20 overflow-y-auto mt-[30px] font-medium text-xl opacity-70">
         {game?.description}
       </p>

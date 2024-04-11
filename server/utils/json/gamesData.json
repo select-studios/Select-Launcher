@@ -4,7 +4,8 @@
     "downloadName": "AceRace-1.0",
     "description": "Fast pace action experience. An experience that is hand-picked to be enjoyed by players. Movement designed to immerse you in the experience of AceRace. Your objective is to reach the end of the game without dying once! Doing so will give you a surprise level!",
     "image": {
-      "icon": "https://github.com/select-studios/Select-Launcher/blob/main/Resources/ICON_Game.png?raw=true"
+      "icon": "https://github.com/select-studios/Select-Launcher/blob/main/Resources/ICON_Game.png?raw=true",
+      "banner": "https://cdn.discordapp.com/attachments/1030139297577316464/1227698939390591007/image.png?ex=66295abc&is=6616e5bc&hm=3750b650c7dfabb16c2e4b82c5277d85cc37eae44a7898d4d298de43224d683c&"
     },
     "tags": ["action", "momentum", "fast"],
     "verified": true
@@ -14,7 +15,8 @@
     "downloadName": "Rosehill-0.5",
     "description": "His experiments we're amazing, a staple to the unknown town of Rosehill. Then something went wrong, Oh so wrong",
     "image": {
-      "icon": "https://github.com/select-studios/Select-Launcher/blob/main/Resources/ICON_Game.png?raw=true"
+      "icon": "https://github.com/select-studios/Select-Launcher/blob/main/Resources/ICON_Game.png?raw=true",
+      "banner": "https://cdn.discordapp.com/attachments/1030139297577316464/1227698939390591007/image.png?ex=66295abc&is=6616e5bc&hm=3750b650c7dfabb16c2e4b82c5277d85cc37eae44a7898d4d298de43224d683c&"
     },
     "tags": ["development", "horror", "story"],
     "verified": true

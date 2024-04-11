@@ -25,7 +25,7 @@ const Game: FunctionComponent<GamesInfoProps> = () => {
 
   return (
     <section className="game-page">
-      <div className="main flex">
+      <div className="main flex h-screen overflow-scroll">
         <Sidebar active="home" />
         <div className="content mr-5 w-full">
           {user && (

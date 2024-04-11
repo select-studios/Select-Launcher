@@ -18,8 +18,6 @@
   --toastify-color-success: #17c964;
   --toastify-color-warning: #f5a524;
   --toastify-color-error: #f31260;
-
-  overflow-x: hidden !important;
 }
 
 .Toastify__toast {
@@ -33,6 +31,7 @@ body {
     sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-y: hidden;
 }
 
 ::-webkit-scrollbar {
