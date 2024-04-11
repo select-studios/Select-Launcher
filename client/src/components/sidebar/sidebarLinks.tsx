@@ -1,5 +1,5 @@
 import { SidebarStore } from "@/stores/SidebarStore";
-import { BiLibrary, BiMoney, BiMoneyWithdraw } from "react-icons/bi";
+import { BiCog, BiLibrary, BiMoney, BiMoneyWithdraw } from "react-icons/bi";
 import { FiCompass, FiHome, FiMonitor, FiUser } from "react-icons/fi";
 import { HiDatabase } from "react-icons/hi";
 
@@ -24,6 +24,12 @@ export const sidebarLinks: SidebarLink[] = [
     name: "Library",
     href: "/library",
     icon: <BiLibrary size={iconSize} />,
+    disabled: false,
+  },
+  {
+    name: "Settings",
+    href: "/Settings",
+    icon: <BiCog size={iconSize} />,
     disabled: false,
   },
   {

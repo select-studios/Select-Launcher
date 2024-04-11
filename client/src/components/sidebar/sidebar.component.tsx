@@ -109,11 +109,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                       onPress={() => navigate("/moderator/dashboard")}
                       className={"mb-6 mx-auto"}
                       startContent={<BiSolidDashboard size={20} />}
+                      color="warning"
                       isIconOnly={!SidebarStore.open}
                       variant={
-                        active.toLowerCase() === "moderation"
-                          ? "solid"
-                          : "ghost"
+                        active.toLowerCase() === "moderation" ? "flat" : "ghost"
                       }
                       size="lg"
                       fullWidth
