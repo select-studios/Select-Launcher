@@ -4,7 +4,7 @@ import { SearchStore } from "@/stores/SearchStore";
 import { Button, Image, Spinner, divider } from "@nextui-org/react";
 import { observer } from "mobx-react";
 import { FC } from "react";
-import gameErrorImg from "../../../../../Resources/ICON_GameError.png";
+import noGameImage from "../../../../../Resources/ICON_Game.png";
 import { Link } from "react-router-dom";
 
 interface IProps {
@@ -33,7 +33,7 @@ const LibraryGamesComp: FC<IProps> = ({ games, purchasedGames }) => {
           .map((game: GameInfo) => <LibraryGameCard game={game} />)
       ) : (
         <div className="flex items-center">
-          <Image className="w-32 h-32" src={gameErrorImg} />
+          <Image className="w-32 h-32" src={noGameImage} />
           <div className="ml-5">
             <p className="font-heading text-3xl">
               Hmm. Looks like you don't have any games yet.

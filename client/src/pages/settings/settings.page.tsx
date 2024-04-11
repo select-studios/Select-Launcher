@@ -18,8 +18,9 @@ import { SidebarStore } from "@/stores/SidebarStore";
 import { Octokit } from "octokit";
 import Markdown from "react-markdown";
 import config from "../../handlers/api/utils/data/config.json";
-import { HiSparkles } from "react-icons/hi";
+import { HiSparkles, HiCode } from "react-icons/hi";
 import { API_URI } from "@/handlers/api";
+import { HiCodeBracket, HiOutlineHeart } from "react-icons/hi2";
 
 interface IProps {}
 
@@ -157,22 +158,21 @@ export const Settings: FC<IProps> = (props) => {
                 </div>
               </CardBody>
             </Card>
-            <Card className="mt-12 mb-5 p-2">
-              <CardHeader>
-                <p className="font-heading tracking-wider text-xl uppercase">
-                  Developer tools
-                </p>
-              </CardHeader>
-              <CardBody>
-                <div className="grid grid-cols-4">
-                  <div className="bg-tertiaryBG rounded-lg px-4 py-2">
-                    <p className="text-base font-heading uppercase">User id</p>
-                    <p className="text-base">{user?._id}</p>
-                  </div>
-                </div>
-              </CardBody>
-            </Card>
           </div>
+          <Card className="mt-12 p-2">
+            <CardHeader>
+              <p className="font-heading tracking-wider text-xl uppercase">
+                Made with Love By Select Studios 
+              </p>
+              <Chip color="primary" className="ml-2" size="sm">
+                <HiCode size={16} />
+              </Chip>
+            </CardHeader>
+            <CardBody>
+              From the entire team at Select Studios thank you for using the Launcher and we hope you love
+              using it as we do making it!
+            </CardBody>
+          </Card>
         </div>
       </div>
     </section>

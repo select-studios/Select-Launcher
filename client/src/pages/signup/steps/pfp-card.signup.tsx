@@ -87,7 +87,7 @@ export const SignupPfpCard: FC<IProps> = (props) => {
               Profile Customization
             </h1>
             <p className="mt-4 text-center font-semibold opacity-70 text-base">
-              Spice up and customize your profile before you get started.
+              this is the part where you make your profile look really good.
             </p>{" "}
           </CardHeader>
           <CardBody className="my-5">
@@ -105,7 +105,7 @@ export const SignupPfpCard: FC<IProps> = (props) => {
                   </p>
                   {image ? (
                     <span className="mt-2 text-bold text-sm text-success">
-                      All good to go!
+                      Lookin' good!
                     </span>
                   ) : (
                     <span className="mt-2 text-bold text-sm opacity-80">
@@ -144,7 +144,7 @@ export const SignupPfpCard: FC<IProps> = (props) => {
                 else navigate("/store");
               }}
             >
-              {image ? "Proceed" : "Skip"}
+              {image ? "Next" : "Skip"}
             </Button>
           </CardFooter>
         </Card>

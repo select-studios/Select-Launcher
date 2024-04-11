@@ -13,7 +13,7 @@ export const SigninCardHeader: FC<IProps> = (props) => {
     <CardHeader className="grid justify-center mb-2">
       <h1 className="text-4xl font-heading mt-5 text-center">Sign in</h1>
       <p className="mt-4 font-semibold opacity-70 text-base">
-        We are so happy to see you again!
+        Welcome back! We're happy to see you again.
       </p>
     </CardHeader>
   );
