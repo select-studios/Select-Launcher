@@ -7,7 +7,7 @@
 }
 
 .store__main-banner {
-  @apply bg-secondaryBG rounded-lg;
+  @apply bg-content1 rounded-lg;
 }
 
 .store__main-heading {

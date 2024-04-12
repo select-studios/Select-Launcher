@@ -53,7 +53,7 @@ export const AppBar: React.FC<AppBarProps> = ({
           </Button>
         </div>
       )}
-      <header className="w-full py-2 rounded-b-3xl shadow-xl pt-0">
+      <header className="w-full py-2 pt-0">
         <div className="container mx-auto flex py-2 items-center">
           <nav className="flex items-center text-base mr-auto">
             {settings ? (
@@ -101,8 +101,8 @@ export const AppBar: React.FC<AppBarProps> = ({
               <div className="flex items-center">
                 <Tooltip content="Settings" placement="bottom">
                   <Link to="/settings">
-                    <Button className="bg-tertiaryBG mr-2" size="md" isIconOnly>
-                      <HiCog size="25" className="text-white w-auto" />
+                    <Button className="bg-content2 mr-2" size="md" isIconOnly>
+                      <HiCog size="25" className="w-auto" />
                     </Button>
                   </Link>
                 </Tooltip>

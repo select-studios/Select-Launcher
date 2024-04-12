@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const { nextui } = require("@nextui-org/react");
+import themes from "./themes.json";
 
 module.exports = {
   content: [
@@ -11,9 +12,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primaryBG: "#050505",
-        secondaryBG: "#090909",
-        tertiaryBG: "#121212",
+        primaryBG: "var(--primaryBG)",
+        secondaryBG: "var(--secondaryBG)",
+        tertiaryBG: "var(--tertiaryBG)",
 
         primary: "#A558F2",
       },
@@ -34,19 +35,7 @@ module.exports = {
 
   plugins: [
     nextui({
-      defaultTheme: "dark",
-      themes: {
-        dark: {
-          colors: {
-            background: "#050505",
-            primary: "#A558F2",
-            default: "#121212",
-            "default-100": "#121212",
-            content1: "#090909",
-            content2: "#121212",
-          },
-        },
-      },
+      themes: themes,
     }),
     require("@tailwindcss/typography"),
   ],

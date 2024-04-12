@@ -18,7 +18,7 @@ const SettingsCard: React.FC<SettingsCardProps> = ({ setting, settingN }) => {
 
   return (
     <Card
-      className="bg-secondaryBG my-2 mr-5 p-6"
+      className="bg-content1 my-2 mr-5 p-6"
       isHoverable
       isPressable
       key={`settingscard-${settingN}`}

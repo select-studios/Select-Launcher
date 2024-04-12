@@ -5,6 +5,7 @@ import { Image, Spinner } from "@nextui-org/react";
 import { observer } from "mobx-react";
 import React, { FC } from "react";
 import gameErrorImg from "../../../../../Resources/ICON_GameError.png";
+import { SidebarStore } from "@/stores/SidebarStore";
 
 interface IProps {
   games: GameInfo[] | null;
@@ -26,7 +27,13 @@ const StoreGamesComp: FC<IProps> = ({ games }) => {
     <div className="mb-10">
       {(search.type == "game" && search.query.length ? filteredGames : games)
         .length ? (
-        <div className="grid grid-cols-4 space-x-1">
+        <div
+          className={
+            SidebarStore.open
+              ? "grid grid-cols-4"
+              : "grid grid-cols-5 space-x-2"
+          }
+        >
           {(search.type == "game" && search.query.length
             ? filteredGames
             : games

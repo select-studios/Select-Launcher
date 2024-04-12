@@ -78,10 +78,7 @@ export const SignupPfpCard: FC<IProps> = (props) => {
           />
         </div>
 
-        <Card
-          isBlurred
-          className="z-10 bg-secondaryBG px-10 bg-opacity-50 mt-10"
-        >
+        <Card isBlurred className="z-10 bg-content1 px-10 bg-opacity-50 mt-10">
           <CardHeader className="grid justify-center mb-2">
             <h1 className="text-4xl font-heading mt-5 text-center">
               Profile Customization
@@ -91,7 +88,7 @@ export const SignupPfpCard: FC<IProps> = (props) => {
             </p>{" "}
           </CardHeader>
           <CardBody className="my-5">
-            <div className="grid justify-center bg-secondaryBG py-5 rounded-2xl shadow-md backdrop-blur-md px-5">
+            <div className="grid justify-center bg-content1 py-5 rounded-2xl shadow-md backdrop-blur-md px-5">
               <div className="flex items-center">
                 <Avatar
                   className="w-28 h-28 text-4xl uppercase"

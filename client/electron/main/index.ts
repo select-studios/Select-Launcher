@@ -67,7 +67,7 @@ async function createWindow() {
     // electron-vite-vue#298
     win.loadURL(url);
     // Open devTool if the app is not packaged
-    win.webContents.openDevTools();
+    win.webContents.openDevTools({ mode: "right" });
   } else {
     win.loadFile(indexHtml);
   }

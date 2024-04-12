@@ -1,4 +1,4 @@
-import { Button, Chip, Tooltip } from "@nextui-org/react";
+import { Button, Chip, Image, Tooltip } from "@nextui-org/react";
 import { FiShoppingBag } from "react-icons/fi";
 import GameInfo from "@/interfaces/GameInfoInterface";
 import {
@@ -63,25 +63,33 @@ export const InfoBar = ({ game }: IInfoBarProps) => {
   };
 
   return (
-    <div className="max-h-screen p-5 sticky top-0 right-0 rounded-tl-lg bg-secondaryBG w-96">
+    <div className="max-h-screen p-5 sticky top-0 right-0 rounded-tl-lg bg-content1 w-96">
       <div>
-        <div className="bg-tertiaryBG mb-4 min-h-40 rounded-lg p-5"></div>
-        <div className="flex items-center mb-8">
+        <Image
+          src={game?.image.icon}
+          className="mb-4 w-screen object-cover h-40 rounded-lg"
+        />
+        <div className="flex items-center mb-4">
           <p className="font-heading opacity-80 text-base">FREE</p>
           <div className="flex items-center ml-2">
             {game?.verified && (
               <Chip
+                color="success"
                 startContent={<BiCheckCircle size={20} />}
                 variant="flat"
-                color="primary"
               >
                 Verified
               </Chip>
             )}
 
             {user?.purchasedGames.includes(game?.name || "") && (
-              <Chip variant="flat" color="success" className="ml-2">
-                In Library
+              <Chip
+                startContent={<BiCheckCircle size={20} />}
+                variant="flat"
+                color="warning"
+                className="ml-2"
+              >
+                Owned
               </Chip>
             )}
           </div>
@@ -115,17 +123,17 @@ export const InfoBar = ({ game }: IInfoBarProps) => {
         </div>
       </div>
 
-      <div className="absolute mb-10 bottom-0">
+      <div className="absolute mb-12 bottom-0">
         <div>
-          <p className="font-heading text-base uppercase">Developer</p>
+          <p className="font-heading text-lg uppercase">Developer</p>
           <p className="text-base">{game?.developer}</p>
         </div>
         <div className="mt-6">
-          <p className="font-heading text-base uppercase">Publisher</p>
+          <p className="font-heading text-lg uppercase">Publisher</p>
           <p className="text-base">{game?.publisher}</p>
         </div>
         <div className="mt-6">
-          <p className="font-heading text-base uppercase">Platforms</p>
+          <p className="font-heading text-lg uppercase">Platforms</p>
           <p className="text-base">
             {game?.platforms.map((platform) => {
               const platformName = platformNames.find(
@@ -141,11 +149,11 @@ export const InfoBar = ({ game }: IInfoBarProps) => {
           </p>
         </div>
         <div className="mt-6">
-          <p className="font-heading text-base uppercase">Release Date</p>
+          <p className="font-heading text-lg uppercase">Release Date</p>
           <p className="text-base">01.01.2069</p>
         </div>
         <div className="mt-6">
-          <p className="font-heading text-base uppercase">Current Build</p>
+          <p className="font-heading text-lg uppercase">Current Build</p>
           <p className="text-base">6900</p>
         </div>
       </div>

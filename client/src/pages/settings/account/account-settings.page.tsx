@@ -44,13 +44,13 @@ const AccountSettingsComp: FC<IProps> = (props) => {
             <div className="flex">
               <Image src={user?.pfp || UserImage} className="w-28 rounded-lg" />
               <div className="grid w-full ml-5 grid-cols-2">
-                <div className="bg-tertiaryBG mr-5 rounded-lg p-2 px-3">
+                <div className="bg-content2 mr-5 rounded-lg p-2 px-3">
                   <p className="font-heading text-base uppercase">username</p>
                   <p className="absolute font-heading bottom-0 mb-5 text-2xl">
                     @{user?.username}
                   </p>
                 </div>{" "}
-                <div className="bg-tertiaryBG rounded-lg p-2 px-3 w-full">
+                <div className="bg-content2 rounded-lg p-2 px-3 w-full">
                   <p className="font-heading text-base uppercase">e-mail</p>
                   <div className="absolute flex items-center font-heading bottom-0 mb-5 text-2xl">
                     <p>{user?.email}</p>
@@ -80,21 +80,21 @@ const AccountSettingsComp: FC<IProps> = (props) => {
             </div>
           </CardBody>
         </Card>
-      <Card className="mt-12 mb-5 p-2">
-            <CardHeader>
-              <p className="font-heading tracking-wider text-xl uppercase">
-                Developer tools
-              </p>
-            </CardHeader>
-            <CardBody>
-              <div className="grid grid-cols-4">
-                <div className="bg-tertiaryBG rounded-lg px-4 py-2">
-                  <p className="text-base font-heading uppercase">User id</p>
-                  <p className="text-base">{user?._id}</p>
-                </div>
+        <Card className="mt-12 mb-5 p-2">
+          <CardHeader>
+            <p className="font-heading tracking-wider text-xl uppercase">
+              Developer tools
+            </p>
+          </CardHeader>
+          <CardBody>
+            <div className="grid grid-cols-4">
+              <div className="bg-content2 rounded-lg px-4 py-2">
+                <p className="text-base font-heading uppercase">User id</p>
+                <p className="text-base">{user?._id}</p>
               </div>
-            </CardBody>
-          </Card>
+            </div>
+          </CardBody>
+        </Card>
       </div>
     </div>
   );

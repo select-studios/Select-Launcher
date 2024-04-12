@@ -24,11 +24,7 @@ export const LibraryGamecardInfo: FC<IProps> = ({ game, downloadStatus }) => {
         </h1>
         <div className="flex flex-row gap-2">
           {game.tags.map((tag) => (
-            <Chip
-              color="default"
-              variant="solid"
-              className="mt-1 bg-tertiaryBG"
-            >
+            <Chip color="default" variant="solid" className="mt-1 bg-content2">
               {tag}
             </Chip>
           ))}

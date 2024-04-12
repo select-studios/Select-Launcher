@@ -65,8 +65,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
         animate={SidebarStore.open ? "sidebarOpen" : "sidebarClosed"}
         className={
           SidebarStore.open
-            ? "bg-secondaryBG mr-10 rounded-tr-xl h-full rounded-br-xl"
-            : "bg-secondaryBG mr-10 rounded-tr-xl h-full rounded-br-xl"
+            ? "bg-content1 mr-10 rounded-tr-xl h-full rounded-br-xl"
+            : "bg-content1 mr-10 rounded-tr-xl h-full rounded-br-xl"
         }
       >
         <div className="p-5">
@@ -158,7 +158,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
             </div>
             <div className="mt-auto flex-1 absolute mb-5 bottom-0 w-fit mx-auto justify-center">
               <div className=" transition-all ease-in-out duration-300">
-                <Card className="shadow-none mb-10 border-2 border-tertiaryBG">
+                <Card className="shadow-none mb-10 border-2 border-content2">
                   <CardBody>
                     <div className="flex items-center overflow-hidden">
                       <Avatar

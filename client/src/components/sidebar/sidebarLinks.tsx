@@ -1,6 +1,6 @@
 import { SidebarStore } from "@/stores/SidebarStore";
 import { BiCog, BiLibrary, BiMoney, BiMoneyWithdraw } from "react-icons/bi";
-import { FiCompass, FiHome, FiMonitor, FiUser } from "react-icons/fi";
+import { FiCode, FiCompass, FiHome, FiMonitor, FiUser } from "react-icons/fi";
 import { HiDatabase } from "react-icons/hi";
 
 const iconSize = SidebarStore.open ? "20" : "25";
@@ -43,15 +43,15 @@ export const sidebarLinks: SidebarLink[] = [
 
 export const settingsSidebarLinks: SidebarLink[] = [
   {
-    name: "Home",
-    icon: <FiHome size="20" />,
+    name: "General",
+    icon: <FiCode size="20" />,
     disabled: false,
     href: "/settings",
   },
   {
     name: "App",
     icon: <FiMonitor size="20" />,
-    disabled: true,
+    disabled: false,
     href: "/settings/app",
   },
   {

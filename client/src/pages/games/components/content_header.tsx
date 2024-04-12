@@ -20,7 +20,7 @@ export const ContentHeader = ({ game }: IContentHeaderProps) => {
       </div>
 
       <Image
-        className="bg-secondaryBG h-[500px] mt-2 min-w-full w-screen rounded-lg"
+        className="bg-content1 h-[500px] mt-2 min-w-full w-screen rounded-lg"
         src={game?.image.banner}
       />
       <p className="font-inter min-h-10 max-h-20 overflow-y-auto mt-[30px] font-medium text-xl opacity-70">

@@ -171,8 +171,8 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
             user={UserStore.user!}
           />
           <div className="w-full">
-            <div className="mt-2 bg-secondaryBG pb-5 rounded-xl w-full">
-              <p className="text-xl p-2 rounded-t-xl text-center bg-tertiaryBG mx-0 font-heading">
+            <div className="mt-2 bg-content1 pb-5 rounded-xl w-full">
+              <p className="text-xl p-2 rounded-t-xl text-center bg-content2 mx-0 font-heading">
                 User Accounts
               </p>
               {!usersLoading && (
@@ -183,7 +183,7 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
                         userAnalysis.map((analysis, key) => (
                           <div
                             key={key}
-                            className={`stat-card-${key} px-2 py-1 mr-1 rounded-md bg-secondaryBG border-2 border-solid border-${analysis.color}`}
+                            className={`stat-card-${key} px-2 py-1 mr-1 rounded-md bg-content1 border-2 border-solid border-${analysis.color}`}
                           >
                             <p className="flex items-center text-sm uppercase opacity-70 font-bold">
                               <span className="mr-1">{analysis.icon}</span>{" "}
@@ -236,7 +236,7 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
                 </div>
               )}
 
-              <div className="mx-10 mt-10 px-5 py-5 bg-primaryBG rounded-xl overflow-x-hidden max-h-96">
+              <div className="mx-10 mt-10 px-5 py-5 rounded-xl overflow-x-hidden max-h-96">
                 {!usersLoading ? (
                   <div className="allUsers m-2 grid grid-cols-2">
                     {(filteredUsers.length ? filteredUsers : users)
@@ -245,7 +245,7 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
                       )
                       .map((user: any, key) => (
                         <Card
-                          className={`bg-secondaryBG shadow-none max-h-fit mr-5 mb-2 my-5 p-6 ${
+                          className={`bg-content1 shadow-none max-h-fit mr-5 mb-2 my-5 p-6 ${
                             user?.moderator ? "border-2 border-warning" : ""
                           }`}
                           key={`User-${key}`}
@@ -345,11 +345,11 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
                             )}
                             <Dropdown>
                               <DropdownTrigger>
-                                <Button isIconOnly className="bg-tertiaryBG">
+                                <Button isIconOnly className="bg-content2">
                                   <BiDotsVerticalRounded size={20} />
                                 </Button>
                               </DropdownTrigger>
-                              <DropdownMenu className="bg-tertiaryBG">
+                              <DropdownMenu className="bg-content2">
                                 <DropdownItem
                                   description="Forces the user to change their password."
                                   className="font-bold"
@@ -370,7 +370,7 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
               </div>
               <div className="mx-10 my-5">
                 <Button
-                  className="bg-tertiaryBG w-auto"
+                  className="bg-content2 w-auto"
                   onPress={() => handleUsersRefresh()}
                   startContent={<HiRefresh size="25" />}
                 >

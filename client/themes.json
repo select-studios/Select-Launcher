@@ -1,0 +1,44 @@
+{
+  "dark": {
+    "colors": {
+      "background": "#000",
+      "primary": {
+        "DEFAULT": "#A558F2",
+        "foreground": "#fff"
+      },
+      "foreground": "#fff",
+      "default": "#121212",
+      "default-100": "#121212",
+      "content1": "#090909",
+      "content2": "#121212"
+    }
+  },
+  "light": {
+    "colors": {
+      "background": "#fff",
+      "foreground": "#000",
+      "primary": {
+        "DEFAULT": "#A558F2",
+        "foreground": "#fff"
+      },
+      "default": "#e4e4e7",
+      "default-100": "#e4e4e7",
+      "content1": "#f4f4f5",
+      "content2": "#e4e4e7"
+    }
+  },
+  "accent": {
+    "colors": {
+      "background": "#1D0F2C",
+      "foreground": "#fff",
+      "primary": {
+        "DEFAULT": "#A558F2",
+        "foreground": "#fff"
+      },
+      "default": "#48276C",
+      "default-100": "#48276C",
+      "content1": "#2D1844",
+      "content2": "#48276C"
+    }
+  }
+}

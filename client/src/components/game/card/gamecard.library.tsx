@@ -1,5 +1,5 @@
 import GameInfo from "@/interfaces/GameInfoInterface";
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardBody, Image } from "@nextui-org/react";
 import { ipcRenderer } from "electron";
 import { observer } from "mobx-react";
 import { useEffect, useState } from "react";
@@ -29,9 +29,12 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
   }, []);
 
   return (
-    <Card className="bg-secondaryBG mb-5 p-2 w-full h-[250px]">
+    <Card className="bg-content1 mb-5 p-2 w-full h-[250px]">
       <CardBody className="flex flex-row">
-        <div className="bg-tertiaryBG rounded-lg flex-start w-64 h-full"></div>
+        <Image
+          src={game.image.banner}
+          className="bg-content2 rounded-lg object-cover flex-start w-64 h-full"
+        />
         <LibraryGamecardInfo downloadStatus={downloadStatus} game={game} />
       </CardBody>
     </Card>

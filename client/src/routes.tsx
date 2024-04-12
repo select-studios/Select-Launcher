@@ -6,6 +6,7 @@ import ModeratorDashboard from "./pages/moderator/dashboard/moderator-dashboard.
 import { NotFound_E } from "./pages/errors";
 import { AccountSettings } from "./pages/settings/account/account-settings.page";
 import { SignupPfpCard } from "./pages/signup/steps/pfp-card.signup";
+import { AppSettings } from "./pages/settings/app/app-settings.page";
 
 const routes = [
   {
@@ -37,6 +38,8 @@ const routes = [
     auth: true,
   },
   { path: "/settings/account", element: <AccountSettings />, auth: true },
+  { path: "/settings/app", element: <AppSettings />, auth: true },
+
   {
     path: "/moderator/dashboard",
     element: <ModeratorDashboard />,

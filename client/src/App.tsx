@@ -23,6 +23,7 @@ import { toast } from "react-toastify";
 import { FiCheckCircle, FiUserCheck } from "react-icons/fi";
 import { UserStore } from "./stores/UserStore";
 import { observer } from "mobx-react";
+import { ThemeStore } from "./stores/ThemeStore";
 //#endregion
 
 const AppComp: React.FC = () => {
@@ -63,6 +64,7 @@ const AppComp: React.FC = () => {
     } else {
       const storedGames = JSON.parse(localStorage.getItem("installedGames")!);
       GamesStore.setInstalledGames(storedGames);
+      ThemeStore.getTheme();
     }
   }, []);
 

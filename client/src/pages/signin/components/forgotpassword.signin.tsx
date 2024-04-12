@@ -72,7 +72,7 @@ export const SigninForgotPassword: FC<IProps> = ({ visible, setVisible }) => {
 
   return (
     <Modal
-      className="bg-secondaryBG"
+      className="bg-content1"
       isOpen={visible}
       backdrop="blur"
       onOpenChange={() => setVisible(!visible)}

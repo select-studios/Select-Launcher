@@ -1,3 +1,9 @@
+.signup {
+  background-image: url("../../assets/images/BackgroundImage.png");
+  background-size: cover;
+  @apply h-screen;
+}
+
 .circles {
   position: absolute;
   top: 0;

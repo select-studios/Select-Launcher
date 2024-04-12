@@ -18,7 +18,7 @@ import { SidebarStore } from "@/stores/SidebarStore";
 import { Octokit } from "octokit";
 import Markdown from "react-markdown";
 import config from "../../handlers/api/utils/data/config.json";
-import { HiSparkles, HiCode } from "react-icons/hi";
+import { HiSparkles, HiCode, HiHeart } from "react-icons/hi";
 import { API_URI } from "@/handlers/api";
 import { HiCodeBracket, HiOutlineHeart } from "react-icons/hi2";
 
@@ -71,8 +71,8 @@ export const Settings: FC<IProps> = (props) => {
     <section className="settings">
       <div className="main flex h-screen overflow-scroll">
         <Sidebar settings active="home" />
-        <div className="content mt-5 mr-5 w-full">
-          <AppBar settings pageName="Settings" />
+        <div className="content h-fit mt-5 mr-5 w-full">
+          <AppBar settings pageName="Settings" searchBarVisible={false} />
           <div className="mt-12">
             <Card className="p-2">
               <CardHeader>
@@ -116,28 +116,28 @@ export const Settings: FC<IProps> = (props) => {
               </CardHeader>
               <CardBody>
                 <div className="grid grid-cols-4">
-                  <div className="bg-tertiaryBG rounded-lg px-4 py-2">
+                  <div className="bg-content2 rounded-lg px-4 py-2">
                     <p className="text-base font-heading uppercase">Version</p>
                     <p className="text-base">{appInfo.version}</p>
                   </div>
-                  <div className="bg-tertiaryBG rounded-lg px-4 py-2 ml-2">
+                  <div className="bg-content2 rounded-lg px-4 py-2 ml-2">
                     <p className="text-base font-heading uppercase">Build</p>
                     <p className="text-base">{getBuildNumber()}</p>
                   </div>
-                  <div className="bg-tertiaryBG rounded-lg px-4 py-2 ml-2">
+                  <div className="bg-content2 rounded-lg px-4 py-2 ml-2">
                     <p className="text-base font-heading uppercase">
                       Developer
                     </p>
                     <p className="text-base">Select Studios</p>
                   </div>
-                  <div className="bg-tertiaryBG rounded-lg px-4 py-2 ml-2">
+                  <div className="bg-content2 rounded-lg px-4 py-2 ml-2">
                     <p className="text-base font-heading uppercase">
                       Released on
                     </p>
                     <p className="text-base">{releaseDate}</p>
                   </div>
                 </div>
-                <div className="bg-tertiaryBG rounded-lg px-4 py-2 mt-5">
+                <div className="bg-content2 rounded-lg px-4 py-2 mt-5">
                   <p className="text-base flex items-center font-heading uppercase">
                     What's Changed{" "}
                     <Chip color="primary" className="ml-2" size="sm">
@@ -147,7 +147,7 @@ export const Settings: FC<IProps> = (props) => {
                   <div className="mt-5">
                     {releaseNotes.length ? (
                       <div>
-                        <Markdown className="prose whitespace-normal prose-invert prose-neutral text-white">
+                        <Markdown className="prose whitespace-normal prose-invert text-foreground">
                           {releaseNotes}
                         </Markdown>{" "}
                       </div>
@@ -159,18 +159,27 @@ export const Settings: FC<IProps> = (props) => {
               </CardBody>
             </Card>
           </div>
-          <Card className="mt-12 p-2">
+          <Card className="mb-10 mt-10 p-2">
             <CardHeader>
-              <p className="font-heading tracking-wider text-xl uppercase">
-                Made with Love By Select Studios 
-              </p>
-              <Chip color="primary" className="ml-2" size="sm">
-                <HiCode size={16} />
-              </Chip>
+              <div className="flex items-center">
+                <p className="font-heading flex items-center tracking-wider text-xl uppercase">
+                  Made with{" "}
+                  <span className="text-danger ml-2 flex items-center">
+                    <HiHeart className="mr-1" size={20} />
+                    Love
+                  </span>
+                </p>
+                <Chip color="primary" className="ml-2" size="sm">
+                  <p className="flex items-center font-semibold text-[14px]">
+                    <HiCode className="mr-1" size={20} />
+                    Select Studios
+                  </p>
+                </Chip>
+              </div>
             </CardHeader>
             <CardBody>
-              From the entire team at Select Studios thank you for using the Launcher and we hope you love
-              using it as we do making it!
+              From the entire team at Select Studios, we thank you for using the
+              Launcher and we hope you love using it as we do making it!
             </CardBody>
           </Card>
         </div>

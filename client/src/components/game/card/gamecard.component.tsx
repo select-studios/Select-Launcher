@@ -22,7 +22,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, loading }) => {
       isPressable={!loading}
       onPress={() => (!loading ? navigate(`/games/${game?.name}`) : null)}
       isHoverable={!loading}
-      className="bg-secondaryBG mb-5 flex justify-center p-2 h-[400px] w-[270px] mr-5"
+      className="bg-content1 mb-5 flex justify-center p-2 h-[400px] w-[270px] mr-5"
     >
       <CardHeader className="flex justify-end">
         {!loading ? (
@@ -38,7 +38,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, loading }) => {
           <Spinner color="white" />
         )}
       </CardHeader>
-      <CardFooter className="font-heading mt-auto grid justify-center uppercase text-xl">
+      <CardFooter className="font-heading mt-auto grid justify-center uppercase text-3xl">
         {!loading && game?.name}
         <div className="mt-2 flex justify-center mx-auto w-full">
           {!loading &&
