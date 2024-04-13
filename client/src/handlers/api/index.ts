@@ -151,7 +151,9 @@ export const editAccount = async (
     username?: string;
     email?: string;
     password?: string;
-  }
+    pfp?: string;
+  },
+  setLoading: any
 ) => {
   const res = await fetch(`${API_URI}/accounts/account/edit`, {
     method: "PUT",
@@ -163,12 +165,14 @@ export const editAccount = async (
   });
 
   const resData = await res.json();
-  console.log(resData);
 
   if (res.ok) {
+    UserStore.setUser({ ...resData.newUser });
+    setLoading(false);
     return resData.newUser;
   } else {
     Log.error("Error editing account.", "Authentication");
+    setLoading(false);
     throw new Error();
   }
 };

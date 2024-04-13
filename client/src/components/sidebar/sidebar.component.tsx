@@ -22,6 +22,7 @@ import { observer } from "mobx-react";
 import { FaCircle, FaHammer } from "react-icons/fa6";
 import { GrAnalytics } from "react-icons/gr";
 import { BiCircle, BiSolidDashboard } from "react-icons/bi";
+import { ThemeStore } from "@/stores/ThemeStore";
 
 interface SidebarProps {
   active: string;
@@ -50,6 +51,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
 
   const logoutClient = () => {
     setLoading(true);
+    ThemeStore.setTheme("dark");
     const storedRfToken = localStorage.getItem("refreshToken");
     if (storedRfToken && storedRfToken.length) {
       const refreshToken = JSON.parse(storedRfToken).refreshToken;

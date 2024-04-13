@@ -38,10 +38,11 @@ const AppSettingsComp: FC<IProps> = (props) => {
             </Chip>
           </CardHeader>
           <CardBody>
-            <div className="grid grid-cols-3">
+            <div className="grid grid-cols-4">
               <AppSettingsThemeCard theme="dark" />
               <AppSettingsThemeCard theme="light" />
               <AppSettingsThemeCard theme="accent" />
+              <AppSettingsThemeCard theme="minecraft" />
             </div>
           </CardBody>
         </Card>

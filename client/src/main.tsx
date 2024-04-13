@@ -15,7 +15,7 @@ dotenv.config({ path: "../.env" });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <main id="mainApp" className="accent text-foreground bg-background">
+    <main>
       <NextUIProvider>
         <Router>
           <div className="font-sans">

@@ -83,6 +83,7 @@ const AppComp: React.FC = () => {
       />
       <Modal
         backdrop="blur"
+        isDismissable={false}
         onClose={() => setUpdateModalVisible(false)}
         isOpen={updateModalVisible}
         hideCloseButton

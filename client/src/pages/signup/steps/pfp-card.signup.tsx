@@ -12,7 +12,7 @@ import {
   Slider,
   User,
 } from "@nextui-org/react";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 interface IProps {}
@@ -27,8 +27,8 @@ const greetings = [
   "Cooking?",
   "Wyd?",
   "Hru?",
-  "Lookin' hot.",
-  "Lookin' good.",
+  "Lookin' hot!",
+  "Lookin' good!",
 ];
 
 export const SignupPfpCard: FC<IProps> = (props) => {
@@ -36,6 +36,7 @@ export const SignupPfpCard: FC<IProps> = (props) => {
   const { username, password, email } = user || {};
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState<string | ArrayBuffer | null>();
+  const [randomGreeting, setRandomGreeting] = useState("");
 
   const convertToBase64 = (e: any) => {
     let reader = new FileReader();
@@ -66,25 +67,33 @@ export const SignupPfpCard: FC<IProps> = (props) => {
       });
   };
 
+  useEffect(() => {
+    setRandomGreeting(greetings[Math.floor(Math.random() * greetings.length)]);
+  }, []);
+
   return (
-    <main>
+    <main className="h-screen">
       <div className="mt-20 grid justify-center items-center">
         <div className="mx-auto">
           <Stepper
             steps={[
               { label: "Fill-in Details", done: true },
-              { label: "Customize Profile", done: false },
+              { label: "Customization", done: false },
             ]}
           />
         </div>
 
-        <Card isBlurred className="z-10 bg-content1 px-10 bg-opacity-50 mt-10">
+        <Card
+          isBlurred
+          className="z-10 max-w-xl bg-black px-10 bg-opacity-50 mt-10"
+        >
           <CardHeader className="grid justify-center mb-2">
             <h1 className="text-4xl font-heading mt-5 text-center">
-              Profile Customization
+              Customization
             </h1>
             <p className="mt-4 text-center font-semibold opacity-70 text-base">
-              this is the part where you make your profile look really good.
+              This is the part where you make your Launcher and profile look
+              really hot.
             </p>{" "}
           </CardHeader>
           <CardBody className="my-5">
@@ -97,8 +106,7 @@ export const SignupPfpCard: FC<IProps> = (props) => {
                 />{" "}
                 <div className="ml-5">
                   <p className="font-heading text-2xl">
-                    @{user?.username},{" "}
-                    {greetings[Math.floor(Math.random() * greetings.length)]}
+                    @{user?.username}, {randomGreeting}
                   </p>
                   {image ? (
                     <span className="mt-2 text-bold text-sm text-success">

@@ -1,19 +1,29 @@
 import { AppBar } from "@/components";
 import { SidebarObserver } from "@/components/sidebar/sidebar.component";
 import {
+  Avatar,
   Button,
   Card,
   CardBody,
   CardHeader,
   Chip,
   Image,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Tooltip,
 } from "@nextui-org/react";
 import { observer } from "mobx-react";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { FiEdit, FiEdit2, FiEdit3, FiPenTool } from "react-icons/fi";
 import UserImage from "../../../../../Resources/ICON_User.png";
 import { UserStore } from "@/stores/UserStore";
 import { FaAsterisk, FaLock, FaUnlock } from "react-icons/fa6";
+import { editAccount } from "@/handlers/api";
+import { useForm } from "react-hook-form";
 
 interface IProps {}
 
@@ -24,6 +34,40 @@ interface IProps {}
 
 const AccountSettingsComp: FC<IProps> = (props) => {
   const { user } = UserStore;
+  const [loading, setLoading] = useState(false);
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+    reset,
+  } = useForm({ mode: "onBlur" });
+  const [editAccountVisible, setEditAccountVisible] = useState(false);
+
+  const onEditUserSubmit = (data: any) => {
+    setLoading(true);
+    handleSubmit(data);
+    editAccount(
+      user?.tokens.accessToken || "",
+      {
+        username: data.username,
+        pfp: image,
+      },
+      setLoading
+    ).then(() => {
+      setEditAccountVisible(false);
+    });
+  };
+
+  const [image, setImage] = useState<any>("");
+
+  const convertToBase64 = (e: any) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      setImage(reader.result);
+    };
+  };
+
   return (
     <div className="flex h-screen overflow-y-auto">
       <SidebarObserver settings active="account" />
@@ -35,6 +79,7 @@ const AccountSettingsComp: FC<IProps> = (props) => {
             <Button
               size="sm"
               className="font-sans ml-5"
+              onPress={() => setEditAccountVisible(true)}
               startContent={<FiEdit2 size={14} />}
             >
               Edit
@@ -96,6 +141,88 @@ const AccountSettingsComp: FC<IProps> = (props) => {
           </CardBody>
         </Card>
       </div>
+      <Modal
+        closeButton
+        backdrop="blur"
+        aria-labelledby="modal-title"
+        isOpen={editAccountVisible}
+        onClose={() => setEditAccountVisible(false)}
+      >
+        <ModalContent>
+          <form onSubmit={handleSubmit(onEditUserSubmit)}>
+            <ModalHeader className="justify-start">
+              <p className="text-2xl font-heading font-thin flex items-center">
+                Edit Profile
+              </p>
+            </ModalHeader>
+            <ModalBody className="mt-2">
+              <div className="grid items-center justify-center">
+                <Avatar
+                  src={image ? image : user?.pfp}
+                  className="mr-2 mb-2 mx-auto w-28 h-28 rounded-xl"
+                />
+
+                <div className="buttons flex items-center justify-center">
+                  <Button
+                    className="mr-2"
+                    color={image ? "default" : "primary"}
+                    variant="shadow"
+                    size="sm"
+                  >
+                    <label className="cursor-pointer" htmlFor="pfp-upload">
+                      <input
+                        accept="image/*"
+                        type="file"
+                        className="hidden"
+                        id="pfp-upload"
+                        onChange={convertToBase64}
+                      />{" "}
+                      {image ? "Change" : "Edit"} Avatar
+                    </label>
+                  </Button>
+                  <Button isDisabled size="sm" color="danger">
+                    Remove Avatar
+                  </Button>
+                </div>
+              </div>
+
+              <Input
+                className="w-full"
+                label="Username"
+                description={errors.username?.message?.toString() || ""}
+                isInvalid={errors.username?.message?.toString() ? true : false}
+                color={errors.username ? "danger" : "default"}
+                variant="flat"
+                defaultValue={user?.username}
+                {...register("username", {
+                  required: { value: true, message: "Username is required." },
+                })}
+              />
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                className="w-auto"
+                color="primary"
+                variant="shadow"
+                type="submit"
+                isLoading={loading}
+              >
+                Proceed
+              </Button>
+              <Button
+                variant="flat"
+                className="w-auto"
+                onPress={() => {
+                  setEditAccountVisible(false);
+                  reset();
+                }}
+              >
+                Close
+              </Button>
+            </ModalFooter>
+          </form>
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

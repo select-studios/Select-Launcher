@@ -40,5 +40,19 @@
       "content1": "#2D1844",
       "content2": "#48276C"
     }
+  },
+  "minecraft": {
+    "colors": {
+      "background": "#2c1e0f",
+      "foreground": "#fff",
+      "primary": {
+        "DEFAULT": "#2ecc71",
+        "foreground": "#fff"
+      },
+      "default": "#82592e",
+      "default-100": "#82592e",
+      "content1": "#4f361b",
+      "content2": "#82592e"
+    }
   }
 }

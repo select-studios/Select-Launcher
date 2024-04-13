@@ -48,7 +48,6 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
           </Button>
         </DropdownTrigger>
         <DropdownMenu
-          className=""
           disabledKeys={["badges"]}
           onAction={(key: Key) => {
             if (key == "logout") {

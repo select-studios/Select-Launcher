@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 
-type Theme = "light" | "dark" | "accent";
+type Theme = "light" | "dark" | "accent" | "minecraft";
 
 export class ThemeStore_Impl {
   theme: Theme = "dark";

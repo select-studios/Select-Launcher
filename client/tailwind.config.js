@@ -15,8 +15,6 @@ module.exports = {
         primaryBG: "var(--primaryBG)",
         secondaryBG: "var(--secondaryBG)",
         tertiaryBG: "var(--tertiaryBG)",
-
-        primary: "#A558F2",
       },
     },
     fontFamily: {
@@ -36,6 +34,7 @@ module.exports = {
   plugins: [
     nextui({
       themes: themes,
+      defaultTheme: "dark",
     }),
     require("@tailwindcss/typography"),
   ],
