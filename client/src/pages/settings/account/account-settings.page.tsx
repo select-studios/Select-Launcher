@@ -95,7 +95,7 @@ const AccountSettingsComp: FC<IProps> = (props) => {
                 <div className="bg-content2 rounded-lg p-2 px-3">
                   <p className="font-heading text-base uppercase">username</p>
                   <p className="absolute font-heading bottom-0 mb-5 text-2xl">
-                    @{user?.username}
+                    {user?.username}
                   </p>
                 </div>{" "}
               </div>
@@ -104,8 +104,8 @@ const AccountSettingsComp: FC<IProps> = (props) => {
         </Card>
         <Card className="mt-10 p-2">
           <CardHeader className="font-heading flex items-center text-xl">
-            <span className="uppercase">auth</span>{" "}
-            <Chip className="uppercase ml-2 font-heading tracking-wider">
+            <span className="uppercase">Account Security</span>{" "}
+            <Chip className="uppercase ml-2 font-heading tracking-wider" color="primary">
               Coming soon
             </Chip>
           </CardHeader>
@@ -132,7 +132,7 @@ const AccountSettingsComp: FC<IProps> = (props) => {
             <div className="bg-content2 h-28 mt-5 rounded-lg p-2 px-3">
               <p className="font-heading text-base uppercase">E-mail</p>
               <p className="absolute font-heading bottom-0 mb-5 text-2xl">
-                @{user?.email}
+                {user?.email}
               </p>
             </div>{" "}
           </CardBody>

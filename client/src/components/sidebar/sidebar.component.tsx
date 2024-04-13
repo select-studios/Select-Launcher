@@ -159,7 +159,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
             </div>
           </div>
 
-          <div className="mt-auto">
+          <div className="mt-auto" onClick={() => navigate("/settings/account")}>
             <div className=" transition-all ease-in-out duration-300">
               <Card className="shadow-none mb-10 border-2 border-content2">
                 <CardBody>
