@@ -21,7 +21,7 @@ import { SidebarStore } from "@/stores/SidebarStore";
 import { observer } from "mobx-react";
 import { FaCircle, FaHammer } from "react-icons/fa6";
 import { GrAnalytics } from "react-icons/gr";
-import { BiCircle, BiSolidDashboard } from "react-icons/bi";
+import { BiCircle, BiHome, BiSolidDashboard } from "react-icons/bi";
 import { ThemeStore } from "@/stores/ThemeStore";
 
 interface SidebarProps {
@@ -114,7 +114,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                       color="warning"
                       isIconOnly={!SidebarStore.open}
                       variant={
-                        active.toLowerCase() === "moderation" ? "flat" : "ghost"
+                        active.toLowerCase() === "moderation" ? "flat" : "flat"
                       }
                       size="lg"
                       fullWidth
@@ -140,10 +140,24 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                       </Button>
                     </div>
                   ))}
+
+                  <Button
+                    onPress={() => navigate("/Store")}
+                    className={"mb-6 mx-auto"}
+                    startContent={<BiHome size={20} />}
+                    color="primary"
+                    isIconOnly={!SidebarStore.open}
+                    variant={
+                      active.toLowerCase() === "moderation" ? "flat" : "flat"
+                    }
+                    size="lg"
+                    fullWidth
+                  >
+                    {SidebarStore.open && "Back Home"}
+                  </Button>
                 </div>
               )}
             </div>
-
             <div className="grid justify-center">
               <Button
                 onPress={logoutClient}
@@ -176,7 +190,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                       {SidebarStore.open && (
                         <div className="ml-5">
                           <p className="text-base font-heading">
-                            @{user?.username.slice(0, 8) + "..."}
+                            {user?.username.slice(0, 8) + "..."}
                           </p>
                           <p className="text-xs mt-auto font-medium text-success flex items-center">
                             <FaCircle className="mr-1" size={8} /> Online

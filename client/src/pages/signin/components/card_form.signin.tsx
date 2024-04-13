@@ -45,6 +45,7 @@ export const SigninCardForm: FC<IProps> = (props) => {
           isClearable
           type="text"
           label="Username"
+          placeholder="Enter your Username"
           {...register("username", {
             required: { value: true, message: "Required field." },
           })}
