@@ -188,7 +188,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                       {SidebarStore.open && (
                         <div className="ml-5">
                           <p className="text-base font-heading">
-                            @{user?.username.slice(0, 8) + "..."}
+                            {user?.username.slice(0, 8) + "..."}
                           </p>
                           <p className="text-xs mt-auto font-medium text-success flex items-center">
                             <FaCircle className="mr-1" size={8} /> Online
