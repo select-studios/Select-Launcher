@@ -32,16 +32,27 @@ const AppSettingsComp: FC<IProps> = (props) => {
         <AppBar pageName="App" settings searchBarVisible={false} />
         <Card className="mt-10 p-2 max-h-fit">
           <CardHeader className="font-heading flex items-center text-xl">
-            <span className="uppercase">theme</span>
+            <span className="uppercase">themes</span>
             <Chip className="ml-2 bg-background uppercase">
               {ThemeStore.theme}
             </Chip>
           </CardHeader>
           <CardBody>
-            <div className="grid grid-cols-4">
+            <div className="grid grid-cols-5">
               <AppSettingsThemeCard theme="dark" />
+              <AppSettingsThemeCard theme="spearmint" />
               <AppSettingsThemeCard theme="light" />
               <AppSettingsThemeCard theme="accent" />
+              <AppSettingsThemeCard theme="aquatica" />
+            </div>
+          </CardBody>
+        </Card>
+        <Card className="mt-10 p-2 max-h-fit">
+          <CardHeader className="font-heading flex items-center text-xl">
+            <span className="uppercase">From your favourite titles</span>
+          </CardHeader>
+          <CardBody>
+            <div className="grid grid-cols-4">
               <AppSettingsThemeCard theme="minecraft" />
             </div>
           </CardBody>

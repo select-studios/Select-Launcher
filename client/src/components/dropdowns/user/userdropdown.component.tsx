@@ -23,7 +23,8 @@ import { HiBellAlert, HiUserPlus } from "react-icons/hi2";
 import { useNavigate } from "react-router";
 import userImg from "../../../assets/images/ICON_User.png";
 import { Key, useState } from "react";
-import { BiDotsVerticalRounded } from "react-icons/bi";
+import { BsFilePerson } from "react-icons/bs";
+import { BiUser, BiUserCheck, BiUserCircle } from "react-icons/bi";
 
 interface UserDropdownProps {
   user: {
@@ -44,7 +45,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
       <Dropdown placement="bottom-end" size="lg">
         <DropdownTrigger>
           <Button isIconOnly>
-            <BiDotsVerticalRounded size={24} />
+            <BiUserCircle size={24} />
           </Button>
         </DropdownTrigger>
         <DropdownMenu

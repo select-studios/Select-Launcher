@@ -13,6 +13,20 @@
       "content2": "#121212"
     }
   },
+  "spearmint": {
+    "colors": {
+      "background": "#1a1a1a",
+      "foreground": "#fff",
+      "primary": {
+        "DEFAULT": "#ff6666",
+        "foreground": "#fff"
+      },
+      "default": "#4d4d4d",
+      "default-100": "#4d4d4d",
+      "content1": "#2e2e2e",
+      "content2": "#4d4d4d"
+    }
+  },
   "light": {
     "colors": {
       "background": "#fff",
@@ -39,6 +53,20 @@
       "default-100": "#48276C",
       "content1": "#2D1844",
       "content2": "#48276C"
+    }
+  },
+  "aquatica": {
+    "colors": {
+      "background": "#0e0e2e",
+      "foreground": "#fff",
+      "primary": {
+        "DEFAULT": "#2271bf",
+        "foreground": "#fff"
+      },
+      "default": "#1a1a3c",
+      "default-100": "#1a1a3c",
+      "content1": "#12123d",
+      "content2": "#1a1a3c"
     }
   },
   "minecraft": {

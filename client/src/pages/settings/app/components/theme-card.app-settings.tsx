@@ -4,7 +4,7 @@ import themes from "../../../../../themes.json";
 import { ThemeStore } from "@/stores/ThemeStore";
 
 interface IProps {
-  theme: "light" | "dark" | "accent" | "minecraft";
+  theme: "light" | "dark" | "accent" | "minecraft" | "spearmint" | "aquatica";
 }
 
 /**
@@ -19,6 +19,8 @@ export const AppSettingsThemeCard: FC<IProps> = ({ theme }) => {
     dark: "Yeah. That's what we like.",
     accent: "Give the Launcher a splash of colour!",
     minecraft: "True gamer.",
+    spearmint: "Runnin' hot.",
+    aquatica: "the blue one."
   };
 
   return (
