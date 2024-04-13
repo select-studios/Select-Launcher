@@ -132,6 +132,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                         onClick={() => navigate(link.href)}
                         isDisabled={link.disabled}
                         className="mb-6"
+                        variant="bordered"
                         startContent={link.icon}
                         key={i}
                         size="lg"
@@ -140,21 +141,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                       </Button>
                     </div>
                   ))}
-
-                  <Button
-                    onPress={() => navigate("/Store")}
-                    className={"mb-6 mx-auto"}
-                    startContent={<BiHome size={20} />}
-                    color="primary"
-                    isIconOnly={!SidebarStore.open}
-                    variant={
-                      active.toLowerCase() === "moderation" ? "flat" : "flat"
-                    }
-                    size="lg"
-                    fullWidth
-                  >
-                    {SidebarStore.open && "Back Home"}
-                  </Button>
                 </div>
               )}
             </div>
@@ -164,7 +150,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                 startContent={!loading && <FiLogOut size={20} />}
                 color="danger"
                 className={SidebarStore.open ? "mt-auto w-52" : "mt-auto mb-10"}
-                variant="flat"
                 size="lg"
                 isIconOnly={!SidebarStore.open}
                 isLoading={loading}

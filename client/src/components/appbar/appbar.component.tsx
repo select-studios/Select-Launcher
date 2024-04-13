@@ -58,8 +58,11 @@ export const AppBar: React.FC<AppBarProps> = ({
           <nav className="flex items-center text-base mr-auto">
             {settings ? (
               <Link to="/store">
-                <Button className="mr-5" isIconOnly>
-                  <FiArrowLeft size={25} />
+                <Button
+                  className="mr-5"
+                  startContent={<FiArrowLeft size={20} />}
+                >
+                  Back
                 </Button>
               </Link>
             ) : (
