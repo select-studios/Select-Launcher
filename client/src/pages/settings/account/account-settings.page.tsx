@@ -50,7 +50,7 @@ const AccountSettingsComp: FC<IProps> = (props) => {
       user?.tokens.accessToken || "",
       {
         username: data.username,
-        pfp: image,
+        pfp: image ? image : user?.pfp,
       },
       setLoading
     ).then(() => {
@@ -87,20 +87,17 @@ const AccountSettingsComp: FC<IProps> = (props) => {
           </CardHeader>
           <CardBody>
             <div className="flex">
-              <Image src={user?.pfp || UserImage} className="w-28 rounded-lg" />
-              <div className="grid w-full ml-5 grid-cols-2">
-                <div className="bg-content2 mr-5 rounded-lg p-2 px-3">
+              <Image
+                src={user?.pfp || UserImage}
+                className="w-32 h-28 object-cover rounded-lg"
+              />
+              <div className="grid w-full ml-5 grid-cols-1">
+                <div className="bg-content2 rounded-lg p-2 px-3">
                   <p className="font-heading text-base uppercase">username</p>
                   <p className="absolute font-heading bottom-0 mb-5 text-2xl">
                     @{user?.username}
                   </p>
                 </div>{" "}
-                <div className="bg-content2 rounded-lg p-2 px-3 w-full">
-                  <p className="font-heading text-base uppercase">e-mail</p>
-                  <div className="absolute flex items-center font-heading bottom-0 mb-5 text-2xl">
-                    <p>{user?.email}</p>
-                  </div>
-                </div>
               </div>
             </div>
           </CardBody>
@@ -122,7 +119,22 @@ const AccountSettingsComp: FC<IProps> = (props) => {
               >
                 Change Password
               </Button>
+              <Button
+                startContent={<FaUnlock size={16} />}
+                className="ml-2"
+                isDisabled
+                size="lg"
+                color="danger"
+              >
+                Change E-mail
+              </Button>
             </div>
+            <div className="bg-content2 h-28 mt-5 rounded-lg p-2 px-3">
+              <p className="font-heading text-base uppercase">E-mail</p>
+              <p className="absolute font-heading bottom-0 mb-5 text-2xl">
+                @{user?.email}
+              </p>
+            </div>{" "}
           </CardBody>
         </Card>
         <Card className="mt-12 mb-5 p-2">
@@ -159,10 +171,10 @@ const AccountSettingsComp: FC<IProps> = (props) => {
               <div className="grid items-center justify-center">
                 <Avatar
                   src={image ? image : user?.pfp}
-                  className="mr-2 mb-2 mx-auto w-28 h-28 rounded-xl"
+                  className="mr-2 mb-5 mx-auto w-28 h-28 rounded-xl"
                 />
 
-                <div className="buttons flex items-center justify-center">
+                <div className="buttons mb-2   flex items-center justify-center">
                   <Button
                     className="mr-2"
                     color={image ? "default" : "primary"}

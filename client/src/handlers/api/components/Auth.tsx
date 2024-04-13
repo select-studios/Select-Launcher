@@ -5,14 +5,15 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import protectRoute from "../utils/protectRoute";
 import { observer } from "mobx-react";
+import { getUser } from "..";
 
 interface AuthAPIProps {
   children: React.ReactNode;
+  getUserData?: boolean;
 }
 
-const AuthAPI: React.FC<AuthAPIProps> = ({ children }) => {
+const AuthAPI: React.FC<AuthAPIProps> = ({ children, getUserData = false }) => {
   const cookies = getTokensCookie();
-  const { user } = UserStore;
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState<LoadingState>({
@@ -21,7 +22,7 @@ const AuthAPI: React.FC<AuthAPIProps> = ({ children }) => {
   });
 
   useEffect(() => {
-    protectRoute(UserStore, cookies, setLoading, navigate);
+    protectRoute(UserStore, cookies, setLoading, navigate, getUserData);
   }, []);
 
   return !loading ? <div>{children}</div> : <Loader msg={loading.msg} />;

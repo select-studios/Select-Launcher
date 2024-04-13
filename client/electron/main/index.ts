@@ -195,9 +195,6 @@ autoUpdater.on("update-available", (info) => {
 autoUpdater.on("update-downloaded", () => {
   win.webContents.send(
     "update_downloaded",
-    `Update has been downloaded!\n\nRestarting now...`
+    `Update has been downloaded!\n\nPlease restart your launcher for the changes to take effect...`
   );
-
-  app.relaunch();
-  app.quit();
 });

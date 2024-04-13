@@ -167,7 +167,7 @@ export const editAccount = async (
   const resData = await res.json();
 
   if (res.ok) {
-    UserStore.setUser({ ...resData.newUser });
+    UserStore.setUser({ ...resData.newUser, tokens: { accessToken } });
     setLoading(false);
     return resData.newUser;
   } else {

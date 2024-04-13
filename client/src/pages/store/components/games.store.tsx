@@ -30,8 +30,8 @@ const StoreGamesComp: FC<IProps> = ({ games }) => {
         <div
           className={
             SidebarStore.open
-              ? "grid grid-cols-4"
-              : "grid grid-cols-5 space-x-2"
+              ? "grid grid-cols-2 lg:grid-cols-4 3xl:grid-cols-5 space-x-2"
+              : "grid grid-cols-3 lg:grid-cols-5 3xl:grid-cols-6 space-x-2"
           }
         >
           {(search.type == "game" && search.query.length

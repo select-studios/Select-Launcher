@@ -15,8 +15,11 @@ const routes = [
   },
   {
     path: "/store",
-    element: <Store />,
-    auth: true,
+    element: (
+      <Auth getUserData>
+        <Store />
+      </Auth>
+    ),
   },
   {
     path: "/library",

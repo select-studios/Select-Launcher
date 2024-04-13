@@ -24,8 +24,13 @@ export const LibraryGamecardInfo: FC<IProps> = ({ game, downloadStatus }) => {
         </h1>
         <div className="flex flex-row gap-2">
           {game.tags.map((tag) => (
-            <Chip color="default" variant="solid" className="mt-1 bg-content2">
-              {tag}
+            <Chip
+              color="default"
+              size="sm"
+              variant="solid"
+              className="mt-1 bg-content2"
+            >
+              <p className="font-heading uppercase tracking-wider">{tag}</p>
             </Chip>
           ))}
         </div>

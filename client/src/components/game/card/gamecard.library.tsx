@@ -33,7 +33,7 @@ const LibraryGameCardComp: React.FC<LibraryGameCard> = ({ game }) => {
       <CardBody className="flex flex-row">
         <Image
           src={game.image.banner}
-          className="bg-content2 rounded-lg object-cover flex-start w-64 h-full"
+          className="bg-content2 rounded-lg object-cover flex-start h-full w-[270px]"
         />
         <LibraryGamecardInfo downloadStatus={downloadStatus} game={game} />
       </CardBody>

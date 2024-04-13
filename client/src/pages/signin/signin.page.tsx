@@ -24,8 +24,8 @@ export const SigninComp: React.FC<SigninProps> = () => {
 
   return (
     <main>
-      <section className="signin grid justify-center items-center">
-        <div className="signin__sl-image justify-center flex my-2">
+      <section className="signin flex flex-col justify-center items-center">
+        <div className="signin__sl-image mx-auto">
           <SelectLauncherImage />
         </div>
         <SignInCard />

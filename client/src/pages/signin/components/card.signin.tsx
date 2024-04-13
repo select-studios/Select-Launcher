@@ -15,7 +15,7 @@ export const SignInCard: FC<IProps> = (props) => {
   return (
     <Card
       isBlurred
-      className="signin__card mb-10 max-h-fit z-10 bg-background w-[428px]"
+      className="signin__card my-10 mx-auto max-h-fit z-10 w-[428px]"
     >
       <SigninCardHeader />
       <SigninCardBody />

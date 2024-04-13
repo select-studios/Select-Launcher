@@ -7,8 +7,8 @@ interface SignupProps {}
 export const Signup: React.FC<SignupProps> = () => {
   return (
     <main>
-      <section className="signup grid justify-center">
-        <div className="signup__sl-image justify-center flex mt-5">
+      <section className="signup flex flex-col justify-center items-center">
+        <div className="signup__sl-image mx-auto">
           <SelectLauncherImage />
         </div>
         <SignupCard />

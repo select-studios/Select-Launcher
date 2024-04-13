@@ -1,4 +1,4 @@
-import { UserStore_Impl } from "@/stores/UserStore";
+import { UserStore, UserStore_Impl } from "@/stores/UserStore";
 import { Log } from "@/utils/lib/Log";
 import { getTokensCookie, setTokensCookie } from "@/utils/storage";
 import { API_URI, getUser } from "..";
@@ -7,7 +7,8 @@ const protectRoute = (
   userStore: UserStore_Impl,
   cookies: any,
   setLoading: any,
-  navigate: any
+  navigate: any,
+  getUserData?: boolean
 ) => {
   if (!cookies.accessToken && !cookies.refreshToken) {
     navigate("/");
@@ -55,19 +56,36 @@ const protectRoute = (
         navigate("/");
       });
   } else {
-    getUser(cookies.accessToken)
-      .then((data) => {
-        const { accessToken, refreshToken } = cookies;
+    if (getUserData) {
+      getUser(cookies.accessToken)
+        .then((data) => {
+          const { accessToken, refreshToken } = cookies;
 
-        if (!data) return navigate("/");
-        userStore.setUser({ ...data, tokens: { accessToken, refreshToken } });
-        Log.success("User information retrieved.", "Authentication", data);
-        setLoading(false);
-      })
-      .catch((e) => {
-        Log.error("There was an error getting the user.", "Authentication", e);
-        navigate("/");
-      });
+          if (!data) return navigate("/");
+          userStore.setUser({ ...data, tokens: { accessToken, refreshToken } });
+          localStorage.setItem(
+            "user",
+            JSON.stringify({ ...data, tokens: { accessToken, refreshToken } })
+          );
+          Log.success("User information retrieved.", "Authentication", data);
+          setLoading(false);
+        })
+        .catch((e) => {
+          Log.error(
+            "There was an error getting the user.",
+            "Authentication",
+            e
+          );
+          navigate("/");
+        });
+    } else {
+      const user = localStorage.getItem("user");
+      if (!user || !user.length) navigate("/store");
+
+      const userData = JSON.parse(user!);
+      UserStore.setUser(userData);
+      setLoading(false);
+    }
   }
 };
 
