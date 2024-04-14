@@ -24,6 +24,11 @@ import { UserStore } from "@/stores/UserStore";
 import { FaAsterisk, FaLock, FaUnlock } from "react-icons/fa6";
 import { editAccount } from "@/handlers/api";
 import { useForm } from "react-hook-form";
+import { HiUserPlus } from "react-icons/hi2";
+import { HiCheck } from "react-icons/hi";
+
+const { ipcRenderer } = window.require('electron');
+import '../account/account-settings.style.css'
 
 interface IProps {}
 
@@ -93,10 +98,32 @@ const AccountSettingsComp: FC<IProps> = (props) => {
               />
               <div className="grid w-full ml-5 grid-cols-1">
                 <div className="bg-content2 rounded-lg p-2 px-3">
-                  <p className="font-heading text-base uppercase">username</p>
-                  <p className="absolute font-heading bottom-0 mb-5 text-2xl">
+                <p className="font-heading text-base uppercase header">username</p>
+                  <p className="font-heading bottom-0 mb-5 text-2xl">
                     {user?.username}
                   </p>
+                <p>
+                {user?.moderator && (
+                <Chip
+                    color="warning"
+                    startContent={<HiUserPlus size={16} />}
+                    variant="flat"
+                  >
+                    Moderator
+                  </Chip>
+                )}
+
+                {user?.verified && (
+                <Chip
+                  startContent={<HiCheck size={16} />}
+                  color="success"
+                  className="mr-2 bg-opacity-100"
+                  variant="flat"
+                >
+                  Verified
+                </Chip>
+              )}
+                </p> 
                 </div>{" "}
               </div>
             </div>
@@ -130,7 +157,7 @@ const AccountSettingsComp: FC<IProps> = (props) => {
               </Button>
             </div>
             <div className="bg-content2 h-28 mt-5 rounded-lg p-2 px-3">
-              <p className="font-heading text-base uppercase">E-mail</p>
+              <p className="font-heading text-base uppercase header">E-mail</p>
               <p className="absolute font-heading bottom-0 mb-5 text-2xl">
                 {user?.email}
               </p>
@@ -146,7 +173,7 @@ const AccountSettingsComp: FC<IProps> = (props) => {
           <CardBody>
             <div className="grid grid-cols-4">
               <div className="bg-content2 rounded-lg px-4 py-2">
-                <p className="text-base font-heading uppercase">User id</p>
+                <p className="text-base font-heading uppercase header">User id</p>
                 <p className="text-base">{user?._id}</p>
               </div>
             </div>

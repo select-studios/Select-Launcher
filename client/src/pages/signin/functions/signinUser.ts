@@ -34,8 +34,7 @@ export const signinUser = async (
       navigate("/store");
     } else {
       if (resData.banReason) {
-        toast.error(resData.error);
-        toast.error("Reason: " + resData.banReason);
+        navigate("/banned", { state: { banReason: resData.banReason } });
       } else {
         toast.error(resData.error);
       }
