@@ -1,6 +1,7 @@
 import * as nodemailer from "nodemailer";
 import { VerifyEmail } from "../../data/emails/verify/verify";
 import { render } from "@react-email/render";
+import { Logger } from "../../app";
 
 export const sendEmail = async (
   email: any,
@@ -38,7 +39,7 @@ export const sendEmail = async (
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log("Email sent successfully!");
+    Logger.success("Email sent successfully!");
   } catch (error) {
     console.error(error);
   }

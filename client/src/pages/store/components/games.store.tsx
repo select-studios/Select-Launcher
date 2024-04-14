@@ -27,18 +27,14 @@ const StoreGamesComp: FC<IProps> = ({ games }) => {
     <div className="mb-10">
       {(search.type == "game" && search.query.length ? filteredGames : games)
         .length ? (
-        <div
-          className={
-            SidebarStore.open
-              ? "grid grid-cols-2 lg:grid-cols-4 3xl:grid-cols-5 space-x-2"
-              : "grid grid-cols-3 lg:grid-cols-5 3xl:grid-cols-6 space-x-2"
-          }
-        >
+        <div className="grid grid-flow-col auto-cols-max">
           {(search.type == "game" && search.query.length
             ? filteredGames
             : games
           ).map((gameInfo, i) => {
-            return <GameCard loading={false} key={i} game={gameInfo} />;
+            return (
+              <GameCard index={i} loading={false} key={i} game={gameInfo} />
+            );
           })}
         </div>
       ) : (
@@ -56,7 +52,7 @@ const StoreGamesComp: FC<IProps> = ({ games }) => {
       )}
     </div>
   ) : (
-    <GameCard loading={true} />
+    <GameCard index={0} loading={true} />
   );
 };
 

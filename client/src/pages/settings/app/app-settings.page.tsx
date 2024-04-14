@@ -52,8 +52,11 @@ const AppSettingsComp: FC<IProps> = (props) => {
             <span className="uppercase">From your favourite titles</span>
           </CardHeader>
           <CardBody>
-            <div className="grid grid-cols-4">
-              <AppSettingsThemeCard theme="minecraft" />
+            <div>
+              <div className="grid grid-cols-4">
+                <AppSettingsThemeCard theme="minecraft" />
+                <AppSettingsThemeCard theme="discord" />
+              </div>
             </div>
           </CardBody>
         </Card>

@@ -18,7 +18,7 @@ export const checkIfGamesDirectoryExists = (): boolean => {
 export const downloadGame = async (gameName: string) => {
   if (!checkIfGamesDirectoryExists()) {
     fs.mkdir(settings.getSync("locations.libraryLocation").toString(), () =>
-      console.log("created games folder")
+      console.log("Created games folder.")
     );
   }
 
@@ -31,8 +31,6 @@ export const downloadGame = async (gameName: string) => {
       console.log("Error from attempt ", error);
     },
     onProgress: function (percentage, chunk, remainingSize) {
-      console.log("% ", percentage);
-
       win.webContents.send("downloading", {
         gameName,
         percentage,
@@ -80,7 +78,7 @@ export const downloadGame = async (gameName: string) => {
 export const installGame = (gameName: string) => {
   if (!checkIfGamesDirectoryExists()) {
     fs.mkdir(settings.getSync("locations.libraryLocation").toString(), () =>
-      console.log("created games folder")
+      console.log("Created games folder")
     );
   }
 
@@ -127,7 +125,7 @@ export const cleanupGame = (gameName: string) => {
 export const uninstallGame = async (gameName: string) => {
   if (!checkIfGamesDirectoryExists()) {
     fs.mkdir(settings.getSync("locations.libraryLocation").toString(), () =>
-      console.log("created games folder")
+      console.log("Created games folder")
     );
   }
   fs.rmSync(
@@ -144,7 +142,7 @@ export const uninstallGame = async (gameName: string) => {
 export const startGame = async (gameName: string) => {
   if (!checkIfGamesDirectoryExists()) {
     fs.mkdir(settings.getSync("locations.libraryLocation").toString(), () =>
-      console.log("created games folder")
+      console.log("Created games folder.")
     );
   }
 

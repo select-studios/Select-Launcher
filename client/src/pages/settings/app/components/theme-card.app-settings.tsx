@@ -2,9 +2,17 @@ import { Card, CardHeader, Chip } from "@nextui-org/react";
 import React, { FC } from "react";
 import themes from "../../../../../themes.json";
 import { ThemeStore } from "@/stores/ThemeStore";
+import { UserStore } from "@/stores/UserStore";
 
 interface IProps {
-  theme: "light" | "dark" | "accent" | "minecraft" | "spearmint" | "aquatica";
+  theme:
+    | "light"
+    | "dark"
+    | "accent"
+    | "minecraft"
+    | "spearmint"
+    | "aquatica"
+    | "discord";
 }
 
 /**
@@ -20,7 +28,8 @@ export const AppSettingsThemeCard: FC<IProps> = ({ theme }) => {
     accent: "Give the Launcher a splash of colour!",
     minecraft: "True gamer.",
     spearmint: "Runnin' hot.",
-    aquatica: "the blue one."
+    aquatica: "The blue one.",
+    discord: "Womp womp.",
   };
 
   return (

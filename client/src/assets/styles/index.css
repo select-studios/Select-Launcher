@@ -40,12 +40,12 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  @apply bg-primaryBG rounded-md;
+  @apply bg-background rounded-md;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  @apply rounded-md bg-tertiaryBG;
+  @apply rounded-md bg-content2;
 }
 
 code {

@@ -53,6 +53,7 @@ import { BsHammer } from "react-icons/bs";
 import { validateInputColor } from "@/utils/form";
 import { toast } from "react-toastify";
 import userIcon from "../../../../../Resources/ICON_User.png";
+import { Log } from "@/utils/lib/Log";
 
 interface AdminDashboardProps {}
 
@@ -72,13 +73,15 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
         setUsers(allUsers);
         setUsersLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error("There was an error: " + err);
+        Log.error("There was an error getting all the users.", "API", err);
+      });
   };
 
   const handleBanUser = async (userId: string, reason: string) => {
     await banUser(userId, reason, user?.tokens.accessToken || "").then(
       (newUser) => {
-        console.log(newUser);
         const filteredNewUsers = users.filter(
           (user: any) => user._id !== newUser._id
         );
@@ -87,6 +90,7 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
             (a: any, b: any) => a.username - b.username
           ) as any
         );
+        Log.success("Ban was successful.", "API");
       }
     );
   };

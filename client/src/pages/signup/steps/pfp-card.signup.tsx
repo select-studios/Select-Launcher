@@ -50,7 +50,6 @@ export const SignupPfpCard: FC<IProps> = (props) => {
 
   const editPfp = () => {
     setLoading(true);
-    console.log(image);
     fetch(`${API_URI}/accounts/account/edit`, {
       method: "PUT",
       headers: {

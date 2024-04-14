@@ -38,8 +38,8 @@ export const AppBar: React.FC<AppBarProps> = ({
         <div className="bg-warning items-center flex p-2 bg-opacity-10 mb-5 rounded-lg text-warning">
           <HiBellAlert size={20} />{" "}
           <span className="ml-2 font-medium">
-            Your account is at risk! Please verify your e-mail to secure your
-            account.
+            Some app features are disabled. Please verify your e-mail to secure
+            your account.
           </span>
           <Button
             onPress={() =>
@@ -80,7 +80,6 @@ export const AppBar: React.FC<AppBarProps> = ({
           {searchBarVisible && (
             <Input
               onChange={(e) => {
-                console.log(SearchStore.search);
                 SearchStore.setSearch({
                   type: searchType || "game",
                   query: e.target.value,

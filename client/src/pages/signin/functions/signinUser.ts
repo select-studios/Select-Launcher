@@ -21,7 +21,6 @@ export const signinUser = async (
 
     if (res.ok) {
       const { accessToken, refreshToken } = resData.user;
-      console.log(resData);
 
       setTokensCookie(accessToken, refreshToken);
       UserStore.setUser({

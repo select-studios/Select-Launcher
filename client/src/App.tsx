@@ -69,18 +69,20 @@ const AppComp: React.FC = () => {
   }, []);
 
   return (
-    <AnimatePresence mode="wait">
-      <Detector
-        render={({ online }) => {
-          if (!online) {
-            setTimeout(() => {
-              return <Offline_E />;
-            }, 5000);
-          }
+    <div>
+      <AnimatePresence mode="wait">
+        <Detector
+          render={({ online }) => {
+            if (!online) {
+              setTimeout(() => {
+                return <Offline_E />;
+              }, 5000);
+            }
 
-          return React.cloneElement(page, { key: location.pathname });
-        }}
-      />
+            return React.cloneElement(page, { key: location.pathname });
+          }}
+        />
+      </AnimatePresence>{" "}
       <Modal
         backdrop="blur"
         isDismissable={false}
@@ -146,7 +148,7 @@ const AppComp: React.FC = () => {
           )}
         </ModalContent>
       </Modal>
-    </AnimatePresence>
+    </div>
   );
 };
 

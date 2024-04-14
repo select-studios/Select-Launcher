@@ -1,5 +1,6 @@
 import { Game } from "../../models";
 import gamesData from "../../data/games";
+import { Logger } from "../../app";
 
 const updateGamesInfo = () => {
   Game.find({}).then((games) => {
@@ -13,7 +14,7 @@ const updateGamesInfo = () => {
   gamesData.forEach(async (game) => {
     await Game.findOneAndUpdate({ name: game.name }, game, {
       upsert: true,
-    }).then(() => console.log(Game.find({})));
+    }).then(() => Logger.success("Games updation successful."));
   });
 };
 

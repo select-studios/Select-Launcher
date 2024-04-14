@@ -9,7 +9,6 @@ import { start } from "repl";
 
 const getUser = async (query: { username?: string }) => {
   const userDb = await User.findOne({ username: query.username });
-  console.log(userDb);
   if (!userDb) return null;
   return userDb;
 };

@@ -86,25 +86,23 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                   {sidebarLinks
                     .filter((link) => !link.moderatorOnly)
                     .map((link, i) => (
-                      <>
-                        <Button
-                          onPress={() => navigate(link.href)}
-                          isDisabled={link.disabled}
-                          className={"mb-6 mx-auto"}
-                          startContent={link.icon}
-                          isIconOnly={!SidebarStore.open}
-                          key={i}
-                          variant={
-                            active.toLowerCase() === link.name.toLowerCase()
-                              ? "solid"
-                              : "ghost"
-                          }
-                          size="lg"
-                          fullWidth
-                        >
-                          {SidebarStore.open && link.name}
-                        </Button>
-                      </>
+                      <Button
+                        onPress={() => navigate(link.href)}
+                        isDisabled={link.disabled}
+                        className={"mb-6 mx-auto"}
+                        startContent={link.icon}
+                        isIconOnly={!SidebarStore.open}
+                        key={i}
+                        variant={
+                          active.toLowerCase() === link.name.toLowerCase()
+                            ? "solid"
+                            : "ghost"
+                        }
+                        size="lg"
+                        fullWidth
+                      >
+                        {SidebarStore.open && link.name}
+                      </Button>
                     ))}
                   {user?.moderator && (
                     <Button
@@ -159,7 +157,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
             </div>
           </div>
 
-          <div className="mt-auto" onClick={() => navigate("/settings/account")}>
+          <div
+            className="mt-auto"
+            onClick={() => navigate("/settings/account")}
+          >
             <div className=" transition-all ease-in-out duration-300">
               <Card className="shadow-none mb-10 border-2 border-content2">
                 <CardBody>
