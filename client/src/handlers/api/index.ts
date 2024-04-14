@@ -168,6 +168,10 @@ export const editAccount = async (
 
   if (res.ok) {
     UserStore.setUser({ ...resData.newUser, tokens: { accessToken } });
+    localStorage.setItem(
+      "user",
+      JSON.stringify({ ...resData.newUser, tokens: { accessToken } })
+    );
     setLoading(false);
     return resData.newUser;
   } else {

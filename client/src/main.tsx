@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import * as dotenv from "dotenv";
 import Titlebar from "./components/titlebar/titlebar";
 import "./assets/styles/index.css";
+import "animate.css";
 
 import { NextUIProvider } from "@nextui-org/react";
 

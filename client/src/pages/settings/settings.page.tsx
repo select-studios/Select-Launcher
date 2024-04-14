@@ -49,7 +49,6 @@ export const Settings: FC<IProps> = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         const { body, published_at } = data.data;
         setReleaseDate(published_at);
         setReleaseNotes(body);

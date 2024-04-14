@@ -1,3 +1,4 @@
+import { Logger } from "../../app";
 import { User } from "../../interfaces";
 import * as jwt from "jsonwebtoken";
 
@@ -8,7 +9,7 @@ export const getAccessToken = (user: User) => {
       expiresIn: process.env.ACCESS_TOKEN_LIFE,
     });
   } catch (error) {
-    console.log(error);
+    Logger.error("There was an error.", error, "JWT");
     return error;
   }
 

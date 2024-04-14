@@ -55,7 +55,6 @@ export const SigninForgotPassword: FC<IProps> = ({ visible, setVisible }) => {
   };
 
   const onSubmit = (data: any) => {
-    console.log(data);
     fpUser(data);
   };
 
@@ -66,9 +65,7 @@ export const SigninForgotPassword: FC<IProps> = ({ visible, setVisible }) => {
   const togglePasswordVisibility = () =>
     setIsPasswordVisible(!isPasswordVisible);
 
-  useEffect(() => {
-    console.log(errors.fpPassword);
-  }, [passwordInput]);
+  useEffect(() => {}, [passwordInput]);
 
   return (
     <Modal

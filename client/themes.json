@@ -82,5 +82,19 @@
       "content1": "#4f361b",
       "content2": "#82592e"
     }
+  },
+  "discord": {
+    "colors": {
+      "background": "#1e2124",
+      "foreground": "#fff",
+      "primary": {
+        "DEFAULT": "#5865F2",
+        "foreground": "#fff"
+      },
+      "default": "#424549",
+      "default-100": "#424549",
+      "content1": "#36393e",
+      "content2": "#424549"
+    }
   }
 }

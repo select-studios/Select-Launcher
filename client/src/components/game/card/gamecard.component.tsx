@@ -12,9 +12,10 @@ import { useNavigate } from "react-router-dom";
 interface GameCardProps {
   game?: GameInfo;
   loading: boolean;
+  index: number;
 }
 
-export const GameCard: React.FC<GameCardProps> = ({ game, loading }) => {
+export const GameCard: React.FC<GameCardProps> = ({ game, loading, index }) => {
   const navigate = useNavigate();
 
   return (
@@ -22,7 +23,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, loading }) => {
       isPressable={!loading}
       onPress={() => (!loading ? navigate(`/games/${game?.name}`) : null)}
       isHoverable={!loading}
-      className="bg-content1 mb-5 flex justify-center p-2 h-[400px] w-[270px] mr-5"
+      className="bg-content1 mb-5 animate__animated animate__fadeIn flex justify-center p-2 h-[400px] w-[270px] mr-5"
     >
       <CardHeader className="flex justify-end">
         {!loading ? (
@@ -42,8 +43,9 @@ export const GameCard: React.FC<GameCardProps> = ({ game, loading }) => {
         {!loading && game?.name}
         <div className="mt-2 flex justify-center mx-auto w-full">
           {!loading &&
-            game?.tags.map((tag) => (
+            game?.tags.map((tag, i) => (
               <Chip
+                key={i}
                 size="sm"
                 color="primary"
                 variant="flat"

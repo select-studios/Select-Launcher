@@ -7,6 +7,8 @@ import { NotFound_E } from "./pages/errors";
 import { AccountSettings } from "./pages/settings/account/account-settings.page";
 import { SignupPfpCard } from "./pages/signup/steps/pfp-card.signup";
 import { AppSettings } from "./pages/settings/app/app-settings.page";
+import { element } from "prop-types";
+import { UserBanned } from "./pages/errors/banned/banned.errorpage";
 
 const routes = [
   {
@@ -52,6 +54,11 @@ const routes = [
     path: "/games/:game",
     element: <GameObserver />,
     auth: true,
+  },
+  {
+    path: "/banned",
+    element: <UserBanned />,
+    auth: false,
   },
   { path: "*", element: <NotFound_E /> },
 ];

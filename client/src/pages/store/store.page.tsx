@@ -34,7 +34,7 @@ const StoreComp: React.FC<HomeProps> = () => {
             {" "}
             {/* TODO figure out why scroll no work */}
             <AppBar pageName="Store" dashboard={true} user={UserStore.user!} />
-            <div className="relative h-[300px] rounded-lg blur-0">
+            <div className="relative mt-5 h-[300px] rounded-lg blur-0 animate__animated animate__fadeIn">
               <Image
                 src="https://cdn.discordapp.com/attachments/1030139297577316464/1227698939390591007/image.png?ex=66295abc&is=6616e5bc&hm=3750b650c7dfabb16c2e4b82c5277d85cc37eae44a7898d4d298de43224d683c&"
                 className="store__main-banner h-[300px] rounded-md w-screen object-cover"

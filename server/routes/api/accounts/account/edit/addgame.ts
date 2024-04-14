@@ -14,8 +14,6 @@ export const addGameEdit = async (req: any, res: any) => {
       message: "User already has purchased that game.",
     });
 
-  console.log("ok");
-
   try {
     User.findByIdAndUpdate(
       req.user._id,
@@ -26,8 +24,6 @@ export const addGameEdit = async (req: any, res: any) => {
       },
       { new: true }
     ).then((doc) => res.status(201).json({ success: true, newUser: doc }));
-
-    console.log("ok");
   } catch (error) {
     console.log(error);
 
