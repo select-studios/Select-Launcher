@@ -25,7 +25,8 @@ const AuthAPI: React.FC<AuthAPIProps> = ({ children, getUserData = false }) => {
     protectRoute(UserStore, cookies, setLoading, navigate, getUserData);
   }, []);
 
-  return !loading ? <div>{children}</div> : <Loader msg={loading.msg} />;
+  // return !loading ? <div>{children}</div> : <Loader msg={loading.msg} />;
+  return <Loader msg={loading.msg} />;
 };
 
 export default observer(AuthAPI);
