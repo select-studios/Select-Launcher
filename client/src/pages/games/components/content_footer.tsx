@@ -1,5 +1,5 @@
 import GameInfo from "@/interfaces/GameInfoInterface";
-import { Button } from "@nextui-org/react";
+import { Button, Chip } from "@nextui-org/react";
 import { FiFlag, FiShare } from "react-icons/fi";
 
 interface IContentFooterProps {
@@ -10,11 +10,13 @@ export const ContentFooter = ({ game }: IContentFooterProps) => {
   return (
     <div className="mb-10  mt-10">
       <div className="genres">
-        <p className="uppercase font-heading text-xl">Genres</p>
+        <p className="uppercase font-heading text-xl">Genres: </p>
         <p className="text-base opacity-80">
-          {game?.tags
-            .map((tag) => tag[0].toUpperCase() + tag.slice(1))
-            .join(", ")}
+          {game?.tags.map((tag) => (
+            <Chip color="primary" className="mr-2">
+              {tag[0].toUpperCase() + tag.slice(1)}
+            </Chip>
+          ))}
         </p>
       </div>
       <div className="mt-5 flex items-center">

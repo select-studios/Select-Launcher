@@ -1,5 +1,8 @@
 import GameInfo from "@/interfaces/GameInfoInterface";
-import { Chip, Image } from "@nextui-org/react";
+import { Button, Chip, Image, Tooltip } from "@nextui-org/react";
+import { BiArrowBack } from "react-icons/bi";
+import { FiArrowLeft } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 interface IContentHeaderProps {
   game: GameInfo | undefined;
@@ -7,16 +10,23 @@ interface IContentHeaderProps {
 
 export const ContentHeader = ({ game }: IContentHeaderProps) => {
   return (
-    <div>
-      <div className="heading flex items-center mb-10">
+    <div content="mr-5 w-full">
+      <div className="heading flex items mb-10">
+      <Tooltip
+        placement="bottom"
+        content="Back"
+      >
+        <Link to="/store">
+          <Button 
+          className="mr-5"
+          startContent={<FiArrowLeft size={24} />}
+          isIconOnly
+          content="Store"
+          >
+          </Button>
+        </Link>
+      </Tooltip>
         <p className="font-heading text-3xl">{game?.name}</p>
-        <div className="genres flex items-center ml-5">
-          {game?.tags.map((tag) => (
-            <Chip color="primary" className="mr-2">
-              {tag[0].toUpperCase() + tag.slice(1)}
-            </Chip>
-          ))}
-        </div>
       </div>
 
       <Image

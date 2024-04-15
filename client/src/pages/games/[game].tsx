@@ -7,6 +7,8 @@ import { InfoBar, ContentHeader, ContentFooter } from "./components";
 import { observer } from "mobx-react";
 import { InfoBarObservable } from "./components/info_bar";
 import retrieveGameInfo from "@/handlers/api";
+import { BiArrowBack } from "react-icons/bi";
+import { Button } from "@nextui-org/react";
 
 interface GamesInfoProps {}
 
