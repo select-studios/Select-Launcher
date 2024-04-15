@@ -33,10 +33,12 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 export let win: BrowserWindow | null = null;
+let splashWin: BrowserWindow | null = null;
 // Here, you can also use other preload
 const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
+const splashHtml = join(process.env.PUBLIC, "splash.html");
 
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
@@ -49,6 +51,16 @@ if (process.defaultApp) {
 }
 
 async function createWindow() {
+  splashWin = new BrowserWindow({
+    title: "Select Launcher",
+    icon: join(process.env.PUBLIC, "favicon.ico"),
+    frame: false,
+    width: 600,
+    height: 400,
+    show: true,
+    resizable: false,
+    alwaysOnTop: true,
+  });
   win = new BrowserWindow({
     title: "Select Launcher",
     icon: join(process.env.PUBLIC, "favicon.ico"),
@@ -60,16 +72,27 @@ async function createWindow() {
     frame: false,
     minWidth: 900,
     minHeight: 500,
+    show: false,
   });
   win.setMenuBarVisibility(false);
+  splashWin.loadFile(splashHtml);
+  splashWin.center();
 
   if (process.env.VITE_DEV_SERVER_URL) {
     // electron-vite-vue#298
     win.loadURL(url);
+    setTimeout(() => {
+      splashWin.close();
+      win.show();
+    }, 10000);
     // Open devTool if the app is not packaged
     win.webContents.openDevTools({ mode: "right" });
   } else {
     win.loadFile(indexHtml);
+    setTimeout(() => {
+      splashWin.close();
+      win.show();
+    }, 10000);
   }
 
   // Test actively push message to the Electron-Renderer
