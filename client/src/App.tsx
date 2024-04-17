@@ -30,6 +30,7 @@ const AppComp: React.FC = () => {
   const location = useLocation();
   const [updateModalVisible, setUpdateModalVisible] = React.useState(false);
   const [updateMessage, setUpdateMessage] = useState("");
+  const [updateDownloaded, setUpdateDownloaded] = useState(false)
 
   const [verificationModalVisible, setVerificationModalVisible] =
     React.useState(false);
@@ -45,13 +46,17 @@ const AppComp: React.FC = () => {
   //#endregion
 
   useEffect(() => {
+    setUpdateModalVisible(false);
+
     ipcRenderer.on("update_available", (e, msg) => {
       setUpdateMessage(msg);
       setUpdateModalVisible(true);
     });
 
     ipcRenderer.on("update_downloaded", (e, msg) => {
-      setUpdateModalVisible(false);
+      setUpdateMessage(msg)
+      setUpdateModalVisible(true);
+      setUpdateDownloaded(true);
     });
 
     ipcRenderer.on("verification-success", (e, msg) => {
@@ -107,6 +112,13 @@ const AppComp: React.FC = () => {
                   <Progress isIndeterminate size="sm" />
                 </div>
               </ModalBody>
+              {updateDownloaded &&
+              <ModalFooter>
+                <Button color="success" onPress={() => ipcRenderer.send("restart_app")}>
+                  Restart
+                </Button>
+              </ModalFooter> }
+
             </>
           )}
         </ModalContent>

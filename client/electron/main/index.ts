@@ -209,6 +209,10 @@ app.on("ready", () => {
   autoUpdater.checkForUpdatesAndNotify();
 });
 
+ipcMain.on("restart_app", () => {
+  autoUpdater.quitAndInstall()
+})
+
 autoUpdater.on("update-available", (info) => {
   win.webContents.send(
     "update_available",
