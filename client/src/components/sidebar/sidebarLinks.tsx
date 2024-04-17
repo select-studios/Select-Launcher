@@ -2,14 +2,15 @@ import { SidebarStore } from "@/stores/SidebarStore";
 import {
   BiCode,
   BiCog,
-  BiHome,
   BiLibrary,
   BiMoneyWithdraw,
+  BiSolidWidget,
 } from "react-icons/bi";
-import { FaCode } from "react-icons/fa";
-import { FiCode, FiCompass, FiMonitor, FiUser } from "react-icons/fi";
+import { BsFileBarGraph, BsGraphUp } from "react-icons/bs";
+import { FiCompass, FiMonitor, FiUser } from "react-icons/fi";
+import { GrStatusPlaceholder } from "react-icons/gr";
 import { HiDatabase } from "react-icons/hi";
-import { TbSettingsCode } from "react-icons/tb";
+import { IoAnalytics } from "react-icons/io5";
 
 const iconSize = SidebarStore.open ? "20" : "25";
 
@@ -19,6 +20,7 @@ interface SidebarLink {
   icon: JSX.Element;
   disabled: boolean;
   moderatorOnly?: boolean;
+  nestedItems?: SidebarLink[];
 }
 
 export const sidebarLinks: SidebarLink[] = [
@@ -43,9 +45,17 @@ export const sidebarLinks: SidebarLink[] = [
   {
     name: "Moderation",
     href: "/moderator/dashboard",
-    icon: <HiDatabase size={iconSize} />,
+    icon: <BiSolidWidget size={iconSize} />,
     disabled: false,
     moderatorOnly: true,
+    nestedItems: [
+      {
+        name: "Dashboard",
+        disabled: false,
+        href: "/moderator/dashboard",
+        icon: <IoAnalytics size={20} />,
+      },
+    ],
   },
 ];
 

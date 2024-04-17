@@ -69,7 +69,7 @@ export const Settings: FC<IProps> = (props) => {
   return (
     <section className="settings">
       <div className="main flex h-screen overflow-scroll">
-        <Sidebar settings active="home" />
+        <Sidebar settings active="general" />
         <div className="content h-fit mt-5 mr-5 w-full">
           <AppBar settings pageName="Settings" searchBarVisible={false} />
           <div className="mt-12">

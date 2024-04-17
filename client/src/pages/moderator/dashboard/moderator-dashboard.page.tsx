@@ -163,8 +163,8 @@ const ModeratorDashboard: React.FC<AdminDashboardProps> = () => {
   };
 
   return (
-    <section className="admin-dashboard w-full">
-      <div className="flex w-full">
+    <section className="admin-dashboard  w-full">
+      <div className="flex w-full h-screen">
         <Sidebar active="moderation" />
         <div>
           {" "}

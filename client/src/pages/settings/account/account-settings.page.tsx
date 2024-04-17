@@ -94,7 +94,7 @@ const AccountSettingsComp: FC<IProps> = (props) => {
             <div className="flex">
               <Image
                 src={user?.pfp || UserImage}
-                className="w-32 h-28 object-cover rounded-lg"
+                className="w-36 h-full object-cover rounded-lg"
               />
               <div className="grid w-full ml-5 grid-cols-1">
                 <div className="bg-content2 rounded-lg p-2 px-3">
@@ -109,7 +109,8 @@ const AccountSettingsComp: FC<IProps> = (props) => {
                       <Chip
                         color="warning"
                         startContent={<HiUserPlus size={16} />}
-                        variant="flat"
+                        className="mr-2"
+                        variant="shadow"
                       >
                         Moderator
                       </Chip>
@@ -120,7 +121,7 @@ const AccountSettingsComp: FC<IProps> = (props) => {
                         startContent={<HiCheck size={16} />}
                         color="success"
                         className="mr-2 bg-opacity-100"
-                        variant="flat"
+                        variant="shadow"
                       >
                         Verified
                       </Chip>

@@ -25,6 +25,7 @@ import userImg from "../../../assets/images/ICON_User.png";
 import { Key, useState } from "react";
 import { BsFilePerson } from "react-icons/bs";
 import { BiUser, BiUserCheck, BiUserCircle } from "react-icons/bi";
+import { FiUser } from "react-icons/fi";
 
 interface UserDropdownProps {
   user: {
@@ -45,7 +46,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
       <Dropdown placement="bottom-end" size="lg">
         <DropdownTrigger>
           <Button isIconOnly>
-            <BiUserCircle size={24} />
+            <FiUser size={24} />
           </Button>
         </DropdownTrigger>
         <DropdownMenu
@@ -96,24 +97,13 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
             <DropdownItem startContent={<HiHome size="20" />} key="home">
               Home
             </DropdownItem>
-            <DropdownItem startContent={<HiUser size="20" />} key="profile">
+            <DropdownItem startContent={<FiUser size="20" />} key="profile">
               Profile
             </DropdownItem>
             <DropdownItem key="settings" startContent={<HiCog size="20" />}>
               Settings
             </DropdownItem>
           </DropdownSection>
-
-          {(user?.moderator as Boolean) && (
-            <DropdownSection title="Moderator">
-              <DropdownItem
-                key="admindashboard"
-                startContent={<HiDatabase size="20" />}
-              >
-                Dashboard
-              </DropdownItem>
-            </DropdownSection>
-          )}
 
           <DropdownSection title="Danger">
             <DropdownItem

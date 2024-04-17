@@ -4,11 +4,21 @@ import {
   Card,
   CardBody,
   Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
   Image,
+  Tooltip,
 } from "@nextui-org/react";
 import { useNavigate } from "react-router";
 import { UserStore } from "@/stores/UserStore";
-import { FiHome, FiLogOut, FiSettings } from "react-icons/fi";
+import {
+  FiChevronDown,
+  FiChevronRight,
+  FiHome,
+  FiLogOut,
+  FiSettings,
+} from "react-icons/fi";
 import { BsArrowBarLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { SelectLauncherImage } from "../images/selectlauncher.component";
@@ -21,8 +31,14 @@ import { SidebarStore } from "@/stores/SidebarStore";
 import { observer } from "mobx-react";
 import { FaCircle, FaHammer } from "react-icons/fa6";
 import { GrAnalytics } from "react-icons/gr";
-import { BiCircle, BiHome, BiSolidDashboard } from "react-icons/bi";
+import {
+  BiCircle,
+  BiHome,
+  BiSolidDashboard,
+  BiSolidWidget,
+} from "react-icons/bi";
 import { ThemeStore } from "@/stores/ThemeStore";
+import { SidebarLink } from "./components/link.sidebar";
 
 interface SidebarProps {
   active: string;
@@ -65,11 +81,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
         variants={sidebarVariants}
         initial={false}
         animate={SidebarStore.open ? "sidebarOpen" : "sidebarClosed"}
-        className={
-          SidebarStore.open
-            ? "bg-content1 mr-10 rounded-tr-xl h-full rounded-br-xl"
-            : "bg-content1 mr-10 rounded-tr-xl h-full rounded-br-xl"
-        }
+        className="bg-content1 mr-10 rounded-tr-xl h-full rounded-br-xl"
       >
         <div className="h-[85vh] p-5">
           <div className="h-full">
@@ -80,115 +92,129 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
             >
               <SelectLauncherImage />
             </div>
-            <div className="">
+            <div>
               {!settings ? (
                 <div className={SidebarStore.open ? "" : "grid"}>
                   {sidebarLinks
                     .filter((link) => !link.moderatorOnly)
                     .map((link, i) => (
-                      <Button
-                        onPress={() => navigate(link.href)}
-                        isDisabled={link.disabled}
-                        className={"mb-6 mx-auto"}
-                        startContent={link.icon}
-                        isIconOnly={!SidebarStore.open}
-                        key={i}
-                        variant={
-                          active.toLowerCase() === link.name.toLowerCase()
-                            ? "solid"
-                            : "ghost"
-                        }
-                        size="lg"
-                        fullWidth
-                      >
-                        {SidebarStore.open && link.name}
-                      </Button>
+                      <Tooltip placement="right" content={link.name}>
+                        <SidebarLink
+                          key={i}
+                          active={active}
+                          link={{
+                            i,
+                            ...link,
+                          }}
+                        />
+                      </Tooltip>
                     ))}
-                  {user?.moderator && (
-                    <Button
-                      onPress={() => navigate("/moderator/dashboard")}
-                      className={"mb-6 mx-auto"}
-                      startContent={<BiSolidDashboard size={20} />}
-                      color="warning"
-                      isIconOnly={!SidebarStore.open}
-                      variant={
-                        active.toLowerCase() === "moderation" ? "flat" : "flat"
-                      }
-                      size="lg"
-                      fullWidth
-                    >
-                      {SidebarStore.open && "Moderation"}
-                    </Button>
-                  )}
+                  {sidebarLinks
+                    .filter((link) => link.moderatorOnly)
+                    .map((link, i) =>
+                      !link.nestedItems ? (
+                        <SidebarLink
+                          color="warning"
+                          active={active}
+                          link={{
+                            i,
+                            ...link,
+                          }}
+                        />
+                      ) : (
+                        <Dropdown placement="right">
+                          <DropdownTrigger>
+                            <Button
+                              variant="bordered"
+                              startContent={link.icon}
+                              size="lg"
+                              className="mx-auto mb-6"
+                              endContent={
+                                SidebarStore.open && (
+                                  <FiChevronRight size={20} />
+                                )
+                              }
+                              isIconOnly={!SidebarStore.open}
+                              fullWidth
+                            >
+                              {SidebarStore.open ? link.name : ""}
+                            </Button>
+                          </DropdownTrigger>
+                          <DropdownMenu
+                            onAction={(key) => navigate(key.toString())}
+                            aria-label="Static Actions"
+                          >
+                            {link.nestedItems.map((item) => (
+                              <DropdownItem
+                                startContent={item.icon}
+                                key={item.href}
+                              >
+                                {item.name}
+                              </DropdownItem>
+                            ))}
+                          </DropdownMenu>
+                        </Dropdown>
+                      )
+                    )}
                 </div>
               ) : (
                 <div className="mx-auto">
                   {settingsSidebarLinks.map((link, i) => (
-                    <div>
-                      <Button
-                        fullWidth
-                        onClick={() => navigate(link.href)}
-                        isDisabled={link.disabled}
-                        className="mb-6"
-                        variant="bordered"
-                        startContent={link.icon}
-                        key={i}
-                        size="lg"
-                      >
-                        {link.name}
-                      </Button>
+                    <div className="grid">
+                      <SidebarLink link={{ i, ...link }} active={active} />
                     </div>
                   ))}
                 </div>
               )}
-            </div>
-            <div className="grid justify-center">
-              <Button
-                onPress={logoutClient}
-                startContent={!loading && <FiLogOut size={20} />}
-                color="danger"
-                className={SidebarStore.open ? "mt-auto w-52" : "mt-auto mb-10"}
-                size="lg"
-                isIconOnly={!SidebarStore.open}
-                isLoading={loading}
-              >
-                {SidebarStore.open && "Sign out"}
-              </Button>
+              <div className="mx-auto grid">
+                <Button
+                  fullWidth
+                  variant="ghost"
+                  color="danger"
+                  onPress={logoutClient}
+                  size="lg"
+                  className="mx-auto"
+                  isIconOnly={!SidebarStore.open}
+                  startContent={<FiLogOut size={20} />}
+                >
+                  {SidebarStore.open && "Sign out"}
+                </Button>
+              </div>
             </div>
           </div>
 
-          <div
-            className="mt-auto"
-            onClick={() => navigate("/settings/account")}
-          >
-            <div className=" transition-all ease-in-out duration-300">
-              <Card className="shadow-none mb-10 border-2 border-content2">
-                <CardBody>
-                  <div className="flex items-center justify-center overflow-hidden">
-                    <Avatar
-                      src={user?.pfp}
-                      alt="Account Logo"
-                      className={
-                        SidebarStore.open
-                          ? "w-12 h-12 rounded-xl"
-                          : "w-8 h-8 rounded-xl"
-                      }
-                    />
+          <div className="mt-auto">
+            <Card
+              isPressable
+              isHoverable
+              onPress={() => navigate("/settings/account")}
+              className="shadow-none w-full mb-10 border-2 border-content2"
+            >
+              <CardBody>
+                <div className="flex items-center justify-center overflow-hidden">
+                  <Avatar
+                    src={user?.pfp}
+                    alt="Account Logo"
+                    className={
+                      SidebarStore.open
+                        ? "w-12 h-12 rounded-xl"
+                        : "w-8 h-8 rounded-xl"
+                    }
+                  />
 
-                    {SidebarStore.open && (
-                      <div className="ml-5">
-                        <p className="text-base font-heading">
-                          {user?.username.slice(0, 8) + "..."}
-                        </p>
-                        <p className="text-xs mt-auto font-medium text-success flex items-center">
-                          <FaCircle className="mr-1" size={8} /> Online
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </CardBody>
-              </Card>
-            </div>
+                  {SidebarStore.open && (
+                    <div className="ml-5">
+                      <p className="text-base font-heading">
+                        {user?.username.slice(0, 8) + "..."}
+                      </p>
+                      <p className="text-xs mt-auto font-medium text-success flex items-center">
+                        <FaCircle className="mr-1" size={8} /> Online
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </CardBody>
+            </Card>
           </div>
         </div>
       </motion.div>

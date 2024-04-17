@@ -84,7 +84,7 @@ async function createWindow() {
     setTimeout(() => {
       splashWin.close();
       win.show();
-    }, 10000);
+    }, 5000);
     // Open devTool if the app is not packaged
     win.webContents.openDevTools({ mode: "right" });
   } else {
