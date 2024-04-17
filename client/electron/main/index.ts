@@ -92,7 +92,7 @@ async function createWindow() {
     setTimeout(() => {
       splashWin.close();
       win.show();
-    }, 10000);
+    }, 5000);
   }
 
   // Test actively push message to the Electron-Renderer

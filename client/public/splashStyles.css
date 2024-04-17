@@ -7,7 +7,7 @@
 
 body {
   font-family: "Titan One", sans-serif;
-  background-image: url("../src/assets/images/BackgroundImage.png");
+  background-image: url("./BackgroundImage.png");
 }
 
 .context {
