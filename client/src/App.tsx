@@ -30,7 +30,7 @@ const AppComp: React.FC = () => {
   const location = useLocation();
   const [updateModalVisible, setUpdateModalVisible] = React.useState(false);
   const [updateMessage, setUpdateMessage] = useState("");
-  const [updateDownloaded, setUpdateDownloaded] = useState(false)
+  const [updateDownloaded, setUpdateDownloaded] = useState(false);
 
   const [verificationModalVisible, setVerificationModalVisible] =
     React.useState(false);
@@ -54,7 +54,7 @@ const AppComp: React.FC = () => {
     });
 
     ipcRenderer.on("update_downloaded", (e, msg) => {
-      setUpdateMessage(msg)
+      setUpdateMessage(msg);
       setUpdateModalVisible(true);
       setUpdateDownloaded(true);
     });
@@ -112,13 +112,16 @@ const AppComp: React.FC = () => {
                   <Progress isIndeterminate size="sm" />
                 </div>
               </ModalBody>
-              {updateDownloaded &&
-              <ModalFooter>
-                <Button color="success" onPress={() => ipcRenderer.send("restart_app")}>
-                  Restart
-                </Button>
-              </ModalFooter> }
-
+              {updateDownloaded && (
+                <ModalFooter>
+                  <Button
+                    color="success"
+                    onPress={() => ipcRenderer.send("restart_app")}
+                  >
+                    Restart
+                  </Button>
+                </ModalFooter>
+              )}
             </>
           )}
         </ModalContent>
