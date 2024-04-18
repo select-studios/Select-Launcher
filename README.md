@@ -2,19 +2,9 @@
 # Select Launcher
 ![Logo](https://github.com/select-studios/Select-Launcher/blob/main/Resources/ICON_Hero.png?raw=true)
 
+The select launcher is your one stop shop indie game targeted launcher
+we support a small marginalined market of developers and give them a platform to flourish and give gamers a new gaing experience
+worlds away from the age old formula of expensive games to feed coorperate greed from a market of gamers just looking to have fun
 
-## What are we still working on?
-- [ ]  Paid account system
-- [ ]  Public updates
-## Developers and Staff
-
-- [Full stack -> Aktindo](https://github.com/Aktindo)
-- [Full stack -> GameGlide](https://github.com/YT-GameWorks)
-
-
-## Support
-- [Support Website](https://www.select-studios/help)
-- [Account Banned?](https://www.select-studios/acr)
-- [help.selectstudios@gmail.com] -> Support email
-## Check out our blog
-COMMING SOON!!!
+check out the select launcher today
+EULA Applies
