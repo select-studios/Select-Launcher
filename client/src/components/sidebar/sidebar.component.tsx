@@ -81,7 +81,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
         variants={sidebarVariants}
         initial={false}
         animate={SidebarStore.open ? "sidebarOpen" : "sidebarClosed"}
-        className="bg-content1 mr-10 rounded-tr-xl h-full rounded-br-xl"
+        className="bg-content1 mr-10 h-full rounded-br-xl"
       >
         <div className="h-[85vh] p-5">
           <div className="h-full">

@@ -18,6 +18,7 @@
   --toastify-color-success: #17c964;
   --toastify-color-warning: #f5a524;
   --toastify-color-error: #f31260;
+  --animate-delay: 0.5s;
 }
 
 .Toastify__toast {

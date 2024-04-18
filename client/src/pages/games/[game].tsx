@@ -29,7 +29,7 @@ const Game: FunctionComponent<GamesInfoProps> = () => {
     <section className="game-page">
       <div className="main flex h-screen overflow-scroll">
         <Sidebar active="home" />
-        <div className="content mr-5 w-full">
+        <div className="content mr-10 mt-5 w-full">
           {user && (
             <AppBar
               searchBarVisible={false}
@@ -39,7 +39,7 @@ const Game: FunctionComponent<GamesInfoProps> = () => {
             />
           )}
 
-          <div className="p-2">
+          <div className="py-2">
             <ContentHeader game={game} />
             <ContentFooter game={game} />
           </div>

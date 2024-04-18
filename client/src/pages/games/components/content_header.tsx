@@ -12,21 +12,17 @@ export const ContentHeader = ({ game }: IContentHeaderProps) => {
   return (
     <div content="mr-5 w-full">
       <div className="heading flex items mb-10">
-      <Tooltip
-        placement="bottom"
-        content="Back"
-      >
-        <Link to="/store">
-          <Button 
-          className="mr-5"
-          startContent={<FiArrowLeft size={24} />}
-          isIconOnly
-          content="Store"
-          >
-          </Button>
-        </Link>
-      </Tooltip>
-        <p className="font-heading text-3xl">{game?.name}</p>
+        <Tooltip placement="bottom" showArrow content="Back">
+          <Link to="/store">
+            <Button
+              // className="mr-5"
+              startContent={<FiArrowLeft size={24} />}
+              isIconOnly
+              content="Store"
+            ></Button>
+          </Link>
+        </Tooltip>
+        <p className="font-heading ml-5 text-3xl">{game?.name}</p>
       </div>
 
       <Image

@@ -63,7 +63,7 @@ export const InfoBar = ({ game }: IInfoBarProps) => {
   };
 
   return (
-    <div className="max-h-screen p-5 sticky top-0 right-0 rounded-tl-lg bg-content1 w-96">
+    <div className="max-h-screen p-5 sticky top-0 right-0 bg-content1 w-96">
       <div>
         <Image
           src={game?.image.icon}

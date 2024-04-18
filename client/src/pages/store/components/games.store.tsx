@@ -24,7 +24,7 @@ const StoreGamesComp: FC<IProps> = ({ games }) => {
   );
 
   return games ? (
-    <div className="mb-10">
+    <div className="mb-10 pb-10">
       {(search.type == "game" && search.query.length ? filteredGames : games)
         .length ? (
         <div className="grid grid-flow-col auto-cols-max">

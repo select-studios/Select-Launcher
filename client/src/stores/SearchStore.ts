@@ -1,7 +1,9 @@
 import { makeAutoObservable } from "mobx";
 
+export type SearchType = "game" | "library" | "settings";
+
 interface Search {
-  type: "game" | "library" | "settings";
+  type: SearchType;
   query: string;
 }
 

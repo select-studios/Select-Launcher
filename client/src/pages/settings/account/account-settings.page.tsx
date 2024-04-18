@@ -48,6 +48,11 @@ const AccountSettingsComp: FC<IProps> = (props) => {
   } = useForm({ mode: "onBlur" });
   const [editAccountVisible, setEditAccountVisible] = useState(false);
 
+  const [image, setImage] = useState<any>("");
+  const [removedAvatar, setRemovedAvatar] = useState(false);
+
+  const showImage = image ? image : !removedAvatar ? user?.pfp : image;
+
   const onEditUserSubmit = (data: any) => {
     setLoading(true);
     handleSubmit(data);
@@ -55,15 +60,13 @@ const AccountSettingsComp: FC<IProps> = (props) => {
       user?.tokens.accessToken || "",
       {
         username: data.username,
-        pfp: image ? image : user?.pfp,
+        pfp: showImage,
       },
       setLoading
     ).then(() => {
       setEditAccountVisible(false);
     });
   };
-
-  const [image, setImage] = useState<any>("");
 
   const convertToBase64 = (e: any) => {
     let reader = new FileReader();
@@ -92,10 +95,7 @@ const AccountSettingsComp: FC<IProps> = (props) => {
           </CardHeader>
           <CardBody>
             <div className="flex">
-              <Image
-                src={user?.pfp || UserImage}
-                className="w-36 h-full object-cover rounded-lg"
-              />
+              <Avatar src={user?.pfp} className="h-32 w-36 rounded-lg" />
               <div className="grid w-full ml-5 grid-cols-1">
                 <div className="bg-content2 rounded-lg p-2 px-3">
                   <p className="font-heading text-base uppercase header">
@@ -192,6 +192,7 @@ const AccountSettingsComp: FC<IProps> = (props) => {
         closeButton
         backdrop="blur"
         aria-labelledby="modal-title"
+        isDismissable={loading ? false : true}
         isOpen={editAccountVisible}
         onClose={() => setEditAccountVisible(false)}
       >
@@ -205,7 +206,7 @@ const AccountSettingsComp: FC<IProps> = (props) => {
             <ModalBody className="mt-2">
               <div className="grid items-center justify-center">
                 <Avatar
-                  src={image ? image : user?.pfp}
+                  src={image ? image : !removedAvatar ? user?.pfp : image}
                   className="mr-2 mb-5 mx-auto w-28 h-28 rounded-xl"
                 />
 
@@ -227,7 +228,14 @@ const AccountSettingsComp: FC<IProps> = (props) => {
                       {image ? "Change" : "Edit"} Avatar
                     </label>
                   </Button>
-                  <Button isDisabled size="sm" color="danger">
+                  <Button
+                    onPress={() => {
+                      setImage("");
+                      setRemovedAvatar(true);
+                    }}
+                    size="sm"
+                    color="danger"
+                  >
                     Remove Avatar
                   </Button>
                 </div>
@@ -259,6 +267,7 @@ const AccountSettingsComp: FC<IProps> = (props) => {
               <Button
                 variant="flat"
                 className="w-auto"
+                isDisabled={loading}
                 onPress={() => {
                   setEditAccountVisible(false);
                   reset();

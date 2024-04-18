@@ -8,7 +8,6 @@ import { GamesStore } from "./stores/GamesStore";
 import { ipcRenderer } from "electron";
 import {
   Button,
-  Image,
   Modal,
   ModalHeader,
   ModalBody,
@@ -16,12 +15,9 @@ import {
   ModalContent,
   Progress,
 } from "@nextui-org/react";
-import launcherIcon from "./assets/images/ICON_GrayScale.png";
 import exportedRoutes from "./routes";
 import { SelectLauncherImage } from "./components/images/selectlauncher.component";
-import { toast } from "react-toastify";
-import { FiCheckCircle, FiUserCheck } from "react-icons/fi";
-import { UserStore } from "./stores/UserStore";
+import { FiUserCheck } from "react-icons/fi";
 import { observer } from "mobx-react";
 import { ThemeStore } from "./stores/ThemeStore";
 //#endregion
@@ -34,10 +30,6 @@ const AppComp: React.FC = () => {
 
   const [verificationModalVisible, setVerificationModalVisible] =
     React.useState(false);
-
-  const closeHandler = () => {
-    setUpdateModalVisible(false);
-  };
 
   //#region Routes
   const page = useRoutes(exportedRoutes);
@@ -93,6 +85,7 @@ const AppComp: React.FC = () => {
         isDismissable={false}
         onClose={() => setUpdateModalVisible(false)}
         isOpen={updateModalVisible}
+        // isOpen={true}
         hideCloseButton
       >
         <ModalContent>
@@ -108,17 +101,20 @@ const AppComp: React.FC = () => {
               </ModalHeader>
               <ModalBody className="mt-2 whitespace-pre-wrap">
                 <p>{updateMessage}</p>
-                <div>
-                  <Progress isIndeterminate size="sm" />
-                </div>
+                {!updateDownloaded && (
+                  <div>
+                    <Progress size="sm" />
+                  </div>
+                )}
               </ModalBody>
               {updateDownloaded && (
                 <ModalFooter>
                   <Button
-                    color="success"
+                    color="primary"
+                    variant="shadow"
                     onPress={() => ipcRenderer.send("restart_app")}
                   >
-                    Restart
+                    Restart Now
                   </Button>
                 </ModalFooter>
               )}

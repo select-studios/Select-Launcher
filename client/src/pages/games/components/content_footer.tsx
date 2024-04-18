@@ -10,11 +10,13 @@ export const ContentFooter = ({ game }: IContentFooterProps) => {
   return (
     <div className="mb-10  mt-10">
       <div className="genres">
-        <p className="uppercase font-heading text-xl">Genres: </p>
-        <p className="text-base opacity-80">
+        <p className="uppercase font-heading text-xl">Genres</p>
+        <p className="text-base opacity-80 mt-2">
           {game?.tags.map((tag) => (
             <Chip color="primary" className="mr-2">
-              {tag[0].toUpperCase() + tag.slice(1)}
+              <p className="font-heading uppercase tracking-wider">
+                {tag[0].toUpperCase() + tag.slice(1)}
+              </p>
             </Chip>
           ))}
         </p>
