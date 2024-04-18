@@ -3,7 +3,7 @@
     "colors": {
       "background": "#000",
       "primary": {
-        "DEFAULT": "#A558F2",
+        "DEFAULT": "#90A2FF",
         "foreground": "#fff"
       },
       "foreground": "#fff",
@@ -32,7 +32,7 @@
       "background": "#fff",
       "foreground": "#000",
       "primary": {
-        "DEFAULT": "#A558F2",
+        "DEFAULT": "#90A2FF",
         "foreground": "#fff"
       },
       "default": "#e4e4e7",

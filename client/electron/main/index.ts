@@ -70,8 +70,8 @@ async function createWindow() {
       contextIsolation: false,
     },
     frame: false,
-    minWidth: 900,
-    minHeight: 500,
+    minWidth: 1920,
+    minHeight: 1080,
     show: false,
   });
   win.setMenuBarVisibility(false);
@@ -146,6 +146,10 @@ if (!gotTheLock) {
         setTimeout(() => {
           win.webContents.send("verification-success");
         }, 2000);
+      } else if (commandLine[3].includes("select-launcher://game")) {
+        const gameName = commandLine[3].split(".")[1].split("/")[0];
+
+        win.webContents.send("open-game", gameName);
       }
     }
   });
@@ -210,8 +214,8 @@ app.on("ready", () => {
 });
 
 ipcMain.on("restart_app", () => {
-  autoUpdater.quitAndInstall()
-})
+  autoUpdater.quitAndInstall();
+});
 
 autoUpdater.on("update-available", (info) => {
   win.webContents.send(

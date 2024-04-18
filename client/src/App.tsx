@@ -1,6 +1,6 @@
 //#region Imports
 import Offline_E from "./pages/errors/offline/offline.errorpage";
-import { useRoutes, useLocation } from "react-router-dom";
+import { useRoutes, useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { Detector } from "react-detect-offline";
@@ -35,6 +35,8 @@ const AppComp: React.FC = () => {
   const page = useRoutes(exportedRoutes);
 
   if (!page) return null;
+
+  const navigate = useNavigate();
   //#endregion
 
   useEffect(() => {
@@ -55,6 +57,8 @@ const AppComp: React.FC = () => {
       setVerificationModalVisible(true);
     });
 
+    ipcRenderer.on("open-game", (e, msg) => navigate(`/games/${msg}`));
+
     if (!localStorage.getItem("installedGames")) {
       GamesStore.setInstalledGames([]);
       localStorage.setItem("installedGames", JSON.stringify([]));
@@ -69,11 +73,15 @@ const AppComp: React.FC = () => {
     <div>
       <AnimatePresence mode="wait">
         <Detector
+          polling={{
+            url: "https://api.ipify.org/?format=json",
+            timeout: 5000,
+            interval: 5000,
+            enabled: true,
+          }}
           render={({ online }) => {
             if (!online) {
-              setTimeout(() => {
-                return <Offline_E />;
-              }, 5000);
+              return <Offline_E />;
             }
 
             return React.cloneElement(page, { key: location.pathname });

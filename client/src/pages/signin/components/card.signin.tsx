@@ -14,8 +14,8 @@ interface IProps {}
 export const SignInCard: FC<IProps> = (props) => {
   return (
     <Card
-      isBlurred
-      className="signin__card my-10 mx-auto max-h-fit z-10 w-[428px]"
+      // isBlurred
+      className="signin__card backdrop-blur-lg bg-content1 bg-opacity-40 my-8 mx-auto max-h-fit z-10 w-[428px]"
     >
       <SigninCardHeader />
       <SigninCardBody />

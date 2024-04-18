@@ -39,6 +39,8 @@ import {
 } from "react-icons/bi";
 import { ThemeStore } from "@/stores/ThemeStore";
 import { SidebarLink } from "./components/link.sidebar";
+import { SidebarUser } from "./components/user.sidebar";
+import { SidebarSignout } from "./components/signout.sidebar";
 
 interface SidebarProps {
   active: string;
@@ -64,16 +66,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
   const { user } = UserStore;
 
   const [loading, setLoading] = useState(false);
-
-  const logoutClient = () => {
-    setLoading(true);
-    ThemeStore.setTheme("dark");
-    const storedRfToken = localStorage.getItem("refreshToken");
-    if (storedRfToken && storedRfToken.length) {
-      const refreshToken = JSON.parse(storedRfToken).refreshToken;
-      logout(refreshToken, navigate, setLoading);
-    }
-  };
 
   return (
     <div className="bottom-0 sticky top-0 left-0 max-h-screen">
@@ -167,55 +159,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                 </div>
               )}
               <div className="mx-auto grid">
-                <Button
-                  fullWidth
-                  variant="ghost"
-                  color="danger"
-                  onPress={logoutClient}
-                  size="lg"
-                  className="mx-auto"
-                  isIconOnly={!SidebarStore.open}
-                  startContent={<FiLogOut size={20} />}
-                >
-                  {SidebarStore.open && "Sign out"}
-                </Button>
+                <SidebarSignout loading={loading} setLoading={setLoading} />
               </div>
             </div>
           </div>
-
-          <div className="mt-auto">
-            <Card
-              isPressable
-              isHoverable
-              onPress={() => navigate("/settings/account")}
-              className="shadow-none w-full mb-10 border-2 border-content2"
-            >
-              <CardBody>
-                <div className="flex items-center justify-center overflow-hidden">
-                  <Avatar
-                    src={user?.pfp}
-                    alt="Account Logo"
-                    className={
-                      SidebarStore.open
-                        ? "w-12 h-12 rounded-xl"
-                        : "w-8 h-8 rounded-xl"
-                    }
-                  />
-
-                  {SidebarStore.open && (
-                    <div className="ml-5">
-                      <p className="text-base font-heading">
-                        {user?.username.slice(0, 8) + "..."}
-                      </p>
-                      <p className="text-xs mt-auto font-medium text-success flex items-center">
-                        <FaCircle className="mr-1" size={8} /> Online
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </CardBody>
-            </Card>
-          </div>
+          <div className="mt-auto">{user && <SidebarUser user={user} />}</div>
         </div>
       </motion.div>
     </div>

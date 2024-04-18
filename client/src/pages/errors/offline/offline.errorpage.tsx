@@ -1,3 +1,4 @@
+import { Spinner } from "@nextui-org/react";
 import { BiWifiOff } from "react-icons/bi";
 
 interface Offline_EProps {}
@@ -7,10 +8,11 @@ const Offline_E: React.FC<Offline_EProps> = () => {
     <section className="offline_e">
       <div className="flex items-center justify-center h-screen">
         <div className="grid items-center max-w-lg">
-          <BiWifiOff size="60" className="mx-auto mb-3 text-primary-base" />
+          <BiWifiOff size="80" className="mx-auto mb-3 text-danger" />
           <div className="text-center">
-            <p className="text-2xl font-bold font-heading">
-              Aw snap! Your internet died.
+            <p className="text-2xl uppercase font-heading">
+              Aw snap! Looks like you're{" "}
+              <span className="text-danger">offline</span>
             </p>
             <p className="mt-5 text-left">
               <b>Try:</b> <br />
@@ -24,9 +26,9 @@ const Offline_E: React.FC<Offline_EProps> = () => {
         </div>
       </div>
       <div
-        className={`fixed p-2 flex justify-center rounded-t-md items-center bottom-0 w-screen bg-content1`}
+        className={`fixed p-3 flex justify-center font-medium rounded-t-md items-center bottom-0 w-screen bg-content1`}
       >
-        {/* <BiBaguette className="mr-2" size="20"></BiBaguette> Network error */}
+        <Spinner size="sm" className="mr-3" /> Trying to reconnect...
       </div>
     </section>
   );

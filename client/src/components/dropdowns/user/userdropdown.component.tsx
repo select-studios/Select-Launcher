@@ -50,7 +50,6 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
           </Button>
         </DropdownTrigger>
         <DropdownMenu
-          disabledKeys={["badges"]}
           onAction={(key: Key) => {
             if (key == "logout") {
               const storedRfToken = localStorage.getItem("refreshToken");

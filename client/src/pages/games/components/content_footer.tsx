@@ -4,9 +4,13 @@ import { FiFlag, FiShare } from "react-icons/fi";
 
 interface IContentFooterProps {
   game: GameInfo | undefined;
+  setShareModalVisible: any;
 }
 
-export const ContentFooter = ({ game }: IContentFooterProps) => {
+export const ContentFooter = ({
+  game,
+  setShareModalVisible,
+}: IContentFooterProps) => {
   return (
     <div className="mb-10  mt-10">
       <div className="genres">
@@ -21,11 +25,11 @@ export const ContentFooter = ({ game }: IContentFooterProps) => {
           ))}
         </p>
       </div>
-      <div className="mt-5 flex items-center">
+      <div className="mt-6 flex items-center">
         <Button
-          isDisabled
           size="lg"
           className="mr-5"
+          onPress={setShareModalVisible}
           startContent={<FiShare size="24" />}
         >
           Share
