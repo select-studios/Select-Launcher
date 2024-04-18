@@ -5,11 +5,13 @@ import { FiArrowLeft, FiMenu } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { SearchInput } from "../search/search-input.component";
 import { observer } from "mobx-react";
+import { SearchType } from "@/stores/SearchStore";
 
 interface IProps {
   isSettings: boolean;
   pageName: string;
   searchBarVisible: boolean;
+  searchType: SearchType;
 }
 
 /**
@@ -21,6 +23,7 @@ const AppbarStartComp: FC<IProps> = ({
   isSettings,
   pageName,
   searchBarVisible,
+  searchType,
 }) => {
   const { open } = SidebarStore;
 
@@ -48,7 +51,7 @@ const AppbarStartComp: FC<IProps> = ({
         </Tooltip>
       )}
       <p className="font-heading text-2xl uppercase mr-10">{pageName}</p>
-      {searchBarVisible && <SearchInput searchType="game" />}
+      {searchBarVisible && <SearchInput searchType={searchType} />}
     </nav>
   );
 };

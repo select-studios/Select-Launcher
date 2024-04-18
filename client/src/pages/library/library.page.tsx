@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import retrieveGameInfo from "@/handlers/api";
 import { SearchStore } from "@/stores/SearchStore";
 import { FaSearch } from "react-icons/fa";
+import { SearchChip } from "@/components/search/search-chip.component";
 
 const libraryComp = () => {
   useEffect(() => {
@@ -28,18 +29,7 @@ const libraryComp = () => {
               user={UserStore.user!}
             />
             <h1 className="flex items-center text-lg font-heading my-6">
-              YOUR GAMES{" "}
-              {SearchStore.search.query.length &&
-              SearchStore.search.type == "library" ? (
-                <Chip
-                  className="font-sans font-normal ml-5"
-                  startContent={<FaSearch />}
-                >
-                  {SearchStore.search.query}
-                </Chip>
-              ) : (
-                ""
-              )}
+              YOUR GAMES <SearchChip searchType="library" />
             </h1>
             <LibraryGames
               purchasedGames={UserStore.user?.purchasedGames || []}

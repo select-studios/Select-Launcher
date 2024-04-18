@@ -1,15 +1,15 @@
 .store__content {
-  @apply flex;
+  @apply flex h-screen overflow-scroll;
 }
 
 .store__main {
   @apply mt-5 w-full;
 }
 
-.store__main-banner {
+.store__content-main-banner {
   @apply bg-content1 rounded-lg;
 }
 
-.store__main-heading {
+.store__content-main-heading {
   @apply mt-12 uppercase mb-6 text-xl font-heading;
 }

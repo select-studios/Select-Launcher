@@ -7,6 +7,7 @@ import { SignInCard } from "./components/card.signin";
 import { SelectLauncherImage } from "@/components/images/selectlauncher.component";
 
 import "./signin.style.css";
+import { FloatingSquares } from "@/components/images/floatingsquares.component";
 
 interface SigninProps {}
 
@@ -30,21 +31,7 @@ export const SigninComp: React.FC<SigninProps> = () => {
         </div>
         <SignInCard />
       </section>
-      <div className="area">
-        {" "}
-        <ul className="circles">
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
+      <FloatingSquares />
     </main>
   );
 };

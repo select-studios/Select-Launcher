@@ -1,6 +1,7 @@
 import { SelectLauncherImage } from "@/components/images/selectlauncher.component";
 import { SignupCard } from "./components/card.signup";
 import "./signup.style.css";
+import { FloatingSquares } from "@/components/images/floatingsquares.component";
 
 interface SignupProps {}
 
@@ -13,21 +14,7 @@ export const Signup: React.FC<SignupProps> = () => {
         </div>
         <SignupCard />
       </section>
-      <div className="area">
-        {" "}
-        <ul className="circles">
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
+      <FloatingSquares />
     </main>
   );
 };

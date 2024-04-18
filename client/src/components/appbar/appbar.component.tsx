@@ -50,6 +50,7 @@ export const AppBar: React.FC<AppBarProps> = ({
           isSettings={settings || false}
           pageName={pageName}
           searchBarVisible={searchBarVisible}
+          searchType={searchType || "game"}
         />
         {user && (
           <AppbarEnd
