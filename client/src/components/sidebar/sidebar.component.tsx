@@ -15,6 +15,7 @@ import { UserStore } from "@/stores/UserStore";
 import {
   FiChevronDown,
   FiChevronRight,
+  FiCode,
   FiHome,
   FiLogOut,
   FiSettings,
@@ -73,7 +74,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
         variants={sidebarVariants}
         initial={false}
         animate={SidebarStore.open ? "sidebarOpen" : "sidebarClosed"}
-        className="bg-content1 mr-10 h-full rounded-br-xl"
+        className="bg-content1 backdrop-blur-lg mr-10 h-full rounded-br-xl"
       >
         <div className="h-[85vh] p-5">
           <div className="h-full">
@@ -101,53 +102,54 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                         />
                       </Tooltip>
                     ))}
-                  {sidebarLinks
-                    .filter((link) => link.moderatorOnly)
-                    .map((link, i) =>
-                      !link.nestedItems ? (
-                        <SidebarLink
-                          color="warning"
-                          active={active}
-                          link={{
-                            i,
-                            ...link,
-                          }}
-                        />
-                      ) : (
-                        <Dropdown placement="right">
-                          <DropdownTrigger>
-                            <Button
-                              variant="bordered"
-                              startContent={link.icon}
-                              size="lg"
-                              className="mx-auto mb-6"
-                              endContent={
-                                SidebarStore.open && (
-                                  <FiChevronRight size={20} />
-                                )
-                              }
-                              isIconOnly={!SidebarStore.open}
-                              fullWidth
-                            >
-                              {SidebarStore.open ? link.name : ""}
-                            </Button>
-                          </DropdownTrigger>
-                          <DropdownMenu
-                            onAction={(key) => navigate(key.toString())}
-                            aria-label="Static Actions"
-                          >
-                            {link.nestedItems.map((item) => (
-                              <DropdownItem
-                                startContent={item.icon}
-                                key={item.href}
+                  {user?.moderator &&
+                    sidebarLinks
+                      .filter((link) => link.moderatorOnly)
+                      .map((link, i) =>
+                        !link.nestedItems ? (
+                          <SidebarLink
+                            color="warning"
+                            active={active}
+                            link={{
+                              i,
+                              ...link,
+                            }}
+                          />
+                        ) : (
+                          <Dropdown placement="right">
+                            <DropdownTrigger>
+                              <Button
+                                variant="bordered"
+                                startContent={link.icon}
+                                size="lg"
+                                className="mx-auto mb-6"
+                                endContent={
+                                  SidebarStore.open && (
+                                    <FiChevronRight size={20} />
+                                  )
+                                }
+                                isIconOnly={!SidebarStore.open}
+                                fullWidth
                               >
-                                {item.name}
-                              </DropdownItem>
-                            ))}
-                          </DropdownMenu>
-                        </Dropdown>
-                      )
-                    )}
+                                {SidebarStore.open ? link.name : ""}
+                              </Button>
+                            </DropdownTrigger>
+                            <DropdownMenu
+                              onAction={(key) => navigate(key.toString())}
+                              aria-label="Static Actions"
+                            >
+                              {link.nestedItems.map((item) => (
+                                <DropdownItem
+                                  startContent={item.icon}
+                                  key={item.href}
+                                >
+                                  {item.name}
+                                </DropdownItem>
+                              ))}
+                            </DropdownMenu>
+                          </Dropdown>
+                        )
+                      )}
                 </div>
               ) : (
                 <div className="mx-auto">
@@ -159,6 +161,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ active, settings }) => {
                 </div>
               )}
               <div className="mx-auto grid">
+                <SidebarLink
+                  active={active}
+                  color="success"
+                  link={{
+                    i: 0,
+                    disabled: false,
+                    href: "/developer",
+                    icon: <FiCode size={20} />,
+                    name: "Develop",
+                  }}
+                />
                 <SidebarSignout loading={loading} setLoading={setLoading} />
               </div>
             </div>

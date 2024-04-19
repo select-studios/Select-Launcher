@@ -9,6 +9,7 @@ import { SignupPfpCard } from "./pages/signup/steps/pfp-card.signup";
 import { AppSettings } from "./pages/settings/app/app-settings.page";
 import { element } from "prop-types";
 import { UserBanned } from "./pages/errors/banned/banned.errorpage";
+import { Developer } from "./pages/developer/developer.page";
 
 const routes = [
   {
@@ -50,6 +51,7 @@ const routes = [
     element: <ModeratorDashboard />,
     auth: true,
   },
+  { path: "/developer", element: <Developer />, auth: true },
   {
     path: "/games/:game",
     element: <GameObserver />,

@@ -45,7 +45,7 @@ export const AppBar: React.FC<AppBarProps> = ({
           user={user}
         />
       )}
-      <header className="w-full flex items-center py-2 pt-0">
+      <header className="w-full flex items-center py-2 pt-5">
         <AppbarStart
           isSettings={settings || false}
           pageName={pageName}

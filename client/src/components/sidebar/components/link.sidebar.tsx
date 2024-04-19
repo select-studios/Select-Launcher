@@ -14,7 +14,7 @@ interface Link {
 interface IProps {
   link: Link;
   active: string;
-  color?: "default" | "primary" | "warning" | "danger";
+  color?: "default" | "primary" | "warning" | "danger" | "success";
   disableHref?: boolean;
 }
 

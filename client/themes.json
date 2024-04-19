@@ -3,7 +3,7 @@
     "colors": {
       "background": "#000",
       "primary": {
-        "DEFAULT": "#90A2FF",
+        "DEFAULT": "#a47be3",
         "foreground": "#fff"
       },
       "foreground": "#fff",
