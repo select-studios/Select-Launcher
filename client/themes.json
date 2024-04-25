@@ -1,5 +1,5 @@
 {
-  "dark": {
+  "midnight": {
     "colors": {
       "background": "#000",
       "primary": {
@@ -41,7 +41,7 @@
       "content2": "#e4e4e7"
     }
   },
-  "accent": {
+  "midnight-purple": {
     "colors": {
       "background": "#1D0F2C",
       "foreground": "#fff",

@@ -10,6 +10,7 @@ import { AppSettings } from "./pages/settings/app/app-settings.page";
 import { element } from "prop-types";
 import { UserBanned } from "./pages/errors/banned/banned.errorpage";
 import { Developer } from "./pages/developer/developer.page";
+import { IndexDeveloper } from "./pages/developer/index/index.developer";
 
 const routes = [
   {
@@ -52,6 +53,7 @@ const routes = [
     auth: true,
   },
   { path: "/developer", element: <Developer />, auth: true },
+  { path: "/developer/index", element: <IndexDeveloper />, auth: true },
   {
     path: "/games/:game",
     element: <GameObserver />,

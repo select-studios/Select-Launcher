@@ -2,6 +2,7 @@ import { SearchChip } from "@/components/search/search-chip.component";
 import { Button, Image } from "@nextui-org/react";
 import React, { FC } from "react";
 import { BsPlusCircle } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 interface IProps {}
 
@@ -23,14 +24,20 @@ export const StoreHeader: FC<IProps> = (props) => {
         </p>
         <div className="absolute bottom-0 left-0 p-5 z-50">
           <p className="font-heading text-3xl text-white uppercase">Rosehill</p>
-          <p className="text-white font-sans font-semibold text-md max-w-3xl">
+          <p className="text-white font-sans font-semibold text-md sm:max-w-lg md:max-w-xl lg:max-w-3xl">
             I can't live with the idea I might never see him again; This is a
             death mission, but I'm willing...
           </p>
         </div>
         <div className="absolute bottom-0 right-0 p-5 z-10 flex">
-          <Button className="mr-2">View Store Page</Button>{" "}
-          <Button startContent={<BsPlusCircle size={20} />} color="success">
+          <Link to="/games/Rosehill">
+            <Button className="mr-2">View Store Page</Button>
+          </Link>
+          <Button
+            isDisabled
+            startContent={<BsPlusCircle size={20} />}
+            color="success"
+          >
             Get Now
           </Button>
         </div>

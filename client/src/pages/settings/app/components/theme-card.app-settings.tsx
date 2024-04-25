@@ -7,8 +7,8 @@ import { UserStore } from "@/stores/UserStore";
 interface IProps {
   theme:
     | "light"
-    | "dark"
-    | "accent"
+    | "midnight"
+    | "midnight-purple"
     | "minecraft"
     | "spearmint"
     | "aquatica"
@@ -23,9 +23,9 @@ interface IProps {
 export const AppSettingsThemeCard: FC<IProps> = ({ theme }) => {
   const themeColors = themes[theme].colors;
   const themeDescriptions = {
-    light: "For all the light-headed gamers <3",
-    dark: "Yeah. That's what we like.",
-    accent: "Give the Launcher a splash of colour!",
+    light: "It is cold out here ❄️",
+    midnight: "Yeah. That's what we like.",
+    "midnight-purple": "Give the Launcher a splash of colour!",
     minecraft: "True gamer.",
     spearmint: "Runnin' hot.",
     aquatica: "The blue one.",
@@ -34,16 +34,21 @@ export const AppSettingsThemeCard: FC<IProps> = ({ theme }) => {
 
   return (
     <div
-      className={"rounded-xl p-4 py-3 h-40 mr-5 cursor-pointer"}
+      className={"rounded-xl grid mb-5 p-4 py-3 h-40 mr-5 cursor-pointer"}
       onClick={() => ThemeStore.setTheme(theme)}
       style={{
         backgroundColor: themeColors.background,
         color: themeColors.foreground,
       }}
     >
-      <p className="text-xl uppercase font-heading">{theme}</p>
-      <p className="mt-1 text-sm font-medium">{themeDescriptions[theme]}</p>
-      <div className="flex absolute bottom-0 mb-7 ">
+      <div>
+        <p className="text-xl uppercase font-heading">
+          {theme.split("-").join(" ")}
+        </p>
+        <p className="mt-1 text-sm font-medium">{themeDescriptions[theme]}</p>
+      </div>
+
+      <div className="flex items-end">
         <div
           className="rounded-full p-4 mr-2"
           style={{ backgroundColor: themeColors.primary.DEFAULT }}

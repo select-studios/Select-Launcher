@@ -11,6 +11,10 @@
     buildResources: "electron/resources",
   },
   files: ["dist-electron", "dist"],
+  protocols: {
+    name: "select-launcher",
+    schemes: ["select-launcher"],
+  },
   win: {
     target: [
       {

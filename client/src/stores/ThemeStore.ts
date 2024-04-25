@@ -2,22 +2,22 @@ import { makeAutoObservable } from "mobx";
 
 type Theme =
   | "light"
-  | "dark"
-  | "accent"
+  | "midnight"
+  | "midnight-purple"
   | "minecraft"
   | "spearmint"
   | "aquatica"
   | "discord";
 
 export class ThemeStore_Impl {
-  theme: Theme = "dark";
+  theme: Theme = "midnight";
 
   constructor() {
     makeAutoObservable(this);
   }
 
   getTheme() {
-    const theme = (localStorage.getItem("theme") as Theme) || "dark";
+    const theme = (localStorage.getItem("theme") as Theme) || "midnight";
 
     document.getElementById("mainApp")!.className =
       theme + " text-foreground bg-background";

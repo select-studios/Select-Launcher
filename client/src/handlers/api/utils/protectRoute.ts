@@ -42,6 +42,11 @@ const protectRoute = (
           );
 
           setLoading(false);
+        }).catch((e) => {
+          localStorage.removeItem("refreshToken")
+          localStorage.removeItem("accessToken")
+          Log.success("Removed previous session storage.")
+          navigate("/")
         });
       })
       .catch((e) => {
@@ -52,6 +57,7 @@ const protectRoute = (
         );
 
         localStorage.removeItem("refreshToken");
+        localStorage.removeItem("accessToken");
 
         navigate("/");
       });

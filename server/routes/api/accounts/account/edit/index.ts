@@ -3,7 +3,7 @@ import { User } from "../../../../../models";
 import { Log } from "../../../../../utils/handlers";
 
 export const editAccount = async (req: any, res: any) => {
-  const { username, email, password, pfp } = req.body as any;
+  const { username, email, password, pfp, developer } = req.body as any;
 
   const user = await User.findById(req.user._id);
 

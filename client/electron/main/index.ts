@@ -84,7 +84,7 @@ async function createWindow() {
     setTimeout(() => {
       splashWin.close();
       win.show();
-    }, 5000);
+    }, 10 * 1000);
     // Open devTool if the app is not packaged
     win.webContents.openDevTools({ mode: "right" });
   } else {
@@ -92,7 +92,7 @@ async function createWindow() {
     setTimeout(() => {
       splashWin.close();
       win.show();
-    }, 5000);
+    }, 10 * 1000);
   }
 
   // Test actively push message to the Electron-Renderer
@@ -182,7 +182,6 @@ if (!gotTheLock) {
     dialog.showErrorBox("Welcome Back", `You arrived from: ${url}`);
   });
 }
-
 app.on("activate", () => {
   const allWindows = BrowserWindow.getAllWindows();
   if (allWindows.length) {
@@ -210,7 +209,7 @@ ipcMain.handle("open-win", (event, arg) => {
 });
 
 app.on("ready", () => {
-  autoUpdater.checkForUpdatesAndNotify();
+  autoUpdater.checkForUpdates();
 });
 
 ipcMain.on("restart_app", () => {
