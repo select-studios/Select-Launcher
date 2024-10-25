@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import { execFile } from "child_process";
-import download from "download";
 import settings from "electron-settings";
 import decompress from "decompress";
 import { win } from "../main/index";

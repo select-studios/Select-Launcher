@@ -21,6 +21,7 @@ import runIpcGameEvents from "./ipc/ipcGameEvents";
 import { checkIfGamesDirectoryExists } from "../api/gameManager";
 import { autoUpdater } from "electron-updater";
 import runWindowControlEvents from "./ipc/ipcWindowControlEvents";
+import RunSelectAPIEvents from "../exports";
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 
@@ -39,6 +40,7 @@ const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 const splashHtml = join(process.env.PUBLIC, "splash.html");
+
 
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
@@ -175,6 +177,7 @@ if (!gotTheLock) {
     runIpcStorageEvents();
     runIpcGameEvents();
     runWindowControlEvents(win);
+    RunSelectAPIEvents();
   });
 
   // Handle the protocol. In this case, we choose to show an Error Box.
