@@ -29,3 +29,7 @@ yarn.lock
 dist-electron
 target
 .env
+
+# trash
+.github/
+.vscode/
