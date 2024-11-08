@@ -21,7 +21,7 @@ export const SidebarSignout: FC<IProps> = ({ loading, setLoading }) => {
 
   const signoutClient = () => {
     setLoading(true);
-    ThemeStore.setTheme("dark");
+    ThemeStore.setTheme("midnight");
     const storedRfToken = localStorage.getItem("refreshToken");
     if (storedRfToken && storedRfToken.length) {
       const refreshToken = JSON.parse(storedRfToken).refreshToken;

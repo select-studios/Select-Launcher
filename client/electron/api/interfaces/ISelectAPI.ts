@@ -7,5 +7,6 @@ export interface ISelectAPI {
       backup_email: string,
       password: string
     ) => void;
+    signIn: (email: string, password: string) => void;
   };
 }

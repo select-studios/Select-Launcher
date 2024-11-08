@@ -1,5 +1,6 @@
 import { ipcMain } from "electron";
-import { signUp, testConnection } from "../api";
+import { signIn, signUp } from "../api/routes/accounts";
+import { testConnection } from "../api";
 
 function runSelectAPIEvents() {
   ipcMain.on("test-connection", async (event) => {
@@ -20,6 +21,18 @@ function runSelectAPIEvents() {
       password: string
     ) => {
       const result = await signUp(email, backup_email, username, password);
+
+      event.returnValue = result;
+    }
+  );
+  ipcMain.on(
+    "accounts-signin",
+    async (
+      event,
+      email: string,
+      password: string
+    ) => {
+      const result = await signIn(email, password);
 
       event.returnValue = result;
     }

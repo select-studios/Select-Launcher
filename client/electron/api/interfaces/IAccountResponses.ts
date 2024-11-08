@@ -1,8 +1,19 @@
+export interface SignInRequest {
+  email: string;
+  password: string;
+}
+
 export interface SignUpRequest {
   email: string;
   backup_email: string;
   username: string;
   password: string;
+}
+
+export interface SignInResponse {
+  user: User;
+  access_token: string;
+  refresh_token: string;
 }
 
 export interface SignUpResponse {

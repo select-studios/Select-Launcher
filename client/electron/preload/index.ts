@@ -34,6 +34,8 @@ window.selectAPI = {
         backup_email,
         password
       ),
+    signIn: (email: string, password: string) =>
+      ipcRenderer.sendSync("accounts-signin", email, password),
   },
 };
 

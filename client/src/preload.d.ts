@@ -32,6 +32,7 @@ declare global {
           backup_email: string,
           password: string
         ) => void;
+        signIn: (email: string, password: string) => void;
       };
     };
   }

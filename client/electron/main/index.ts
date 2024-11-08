@@ -22,6 +22,7 @@ import { checkIfGamesDirectoryExists } from "../api/gameManager";
 import { autoUpdater } from "electron-updater";
 import runWindowControlEvents from "./ipc/ipcWindowControlEvents";
 import RunSelectAPIEvents from "../exports";
+import axios from "axios";
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 
@@ -33,6 +34,14 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(0);
 }
 
+export const API_URL = app.isPackaged
+  ? "prod url"
+  : "http://localhost:4757/api/v2/"; // TODO Add correct prod URL
+export const axiosInstance = axios.create({
+  baseURL: API_URL,
+  headers: { Authentication: "Bearer token" },
+});
+
 export let win: BrowserWindow | null = null;
 let splashWin: BrowserWindow | null = null;
 // Here, you can also use other preload
@@ -40,7 +49,6 @@ const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 const splashHtml = join(process.env.PUBLIC, "splash.html");
-
 
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
