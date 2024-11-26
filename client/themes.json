@@ -69,6 +69,20 @@
       "content2": "#1a1a3c"
     }
   },
+  "experience": {
+    "colors": {
+      "background": "#F9E2E8",
+      "foreground": "#3b2e32",
+      "primary": {
+        "DEFAULT": "#FF7E9D",
+        "foreground": "#FFFFFF"
+      },
+      "default": "#D96B86",
+      "default-100": "#FFDDE5",
+      "content1": "#F8C1D1",
+      "content2": "#FFE1EE"
+    }
+  },
   "minecraft": {
     "colors": {
       "background": "#2c1e0f",
@@ -95,6 +109,20 @@
       "default-100": "#424549",
       "content1": "#36393e",
       "content2": "#424549"
+    }
+  },
+  "acerace": {
+    "colors": {
+      "background": "#1E1E1E",
+      "foreground": "#E0E0E0",
+      "primary": {
+        "DEFAULT": "#BDBDBD",
+        "foreground": "#171717"
+      },
+      "default": "#757575",
+      "default-100": "#9E9E9E",
+      "content1": "#424242",
+      "content2": "#333333"
     }
   }
 }

@@ -7,7 +7,9 @@ type Theme =
   | "minecraft"
   | "spearmint"
   | "aquatica"
-  | "discord";
+  | "discord"
+  | "experience"
+  | "acerace";
 
 export class ThemeStore_Impl {
   theme: Theme = "midnight";

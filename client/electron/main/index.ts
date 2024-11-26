@@ -21,6 +21,8 @@ import runIpcGameEvents from "./ipc/ipcGameEvents";
 import { checkIfGamesDirectoryExists } from "../api/gameManager";
 import { autoUpdater } from "electron-updater";
 import runWindowControlEvents from "./ipc/ipcWindowControlEvents";
+import RunSelectAPIEvents from "../exports";
+import axios from "axios";
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 
@@ -31,6 +33,14 @@ if (!app.requestSingleInstanceLock()) {
   app.quit();
   process.exit(0);
 }
+
+export const API_URL = app.isPackaged
+  ? "prod url"
+  : "http://localhost:4757/api/v2/"; // TODO Add correct prod URL
+export const axiosInstance = axios.create({
+  baseURL: API_URL,
+  headers: { Authentication: "Bearer token" },
+});
 
 export let win: BrowserWindow | null = null;
 let splashWin: BrowserWindow | null = null;
@@ -175,6 +185,7 @@ if (!gotTheLock) {
     runIpcStorageEvents();
     runIpcGameEvents();
     runWindowControlEvents(win);
+    RunSelectAPIEvents();
   });
 
   // Handle the protocol. In this case, we choose to show an Error Box.

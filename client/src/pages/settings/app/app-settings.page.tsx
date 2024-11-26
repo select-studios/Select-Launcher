@@ -38,13 +38,14 @@ const AppSettingsComp: FC<IProps> = (props) => {
               <AppSettingsThemeCard theme="light" />
               <AppSettingsThemeCard theme="spearmint" />
               <AppSettingsThemeCard theme="aquatica" />
+              <AppSettingsThemeCard theme="experience" />
             </div>
             <Card className="mt-10 p-2 max-h-fit bg-content2">
               <CardHeader className="font-heading flex items-center text-xl">
                 <span className="uppercase tracking-wide flex items-center">
-                  Special Themes{" "}
+                  From Games you own{" "}
                   <Tooltip
-                    content="We do not endorse any of the titles below."
+                    content="Accessing these themes requires you to own the game."
                     showArrow
                   >
                     <Chip className="ml-2 bg-content1 uppercase">
@@ -56,8 +57,7 @@ const AppSettingsComp: FC<IProps> = (props) => {
               <CardBody>
                 <div>
                   <div className="grid grid-cols-3">
-                    <AppSettingsThemeCard theme="minecraft" />
-                    <AppSettingsThemeCard theme="discord" />
+                  <AppSettingsThemeCard theme="acerace" />
                   </div>
                 </div>
               </CardBody>

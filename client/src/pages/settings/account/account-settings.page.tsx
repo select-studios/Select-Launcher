@@ -190,7 +190,7 @@ const AccountSettingsComp: FC<IProps> = (props) => {
       </div>
       <Modal
         closeButton
-        backdrop="blur"
+        backdrop="opaque"
         aria-labelledby="modal-title"
         isDismissable={loading ? false : true}
         isOpen={editAccountVisible}

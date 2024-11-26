@@ -12,7 +12,9 @@ interface IProps {
     | "minecraft"
     | "spearmint"
     | "aquatica"
-    | "discord";
+    | "experience"
+    | "discord"
+    | "acerace";
 }
 
 /**
@@ -30,6 +32,8 @@ export const AppSettingsThemeCard: FC<IProps> = ({ theme }) => {
     spearmint: "Runnin' hot.",
     aquatica: "The blue one.",
     discord: "Womp womp.",
+    experience: "this shit look like my ex’s phone",
+    acerace: "By Select Studios"
   };
 
   return (

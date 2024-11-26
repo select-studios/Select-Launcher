@@ -1,3 +1,5 @@
+import { ISelectAPI } from "./api/interfaces/ISelectAPI";
+
 export interface IGamesAPI {
   getStorageLocation: () => void;
   setStorageLocation: (location: string) => void;
@@ -32,5 +34,6 @@ declare global {
     filesAPI: IFilesAPI;
     windowControls: IWindowControls;
     authAPI: IAuthAPI;
+    selectAPI: ISelectAPI;
   }
 }

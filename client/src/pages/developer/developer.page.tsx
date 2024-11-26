@@ -3,7 +3,6 @@ import { observer } from "mobx-react";
 import React, { FC, useEffect } from "react";
 import "./developer.style.css";
 import { Button, Chip, Image } from "@nextui-org/react";
-import { FiCode } from "react-icons/fi";
 import { FloatingSquares } from "@/components/images/floatingsquares.component";
 
 interface IProps {}
@@ -15,7 +14,6 @@ interface IProps {}
 
 import img from "../../assets/images/ICON_Develop.gif";
 import { Link } from "react-router-dom";
-import { BiCodeAlt, BiCodeCurly } from "react-icons/bi";
 import { HiCode } from "react-icons/hi";
 
 const DeveloperComp: FC<IProps> = (props) => {
@@ -32,15 +30,13 @@ const DeveloperComp: FC<IProps> = (props) => {
           <div>
             <p className="text-5xl font-heading text-left mt-5">
               SHOW US WHAT{" "}
-              <span className="bg-gradient-to-r from-primary to-white inline-block text-transparent bg-clip-text">
+              <span className="bg-gradient-to-r from-purple-500 to-blue-400 inline-block text-transparent bg-clip-text">
                 YOU
               </span>{" "}
               GOT.
             </p>
-            <p className="text-lg text-left mt-2 font-semibold">
-              Develop. Publish. Profit. That's Select Launcher.
-            </p>
-            <div className="buttons flex items-center justify-start mt-32">
+
+            <div className="buttons flex items-center justify-start mt-10">
               <Link to="/developer/index">
                 <Button
                   size="lg"
