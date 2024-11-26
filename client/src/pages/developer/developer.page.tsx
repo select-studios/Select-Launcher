@@ -26,19 +26,19 @@ const DeveloperComp: FC<IProps> = (props) => {
           {/* <Image src={img} className="w-64 h-64 mr-5" /> */}
           <HiCode
             size={256}
-            className="mr-10 bg-purple-500 text-purple-500 shadow-sm mt-5 rounded-2xl p-5 bg-opacity-10 backdrop-blur-sm"
+            className="mr-10 bg-primary text-primary shadow-sm mt-5 rounded-2xl p-5 bg-opacity-10 backdrop-blur-sm"
           />
 
           <div>
             <p className="text-5xl font-heading text-left mt-5">
               SHOW US WHAT{" "}
-              <span className="bg-gradient-to-r animate-bounce from-pink-400 to-blue-400 inline-block text-transparent bg-clip-text">
+              <span className="bg-gradient-to-r from-primary to-white inline-block text-transparent bg-clip-text">
                 YOU
               </span>{" "}
               GOT.
             </p>
             <p className="text-lg text-left mt-2 font-semibold">
-              Develop. Publish. Earn. That's Select Launcher.
+              Develop. Publish. Profit. That's Select Launcher.
             </p>
             <div className="buttons flex items-center justify-start mt-32">
               <Link to="/developer/index">

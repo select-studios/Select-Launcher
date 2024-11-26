@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
 const developer = new mongoose.Schema({
-  name: String,
+  developerName: String,
+  publisherName: String,
   publishedGames: { type: Array<string>, default: [] },
 });
 

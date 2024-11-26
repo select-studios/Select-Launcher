@@ -21,7 +21,7 @@ export const VerificationBanner: FC<IProps> = ({
   setLoading,
 }) => {
   return (
-    <div className="bg-warning items-center flex p-2 bg-opacity-10 mb-5 rounded-lg text-warning">
+    <div className="bg-warning items-center flex p-2 bg-opacity-10 mt-5 rounded-lg text-warning">
       <HiBellAlert size={20} />{" "}
       <span className="ml-2 font-medium">
         Some features are disabled. Please verify your e-mail to secure your

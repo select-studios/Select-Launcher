@@ -28,9 +28,26 @@ export const IndexDeveloper: FC<IProps> = (props) => {
           <CardHeader>
             <p className="font-heading text-lg">DEVELOPER PROFILE</p>
           </CardHeader>
-          <CardBody></CardBody>
+          <CardBody>
+            <div className="grid grid-cols-2">
+              <div className="bg-content2 rounded-lg px-4 py-2">
+                <p className="text-base font-heading uppercase">
+                  Developer Name
+                </p>
+                <p className="text-base">{user?.username}</p>
+              </div>
+              <div className="bg-content2 rounded-lg px-4 py-2 ml-5">
+                <p className="text-base font-heading uppercase">
+                  Publisher Name
+                </p>
+                <p className="text-base">{user?.username}</p>
+              </div>
+            </div>
+          </CardBody>
           <CardFooter>
-            All of your games will be published under your
+            <p className="text-sm font-medium">
+              All of your games will be published under your "Publisher Name".
+            </p>
           </CardFooter>
         </Card>
         <Card className="mt-10 px-2 py-1">
@@ -39,7 +56,11 @@ export const IndexDeveloper: FC<IProps> = (props) => {
           </CardHeader>
           <CardBody>
             <Card className="px-2 py-1">
-              <CardBody>as</CardBody>
+              <CardHeader>Game #1</CardHeader>
+              <CardBody>
+                Kendrick lamar more like kendrick lame-ar. Diss diss me now you
+                gotta kiss me
+              </CardBody>
             </Card>
           </CardBody>
           <CardFooter>
