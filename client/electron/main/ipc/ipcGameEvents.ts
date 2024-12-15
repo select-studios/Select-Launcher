@@ -9,8 +9,8 @@ import {
 import settings from "electron-settings";
 
 function runIpcGameEvents() {
-  ipcMain.on("download-game", async (event, game) => {
-    const result = await downloadGame(game);
+  ipcMain.on("download-game", async (event, game, accessToken) => {
+    const result = await downloadGame(game, accessToken);
     if (result === null) {
       event.returnValue = `failed to download ${game}`;
     } else {

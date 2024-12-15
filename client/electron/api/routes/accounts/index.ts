@@ -1,7 +1,7 @@
 import { axiosInstance } from "../../../main";
 import {
-  SignInResponse,
-  SignUpResponse,
+  ISignInResponse,
+  ISignUpResponse,
 } from "../../interfaces/IAccountResponses";
 
 export async function signUp(
@@ -9,8 +9,8 @@ export async function signUp(
   backup_email: string,
   username: string,
   password: string
-): Promise<SignUpResponse> {
-  return await axiosInstance
+): Promise<ISignUpResponse> {
+  let user = await axiosInstance
     .post("accounts/signup", {
       email,
       backup_email,
@@ -19,36 +19,43 @@ export async function signUp(
     })
     .then((res) => {
       if (res.status != 200) return null;
-      let response: SignUpResponse = res.data;
+      let response: ISignUpResponse = res.data;
 
       return response;
     });
+
+  return user;
 }
 
 export async function signIn(
   email: string,
   password: string
-): Promise<SignInResponse> {
-  return await axiosInstance
+): Promise<ISignInResponse> {
+  let user = await axiosInstance
     .post("accounts/signin", {
       email,
       password,
     })
     .then((res) => {
       if (res.status != 200) return null;
-      let response: SignInResponse = res.data;
+      let response: ISignInResponse = res.data;
 
       return response;
     });
+
+  return user;
 }
 
-// TODO Make the authorization on this internally managed
 export async function refresh(refreshToken: string): Promise<string> {
   return axiosInstance
     .post(
       "/accounts/refresh",
       {},
-      { headers: { Authorization: `Bearer ${refreshToken}` } }
+      {
+        headers: {
+          Authorization: `Bearer refresh`,
+        },
+      }
     )
     .then((res) => {
       if (res.status != 200) return null;

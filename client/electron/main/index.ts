@@ -4,14 +4,7 @@ process.env.PUBLIC = app.isPackaged
   ? process.env.DIST
   : join(process.env.DIST_ELECTRON, "../public");
 
-import {
-  app,
-  BrowserWindow,
-  shell,
-  ipcMain,
-  dialog,
-  ipcRenderer,
-} from "electron";
+import { app, BrowserWindow, shell, ipcMain, dialog } from "electron";
 import settings from "electron-settings";
 import { release } from "os";
 import path, { join } from "path";
@@ -23,6 +16,7 @@ import { autoUpdater } from "electron-updater";
 import runWindowControlEvents from "./ipc/ipcWindowControlEvents";
 import RunSelectAPIEvents from "../exports";
 import axios from "axios";
+import os from "os";
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 
@@ -34,13 +28,20 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(0);
 }
 
+//#region Constants
 export const API_URL = app.isPackaged
   ? "prod url"
   : "http://localhost:4757/api/v2/"; // TODO Add correct prod URL
 export const axiosInstance = axios.create({
   baseURL: API_URL,
-  headers: { Authentication: "Bearer token" },
 });
+export const TokenStoreLocation = path.join(
+  os.homedir(),
+  "AppData",
+  "Local",
+  "Select Launcher"
+);
+//#endregion
 
 export let win: BrowserWindow | null = null;
 let splashWin: BrowserWindow | null = null;
@@ -193,6 +194,7 @@ if (!gotTheLock) {
     dialog.showErrorBox("Welcome Back", `You arrived from: ${url}`);
   });
 }
+
 app.on("activate", () => {
   const allWindows = BrowserWindow.getAllWindows();
   if (allWindows.length) {

@@ -1,6 +1,7 @@
 import { axiosInstance } from "../../../../main";
+import fs from "fs";
+import FormData from "form-data";
 
-// TODO Internally managed state of accessToken
 export async function editAccount(
   username: string,
   email: string,
@@ -16,6 +17,13 @@ export async function editAccount(
   );
 }
 
-export async function uploadPFP(avatar: string) {
-  // TODO Implement a loading API
+export async function uploadPFP(avatar_location: string, accessToken: string) {
+  let data = new FormData();
+  data.append("avatar", fs.createReadStream(avatar_location));
+  return axiosInstance.put("accounts/account/edit/pfp", data, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      ...data.getHeaders(),
+    },
+  });
 }

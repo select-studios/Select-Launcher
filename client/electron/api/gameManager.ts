@@ -3,7 +3,7 @@ import path from "path";
 import { execFile } from "child_process";
 import settings from "electron-settings";
 import decompress from "decompress";
-import { win } from "../main/index";
+import { API_URL, win } from "../main/index";
 
 import Downloader from "nodejs-file-downloader";
 
@@ -14,7 +14,7 @@ export const checkIfGamesDirectoryExists = (): boolean => {
   return false;
 };
 
-export const downloadGame = async (gameName: string) => {
+export const downloadGame = async (gameName: string, accessToken: string) => {
   if (!checkIfGamesDirectoryExists()) {
     fs.mkdir(settings.getSync("locations.libraryLocation").toString(), () =>
       console.log("Created games folder.")
@@ -22,7 +22,10 @@ export const downloadGame = async (gameName: string) => {
   }
 
   const downloader = new Downloader({
-    url: `https://gitlab.com/akshit.singla.dps/launcher-games/-/raw/main/${gameName}.zip?inline=false`, //If the file name already exists, a new file with the name 200MB1.zip is created.
+    url: `${API_URL}games/download/${gameName}`, //If the file name already exists, a new file with the name 200MB1.zip is created.
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
     directory: settings.getSync("locations.libraryLocation").toString(), //This folder will be created, if it doesn't exist.
     maxAttempts: 3, //Default is 1.
     onError: function (error) {
@@ -38,17 +41,6 @@ export const downloadGame = async (gameName: string) => {
       });
     },
   });
-
-  // download(
-  //   `https://raw.githubusercontent.com/select-studios/LauncherGames/main/${gameName}.zip`,
-  //   settings.getSync("locations.libraryLocation").toString(),
-  //   { decompress: false }
-  // )
-  //   .then(() => {
-  //     installGame(gameName);
-  //     return;
-  //   })
-  //   .catch((e) => );
 
   try {
     downloader

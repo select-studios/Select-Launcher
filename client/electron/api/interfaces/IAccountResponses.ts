@@ -1,27 +1,27 @@
-export interface SignInRequest {
+export interface ISignInRequest {
   email: string;
   password: string;
 }
 
-export interface SignUpRequest {
+export interface ISignUpRequest {
   email: string;
   backup_email: string;
   username: string;
   password: string;
 }
 
-export interface SignInResponse {
-  user: User;
+export interface ISignInResponse {
+  user: IUser;
   access_token: string;
   refresh_token: string;
 }
 
-export interface SignUpResponse {
-  user: User;
+export interface ISignUpResponse {
+  user: IUser;
   access_token: string;
 }
 
-export interface User {
+export interface IUser {
   uuid: string;
   email: string;
   backup_email: string;

@@ -3,7 +3,7 @@ import { ISelectAPI } from "./api/interfaces/ISelectAPI";
 export interface IGamesAPI {
   getStorageLocation: () => void;
   setStorageLocation: (location: string) => void;
-  downloadGame: (game: string) => void;
+  downloadGame: (game: string, accessToken: string) => void;
   installGame: (game: string) => void;
   cleanupGame: (game: string) => void;
   uninstallGame: (game: string) => void;

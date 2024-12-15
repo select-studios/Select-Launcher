@@ -1,12 +1,11 @@
 import { axiosInstance } from "../../../main";
-import { User } from "../../interfaces/IAccountResponses";
+import { IUser } from "../../interfaces/IAccountResponses";
 
-// TODO Internal Access Token management
-async function banUser(
+export async function banUser(
   uuid: string,
   reason: string,
   accessToken: string
-): Promise<User> {
+): Promise<IUser> {
   return axiosInstance
     .put(
       "/accounts/account/ban",
@@ -20,8 +19,7 @@ async function banUser(
     });
 }
 
-// TODO Internal Access Token management
-async function unBan(uuid: string, accessToken: string): Promise<User> {
+export async function unBan(uuid: string, accessToken: string): Promise<IUser> {
   return axiosInstance
     .put(
       "/accounts/account/unBan",
