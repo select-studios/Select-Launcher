@@ -6,21 +6,12 @@ import {
   signIn,
   signUp,
 } from "../api/routes/accounts";
-import { testConnection } from "../api";
 import { editAccount, uploadPFP } from "../api/routes/accounts/edit/profile";
 import { addGame, removeGame } from "../api/routes/accounts/edit/game";
 import { getGamesInfo } from "../api/routes/games";
 import { banUser, unBan } from "../api/routes/moderation/mod";
 
 function runSelectAPIEvents() {
-  ipcMain.on("test-connection", async (event) => {
-    const result = await testConnection();
-    if (result === false) {
-      event.returnValue = "Failed to connect to server";
-    } else {
-      event.returnValue = "Connected to server";
-    }
-  });
   //#region Accounts API
   ipcMain.on(
     "accounts-signup",

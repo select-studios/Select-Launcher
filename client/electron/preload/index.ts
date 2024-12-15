@@ -20,7 +20,6 @@ window.gamesAPI = {
 };
 
 window.selectAPI = {
-  testConnection: () => ipcRenderer.sendSync("test-connection"),
   accounts: {
     signUp: (
       username: string,

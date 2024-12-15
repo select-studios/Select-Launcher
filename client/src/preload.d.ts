@@ -24,7 +24,6 @@ declare global {
       onVerificationSuccessful: () => void;
     };
     selectAPI: {
-      testConnection(): void;
       accounts: {
         signUp: (
           username: string,

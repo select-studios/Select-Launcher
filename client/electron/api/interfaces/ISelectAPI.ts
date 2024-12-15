@@ -1,5 +1,4 @@
 export interface ISelectAPI {
-  testConnection: () => void;
   accounts: {
     signUp: (
       username: string,
