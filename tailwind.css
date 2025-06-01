@@ -1,0 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap");
+@import "tailwindcss";
+@plugin './src/hero.ts';
+@source './node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+@custom-variant dark (&:is(.dark *));
+
+* {
+  font-family: "Cal Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
