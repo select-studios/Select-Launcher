@@ -13,8 +13,9 @@
     "windows": [
       {
         "title": "select-launcher",
-        "width": 800,
-        "height": 600
+        "width": 1460,
+        "height": 950,
+        "decorations": false
       }
     ],
     "security": {
