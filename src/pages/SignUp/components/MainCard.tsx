@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardBody, CardFooter } from "@heroui/react";
-import LoginForm from "./LoginForm";
-import ExternLogin from "./ExternLogin";
+import ExternLogin from "../../Login/components/ExternLogin";
+import SignUpForm from "./SignUpForm";
 
 interface MainCardProps {
   className?: string;
@@ -14,17 +14,17 @@ function MainCard({ className }: MainCardProps) {
     >
       <CardHeader className='flex flex-col'>
         <h1 className='text-purple-300 text-center text-6xl mx-auto mb-2'>
-          Log In
+          Sign Up
         </h1>
         <h2 className='text-purple-300 text-center text-md mx-auto'>
-          Welcome back.
+          Welcome.
         </h2>
       </CardHeader>
       <CardBody>
-        <LoginForm />
+        <SignUpForm />
       </CardBody>
       <CardFooter className='justify-center'>
-        <ExternLogin variant='LogIn' />
+        <ExternLogin variant='SignUp' />
       </CardFooter>
     </Card>
   );

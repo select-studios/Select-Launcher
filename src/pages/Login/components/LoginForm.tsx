@@ -11,6 +11,7 @@ function LoginForm() {
         name='email'
         placeholder='Enter your email'
         type='email'
+        variant='faded'
         className='mb-2'
       />
       <Input
@@ -20,6 +21,7 @@ function LoginForm() {
         labelPlacement='inside'
         name='password'
         placeholder='Enter your password'
+        variant='faded'
         type='password'
       />
       <Link color='foreground' className='ml-auto' underline='hover'>
